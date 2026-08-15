@@ -14,7 +14,7 @@ headers = {
 
 params = {
     "league": 39,
-    "season": 2024
+    "season": 2025
 }
 
 response = requests.get(url, headers=headers, params=params)
