@@ -1,0 +1,100 @@
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
+from transfit_service import (
+    analyze_transfer,
+    get_candidate_rankings,
+)
+
+
+app = FastAPI(
+    title="TransFit AI API",
+    description="AI-powered football transfer fit analysis API",
+    version="1.0.0",
+)
+
+
+# =========================================================
+# CORS
+# =========================================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# =========================================================
+# HEALTH CHECK
+# =========================================================
+
+@app.get("/")
+def root():
+    return {
+        "app": "TransFit AI",
+        "status": "running",
+        "version": "1.0.0",
+    }
+
+
+@app.get("/api/health")
+def health():
+    return {
+        "status": "ok",
+    }
+
+
+# =========================================================
+# TRANSFER ANALYSIS
+# =========================================================
+
+@app.get("/api/analyze")
+def analyze(
+    player: str,
+    team: str,
+):
+    try:
+        return analyze_transfer(
+            player,
+            team,
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
+
+
+# =========================================================
+# CANDIDATE RANKINGS
+# =========================================================
+
+@app.get("/api/rankings")
+def rankings(
+    team: str,
+    role: str,
+    limit: int = 10,
+    min_minutes: int = 450,
+    min_role_fit: float = 70,
+):
+    try:
+        return get_candidate_rankings(
+            team_name=team,
+            role=role,
+            limit=limit,
+            min_minutes=min_minutes,
+            min_role_fit=min_role_fit,
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
