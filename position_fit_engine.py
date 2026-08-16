@@ -342,7 +342,24 @@ def find_player(players, player_name):
         f"\nPlayer not found: {player_name}"
     )
 
+def find_player_by_id(players, player_id):
+    match = players[
+        players["player_id"] == player_id
+    ]
 
+    if len(match) == 1:
+        return match.iloc[0]
+
+    if len(match) > 1:
+        raise SystemExit(
+            f"\nMultiple position records found "
+            f"for player_id: {player_id}"
+        )
+
+    raise SystemExit(
+        f"\nPosition data not found "
+        f"for player_id: {player_id}"
+    )
 # =========================================================
 # FIND TEAM
 # =========================================================

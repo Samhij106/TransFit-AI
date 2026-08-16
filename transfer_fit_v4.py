@@ -21,18 +21,24 @@ from performance_fit_engine import (
     calculate_performance_score,
 )
 
-
-# =========================================================
-# TRANSFER FIT V3 WEIGHTS
-# =========================================================
-
-TACTICAL_WEIGHT = 0.45
-POSITION_WEIGHT = 0.25
-PERFORMANCE_WEIGHT = 0.30
+from age_potential_engine import (
+    prepare_data as prepare_potential_data,
+    calculate_potential,
+)
 
 
 # =========================================================
-# FINAL LABEL
+# TRANSFER FIT V4 WEIGHTS
+# =========================================================
+
+TACTICAL_WEIGHT = 0.40
+POSITION_WEIGHT = 0.20
+PERFORMANCE_WEIGHT = 0.25
+POTENTIAL_WEIGHT = 0.15
+
+
+# =========================================================
+# LABEL
 # =========================================================
 
 def transfer_fit_label(score):
@@ -52,29 +58,85 @@ def transfer_fit_label(score):
 
 
 # =========================================================
-# CALCULATE TRANSFER FIT V3
+# FIND POTENTIAL PLAYER
 # =========================================================
 
-def calculate_transfer_fit_v3(
+def find_potential_player(players, player_name):
+    query = player_name.strip().lower()
+
+    exact = players[
+        players["name"].astype(str).str.lower() == query
+    ]
+
+    if len(exact) == 1:
+        return exact.iloc[0]
+
+    partial = players[
+        players["name"]
+        .astype(str)
+        .str.lower()
+        .str.contains(query, regex=False)
+    ]
+
+    if len(partial) == 1:
+        return partial.iloc[0]
+
+    if len(partial) > 1:
+        print("\nMultiple players found:\n")
+
+        print(
+            partial[
+                [
+                    "name",
+                    "team",
+                    "primary_position",
+                ]
+            ].to_string(index=False)
+        )
+
+        raise SystemExit(
+            "\nPlease enter a more specific player name."
+        )
+
+    raise SystemExit(
+        f"\nPlayer not found: {player_name}"
+    )
+
+
+# =========================================================
+# CALCULATE TRANSFER FIT V4
+# =========================================================
+
+def calculate_transfer_fit_v4(
     tactical_player,
     tactical_team,
     position_player,
     formation_team,
     performance_player,
+    potential_player,
 ):
-    # Tactical
+    # -----------------------------------------------------
+    # Tactical Fit
+    # -----------------------------------------------------
+
     tactical_score, tactical_details = calculate_tactical_fit(
         tactical_player,
         tactical_team,
     )
 
-    # Position
+    # -----------------------------------------------------
+    # Position Fit
+    # -----------------------------------------------------
+
     position_score, position_details = calculate_position_fit(
         position_player,
         formation_team,
     )
 
+    # -----------------------------------------------------
     # Performance
+    # -----------------------------------------------------
+
     performance_result = calculate_performance_score(
         performance_player
     )
@@ -83,7 +145,22 @@ def calculate_transfer_fit_v3(
         "performance_score"
     ]
 
+    # -----------------------------------------------------
+    # Potential
+    # -----------------------------------------------------
+
+    potential_result = calculate_potential(
+        potential_player
+    )
+
+    potential_score = potential_result[
+        "potential_score"
+    ]
+
+    # -----------------------------------------------------
     # Contributions
+    # -----------------------------------------------------
+
     tactical_contribution = (
         tactical_score * TACTICAL_WEIGHT
     )
@@ -96,38 +173,71 @@ def calculate_transfer_fit_v3(
         performance_score * PERFORMANCE_WEIGHT
     )
 
+    potential_contribution = (
+        potential_score * POTENTIAL_WEIGHT
+    )
+
     final_score = (
         tactical_contribution
         + position_contribution
         + performance_contribution
+        + potential_contribution
     )
 
     return {
         "final_score": round(final_score, 1),
 
-        "tactical_score": round(tactical_score, 1),
-        "position_score": round(position_score, 1),
-        "performance_score": round(performance_score, 1),
+        "tactical_score": round(
+            tactical_score,
+            1,
+        ),
+
+        "position_score": round(
+            position_score,
+            1,
+        ),
+
+        "performance_score": round(
+            performance_score,
+            1,
+        ),
+
+        "potential_score": round(
+            potential_score,
+            1,
+        ),
 
         "tactical_contribution": round(
-            tactical_contribution, 2
+            tactical_contribution,
+            2,
         ),
 
         "position_contribution": round(
-            position_contribution, 2
+            position_contribution,
+            2,
         ),
 
         "performance_contribution": round(
-            performance_contribution, 2
+            performance_contribution,
+            2,
+        ),
+
+        "potential_contribution": round(
+            potential_contribution,
+            2,
         ),
 
         "tactical_details": tactical_details,
         "position_details": position_details,
-        "performance_details": performance_result["details"],
+        "performance_details": performance_result[
+            "details"
+        ],
 
         "performance_reliability": performance_result[
             "reliability"
         ],
+
+        "potential_result": potential_result,
     }
 
 
@@ -142,9 +252,13 @@ def print_result(
     formation_team,
     result,
 ):
-    print("\n" + "=" * 82)
-    print("TRANSFIT AI - TRANSFER FIT V3")
-    print("=" * 82)
+    print("\n" + "=" * 84)
+
+    print(
+        "TRANSFIT AI - TRANSFER FIT V4"
+    )
+
+    print("=" * 84)
 
     print(
         f"\nPlayer:       "
@@ -181,11 +295,16 @@ def print_result(
     )
 
     print(
+        f"Age:          "
+        f"{result['potential_result']['age']}"
+    )
+
+    print(
         f"Formation:    "
         f"{formation_team['primary_formation']}"
     )
 
-    print("\n" + "-" * 82)
+    print("\n" + "-" * 84)
 
     print(
         f"\nFINAL TRANSFER FIT: "
@@ -197,39 +316,49 @@ def print_result(
         f"{transfer_fit_label(result['final_score'])}"
     )
 
-    print("\n" + "-" * 82)
+    print("\n" + "-" * 84)
 
     print("\nSCORE BREAKDOWN\n")
 
     print(
-        f"Tactical Fit:    "
+        f"Tactical Fit: "
         f"{result['tactical_score']} / 100 "
         f"x {int(TACTICAL_WEIGHT * 100)}% "
         f"= {result['tactical_contribution']}"
     )
 
     print(
-        f"Position Fit:    "
+        f"Position Fit: "
         f"{result['position_score']} / 100 "
         f"x {int(POSITION_WEIGHT * 100)}% "
         f"= {result['position_contribution']}"
     )
 
     print(
-        f"Performance:     "
+        f"Performance:  "
         f"{result['performance_score']} / 100 "
         f"x {int(PERFORMANCE_WEIGHT * 100)}% "
         f"= {result['performance_contribution']}"
     )
 
     print(
-        f"Performance Reliability: "
+        f"Potential:    "
+        f"{result['potential_score']} / 100 "
+        f"x {int(POTENTIAL_WEIGHT * 100)}% "
+        f"= {result['potential_contribution']}"
+    )
+
+    print(
+        f"\nPerformance Reliability: "
         f"{result['performance_reliability']}%"
     )
 
-    print("\n" + "-" * 82)
+    print("\n" + "-" * 84)
 
+    # -----------------------------------------------------
     # Tactical explanation
+    # -----------------------------------------------------
+
     tactical_details = result[
         "tactical_details"
     ]
@@ -246,7 +375,9 @@ def print_result(
         ].idxmin()
     ]
 
-    print("\nStrongest tactical alignment:")
+    print(
+        "\nStrongest tactical alignment:"
+    )
 
     print(
         strongest_tactical["metric"]
@@ -255,7 +386,9 @@ def print_result(
         f"({strongest_tactical['similarity']}/100)"
     )
 
-    print("\nBiggest tactical mismatch:")
+    print(
+        "\nBiggest tactical mismatch:"
+    )
 
     print(
         weakest_tactical["metric"]
@@ -264,7 +397,10 @@ def print_result(
         f"({weakest_tactical['similarity']}/100)"
     )
 
+    # -----------------------------------------------------
     # Position explanation
+    # -----------------------------------------------------
+
     position_details = result[
         "position_details"
     ]
@@ -282,21 +418,28 @@ def print_result(
             ].idxmax()
         ]
 
-        print("\nBest formation fit:")
+        print(
+            "\nBest formation fit:"
+        )
 
         print(
             f"{best_formation['formation']} "
             f"({best_formation['formation_fit']}/100)"
         )
 
-        print("\nFit in team's main formation:")
+        print(
+            "\nFit in team's main formation:"
+        )
 
         print(
             f"{main_formation['formation']} "
             f"({main_formation['formation_fit']}/100)"
         )
 
+    # -----------------------------------------------------
     # Performance explanation
+    # -----------------------------------------------------
+
     performance_details = result[
         "performance_details"
     ]
@@ -313,7 +456,9 @@ def print_result(
         ].idxmin()
     ]
 
-    print("\nStrongest performance area:")
+    print(
+        "\nStrongest performance area:"
+    )
 
     print(
         strongest_performance["metric"]
@@ -322,7 +467,9 @@ def print_result(
         f"({strongest_performance['percentile']} percentile)"
     )
 
-    print("\nWeakest performance area:")
+    print(
+        "\nWeakest performance area:"
+    )
 
     print(
         weakest_performance["metric"]
@@ -331,7 +478,31 @@ def print_result(
         f"({weakest_performance['percentile']} percentile)"
     )
 
-    print("\n" + "=" * 82)
+    # -----------------------------------------------------
+    # Potential explanation
+    # -----------------------------------------------------
+
+    potential = result[
+        "potential_result"
+    ]
+
+    print(
+        "\nDevelopment runway:"
+    )
+
+    print(
+        f"{potential['development_runway']} / 100"
+    )
+
+    print(
+        "\nPerformance for age:"
+    )
+
+    print(
+        f"{potential['performance_for_age']} percentile"
+    )
+
+    print("\n" + "=" * 84)
 
 
 # =========================================================
@@ -341,7 +512,7 @@ def print_result(
 def main():
     parser = argparse.ArgumentParser(
         description=(
-            "TransFit AI Transfer Fit V3"
+            "TransFit AI Transfer Fit V4"
         )
     )
 
@@ -358,7 +529,7 @@ def main():
     args = parser.parse_args()
 
     # -----------------------------------------------------
-    # Tactical data
+    # Tactical
     # -----------------------------------------------------
 
     tactical_players, tactical_teams = (
@@ -376,7 +547,7 @@ def main():
     )
 
     # -----------------------------------------------------
-    # Position data
+    # Position
     # -----------------------------------------------------
 
     position_players, formation_teams = (
@@ -387,14 +558,14 @@ def main():
     position_players,
     tactical_player["player_id"],
 )
-
+    
     formation_team = find_formation_team(
         formation_teams,
         args.team,
     )
 
     # -----------------------------------------------------
-    # Performance data
+    # Performance
     # -----------------------------------------------------
 
     performance_players = load_performance_data()
@@ -409,15 +580,27 @@ def main():
     )
 
     # -----------------------------------------------------
+    # Potential
+    # -----------------------------------------------------
+
+    potential_players = prepare_potential_data()
+
+    potential_player = find_potential_player(
+        potential_players,
+        args.player,
+    )
+
+    # -----------------------------------------------------
     # Calculate
     # -----------------------------------------------------
 
-    result = calculate_transfer_fit_v3(
+    result = calculate_transfer_fit_v4(
         tactical_player,
         tactical_team,
         position_player,
         formation_team,
         performance_player,
+        potential_player,
     )
 
     # -----------------------------------------------------
