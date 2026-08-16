@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-INPUT_FILE = "data/processed/player_profiles_2025.csv"
+INPUT_FILE = "data/processed/player_profiles_season_2025.csv"
 OUTPUT_FILE = "data/processed/player_tactical_profiles_2025.csv"
 
 
