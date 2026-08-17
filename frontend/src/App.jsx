@@ -1,0 +1,1468 @@
+import { useEffect, useMemo, useState } from "react";
+import "./App.css";
+import CandidatesScreen from "./components/CandidatesScreen";
+import PlayerAnalysisScreen from "./components/PlayerAnalysisScreen";
+
+const API_BASE = "http://127.0.0.1:8000";
+
+
+const PREMIER_LEAGUE_TEAMS = [
+  "Arsenal",
+  "Aston Villa",
+  "Bournemouth",
+  "Brentford",
+  "Brighton",
+  "Burnley",
+  "Chelsea",
+  "Crystal Palace",
+  "Everton",
+  "Fulham",
+  "Leeds",
+  "Liverpool",
+  "Manchester City",
+  "Manchester United",
+  "Newcastle",
+  "Nottingham Forest",
+  "Sunderland",
+  "Tottenham",
+  "West Ham",
+  "Wolves",
+];
+
+
+/* =========================================================
+   FORMATION LAYOUTS
+========================================================= */
+
+const FORMATION_LAYOUTS = {
+  "4-3-3": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm", "CDM", 50, 58),
+
+    node("cm1", "CM", 32, 43),
+    node("cm2", "CM", 68, 43),
+
+    node("lw", "LW", 18, 18),
+    node("st", "ST", 50, 12),
+    node("rw", "RW", 82, 18),
+  ],
+
+  "4-2-3-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm1", "CDM", 35, 57),
+    node("cdm2", "CDM", 65, 57),
+
+    node("lw", "LW", 19, 36),
+    node("cam", "CAM", 50, 34),
+    node("rw", "RW", 81, 36),
+
+    node("st", "ST", 50, 12),
+  ],
+
+  "4-4-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("lm", "LM", 16, 47),
+    node("cm1", "CM", 39, 51),
+    node("cm2", "CM", 61, 51),
+    node("rm", "RM", 84, 47),
+
+    node("st1", "ST", 38, 17),
+    node("st2", "ST", 62, 17),
+  ],
+
+  "4-1-4-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm", "CDM", 50, 61),
+
+    node("lm", "LM", 15, 43),
+    node("cm1", "CM", 38, 46),
+    node("cm2", "CM", 62, 46),
+    node("rm", "RM", 85, 43),
+
+    node("st", "ST", 50, 14),
+  ],
+
+  "4-1-3-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm", "CDM", 50, 60),
+
+    node("lm", "LM", 20, 43),
+    node("cm", "CM", 50, 44),
+    node("rm", "RM", 80, 43),
+
+    node("st1", "ST", 38, 16),
+    node("st2", "ST", 62, 16),
+  ],
+
+  "4-2-2-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm1", "CDM", 35, 57),
+    node("cdm2", "CDM", 65, 57),
+
+    node("cam1", "CAM", 28, 35),
+    node("cam2", "CAM", 72, 35),
+
+    node("st1", "ST", 38, 14),
+    node("st2", "ST", 62, 14),
+  ],
+
+  "4-3-1-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm", "CDM", 50, 59),
+    node("cm1", "CM", 31, 48),
+    node("cm2", "CM", 69, 48),
+
+    node("cam", "CAM", 50, 32),
+
+    node("st1", "ST", 38, 13),
+    node("st2", "ST", 62, 13),
+  ],
+
+  "4-3-2-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("cdm", "CDM", 50, 59),
+    node("cm1", "CM", 30, 48),
+    node("cm2", "CM", 70, 48),
+
+    node("cam1", "CAM", 34, 31),
+    node("cam2", "CAM", 66, 31),
+
+    node("st", "ST", 50, 12),
+  ],
+
+  "4-4-1-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("lm", "LM", 16, 48),
+    node("cm1", "CM", 39, 51),
+    node("cm2", "CM", 61, 51),
+    node("rm", "RM", 84, 48),
+
+    node("cam", "CAM", 50, 31),
+    node("st", "ST", 50, 12),
+  ],
+
+  "4-5-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lb", "LB", 14, 74),
+    node("cb1", "CB", 38, 78),
+    node("cb2", "CB", 62, 78),
+    node("rb", "RB", 86, 74),
+
+    node("lm", "LM", 14, 45),
+    node("cm1", "CM", 33, 48),
+    node("cdm", "CDM", 50, 56),
+    node("cm2", "CM", 67, 48),
+    node("rm", "RM", 86, 45),
+
+    node("st", "ST", 50, 14),
+  ],
+
+  "3-4-3": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("lwb", "LWB", 13, 52),
+    node("cm1", "CM", 39, 54),
+    node("cm2", "CM", 61, 54),
+    node("rwb", "RWB", 87, 52),
+
+    node("lw", "LW", 20, 19),
+    node("st", "ST", 50, 13),
+    node("rw", "RW", 80, 19),
+  ],
+
+  "3-4-2-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("lwb", "LWB", 13, 54),
+    node("cm1", "CM", 39, 55),
+    node("cm2", "CM", 61, 55),
+    node("rwb", "RWB", 87, 54),
+
+    node("cam1", "CAM", 34, 31),
+    node("cam2", "CAM", 66, 31),
+
+    node("st", "ST", 50, 12),
+  ],
+
+  "3-4-1-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("lwb", "LWB", 13, 54),
+    node("cm1", "CM", 39, 55),
+    node("cm2", "CM", 61, 55),
+    node("rwb", "RWB", 87, 54),
+
+    node("cam", "CAM", 50, 34),
+
+    node("st1", "ST", 38, 15),
+    node("st2", "ST", 62, 15),
+  ],
+
+  "3-1-4-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("cdm", "CDM", 50, 63),
+
+    node("lm", "LM", 14, 45),
+    node("cm1", "CM", 39, 48),
+    node("cm2", "CM", 61, 48),
+    node("rm", "RM", 86, 45),
+
+    node("st1", "ST", 38, 15),
+    node("st2", "ST", 62, 15),
+  ],
+
+  "3-5-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("lwb", "LWB", 12, 52),
+    node("cm1", "CM", 34, 51),
+    node("cdm", "CDM", 50, 59),
+    node("cm2", "CM", 66, 51),
+    node("rwb", "RWB", 88, 52),
+
+    node("st1", "ST", 38, 15),
+    node("st2", "ST", 62, 15),
+  ],
+
+  "3-5-1-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 27, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 73, 76),
+
+    node("lwb", "LWB", 12, 52),
+    node("cm1", "CM", 34, 52),
+    node("cdm", "CDM", 50, 60),
+    node("cm2", "CM", 66, 52),
+    node("rwb", "RWB", 88, 52),
+
+    node("cam", "CAM", 50, 31),
+    node("st", "ST", 50, 12),
+  ],
+
+  "5-3-2": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lwb", "LWB", 10, 67),
+    node("cb1", "CB", 30, 77),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 70, 77),
+    node("rwb", "RWB", 90, 67),
+
+    node("cm1", "CM", 32, 48),
+    node("cdm", "CDM", 50, 57),
+    node("cm2", "CM", 68, 48),
+
+    node("st1", "ST", 38, 15),
+    node("st2", "ST", 62, 15),
+  ],
+
+  "5-4-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("lwb", "LWB", 10, 67),
+    node("cb1", "CB", 30, 77),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 70, 77),
+    node("rwb", "RWB", 90, 67),
+
+    node("lm", "LM", 16, 44),
+    node("cm1", "CM", 39, 48),
+    node("cm2", "CM", 61, 48),
+    node("rm", "RM", 84, 44),
+
+    node("st", "ST", 50, 14),
+  ],
+};
+
+
+function node(id, role, x, y, locked = false) {
+  return {
+    id,
+    role,
+    x,
+    y,
+    locked,
+  };
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+function App() {
+  const [screen, setScreen] = useState("landing");
+  const [score, setScore] = useState(0);
+
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [teamSearch, setTeamSearch] = useState("");
+
+  const [teamProfile, setTeamProfile] = useState(null);
+  const [teamLoading, setTeamLoading] = useState(false);
+  const [teamError, setTeamError] = useState("");
+
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [candidates, setCandidates] = useState([]);
+  const [candidatesLoading, setCandidatesLoading] = useState(false);
+  const [candidatesError, setCandidatesError] = useState("");
+  const [playerAnalysis, setPlayerAnalysis] = useState(null);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [analysisError, setAnalysisError] = useState("");
+
+  async function findBestCandidates() {
+  if (!selectedTeam || !selectedRole) {
+    return;
+  }
+
+  setCandidatesLoading(true);
+  setCandidatesError("");
+
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/rankings?team=${encodeURIComponent(
+        selectedTeam
+      )}&role=${encodeURIComponent(
+        selectedRole
+      )}&limit=10&min_minutes=450&min_role_fit=70`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail ||
+        "Unable to load candidate rankings."
+      );
+    }
+
+    setCandidates(data.candidates || []);
+    setScreen("candidates");
+  } catch (error) {
+    setCandidatesError(error.message);
+  } finally {
+    setCandidatesLoading(false);
+  }
+}
+
+async function openPlayerAnalysis(player) {
+  if (!player || !selectedTeam) {
+    return;
+  }
+
+  setAnalysisLoading(true);
+  setAnalysisError("");
+
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/analyze?player=${encodeURIComponent(
+        player.name
+      )}&team=${encodeURIComponent(
+        selectedTeam
+      )}`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail ||
+        "Unable to analyze player."
+      );
+    }
+
+    setPlayerAnalysis(data);
+    setScreen("analysis");
+  } catch (error) {
+    setAnalysisError(error.message);
+    console.error(error);
+  } finally {
+    setAnalysisLoading(false);
+  }
+}
+
+  useEffect(() => {
+    if (screen !== "landing") {
+      return;
+    }
+
+    let current = 0;
+    const target = 89;
+
+    setScore(0);
+
+    const timer = setInterval(() => {
+      current += 1;
+      setScore(current);
+
+      if (current >= target) {
+        clearInterval(timer);
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [screen]);
+
+
+  const filteredTeams = useMemo(() => {
+    const query = teamSearch
+      .trim()
+      .toLowerCase();
+
+    if (!query) {
+      return PREMIER_LEAGUE_TEAMS;
+    }
+
+    return PREMIER_LEAGUE_TEAMS.filter((team) =>
+      team
+        .toLowerCase()
+        .includes(query)
+    );
+  }, [teamSearch]);
+
+
+  function openAnalysis() {
+    setScreen("club");
+  }
+
+
+  function goHome() {
+    setScreen("landing");
+    setSelectedTeam(null);
+    setTeamSearch("");
+    setTeamProfile(null);
+    setSelectedRole(null);
+    setTeamError("");
+  }
+
+
+  async function continueToPosition() {
+    if (!selectedTeam) {
+      return;
+    }
+
+    setTeamLoading(true);
+    setTeamError("");
+
+    try {
+      const response = await fetch(
+        `${API_BASE}/api/team?team=${encodeURIComponent(
+          selectedTeam
+        )}`
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail ||
+          "Unable to load team profile."
+        );
+      }
+
+      setTeamProfile(data);
+      setSelectedRole(null);
+      setScreen("position");
+    } catch (error) {
+      setTeamError(error.message);
+    } finally {
+      setTeamLoading(false);
+    }
+  }
+
+
+  return (
+    <div className="app">
+      <div className="background-grid" />
+      <div className="spotlight spotlight-one" />
+      <div className="spotlight spotlight-two" />
+
+      {screen === "landing" && (
+        <LandingScreen
+          score={score}
+          onStart={openAnalysis}
+        />
+      )}
+
+      {screen === "club" && (
+        <ClubSelectionScreen
+          selectedTeam={selectedTeam}
+          setSelectedTeam={setSelectedTeam}
+          teamSearch={teamSearch}
+          setTeamSearch={setTeamSearch}
+          teams={filteredTeams}
+          onBack={goHome}
+          onContinue={continueToPosition}
+          loading={teamLoading}
+          error={teamError}
+        />
+      )}
+
+      {screen === "position" && teamProfile && (
+  <PositionSelectionScreen
+    teamProfile={teamProfile}
+    selectedRole={selectedRole}
+    setSelectedRole={setSelectedRole}
+    onBack={() => setScreen("club")}
+    onFindCandidates={findBestCandidates}
+    loading={candidatesLoading}
+    error={candidatesError}
+  />
+)}
+
+{screen === "candidates" && teamProfile && (
+  <CandidatesScreen
+    team={selectedTeam}
+    role={selectedRole}
+    formation={teamProfile.primary_formation}
+    candidates={candidates}
+    onBack={() => setScreen("position")}
+    onSelectPlayer={openPlayerAnalysis}
+  />
+)}
+
+{screen === "analysis" && playerAnalysis && (
+  <PlayerAnalysisScreen
+    analysis={playerAnalysis}
+    onBack={() => setScreen("candidates")}
+    onNewSearch={goHome}
+  />
+)}
+
+
+    </div>
+  );
+}
+
+
+/* =========================================================
+   LANDING
+========================================================= */
+
+function LandingScreen({ score, onStart }) {
+  return (
+    <>
+      <nav className="navbar">
+        <div className="brand">
+          <div className="brand-mark">
+            <span>T</span>
+          </div>
+
+          <div className="brand-text">
+            <span className="brand-main">
+              TransFit
+            </span>
+
+            <span className="brand-ai">
+              AI
+            </span>
+          </div>
+        </div>
+
+        <div className="nav-links">
+          <a href="#how">How it works</a>
+          <a href="#engine">AI Engine</a>
+          <a href="#about">About</a>
+        </div>
+
+        <button
+          className="nav-button"
+          onClick={onStart}
+        >
+          Launch Analysis
+        </button>
+      </nav>
+
+      <main className="hero">
+        <section className="hero-content reveal-left">
+          <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            AI-POWERED TRANSFER INTELLIGENCE
+          </div>
+
+          <h1>
+            Find the player
+            <br />
+            your system
+            <br />
+            <span>actually needs.</span>
+          </h1>
+
+          <p className="hero-description">
+            TransFit AI analyzes tactical compatibility,
+            positional fit, performance, potential and
+            squad needs to identify smarter football
+            transfers.
+          </p>
+
+          <div className="hero-actions">
+            <button
+              className="primary-button"
+              onClick={onStart}
+            >
+              Start Transfer Analysis
+              <span>→</span>
+            </button>
+
+            <button className="secondary-button">
+              Explore Rankings
+            </button>
+          </div>
+
+          <div className="hero-trust">
+            <div>
+              <strong>5</strong>
+              <span>AI Fit Dimensions</span>
+            </div>
+
+            <div className="trust-separator" />
+
+            <div>
+              <strong>424</strong>
+              <span>Player Profiles</span>
+            </div>
+
+            <div className="trust-separator" />
+
+            <div>
+              <strong>20</strong>
+              <span>Premier League Clubs</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="hero-visual reveal-right">
+          <div className="visual-orbit orbit-one" />
+          <div className="visual-orbit orbit-two" />
+
+          <div className="analysis-card">
+            <div className="analysis-top">
+              <div>
+                <span className="analysis-label">
+                  LIVE TRANSFER MODEL
+                </span>
+
+                <h3>Player × Club Fit</h3>
+              </div>
+
+              <div className="live-indicator">
+                <span />
+                LIVE
+              </div>
+            </div>
+
+            <div className="score-area">
+              <div className="score-ring">
+                <div className="score-ring-inner">
+                  <span className="score-number">
+                    {score}
+                  </span>
+
+                  <span className="score-total">
+                    /100
+                  </span>
+                </div>
+              </div>
+
+              <div className="score-copy">
+                <span>TRANSFER FIT</span>
+                <strong>Strong Match</strong>
+
+                <p>
+                  Tactical and positional profile shows
+                  high compatibility.
+                </p>
+              </div>
+            </div>
+
+            <div className="metric-list">
+              <Metric
+                label="Tactical Fit"
+                value="91"
+                width="91%"
+              />
+
+              <Metric
+                label="Position Fit"
+                value="94"
+                width="94%"
+              />
+
+              <Metric
+                label="Performance"
+                value="84"
+                width="84%"
+              />
+
+              <Metric
+                label="Potential"
+                value="92"
+                width="92%"
+              />
+            </div>
+
+            <div className="analysis-footer">
+              <div className="mini-player">
+                <div className="player-avatar">
+                  10
+                </div>
+
+                <div>
+                  <strong>AI Candidate</strong>
+                  <span>Attacking Midfielder</span>
+                </div>
+              </div>
+
+              <span className="recommendation">
+                HIGH PRIORITY
+              </span>
+            </div>
+          </div>
+
+          <div className="floating-card floating-card-one">
+            <span className="floating-label">
+              TACTICAL MATCH
+            </span>
+
+            <strong>+17.4%</strong>
+            <small>vs league average</small>
+          </div>
+
+          <div className="floating-card floating-card-two">
+            <span className="floating-label">
+              BEST ROLE
+            </span>
+
+            <strong>CAM</strong>
+            <small>4-2-3-1</small>
+          </div>
+        </section>
+      </main>
+
+      <div className="bottom-strip">
+        <span>TACTICAL FIT</span>
+        <i />
+        <span>POSITION FIT</span>
+        <i />
+        <span>PERFORMANCE</span>
+        <i />
+        <span>POTENTIAL</span>
+        <i />
+        <span>SQUAD NEED</span>
+      </div>
+    </>
+  );
+}
+
+
+/* =========================================================
+   ANALYSIS HEADER
+========================================================= */
+
+function AnalysisHeader({
+  step,
+  onBack,
+}) {
+  return (
+    <header className="analysis-navbar">
+      <button
+        className="back-button"
+        onClick={onBack}
+      >
+        ←
+      </button>
+
+      <div className="brand analysis-brand">
+        <div className="brand-mark">
+          <span>T</span>
+        </div>
+
+        <div className="brand-text">
+          <span className="brand-main">
+            TransFit
+          </span>
+
+          <span className="brand-ai">
+            AI
+          </span>
+        </div>
+      </div>
+
+      <div className="analysis-progress">
+        <ProgressStep
+          number="01"
+          label="Club"
+          state={step > 1 ? "complete" : "active"}
+        />
+
+        <div
+          className={
+            step > 1
+              ? "progress-line complete"
+              : "progress-line"
+          }
+        />
+
+        <ProgressStep
+          number="02"
+          label="Position"
+          state={
+            step === 2
+              ? "active"
+              : step > 2
+                ? "complete"
+                : ""
+          }
+        />
+
+        <div
+          className={
+            step > 2
+              ? "progress-line complete"
+              : "progress-line"
+          }
+        />
+
+        <ProgressStep
+          number="03"
+          label="Candidates"
+          state={
+            step === 3
+              ? "active"
+              : ""
+          }
+        />
+      </div>
+
+      <div className="analysis-navbar-space" />
+    </header>
+  );
+}
+
+
+function ProgressStep({
+  number,
+  label,
+  state,
+}) {
+  return (
+    <div
+      className={`progress-item ${state || ""}`}
+    >
+      <span>
+        {state === "complete"
+          ? "✓"
+          : number}
+      </span>
+
+      {label}
+    </div>
+  );
+}
+
+
+/* =========================================================
+   CLUB SELECTION
+========================================================= */
+
+function ClubSelectionScreen({
+  selectedTeam,
+  setSelectedTeam,
+  teamSearch,
+  setTeamSearch,
+  teams,
+  onBack,
+  onContinue,
+  loading,
+  error,
+}) {
+  return (
+    <div className="club-screen">
+      <AnalysisHeader
+        step={1}
+        onBack={onBack}
+      />
+
+      <main className="club-selection">
+        <section className="club-heading">
+          <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            STEP 01 — CLUB PROFILE
+          </div>
+
+          <h2>
+            Select your
+            <br />
+            <span>target club.</span>
+          </h2>
+
+          <p>
+            Choose the club you want to strengthen.
+            TransFit AI will analyze its tactical identity,
+            formation structure and squad needs.
+          </p>
+        </section>
+
+        <div className="club-toolbar">
+          <div className="club-search">
+            <span className="search-icon">
+              ⌕
+            </span>
+
+            <input
+              type="text"
+              value={teamSearch}
+              onChange={(event) =>
+                setTeamSearch(
+                  event.target.value
+                )
+              }
+              placeholder="Search Premier League club..."
+            />
+
+            <span className="club-count">
+              {teams.length} CLUBS
+            </span>
+          </div>
+
+          {error && (
+            <div className="api-error">
+              {error}
+            </div>
+          )}
+        </div>
+
+        <section className="club-grid">
+          {teams.map((team) => {
+            const selected =
+              selectedTeam === team;
+
+            return (
+              <button
+                key={team}
+                className={
+                  selected
+                    ? "club-card selected"
+                    : "club-card"
+                }
+                onClick={() =>
+                  setSelectedTeam(team)
+                }
+              >
+                <div className="club-card-glow" />
+
+                <div className="club-badge">
+                  {getClubInitials(team)}
+                </div>
+
+                <div className="club-info">
+                  <span className="club-league">
+                    PREMIER LEAGUE
+                  </span>
+
+                  <strong>
+                    {team}
+                  </strong>
+                </div>
+
+                <div className="club-select-indicator">
+                  {selected ? "✓" : "→"}
+                </div>
+              </button>
+            );
+          })}
+        </section>
+
+        {teams.length === 0 && (
+          <div className="club-empty">
+            <span>NO CLUB FOUND</span>
+            <p>Try another club name.</p>
+          </div>
+        )}
+
+        <div
+          className={
+            selectedTeam
+              ? "selection-footer visible"
+              : "selection-footer"
+          }
+        >
+          <div className="selection-summary">
+            <span>TARGET CLUB</span>
+
+            <strong>
+              {selectedTeam || "Select a club"}
+            </strong>
+          </div>
+
+          <button
+            className="continue-button"
+            disabled={
+              !selectedTeam ||
+              loading
+            }
+            onClick={onContinue}
+          >
+            {loading
+              ? "Loading Club..."
+              : "Continue to Position"}
+
+            <span>→</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   POSITION SELECTION
+========================================================= */
+
+function PositionSelectionScreen({
+  teamProfile,
+  selectedRole,
+  setSelectedRole,
+  onBack,
+  onFindCandidates,
+  loading,
+  error,
+}) {
+  const formation =
+    teamProfile.primary_formation;
+
+  const layout =
+    FORMATION_LAYOUTS[formation] ||
+    FORMATION_LAYOUTS["4-3-3"];
+
+  return (
+    <div className="position-screen">
+      <AnalysisHeader
+        step={2}
+        onBack={onBack}
+      />
+
+      <main className="position-selection">
+        <section className="position-heading">
+          <div>
+            <div className="eyebrow">
+              <span className="eyebrow-dot" />
+              STEP 02 — POSITION TARGETING
+            </div>
+
+            <h2>
+              Choose the
+              <br />
+              <span>position to improve.</span>
+            </h2>
+
+            <p>
+              Select a role directly on the pitch.
+              Candidate rankings will be generated
+              specifically for that position.
+            </p>
+          </div>
+
+          <div className="team-formation-card">
+            <span className="formation-card-label">
+              PRIMARY SYSTEM
+            </span>
+
+            <strong>
+              {formation}
+            </strong>
+
+            <div className="formation-usage">
+              <span>
+                {teamProfile.team}
+              </span>
+
+              <span>
+                {teamProfile.primary_percentage}%
+                usage
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className="position-workspace">
+          <div className="pitch-column">
+            <div className="pitch-toolbar">
+              <div>
+                <span className="pitch-toolbar-label">
+                  INTERACTIVE FORMATION
+                </span>
+
+                <strong>
+                  {teamProfile.team} · {formation}
+                </strong>
+              </div>
+
+              <div className="pitch-live">
+                <span />
+                LIVE FORMATION DATA
+              </div>
+            </div>
+
+            <div className="pitch-shell">
+              <div className="football-pitch">
+                <div className="pitch-half-line" />
+                <div className="pitch-center-circle" />
+                <div className="pitch-center-dot" />
+
+                <div className="penalty-box penalty-top" />
+                <div className="six-yard-box six-top" />
+
+                <div className="penalty-box penalty-bottom" />
+                <div className="six-yard-box six-bottom" />
+
+                <div className="goal goal-top" />
+                <div className="goal goal-bottom" />
+
+                {layout.map((position) => (
+                  <PositionNode
+                    key={position.id}
+                    position={position}
+                    selectedRole={selectedRole}
+                    onSelect={setSelectedRole}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="pitch-note">
+              <span>
+                ●
+              </span>
+
+              Goalkeeper analysis is currently
+              unavailable. Outfield positions are
+              fully supported.
+            </div>
+          </div>
+
+          <aside className="position-side-card">
+            <div className="side-card-top">
+              <span>
+                TARGET ROLE
+              </span>
+
+              <div
+                className={
+                  selectedRole
+                    ? "role-status ready"
+                    : "role-status"
+                }
+              >
+                {selectedRole
+                  ? "READY"
+                  : "WAITING"}
+              </div>
+            </div>
+
+            {!selectedRole ? (
+              <div className="role-placeholder">
+                <div className="role-placeholder-icon">
+                  +
+                </div>
+
+                <h3>
+                  Select a position
+                </h3>
+
+                <p>
+                  Choose an outfield role on the pitch
+                  to generate transfer candidates.
+                </p>
+              </div>
+            ) : (
+              <div className="selected-role-details">
+                <div className="selected-role-code">
+                  {selectedRole}
+                </div>
+
+                <span className="selected-role-caption">
+                  SELECTED POSITION
+                </span>
+
+                <h3>
+                  {getRoleName(selectedRole)}
+                </h3>
+
+                <p>
+                  TransFit AI will rank players by
+                  tactical fit, role suitability,
+                  performance, potential and squad need.
+                </p>
+
+                <div className="role-detail-grid">
+                  <div>
+                    <span>
+                      CLUB
+                    </span>
+
+                    <strong>
+                      {teamProfile.team}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      SYSTEM
+                    </span>
+
+                    <strong>
+                      {formation}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      PRIMARY USAGE
+                    </span>
+
+                    <strong>
+                      {teamProfile.primary_percentage}%
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      ALT. SYSTEM
+                    </span>
+
+                    <strong>
+                      {teamProfile.secondary_formation}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="position-side-footer">
+              <button
+  className="continue-button position-continue"
+  disabled={!selectedRole || loading}
+  onClick={onFindCandidates}
+>
+  {loading
+    ? "Analyzing Players..."
+    : "Find Best Candidates"}
+
+  <span>→</span>
+</button>
+
+{error && (
+  <div className="api-error">
+    {error}
+  </div>
+)}
+
+              <small>
+                Powered by Transfer Fit V5
+              </small>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   POSITION NODE
+========================================================= */
+
+function PositionNode({
+  position,
+  selectedRole,
+  onSelect,
+}) {
+  const selected =
+    selectedRole === position.role;
+
+  return (
+    <button
+      className={[
+        "role-node",
+        selected ? "selected" : "",
+        position.locked ? "locked" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+      }}
+      disabled={position.locked}
+      onClick={() =>
+        onSelect(position.role)
+      }
+    >
+      <span className="role-node-dot" />
+
+      <strong>
+        {position.role}
+      </strong>
+
+      {selected && (
+        <span className="role-node-selected">
+          ✓
+        </span>
+      )}
+    </button>
+  );
+}
+
+
+/* =========================================================
+   METRIC
+========================================================= */
+
+function Metric({
+  label,
+  value,
+  width,
+}) {
+  return (
+    <div className="metric">
+      <div className="metric-header">
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+
+      <div className="metric-track">
+        <div
+          className="metric-fill"
+          style={{ width }}
+        />
+      </div>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getClubInitials(team) {
+  const words = team
+    .split(" ")
+    .filter(Boolean);
+
+  if (words.length === 1) {
+    return words[0]
+      .slice(0, 2)
+      .toUpperCase();
+  }
+
+  return words
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+}
+
+
+function getRoleName(role) {
+  const names = {
+    CB: "Centre Back",
+    LB: "Left Back",
+    RB: "Right Back",
+    LWB: "Left Wing Back",
+    RWB: "Right Wing Back",
+    CDM: "Defensive Midfielder",
+    CM: "Central Midfielder",
+    CAM: "Attacking Midfielder",
+    LM: "Left Midfielder",
+    RM: "Right Midfielder",
+    LW: "Left Winger",
+    RW: "Right Winger",
+    ST: "Striker",
+  };
+
+  return names[role] || role;
+}
+
+
+export default App;

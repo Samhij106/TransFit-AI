@@ -513,3 +513,26 @@ def get_candidate_rankings(
             orient="records"
         ),
     }
+def get_team_profile(team_name):
+    (
+        position_players,
+        formation_teams,
+    ) = load_position_data()
+
+    team = find_formation_team(
+        formation_teams,
+        team_name,
+    )
+
+    return {
+        "team": team["team"],
+        "primary_formation": team["primary_formation"],
+        "primary_percentage": float(
+            team["primary_percentage"]
+        ),
+        "secondary_formation": team["secondary_formation"],
+        "secondary_percentage": float(
+            team["secondary_percentage"]
+        ),
+        "formation_history": team["formation_history"],
+    }

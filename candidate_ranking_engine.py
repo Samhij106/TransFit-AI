@@ -1,4 +1,5 @@
 import argparse
+
 import pandas as pd
 
 from transfer_fit_engine import (
@@ -10,7 +11,6 @@ from transfer_fit_engine import (
 from position_fit_engine import (
     load_data as load_position_data,
     find_team as find_formation_team,
-    calculate_position_fit,
 )
 
 from age_potential_engine import (
@@ -61,7 +61,7 @@ DEFAULT_ROLE_COMPATIBILITY = 70
 
 
 # =========================================================
-# FIND BY PLAYER ID
+# FIND RECORD BY PLAYER ID
 # =========================================================
 
 def find_by_id(
@@ -106,24 +106,13 @@ def calculate_candidate_score(
     )
 
     # -----------------------------------------------------
-    # Tactical
+    # Tactical Fit
     # -----------------------------------------------------
 
     tactical_score, _ = (
         calculate_tactical_fit(
             tactical_player,
             tactical_team,
-        )
-    )
-
-    # -----------------------------------------------------
-    # Position
-    # -----------------------------------------------------
-
-    position_score, _ = (
-        calculate_position_fit(
-            position_player,
-            formation_team,
         )
     )
 
@@ -180,25 +169,59 @@ def calculate_candidate_score(
     )
 
     # -----------------------------------------------------
-    # V5 Score
+    # Ranking Score
+    #
+    # IMPORTANT:
+    # For candidate ranking we use requested-role fit
+    # instead of the player's general Position Fit.
     # -----------------------------------------------------
 
     final_score = (
-    tactical_score
-    * TACTICAL_WEIGHT
+        tactical_score
+        * TACTICAL_WEIGHT
 
-    + role_fit
-    * POSITION_WEIGHT
+        + role_fit
+        * POSITION_WEIGHT
 
-    + performance_score
-    * PERFORMANCE_WEIGHT
+        + performance_score
+        * PERFORMANCE_WEIGHT
 
-    + potential_score
-    * POTENTIAL_WEIGHT
+        + potential_score
+        * POTENTIAL_WEIGHT
 
-    + squad_need
-    * SQUAD_NEED_WEIGHT
-)
+        + squad_need
+        * SQUAD_NEED_WEIGHT
+    )
+
+    # -----------------------------------------------------
+    # Photo
+    # -----------------------------------------------------
+
+    photo = performance_player.get(
+        "photo"
+    )
+
+    if pd.isna(photo):
+        photo = None
+
+    # -----------------------------------------------------
+    # Secondary position
+    # -----------------------------------------------------
+
+    secondary_position = (
+        position_player[
+            "secondary_position"
+        ]
+    )
+
+    if pd.isna(
+        secondary_position
+    ):
+        secondary_position = "-"
+
+    # -----------------------------------------------------
+    # Result
+    # -----------------------------------------------------
 
     return {
         "player_id": int(
@@ -211,29 +234,25 @@ def calculate_candidate_score(
             "name"
         ],
 
+        "photo": photo,
+
         "current_team": tactical_player[
             "team"
         ],
 
-        "primary_position": position_player[
-            "primary_position"
-        ],
-
-        "secondary_position": (
-            "-"
-            if pd.isna(
-                position_player[
-                    "secondary_position"
-                ]
-            )
-            else position_player[
-                "secondary_position"
-            ]
-        ),
-
         "age": potential_result[
             "age"
         ],
+
+        "primary_position": (
+            position_player[
+                "primary_position"
+            ]
+        ),
+
+        "secondary_position": (
+            secondary_position
+        ),
 
         "minutes": int(
             float(
@@ -252,11 +271,6 @@ def calculate_candidate_score(
             tactical_score,
             1,
         ),
-
-        "position": round(
-    role_fit,
-    1,
-),
 
         "performance": round(
             performance_score,
@@ -298,7 +312,7 @@ def rank_candidates(
     min_role_fit,
 ):
     # -----------------------------------------------------
-    # Position / Formation
+    # Position / Formation Data
     # -----------------------------------------------------
 
     (
@@ -314,7 +328,7 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
-    # Tactical
+    # Tactical Data
     # -----------------------------------------------------
 
     (
@@ -330,7 +344,7 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
-    # Performance
+    # Performance Data
     # -----------------------------------------------------
 
     performance_players = (
@@ -338,7 +352,7 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
-    # Potential
+    # Potential Data
     # -----------------------------------------------------
 
     potential_players = (
@@ -346,7 +360,7 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
-    # Raw squad
+    # Raw Squad Data
     # -----------------------------------------------------
 
     (
@@ -356,8 +370,9 @@ def rank_candidates(
     ) = load_squad_data()
 
     # -----------------------------------------------------
-    # Exclude players who appeared for target team
-    # during the 2025 season.
+    # Players who played for target team
+    #
+    # They should not appear as transfer candidates.
     # -----------------------------------------------------
 
     target_player_ids = set(
@@ -384,7 +399,7 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
-    # Formation demand for requested role
+    # Requested role demand
     # -----------------------------------------------------
 
     role_demands = (
@@ -409,7 +424,7 @@ def rank_candidates(
         )
 
     # -----------------------------------------------------
-    # Candidate pool
+    # Candidate Pool
     # -----------------------------------------------------
 
     results = []
@@ -423,14 +438,20 @@ def rank_candidates(
             ]
         )
 
-        # Skip target-team players
+        # ---------------------------------------------
+        # Skip current/season target-team players
+        # ---------------------------------------------
+
         if (
             player_id
             in target_player_ids
         ):
             continue
 
-        # GK not supported yet
+        # ---------------------------------------------
+        # Goalkeepers not supported
+        # ---------------------------------------------
+
         if (
             performance_player[
                 "position_group"
@@ -438,6 +459,10 @@ def rank_candidates(
             == "GK"
         ):
             continue
+
+        # ---------------------------------------------
+        # Minutes filter
+        # ---------------------------------------------
 
         minutes = float(
             performance_player[
@@ -448,9 +473,9 @@ def rank_candidates(
         if minutes < min_minutes:
             continue
 
-        # -------------------------------------------------
-        # Get records by ID
-        # -------------------------------------------------
+        # ---------------------------------------------
+        # Get player records by ID
+        # ---------------------------------------------
 
         position_player = (
             find_by_id(
@@ -480,9 +505,9 @@ def rank_candidates(
         ):
             continue
 
-        # -------------------------------------------------
-        # Role filter
-        # -------------------------------------------------
+        # ---------------------------------------------
+        # Requested role compatibility filter
+        # ---------------------------------------------
 
         role_fit = (
             candidate_role_compatibility(
@@ -494,9 +519,9 @@ def rank_candidates(
         if role_fit < min_role_fit:
             continue
 
-        # -------------------------------------------------
-        # Calculate V5 candidate score
-        # -------------------------------------------------
+        # ---------------------------------------------
+        # Calculate candidate score
+        # ---------------------------------------------
 
         try:
             result = (
@@ -521,14 +546,26 @@ def rank_candidates(
                 result
             )
 
+    # -----------------------------------------------------
+    # No Candidates
+    # -----------------------------------------------------
+
     if not results:
         raise SystemExit(
             "\nNo suitable candidates found."
         )
 
+    # -----------------------------------------------------
+    # DataFrame
+    # -----------------------------------------------------
+
     rankings = pd.DataFrame(
         results
     )
+
+    # -----------------------------------------------------
+    # Sort
+    # -----------------------------------------------------
 
     rankings = rankings.sort_values(
         [
@@ -543,6 +580,10 @@ def rank_candidates(
         drop=True
     )
 
+    # -----------------------------------------------------
+    # Rank
+    # -----------------------------------------------------
+
     rankings[
         "rank"
     ] = (
@@ -550,28 +591,40 @@ def rank_candidates(
         + 1
     )
 
-    rankings = rankings[
-    [
-        "rank",
-        "name",
-        "current_team",
-        "age",
-        "primary_position",
-        "secondary_position",
-        "minutes",
-        "role_fit",
-        "tactical",
-        "performance",
-        "potential",
-        "squad_need",
-        "final_score",
-        "classification",
-    ]
-]
+    # -----------------------------------------------------
+    # Final column order
+    #
+    # Photo is included for API / Frontend.
+    # -----------------------------------------------------
 
-    return rankings.head(
-        limit
-    ), formation_team, expected_slots
+    rankings = rankings[
+        [
+            "rank",
+            "player_id",
+            "name",
+            "photo",
+            "current_team",
+            "age",
+            "primary_position",
+            "secondary_position",
+            "minutes",
+            "role_fit",
+            "tactical",
+            "performance",
+            "potential",
+            "squad_need",
+            "final_score",
+            "classification",
+        ]
+    ]
+
+    return (
+        rankings.head(
+            limit
+        ),
+        formation_team,
+        expected_slots,
+    )
 
 
 # =========================================================
@@ -633,26 +686,71 @@ def print_rankings(
         + "-" * 120
     )
 
-    display = rankings.copy()
+    # -----------------------------------------------------
+    # Hide photo + player_id from terminal table
+    #
+    # They remain available in API response.
+    # -----------------------------------------------------
+
+    display = rankings.drop(
+        columns=[
+            "photo",
+            "player_id",
+        ],
+        errors="ignore",
+    ).copy()
 
     display = display.rename(
-    columns={
-        "rank": "#",
-        "name": "Player",
-        "current_team": "Current Team",
-        "age": "Age",
-        "primary_position": "Primary",
-        "secondary_position": "Secondary",
-        "minutes": "Minutes",
-        "role_fit": "Role Fit",
-        "tactical": "Tactical",
-        "performance": "Performance",
-        "potential": "Potential",
-        "squad_need": "Squad Need",
-        "final_score": "Ranking Score",
-        "classification": "Classification",
-    }
-)
+        columns={
+            "rank": "#",
+
+            "name": "Player",
+
+            "current_team": (
+                "Current Team"
+            ),
+
+            "age": "Age",
+
+            "primary_position": (
+                "Primary"
+            ),
+
+            "secondary_position": (
+                "Secondary"
+            ),
+
+            "minutes": "Minutes",
+
+            "role_fit": (
+                "Role Fit"
+            ),
+
+            "tactical": (
+                "Tactical"
+            ),
+
+            "performance": (
+                "Performance"
+            ),
+
+            "potential": (
+                "Potential"
+            ),
+
+            "squad_need": (
+                "Squad Need"
+            ),
+
+            "final_score": (
+                "Ranking Score"
+            ),
+
+            "classification": (
+                "Classification"
+            ),
+        }
+    )
 
     print(
         "\n"
@@ -674,7 +772,8 @@ def print_rankings(
 def main():
     parser = argparse.ArgumentParser(
         description=(
-            "TransFit AI Candidate Ranking Engine"
+            "TransFit AI "
+            "Candidate Ranking Engine"
         )
     )
 
@@ -695,7 +794,9 @@ def main():
         "--limit",
         type=int,
         default=10,
-        help="Number of candidates to show",
+        help=(
+            "Number of candidates to show"
+        ),
     )
 
     parser.add_argument(
@@ -703,15 +804,16 @@ def main():
         type=int,
         default=450,
         help=(
-            "Minimum season minutes "
-            "required"
+            "Minimum season minutes required"
         ),
     )
 
     parser.add_argument(
         "--min-role-fit",
         type=float,
-        default=DEFAULT_ROLE_COMPATIBILITY,
+        default=(
+            DEFAULT_ROLE_COMPATIBILITY
+        ),
         help=(
             "Minimum compatibility "
             "with target role"
@@ -726,6 +828,10 @@ def main():
         .upper()
     )
 
+    # -----------------------------------------------------
+    # Validate Role
+    # -----------------------------------------------------
+
     if (
         requested_role
         not in SUPPORTED_ROLES
@@ -735,6 +841,10 @@ def main():
             f"Choose one of:\n"
             f"{', '.join(SUPPORTED_ROLES)}"
         )
+
+    # -----------------------------------------------------
+    # Rank
+    # -----------------------------------------------------
 
     (
         rankings,
@@ -747,6 +857,10 @@ def main():
         args.min_minutes,
         args.min_role_fit,
     )
+
+    # -----------------------------------------------------
+    # Display
+    # -----------------------------------------------------
 
     print_rankings(
         rankings,

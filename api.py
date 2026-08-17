@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from transfit_service import (
     analyze_transfer,
     get_candidate_rankings,
+    get_team_profile,
 )
 
 
@@ -21,8 +22,10 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -49,7 +52,25 @@ def health():
         "status": "ok",
     }
 
+# =========================================================
+# TEAM PROFILE
+# =========================================================
 
+@app.get("/api/team")
+def team_profile(
+    team: str,
+):
+    try:
+        return get_team_profile(
+            team
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
+    
 # =========================================================
 # TRANSFER ANALYSIS
 # =========================================================
