@@ -31,9 +31,23 @@ from transfer_fit_v5 import (
     TACTICAL_WEIGHT,
     POSITION_WEIGHT,
     PERFORMANCE_WEIGHT,
+    PROVEN_WEIGHT,
+    AVAILABILITY_WEIGHT,
     POTENTIAL_WEIGHT,
     SQUAD_NEED_WEIGHT,
     transfer_fit_label,
+)
+
+from realistic_data_engine import (
+    blend_performance_score,
+    find_realism_by_id,
+    load_realism_profiles,
+    realism_scores,
+)
+
+from transfer_value_engine import (
+    assess_budget,
+    resolve_transfer_value,
 )
 
 
@@ -57,7 +71,28 @@ SUPPORTED_ROLES = [
     "ST",
 ]
 
-DEFAULT_ROLE_COMPATIBILITY = 70
+DEFAULT_ROLE_COMPATIBILITY = 80
+
+# Candidate eligibility is based on the canonical
+# Transfermarkt profile position, not temporary formation
+# slots from match lineups. Closely related flank roles are
+# grouped because Transfermarkt profiles generally use
+# full-back rather than wing-back as the canonical label.
+NATURAL_ROLE_POSITIONS = {
+    "CB": {"CB"},
+    "LB": {"LB", "LWB"},
+    "LWB": {"LB", "LWB"},
+    "RB": {"RB", "RWB"},
+    "RWB": {"RB", "RWB"},
+    "CDM": {"CDM"},
+    "CM": {"CM"},
+    "CAM": {"CAM"},
+    "LM": {"LM", "LW"},
+    "LW": {"LW", "LM"},
+    "RM": {"RM", "RW"},
+    "RW": {"RW", "RM"},
+    "ST": {"ST"},
+}
 
 
 # =========================================================
@@ -79,6 +114,26 @@ def find_by_id(
     return result.iloc[0]
 
 
+def is_natural_role_candidate(
+    position_player,
+    requested_role,
+):
+    primary_position = str(
+        position_player.get(
+            "primary_position",
+            "",
+        )
+    ).strip().upper()
+    allowed_positions = (
+        NATURAL_ROLE_POSITIONS.get(
+            requested_role,
+            set(),
+        )
+    )
+
+    return primary_position in allowed_positions
+
+
 # =========================================================
 # CALCULATE ONE CANDIDATE
 # =========================================================
@@ -93,6 +148,7 @@ def calculate_candidate_score(
     squad,
     requested_role,
     expected_slots,
+    realism_player=None,
 ):
     # -----------------------------------------------------
     # Requested role compatibility
@@ -120,11 +176,27 @@ def calculate_candidate_score(
     # Performance
     # -----------------------------------------------------
 
-    performance_score = float(
+    league_performance_score = float(
         performance_player[
             "performance_score"
         ]
     )
+
+    realism = realism_scores(
+        realism_player,
+        league_performance_score,
+        performance_player["minutes"],
+    )
+    performance_score = blend_performance_score(
+        league_performance_score,
+        realism["production_score"],
+    )
+    proven_score = realism[
+        "proven_score"
+    ]
+    availability_score = realism[
+        "availability_score"
+    ]
 
     # -----------------------------------------------------
     # Potential
@@ -140,6 +212,23 @@ def calculate_candidate_score(
         potential_result[
             "potential_score"
         ]
+    )
+
+    transfer_value = resolve_transfer_value(
+        player_id=int(
+            tactical_player["player_id"]
+        ),
+        performance_score=performance_score,
+        potential_score=potential_score,
+        age=potential_result["age"],
+        minutes=performance_player["minutes"],
+        league=performance_player.get("league"),
+        position_group=performance_player[
+            "position_group"
+        ],
+        position_source=position_player.get(
+            "position_source"
+        ),
     )
 
     # -----------------------------------------------------
@@ -185,6 +274,12 @@ def calculate_candidate_score(
 
         + performance_score
         * PERFORMANCE_WEIGHT
+
+        + proven_score
+        * PROVEN_WEIGHT
+
+        + availability_score
+        * AVAILABILITY_WEIGHT
 
         + potential_score
         * POTENTIAL_WEIGHT
@@ -240,6 +335,57 @@ def calculate_candidate_score(
             "team"
         ],
 
+        "league": performance_player.get(
+            "league"
+        ),
+
+        "position_source": position_player.get(
+            "position_source",
+            None,
+        ),
+
+        "estimated_value_m_eur": (
+            transfer_value[
+                "estimated_value_m_eur"
+            ]
+        ),
+
+        "value_confidence": transfer_value[
+            "confidence"
+        ],
+
+        "value_model": transfer_value[
+            "model"
+        ],
+
+        "value_source": transfer_value[
+            "value_source"
+        ],
+
+        "value_source_label": transfer_value[
+            "value_source_label"
+        ],
+
+        "value_source_url": transfer_value[
+            "value_source_url"
+        ],
+
+        "value_updated_at": transfer_value[
+            "value_updated_at"
+        ],
+
+        "transfermarkt_player_id": transfer_value[
+            "transfermarkt_player_id"
+        ],
+
+        "value_match_method": transfer_value[
+            "value_match_method"
+        ],
+
+        "is_model_estimate": transfer_value[
+            "is_model_estimate"
+        ],
+
         "age": potential_result[
             "age"
         ],
@@ -277,6 +423,47 @@ def calculate_candidate_score(
             1,
         ),
 
+        "league_performance": round(
+            league_performance_score,
+            1,
+        ),
+
+        "production": round(
+            realism["production_score"],
+            1,
+        ),
+
+        "proven": round(
+            proven_score,
+            1,
+        ),
+
+        "availability": round(
+            availability_score,
+            1,
+        ),
+
+        "all_competitions": {
+            "appearances": realism[
+                "current_appearances"
+            ],
+            "starts": realism[
+                "current_starts"
+            ],
+            "minutes": realism[
+                "current_minutes"
+            ],
+            "goals": realism[
+                "current_goals"
+            ],
+            "assists": realism[
+                "current_assists"
+            ],
+            "source": realism[
+                "data_source"
+            ],
+        },
+
         "potential": round(
             potential_score,
             1,
@@ -310,6 +497,7 @@ def rank_candidates(
     limit,
     min_minutes,
     min_role_fit,
+    budget_millions=None,
 ):
     # -----------------------------------------------------
     # Position / Formation Data
@@ -357,6 +545,10 @@ def rank_candidates(
 
     potential_players = (
         prepare_potential_data()
+    )
+
+    realism_players = (
+        load_realism_profiles()
     )
 
     # -----------------------------------------------------
@@ -498,6 +690,11 @@ def rank_candidates(
             )
         )
 
+        realism_player = find_realism_by_id(
+            realism_players,
+            player_id,
+        )
+
         if (
             position_player is None
             or tactical_player is None
@@ -508,6 +705,12 @@ def rank_candidates(
         # ---------------------------------------------
         # Requested role compatibility filter
         # ---------------------------------------------
+
+        if not is_natural_role_candidate(
+            position_player,
+            requested_role,
+        ):
+            continue
 
         role_fit = (
             candidate_role_compatibility(
@@ -535,6 +738,7 @@ def rank_candidates(
                     squad,
                     requested_role,
                     expected_slots,
+                    realism_player,
                 )
             )
 
@@ -562,6 +766,59 @@ def rank_candidates(
     rankings = pd.DataFrame(
         results
     )
+
+    # -----------------------------------------------------
+    # Budget filter
+    #
+    # Sporting fit remains unchanged. Budget only controls
+    # eligibility and labels candidates within the allowed
+    # 15% stretch range.
+    # -----------------------------------------------------
+
+    if budget_millions is not None:
+        budget_assessments = rankings[
+            "estimated_value_m_eur"
+        ].apply(
+            lambda value: assess_budget(
+                value,
+                budget_millions,
+            )
+        )
+
+        rankings["budget_status"] = (
+            budget_assessments.apply(
+                lambda value: value[
+                    "budget_status"
+                ]
+            )
+        )
+        rankings[
+            "budget_difference_m_eur"
+        ] = budget_assessments.apply(
+            lambda value: value[
+                "budget_difference_m_eur"
+            ]
+        )
+
+        rankings = rankings[
+            rankings["budget_status"]
+            != "over_budget"
+        ].copy()
+
+        if rankings.empty:
+            raise SystemExit(
+                "\nNo suitable candidates found "
+                "within the selected budget and "
+                "15% tolerance."
+            )
+
+    else:
+        rankings["budget_status"] = (
+            "not_set"
+        )
+        rankings[
+            "budget_difference_m_eur"
+        ] = None
 
     # -----------------------------------------------------
     # Sort
@@ -604,13 +861,32 @@ def rank_candidates(
             "name",
             "photo",
             "current_team",
+            "league",
             "age",
             "primary_position",
             "secondary_position",
+            "position_source",
+            "estimated_value_m_eur",
+            "value_confidence",
+            "value_model",
+            "value_source",
+            "value_source_label",
+            "value_source_url",
+            "value_updated_at",
+            "transfermarkt_player_id",
+            "value_match_method",
+            "is_model_estimate",
+            "budget_status",
+            "budget_difference_m_eur",
             "minutes",
             "role_fit",
             "tactical",
             "performance",
+            "league_performance",
+            "production",
+            "proven",
+            "availability",
+            "all_competitions",
             "potential",
             "squad_need",
             "final_score",

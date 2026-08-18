@@ -6,8 +6,11 @@ import pandas as pd
 # CONFIG
 # ============================================================
 
-STATS_FILE = "data/raw/premier_league_players_2025.csv"
-POSITIONS_FILE = "data/processed/player_positions_2025.csv"
+STATS_FILE = "data/raw/big_five_players_2025.csv"
+POSITIONS_FILE = (
+    "data/processed/"
+    "player_positions_big_five_2025.csv"
+)
 
 OUTPUT_FILE = "data/processed/player_profiles_2025.csv"
 
@@ -42,7 +45,9 @@ df = stats_df.merge(
             "total_starts",
             "position_confidence",
             "unknown_starts",
-            "position_history"
+            "position_history",
+            "position_source",
+            "broad_position",
         ]
     ],
     on="player_id",

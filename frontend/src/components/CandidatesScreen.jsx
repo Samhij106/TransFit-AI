@@ -1,13 +1,17 @@
 import { useState } from "react";
+import FootballIcon from "./FootballIcon";
 
 
 function CandidatesScreen({
   team,
   role,
   formation,
+  budget,
   candidates = [],
   onBack,
   onSelectPlayer,
+  analysisLoading = false,
+  analysisError = "",
 }) {
   const [activePlayerId, setActivePlayerId] = useState(
     candidates.length > 0
@@ -81,7 +85,7 @@ function CandidatesScreen({
             <div className="eyebrow">
               <span className="eyebrow-dot" />
 
-              STEP 03 — AI CANDIDATE RANKING
+              STEP 04 — AI CANDIDATE RANKING
             </div>
 
             <h2>
@@ -137,6 +141,26 @@ function CandidatesScreen({
 
             <div className="ranking-context-row">
               <span>
+                INVESTMENT
+              </span>
+
+              <strong>
+                €{budget}M
+              </strong>
+            </div>
+
+            <div className="ranking-context-row">
+              <span>
+                STRETCH LIMIT
+              </span>
+
+              <strong>
+                €{(budget * 1.15).toFixed(1)}M
+              </strong>
+            </div>
+
+            <div className="ranking-context-row">
+              <span>
                 CANDIDATES
               </span>
 
@@ -153,9 +177,20 @@ function CandidatesScreen({
         ============================================= */}
 
         <section className="top-pick-section">
+          {analysisError && (
+            <div className="api-error">
+              {analysisError}
+            </div>
+          )}
+
           <div className="top-pick-label-row">
             <div>
               <span className="top-pick-kicker">
+                <FootballIcon
+                  name="target"
+                  size={12}
+                />
+
                 AI TOP PICK
               </span>
 
@@ -184,6 +219,10 @@ function CandidatesScreen({
 
               <div className="top-player-team">
                 {topCandidate.current_team}
+
+                {topCandidate.league
+                  ? ` · ${topCandidate.league}`
+                  : ""}
               </div>
             </div>
 
@@ -205,9 +244,12 @@ function CandidatesScreen({
                 <i />
 
                 <span>
-                  {formatMinutes(
-                    topCandidate.minutes
-                  )} MIN
+                  {topCandidate.all_competitions?.source ===
+                  "transfermarkt_all_competitions"
+                    ? `${topCandidate.all_competitions.goals || 0}G · ${topCandidate.all_competitions.assists || 0}A`
+                    : `${formatMinutes(
+                        topCandidate.minutes
+                      )} MIN`}
                 </span>
               </div>
 
@@ -218,6 +260,33 @@ function CandidatesScreen({
               <p className="top-player-classification">
                 {topCandidate.classification}
               </p>
+
+              <div
+                className={`candidate-value-summary ${
+                  topCandidate.budget_status || "not_set"
+                }`}
+              >
+                <div>
+                  <span>
+                    {getValueLabel(
+                      topCandidate
+                    )}
+                  </span>
+
+                  <strong>
+                    €{topCandidate.estimated_value_m_eur}M
+                  </strong>
+                </div>
+
+                <small>
+                  {getValueSourceName(
+                    topCandidate
+                  )} · {" "}
+                  {getBudgetStatusLabel(
+                    topCandidate.budget_status
+                  )}
+                </small>
+              </div>
 
 
               {/* Main Score */}
@@ -249,8 +318,9 @@ function CandidatesScreen({
                   <p>
                     Ranked #1 for {team} at
                     {" "}
-                    {role} based on the
-                    TransFit AI model.
+                    {role} using current all-competition
+                    output, three-season evidence and
+                    verified availability.
                   </p>
                 </div>
               </div>
@@ -275,19 +345,25 @@ function CandidatesScreen({
                 />
 
                 <CandidateMetric
-                  label="Potential"
-                  value={topCandidate.potential}
+                  label="Proven Level"
+                  value={topCandidate.proven}
                 />
 
                 <CandidateMetric
-                  label="Squad Need"
-                  value={topCandidate.squad_need}
+                  label="Availability"
+                  value={topCandidate.availability}
+                />
+
+                <CandidateMetric
+                  label="Potential"
+                  value={topCandidate.potential}
                 />
               </div>
 
 
               <button
                 className="primary-button candidate-analysis-button"
+                disabled={analysisLoading}
                 onClick={() => {
                   if (onSelectPlayer) {
                     onSelectPlayer(
@@ -296,7 +372,9 @@ function CandidatesScreen({
                   }
                 }}
               >
-                View Full Analysis
+                {analysisLoading
+                  ? "Analyzing Player..."
+                  : "View Full Analysis"}
 
                 <span>
                   →
@@ -315,6 +393,11 @@ function CandidatesScreen({
           <div className="ranking-section-header">
             <div>
               <span>
+                <FootballIcon
+                  name="chart"
+                  size={12}
+                />
+
                 AI RANKING
               </span>
 
@@ -385,6 +468,10 @@ function CandidatesScreen({
                       {
                         activeCandidate.current_team
                       }
+
+                      {activeCandidate.league
+                        ? ` · ${activeCandidate.league}`
+                        : ""}
                     </span>
 
                     <h3>
@@ -423,6 +510,20 @@ function CandidatesScreen({
                     {
                       activeCandidate.classification
                     }
+
+                    <small>
+                      {getValueSourceName(
+                        activeCandidate
+                      )} €{
+                        activeCandidate
+                          .estimated_value_m_eur
+                      }M · {
+                        getBudgetStatusLabel(
+                          activeCandidate
+                            .budget_status
+                        )
+                      }
+                    </small>
                   </span>
                 </div>
 
@@ -450,16 +551,23 @@ function CandidatesScreen({
                   />
 
                   <PreviewMetric
-                    label="Potential"
+                    label="Proven Level"
                     value={
-                      activeCandidate.potential
+                      activeCandidate.proven
                     }
                   />
 
                   <PreviewMetric
-                    label="Squad Need"
+                    label="Availability"
                     value={
-                      activeCandidate.squad_need
+                      activeCandidate.availability
+                    }
+                  />
+
+                  <PreviewMetric
+                    label="Potential"
+                    value={
+                      activeCandidate.potential
                     }
                   />
                 </div>
@@ -467,6 +575,7 @@ function CandidatesScreen({
 
                 <button
                   className="continue-button preview-analysis-button"
+                  disabled={analysisLoading}
                   onClick={() => {
                     if (onSelectPlayer) {
                       onSelectPlayer(
@@ -475,7 +584,9 @@ function CandidatesScreen({
                     }
                   }}
                 >
-                  Analyze Player
+                  {analysisLoading
+                    ? "Analyzing Player..."
+                    : "Analyze Player"}
 
                   <span>
                     →
@@ -593,6 +704,10 @@ function CandidateCard({
       <div className="candidate-row-main">
         <span>
           {candidate.current_team}
+
+          {candidate.league
+            ? ` · ${candidate.league}`
+            : ""}
         </span>
 
         <strong>
@@ -622,22 +737,27 @@ function CandidateCard({
 
       <div className="candidate-row-stat">
         <span>
-          TACTICAL
+          OUTPUT
         </span>
 
         <strong>
-          {candidate.tactical}
+          {candidate.all_competitions?.source ===
+          "transfermarkt_all_competitions"
+            ? `${candidate.all_competitions.goals || 0}G · ${candidate.all_competitions.assists || 0}A`
+            : candidate.performance}
         </strong>
       </div>
 
 
       <div className="candidate-row-stat">
         <span>
-          POTENTIAL
+          {candidate.value_source === "transfermarkt"
+            ? "TM VALUE"
+            : "EST. VALUE"}
         </span>
 
         <strong>
-          {candidate.potential}
+          €{candidate.estimated_value_m_eur}M
         </strong>
       </div>
 
@@ -834,6 +954,43 @@ function getScoreTitle(
   }
 
   return "Alternative Option";
+}
+
+
+function getBudgetStatusLabel(status) {
+  if (status === "within_budget") {
+    return "Within budget";
+  }
+
+  if (status === "stretch") {
+    return "Within 15% stretch";
+  }
+
+  return "Value estimate";
+}
+
+
+function getValueLabel(candidate) {
+  if (
+    candidate?.value_source ===
+    "transfermarkt"
+  ) {
+    return "TRANSFERMARKT MARKET VALUE";
+  }
+
+  return "TRANSFIT ESTIMATED VALUE";
+}
+
+
+function getValueSourceName(candidate) {
+  if (
+    candidate?.value_source ===
+    "transfermarkt"
+  ) {
+    return "Transfermarkt";
+  }
+
+  return "TransFit estimate";
 }
 
 

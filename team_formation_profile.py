@@ -25,7 +25,10 @@ LEAGUE_ID = 39
 LEAGUE_NAME = "Premier League"
 SEASON = 2025
 
-OUTPUT_FILE = "data/processed/team_formation_profiles_2025.csv"
+OUTPUT_FILE = (
+    "data/processed/"
+    "team_formation_profiles_premier_league_2025.csv"
+)
 
 os.makedirs("data/processed", exist_ok=True)
 

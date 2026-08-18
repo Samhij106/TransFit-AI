@@ -1,0 +1,35 @@
+api_football_player_id,player_name,player_full_name,current_team,league,reason,best_transfermarkt_name,best_match_score,best_match_margin
+535046,A. Amaimouni,nan nan,Eintracht Frankfurt,Bundesliga,low_or_ambiguous_score,Ayoube Amaimouni-Echghouyab,0.5853,0.5853
+323974,E. Saad,Elias Saad,FC Augsburg,Bundesliga,low_or_ambiguous_score,Felipe Saad,0.5038,0.002
+202919,M. Rosenfelder,Maximilian Rosenfelder,SC Freiburg,Bundesliga,low_or_ambiguous_score,Max Rosenfelder,0.7971,0.7971
+200139,M. Amoura,Mohammed El Amine Amoura,VfL Wolfsburg,Bundesliga,low_or_ambiguous_score,Mohamed Amoura,0.7358,0.7358
+386870,Julio Díaz del Romo,Julio Díaz del Romo,Atletico Madrid,La Liga,low_or_ambiguous_score,Mateo Del Blanco,0.4716,0.0041
+50,Koke,Jorge Resurrección Merodio,Atletico Madrid,La Liga,low_or_ambiguous_score,Koke,0.7118,0.7118
+408320,Jorge Cabello,Jorge Cabello Trujillo,Levante,La Liga,low_or_ambiguous_score,Ángel Trujillo,0.5575,0.1042
+341453,Oso,Joaquín Martínez Gauna,Sevilla,La Liga,low_or_ambiguous_score,Oso,0.7041,0.0244
+162126,Peque Fernández,Gerard Fernández Castellano,Sevilla,La Liga,low_or_ambiguous_score,Peque Fernández,0.8041,0.1119
+355994,A. Freeman,Alexander Michael Freeman,Villarreal,La Liga,low_or_ambiguous_score,Alex Freeman,0.7625,0.2579
+928,Dani Parejo,Daniel Parejo Muñoz,Villarreal,La Liga,low_or_ambiguous_score,Dani Parejo,0.8083,0.1106
+351587,T. Oluwaseyi,Tanitoluwa Oluwatimikhin Oluwaseyi,Villarreal,La Liga,low_or_ambiguous_score,Tani Oluwaseyi,0.7699,0.7699
+191289,A. Sbaï,Mohamed Amine Sbaï,Angers,Ligue 1,low_or_ambiguous_score,Amine Sbaï,0.8175,0.3276
+174708,Y. Belkhdim,Yassine Belkhdim,Angers,Ligue 1,low_or_ambiguous_score,Yassin Belkhdim,0.7872,0.7872
+584356,K. Quetant,nan nan,Le Havre,Ligue 1,low_or_ambiguous_score,Kenny Quetant,0.6476,0.6476
+181827,C. Egan-Riley,Conrad Jaden Egan-Riley,Marseille,Ligue 1,low_or_ambiguous_score,CJ Egan-Riley,0.8084,0.3272
+570580,B. Munongo,nan nan,Metz,Ligue 1,low_or_ambiguous_score,Believe Munongo,0.6155,0.6155
+20535,H. Diallo,Mouhamadou Habibou Diallo,Metz,Ligue 1,low_or_ambiguous_score,Habib Diallo,0.7315,0.0779
+584096,N. Mbala,nan nan,Metz,Ligue 1,low_or_ambiguous_score,Nathan Mbala,0.6112,0.1613
+304427,Ali Yousef Musrati,Ali Yousef Ibrahim Al Musrati,Nantes,Ligue 1,low_or_ambiguous_score,Ali Al-Hamadi,0.681,0.0781
+443676,Bahereba Guirassy,Bahereba Guirassy,Nantes,Ligue 1,low_or_ambiguous_score,Herba Guirassy,0.771,0.3032
+197771,Y. Benhattab,Yassine Benhattab,Nantes,Ligue 1,no_surname_candidate,,,
+257,Marquinhos,Marcos Aoás Corrêa,Paris Saint Germain,Ligue 1,low_or_ambiguous_score,Marquinhos,0.72,0.0987
+359386,M. Godo,Becket Fabrice-Martial Godo,Strasbourg,Ligue 1,low_or_ambiguous_score,Martial Godo,0.7833,0.7833
+303016,M. Oyedele,Maximillian Oyedele,Strasbourg,Ligue 1,low_or_ambiguous_score,Maxi Oyedele,0.7443,0.7443
+19959,B. White,Benjamin William White,Arsenal,Premier League,low_or_ambiguous_score,Ben White,0.7641,0.1726
+162128,W. Gnonto,Degnand Wilfried Gnonto,Leeds,Premier League,low_or_ambiguous_score,Wilfried Gnonto,0.8156,0.8156
+360114,A. Khusanov,Abduqodir Khusanov,Manchester City,Premier League,low_or_ambiguous_score,Abdukodir Khusanov,0.8022,0.8022
+339201,C. Rigg,Christopher Rigg,Sunderland,Premier League,low_or_ambiguous_score,Chris Rigg,0.7312,0.7312
+626704,P. Mendy,nan nan,Cagliari,Serie A,low_or_ambiguous_score,Paul Mendy,0.6361,0.1824
+37437,A. Harroui,Abdoulrahmane Harroui,Hellas Verona,Serie A,low_or_ambiguous_score,Abdou Harroui,0.7618,0.7618
+42006,Al Musrati,Al Moatasembellah Ali Mohamed Al Musrati,Hellas Verona,Serie A,low_or_ambiguous_score,Moatasem Al-Musrati,0.6624,0.0688
+126690,K. Bowie,Kieran Bowie,Hellas Verona,Serie A,low_or_ambiguous_score,Kieron Bowie,0.7093,0.7093
+265722,Rafael Obrador,Rafael Obrador Burguera,Torino,Serie A,low_or_ambiguous_score,Rafa Obrador,0.7774,0.7774

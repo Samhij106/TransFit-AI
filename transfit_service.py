@@ -29,6 +29,19 @@ from candidate_ranking_engine import (
     rank_candidates,
 )
 
+from league_config import LEAGUES
+
+from transfer_value_engine import (
+    BUDGET_TOLERANCE,
+    assess_budget,
+    resolve_transfer_value,
+)
+
+from realistic_data_engine import (
+    find_realism_by_id,
+    load_realism_profiles,
+)
+
 
 # =========================================================
 # ANALYZE ONE PLAYER -> TEAM
@@ -37,6 +50,8 @@ from candidate_ranking_engine import (
 def analyze_transfer(
     player_name,
     team_name,
+    player_id=None,
+    budget_millions=None,
 ):
     # -----------------------------------------------------
     # Position / formation
@@ -67,6 +82,7 @@ def analyze_transfer(
         performance_players,
         position_players,
         player_name,
+        player_id=player_id,
     )
 
     player_id = int(
@@ -116,6 +132,11 @@ def analyze_transfer(
         "Potential",
     )
 
+    realism_player = find_realism_by_id(
+        load_realism_profiles(),
+        player_id,
+    )
+
     # -----------------------------------------------------
     # Squad
     # -----------------------------------------------------
@@ -135,7 +156,7 @@ def analyze_transfer(
     )
 
     # -----------------------------------------------------
-    # V5
+    # V6 (legacy function name retained for compatibility)
     # -----------------------------------------------------
 
     result = calculate_transfer_fit_v5(
@@ -146,6 +167,39 @@ def analyze_transfer(
         performance_player,
         potential_player,
         squad,
+        realism_player,
+    )
+
+    transfer_value = resolve_transfer_value(
+        player_id=player_id,
+        performance_score=result[
+            "performance_score"
+        ],
+        potential_score=result[
+            "potential_score"
+        ],
+        age=result[
+            "potential_result"
+        ]["age"],
+        minutes=performance_player[
+            "minutes"
+        ],
+        league=performance_player.get(
+            "league"
+        ),
+        position_group=performance_player[
+            "position_group"
+        ],
+        position_source=position_player.get(
+            "position_source"
+        ),
+    )
+
+    budget_assessment = assess_budget(
+        transfer_value[
+            "estimated_value_m_eur"
+        ],
+        budget_millions,
     )
 
     # =====================================================
@@ -243,6 +297,11 @@ def analyze_transfer(
                 "team"
             ],
 
+            "league": performance_player.get(
+                "league",
+                None,
+            ),
+
             "age": float(
                 result[
                     "potential_result"
@@ -263,6 +322,11 @@ def analyze_transfer(
                 "primary_position"
             ],
 
+            "position_source": position_player.get(
+                "position_source",
+                None,
+            ),
+
             "secondary_position": (
                 None
                 if str(
@@ -279,6 +343,10 @@ def analyze_transfer(
         "target_team": {
             "name": tactical_team[
                 "team"
+            ],
+
+            "league": formation_team[
+                "league"
             ],
 
             "primary_formation": formation_team[
@@ -313,6 +381,22 @@ def analyze_transfer(
 
             "performance": result[
                 "performance_score"
+            ],
+
+            "league_performance": result[
+                "league_performance_score"
+            ],
+
+            "production": result[
+                "production_score"
+            ],
+
+            "proven": result[
+                "proven_score"
+            ],
+
+            "availability": result[
+                "availability_score"
             ],
 
             "potential": result[
@@ -375,6 +459,18 @@ def analyze_transfer(
         },
 
         "performance": {
+            "league_score": result[
+                "league_performance_score"
+            ],
+
+            "production_score": result[
+                "production_score"
+            ],
+
+            "blended_score": result[
+                "performance_score"
+            ],
+
             "reliability": result[
                 "performance_reliability"
             ],
@@ -470,6 +566,38 @@ def analyze_transfer(
                 "upgrade_opportunity"
             ],
         },
+
+        "realism": {
+            **result["realism_details"],
+            "league_performance_score": result[
+                "league_performance_score"
+            ],
+            "blended_performance_score": result[
+                "performance_score"
+            ],
+            "production_score": result[
+                "production_score"
+            ],
+            "proven_score": result[
+                "proven_score"
+            ],
+            "availability_score": result[
+                "availability_score"
+            ],
+        },
+
+        "transfer_value": {
+            **transfer_value,
+            **budget_assessment,
+            "selected_budget_m_eur": (
+                None
+                if budget_millions is None
+                else float(budget_millions)
+            ),
+            "tolerance_percentage": (
+                BUDGET_TOLERANCE * 100
+            ),
+        },
     }
 
 
@@ -482,7 +610,8 @@ def get_candidate_rankings(
     role,
     limit=10,
     min_minutes=450,
-    min_role_fit=70,
+    min_role_fit=80,
+    budget_millions=None,
 ):
     rankings, team, expected_slots = (
         rank_candidates(
@@ -491,6 +620,7 @@ def get_candidate_rankings(
             limit,
             min_minutes,
             min_role_fit,
+            budget_millions,
         )
     )
 
@@ -509,6 +639,26 @@ def get_candidate_rankings(
             expected_slots
         ),
 
+        "budget": {
+            "selected_m_eur": (
+                None
+                if budget_millions is None
+                else float(budget_millions)
+            ),
+            "tolerance_percentage": (
+                BUDGET_TOLERANCE * 100
+            ),
+            "maximum_m_eur": (
+                None
+                if budget_millions is None
+                else round(
+                    float(budget_millions)
+                    * (1 + BUDGET_TOLERANCE),
+                    1,
+                )
+            ),
+        },
+
         "candidates": rankings.to_dict(
             orient="records"
         ),
@@ -525,7 +675,10 @@ def get_team_profile(team_name):
     )
 
     return {
+        "team_id": int(team["team_id"]),
         "team": team["team"],
+        "league_id": int(team["league_id"]),
+        "league": team["league"],
         "primary_formation": team["primary_formation"],
         "primary_percentage": float(
             team["primary_percentage"]
@@ -535,4 +688,81 @@ def get_team_profile(team_name):
             team["secondary_percentage"]
         ),
         "formation_history": team["formation_history"],
+    }
+
+
+def get_club_catalog():
+    (
+        _,
+        formation_teams,
+    ) = load_position_data()
+
+    league_by_id = {
+        league["id"]: league
+        for league in LEAGUES
+    }
+
+    catalog = []
+
+    for league_id, clubs in (
+        formation_teams.groupby("league_id")
+    ):
+        league_id = int(league_id)
+        config = league_by_id.get(
+            league_id,
+            {},
+        )
+
+        club_rows = []
+
+        for _, club in clubs.sort_values(
+            "team"
+        ).iterrows():
+            club_rows.append({
+                "team_id": int(
+                    club["team_id"]
+                ),
+                "name": club["team"],
+                "primary_formation": club[
+                    "primary_formation"
+                ],
+            })
+
+        catalog.append({
+            "league_id": league_id,
+            "key": config.get(
+                "key",
+                str(league_id),
+            ),
+            "name": config.get(
+                "name",
+                clubs.iloc[0]["league"],
+            ),
+            "country": config.get(
+                "country"
+            ),
+            "club_count": len(club_rows),
+            "clubs": club_rows,
+        })
+
+    configured_order = {
+        league["id"]: index
+        for index, league in enumerate(
+            LEAGUES
+        )
+    }
+
+    catalog.sort(
+        key=lambda league: configured_order.get(
+            league["league_id"],
+            999,
+        )
+    )
+
+    return {
+        "leagues": catalog,
+        "total_clubs": sum(
+            league["club_count"]
+            for league in catalog
+        ),
     }

@@ -22,8 +22,11 @@ from performance_fit_engine import (
 # FILES
 # =========================================================
 
-RAW_FILE = "data/raw/premier_league_players_2025.csv"
-POSITION_FILE = "data/processed/player_positions_2025.csv"
+RAW_FILE = "data/raw/big_five_players_2025.csv"
+POSITION_FILE = (
+    "data/processed/"
+    "player_positions_big_five_2025.csv"
+)
 FORMATION_FILE = "data/processed/team_formation_profiles_2025.csv"
 
 
@@ -194,50 +197,34 @@ def prepare_performance_data():
 def resolve_candidate(
     performance,
     positions,
-    player_name,
+    player_name=None,
+    player_id=None,
 ):
-    query = (
-        player_name
-        .strip()
-        .lower()
-    )
+    if player_id is not None:
+        player_id = int(player_id)
 
-    # -----------------------------------------------------
-    # Exact match in performance dataset
-    # -----------------------------------------------------
-
-    perf_exact = performance[
-        performance["name"]
-        .astype(str)
-        .str.lower()
-        == query
-    ]
-
-    if len(perf_exact) == 1:
-
-        player_id = int(
-            perf_exact.iloc[0][
-                "player_id"
-            ]
+    elif player_name:
+        query = (
+            player_name
+            .strip()
+            .lower()
         )
 
-    else:
-
         # -------------------------------------------------
-        # Exact match in position dataset
+        # Exact match in performance dataset
         # -------------------------------------------------
 
-        position_exact = positions[
-            positions["name"]
+        perf_exact = performance[
+            performance["name"]
             .astype(str)
             .str.lower()
             == query
         ]
 
-        if len(position_exact) == 1:
+        if len(perf_exact) == 1:
 
             player_id = int(
-                position_exact.iloc[0][
+                perf_exact.iloc[0][
                     "player_id"
                 ]
             )
@@ -245,98 +232,124 @@ def resolve_candidate(
         else:
 
             # ---------------------------------------------
-            # Partial search in both datasets
+            # Exact match in position dataset
             # ---------------------------------------------
 
-            perf_partial = performance[
-                performance["name"]
-                .astype(str)
-                .str.lower()
-                .str.contains(
-                    query,
-                    regex=False,
-                )
-            ]
-
-            position_partial = positions[
+            position_exact = positions[
                 positions["name"]
                 .astype(str)
                 .str.lower()
-                .str.contains(
-                    query,
-                    regex=False,
-                )
+                == query
             ]
 
-            ids = (
-                set(
-                    perf_partial[
-                        "player_id"
-                    ].tolist()
-                )
-                |
-                set(
-                    position_partial[
-                        "player_id"
-                    ].tolist()
-                )
-            )
-
-            if len(ids) == 1:
+            if len(position_exact) == 1:
 
                 player_id = int(
-                    next(
-                        iter(ids)
-                    )
-                )
-
-            elif len(ids) > 1:
-
-                print(
-                    "\nMultiple players found:\n"
-                )
-
-                combined = pd.concat(
-                    [
-                        perf_partial[
-                            [
-                                "player_id",
-                                "name",
-                            ]
-                        ],
-                        position_partial[
-                            [
-                                "player_id",
-                                "name",
-                            ]
-                        ],
-                    ]
-                )
-
-                combined = (
-                    combined
-                    .drop_duplicates()
-                    .sort_values(
+                    position_exact.iloc[0][
                         "player_id"
-                    )
-                )
-
-                print(
-                    combined.to_string(
-                        index=False
-                    )
-                )
-
-                raise SystemExit(
-                    "\nPlease enter a more specific player name."
+                    ]
                 )
 
             else:
 
-                raise SystemExit(
-                    f"\nPlayer not found: "
-                    f"{player_name}"
+                # -----------------------------------------
+                # Partial search in both datasets
+                # -----------------------------------------
+
+                perf_partial = performance[
+                    performance["name"]
+                    .astype(str)
+                    .str.lower()
+                    .str.contains(
+                        query,
+                        regex=False,
+                    )
+                ]
+
+                position_partial = positions[
+                    positions["name"]
+                    .astype(str)
+                    .str.lower()
+                    .str.contains(
+                        query,
+                        regex=False,
+                    )
+                ]
+
+                ids = (
+                    set(
+                        perf_partial[
+                            "player_id"
+                        ].tolist()
+                    )
+                    |
+                    set(
+                        position_partial[
+                            "player_id"
+                        ].tolist()
+                    )
                 )
+
+                if len(ids) == 1:
+
+                    player_id = int(
+                        next(
+                            iter(ids)
+                        )
+                    )
+
+                elif len(ids) > 1:
+
+                    print(
+                        "\nMultiple players found:\n"
+                    )
+
+                    combined = pd.concat(
+                        [
+                            perf_partial[
+                                [
+                                    "player_id",
+                                    "name",
+                                ]
+                            ],
+                            position_partial[
+                                [
+                                    "player_id",
+                                    "name",
+                                ]
+                            ],
+                        ]
+                    )
+
+                    combined = (
+                        combined
+                        .drop_duplicates()
+                        .sort_values(
+                            "player_id"
+                        )
+                    )
+
+                    print(
+                        combined.to_string(
+                            index=False
+                        )
+                    )
+
+                    raise SystemExit(
+                        "\nPlease enter a more specific player name."
+                    )
+
+                else:
+
+                    raise SystemExit(
+                        f"\nPlayer not found: "
+                        f"{player_name}"
+                    )
+
+    else:
+        raise ValueError(
+            "player_name or player_id is required."
+        )
 
     # -----------------------------------------------------
     # Get records by ID

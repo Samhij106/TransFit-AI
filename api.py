@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from transfit_service import (
     analyze_transfer,
     get_candidate_rankings,
+    get_club_catalog,
     get_team_profile,
 )
 
@@ -52,6 +53,11 @@ def health():
         "status": "ok",
     }
 
+
+@app.get("/api/clubs")
+def clubs():
+    return get_club_catalog()
+
 # =========================================================
 # TEAM PROFILE
 # =========================================================
@@ -79,11 +85,15 @@ def team_profile(
 def analyze(
     player: str,
     team: str,
+    player_id: int | None = None,
+    budget_millions: float | None = None,
 ):
     try:
         return analyze_transfer(
             player,
             team,
+            player_id=player_id,
+            budget_millions=budget_millions,
         )
 
     except (SystemExit, ValueError) as error:
@@ -103,7 +113,8 @@ def rankings(
     role: str,
     limit: int = 10,
     min_minutes: int = 450,
-    min_role_fit: float = 70,
+    min_role_fit: float = 80,
+    budget_millions: float | None = None,
 ):
     try:
         return get_candidate_rankings(
@@ -112,6 +123,7 @@ def rankings(
             limit=limit,
             min_minutes=min_minutes,
             min_role_fit=min_role_fit,
+            budget_millions=budget_millions,
         )
 
     except (SystemExit, ValueError) as error:

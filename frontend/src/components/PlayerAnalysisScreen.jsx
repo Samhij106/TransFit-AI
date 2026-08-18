@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FootballIcon from "./FootballIcon";
 
 
 function PlayerAnalysisScreen({
@@ -28,11 +29,17 @@ function PlayerAnalysisScreen({
   const performance =
     analysis.performance || {};
 
+  const realism =
+    analysis.realism || {};
+
   const potential =
     analysis.potential || {};
 
   const squadNeed =
     analysis.squad_need || {};
+
+  const transferValue =
+    analysis.transfer_value || {};
 
 
   return (
@@ -126,7 +133,7 @@ function PlayerAnalysisScreen({
               <div className="analysis-score-copy">
 
                 <span>
-                  TRANSFER FIT V5
+                  TRANSFER FIT V6
                 </span>
 
                 <h2>
@@ -136,8 +143,9 @@ function PlayerAnalysisScreen({
                 <p>
                   Overall fit based on tactical
                   compatibility, positional suitability,
-                  current performance, development
-                  potential and squad need.
+                  current all-competition production,
+                  three-season evidence, availability
+                  and squad context.
                 </p>
 
               </div>
@@ -162,7 +170,19 @@ function PlayerAnalysisScreen({
               <ScoreCard
                 label="Performance"
                 value={scores.performance}
-                description="Current output level"
+                description="League detail + all competitions"
+              />
+
+              <ScoreCard
+                label="Proven Level"
+                value={scores.proven}
+                description="Competition-adjusted 3-season evidence"
+              />
+
+              <ScoreCard
+                label="Availability"
+                value={scores.availability}
+                description="Minutes, starts & appearances"
               />
 
               <ScoreCard
@@ -215,6 +235,39 @@ function PlayerAnalysisScreen({
           />
 
           <OverviewItem
+            label={
+              transferValue.value_source ===
+              "transfermarkt"
+                ? "TRANSFERMARKT VALUE"
+                : "TRANSFIT ESTIMATE"
+            }
+            value={
+              transferValue.estimated_value_m_eur != null
+                ? `€${transferValue.estimated_value_m_eur}M`
+                : "-"
+            }
+            note={
+              transferValue.value_source ===
+              "transfermarkt"
+                ? `Updated ${formatValueDate(
+                    transferValue.value_updated_at
+                  )}`
+                : "Transfermarkt match unavailable"
+            }
+            sourceUrl={
+              transferValue.value_source_url
+            }
+            highlight
+          />
+
+          <OverviewItem
+            label="BUDGET STATUS"
+            value={formatBudgetStatus(
+              transferValue.budget_status
+            )}
+          />
+
+          <OverviewItem
             label="FINAL SCORE"
             value={formatScore(scores.final)}
             highlight
@@ -243,7 +296,7 @@ function PlayerAnalysisScreen({
 
             <p>
               Each dimension is calculated separately,
-              then combined into the final Transfer Fit V5.
+              then combined into the final Transfer Fit V6.
             </p>
 
           </div>
@@ -265,6 +318,11 @@ function PlayerAnalysisScreen({
             <PerformanceModule
               score={scores.performance}
               data={performance}
+            />
+
+            <RealismModule
+              score={scores.proven}
+              data={realism}
             />
 
             <PotentialModule
@@ -554,6 +612,8 @@ function ScoreCard({
 function OverviewItem({
   label,
   value,
+  note,
+  sourceUrl,
   highlight = false,
 }) {
   return (
@@ -572,6 +632,22 @@ function OverviewItem({
       <strong>
         {value ?? "-"}
       </strong>
+
+      {note && sourceUrl && (
+        <a
+          href={sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {note} ↗
+        </a>
+      )}
+
+      {note && !sourceUrl && (
+        <small>
+          {note}
+        </small>
+      )}
 
     </div>
   );
@@ -738,7 +814,7 @@ function PerformanceModule({
 }) {
   const details =
     normalizeDetails(
-      data.details
+      data.details || data.metrics
     );
 
   return (
@@ -751,13 +827,36 @@ function PerformanceModule({
       />
 
       <p className="module-description">
-        Measures the player's current production
-        relative to players in the same positional
-        group.
+        Blends detailed domestic-league performance
+        with total current-season production across
+        every club competition.
       </p>
 
 
       <div className="performance-summary-grid">
+
+        <InsightBox
+          label="LEAGUE DETAIL SCORE"
+          value={formatScore(
+            data.league_score
+          )}
+        />
+
+        <InsightBox
+          label="ALL-COMP PRODUCTION"
+          value={formatScore(
+            data.production_score
+          )}
+          positive
+        />
+
+        <InsightBox
+          label="BLENDED SCORE"
+          value={formatScore(
+            data.blended_score || score
+          )}
+          positive
+        />
 
         <InsightBox
           label="RELIABILITY"
@@ -818,6 +917,101 @@ function PerformanceModule({
 
 
 /* =========================================================
+   REAL-WORLD EVIDENCE MODULE
+========================================================= */
+
+function RealismModule({
+  score,
+  data,
+}) {
+  return (
+    <article className="analysis-module realism-module">
+
+      <ModuleHeader
+        number="04"
+        title="Real-World Evidence"
+        score={score}
+      />
+
+      <p className="module-description">
+        Uses Transfermarkt match records across all club
+        competitions. Recent seasons are weighted more
+        heavily and competition strength is adjusted.
+      </p>
+
+
+      <div className="realism-stat-grid">
+
+        <InsightBox
+          label="APPEARANCES"
+          value={data.current_appearances}
+        />
+
+        <InsightBox
+          label="STARTS"
+          value={data.current_starts}
+        />
+
+        <InsightBox
+          label="MINUTES"
+          value={formatInteger(
+            data.current_minutes
+          )}
+        />
+
+        <InsightBox
+          label="GOALS"
+          value={data.current_goals}
+          positive
+        />
+
+        <InsightBox
+          label="ASSISTS"
+          value={data.current_assists}
+          positive
+        />
+
+      </div>
+
+
+      <div className="realism-score-grid">
+
+        <LargeMetric
+          label="CURRENT PRODUCTION"
+          value={data.production_score}
+        />
+
+        <LargeMetric
+          label="PROVEN LEVEL"
+          value={data.proven_score}
+        />
+
+        <LargeMetric
+          label="AVAILABILITY"
+          value={data.availability_score}
+        />
+
+      </div>
+
+
+      <div className="model-note">
+        <span>
+          DATA NOTE
+        </span>
+
+        <p>
+          Market value and sporting fit are separate.
+          Transfermarkt value controls affordability;
+          match evidence controls the sporting score.
+        </p>
+      </div>
+
+    </article>
+  );
+}
+
+
+/* =========================================================
    POTENTIAL MODULE
 ========================================================= */
 
@@ -829,7 +1023,7 @@ function PotentialModule({
     <article className="analysis-module potential-module">
 
       <ModuleHeader
-        number="04"
+        number="05"
         title="Potential"
         score={score}
       />
@@ -888,7 +1082,7 @@ function SquadNeedModule({
     <article className="analysis-module squad-module">
 
       <ModuleHeader
-        number="05"
+        number="06"
         title="Squad Need"
         score={score}
       />
@@ -967,6 +1161,13 @@ function ModuleHeader({
         <span>
           {number}
         </span>
+
+        <i className="module-title-icon">
+          <FootballIcon
+            name={getModuleIcon(title)}
+            size={14}
+          />
+        </i>
 
         <h3>
           {title}
@@ -1179,6 +1380,62 @@ function formatInsightValue(value) {
 }
 
 
+function getModuleIcon(title) {
+  if (
+    title === "Performance" ||
+    title === "Real-World Evidence"
+  ) {
+    return "chart";
+  }
+
+  if (title === "Potential") {
+    return "target";
+  }
+
+  if (title === "Squad Need") {
+    return "shield";
+  }
+
+  return "ball";
+}
+
+
+function formatBudgetStatus(status) {
+  if (status === "within_budget") {
+    return "Within budget";
+  }
+
+  if (status === "stretch") {
+    return "15% stretch";
+  }
+
+  if (status === "over_budget") {
+    return "Over budget";
+  }
+
+  return "Not set";
+}
+
+
+function formatValueDate(value) {
+  if (!value) {
+    return "date unavailable";
+  }
+
+  const date = new Date(
+    `${value}T00:00:00`
+  );
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleDateString(
+    "en-GB"
+  );
+}
+
+
 function formatScore(
   value
 ) {
@@ -1192,6 +1449,22 @@ function formatScore(
   }
 
   return number.toFixed(1);
+}
+
+
+function formatInteger(
+  value
+) {
+  const number =
+    Number(value);
+
+  if (Number.isNaN(number)) {
+    return "-";
+  }
+
+  return Math.round(
+    number
+  ).toLocaleString();
 }
 
 

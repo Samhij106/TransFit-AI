@@ -2,8 +2,15 @@ import argparse
 import pandas as pd
 
 
-PLAYER_FILE = "data/processed/player_positions_2025.csv"
+PLAYER_FILE = (
+    "data/processed/"
+    "player_positions_big_five_2025.csv"
+)
 FORMATION_FILE = "data/processed/team_formation_profiles_2025.csv"
+REALISM_FILE = (
+    "data/processed/"
+    "player_realism_profiles_2025.csv"
+)
 
 
 # =========================================================
@@ -132,6 +139,30 @@ FORMATION_ROLES = {
         "CDM",
         "LM", "CM", "CM", "RM",
         "ST", "ST",
+    ],
+
+    "3-2-4-1": [
+        "GK",
+        "CB", "CB", "CB",
+        "CDM", "CDM",
+        "LM", "CAM", "CAM", "RM",
+        "ST",
+    ],
+
+    "3-3-1-3": [
+        "GK",
+        "CB", "CB", "CB",
+        "LM", "CM", "RM",
+        "CAM",
+        "LW", "ST", "RW",
+    ],
+
+    "3-3-3-1": [
+        "GK",
+        "CB", "CB", "CB",
+        "LWB", "CM", "RWB",
+        "LW", "CAM", "RW",
+        "ST",
     ],
 
     "5-3-2": [
@@ -283,6 +314,55 @@ POSITION_COMPATIBILITY = {
         "LM": 45,
         "RM": 45,
     },
+
+    # Side-neutral fallbacks used when the source data
+    # identifies a role family but not a left/right side.
+    "FB": {
+        "LB": 95,
+        "RB": 95,
+        "LWB": 88,
+        "RWB": 88,
+        "LM": 60,
+        "RM": 60,
+        "CB": 55,
+    },
+
+    "W": {
+        "LW": 95,
+        "RW": 95,
+        "LM": 88,
+        "RM": 88,
+        "CAM": 75,
+        "ST": 65,
+        "LWB": 45,
+        "RWB": 45,
+    },
+
+    # Defensive fallbacks for records whose source only
+    # provides a broad position.
+    "DEF": {
+        "CB": 85,
+        "LB": 72,
+        "RB": 72,
+        "LWB": 62,
+        "RWB": 62,
+        "CDM": 55,
+    },
+
+    "MID": {
+        "CM": 85,
+        "CDM": 75,
+        "CAM": 75,
+        "LM": 70,
+        "RM": 70,
+    },
+
+    "ATT": {
+        "ST": 85,
+        "LW": 75,
+        "RW": 75,
+        "CAM": 60,
+    },
 }
 
 
@@ -293,6 +373,68 @@ POSITION_COMPATIBILITY = {
 def load_data():
     players = pd.read_csv(PLAYER_FILE)
     formations = pd.read_csv(FORMATION_FILE)
+
+    try:
+        verified = pd.read_csv(
+            REALISM_FILE
+        )[[
+            "api_football_player_id",
+            "verified_primary_position",
+            "verified_secondary_position",
+            "verified_position_source",
+            "verified_position_confidence",
+            "verified_position_history",
+        ]].rename(columns={
+            "api_football_player_id": "player_id"
+        })
+    except FileNotFoundError:
+        verified = None
+
+    if verified is not None:
+        players = players.merge(
+            verified,
+            on="player_id",
+            how="left",
+        )
+        has_verified_position = players[
+            "verified_primary_position"
+        ].notna()
+
+        players.loc[
+            has_verified_position,
+            "primary_position",
+        ] = players.loc[
+            has_verified_position,
+            "verified_primary_position",
+        ]
+        players.loc[
+            has_verified_position,
+            "secondary_position",
+        ] = players.loc[
+            has_verified_position,
+            "verified_secondary_position",
+        ]
+        players.loc[
+            has_verified_position,
+            "position_source",
+        ] = players.loc[
+            has_verified_position,
+            "verified_position_source",
+        ]
+        players.loc[
+            has_verified_position,
+            "position_confidence",
+        ] = players.loc[
+            has_verified_position,
+            "verified_position_confidence",
+        ]
+        players.loc[
+            has_verified_position,
+            "position_history",
+        ] = players.loc[
+            has_verified_position,
+            "verified_position_history",
+        ].fillna("")
 
     return players, formations
 

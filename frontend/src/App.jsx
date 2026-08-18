@@ -1,33 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import CandidatesScreen from "./components/CandidatesScreen";
+import FootballIcon from "./components/FootballIcon";
 import PlayerAnalysisScreen from "./components/PlayerAnalysisScreen";
 
-const API_BASE = "http://127.0.0.1:8000";
-
-
-const PREMIER_LEAGUE_TEAMS = [
-  "Arsenal",
-  "Aston Villa",
-  "Bournemouth",
-  "Brentford",
-  "Brighton",
-  "Burnley",
-  "Chelsea",
-  "Crystal Palace",
-  "Everton",
-  "Fulham",
-  "Leeds",
-  "Liverpool",
-  "Manchester City",
-  "Manchester United",
-  "Newcastle",
-  "Nottingham Forest",
-  "Sunderland",
-  "Tottenham",
-  "West Ham",
-  "Wolves",
-];
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  "http://127.0.0.1:8000";
 
 
 /* =========================================================
@@ -283,6 +262,60 @@ const FORMATION_LAYOUTS = {
     node("st2", "ST", 62, 15),
   ],
 
+  "3-2-4-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 25, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 75, 76),
+
+    node("cdm1", "CDM", 38, 60),
+    node("cdm2", "CDM", 62, 60),
+
+    node("lm", "LM", 14, 39),
+    node("cam1", "CAM", 38, 35),
+    node("cam2", "CAM", 62, 35),
+    node("rm", "RM", 86, 39),
+
+    node("st", "ST", 50, 12),
+  ],
+
+  "3-3-1-3": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 25, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 75, 76),
+
+    node("lm", "LM", 22, 55),
+    node("cm", "CM", 50, 58),
+    node("rm", "RM", 78, 55),
+
+    node("cam", "CAM", 50, 38),
+
+    node("lw", "LW", 18, 17),
+    node("st", "ST", 50, 12),
+    node("rw", "RW", 82, 17),
+  ],
+
+  "3-3-3-1": [
+    node("gk", "GK", 50, 91, true),
+
+    node("cb1", "CB", 25, 76),
+    node("cb2", "CB", 50, 80),
+    node("cb3", "CB", 75, 76),
+
+    node("lwb", "LWB", 18, 56),
+    node("cm", "CM", 50, 59),
+    node("rwb", "RWB", 82, 56),
+
+    node("lw", "LW", 20, 34),
+    node("cam", "CAM", 50, 36),
+    node("rw", "RW", 80, 34),
+
+    node("st", "ST", 50, 12),
+  ],
+
   "3-5-2": [
     node("gk", "GK", 50, 91, true),
 
@@ -364,6 +397,40 @@ function node(id, role, x, y, locked = false) {
 }
 
 
+function ClubBadge({ club }) {
+  const [imageError, setImageError] =
+    useState(false);
+
+  return (
+    <div className="club-badge">
+      {!imageError && (
+        <img
+          src={`https://media.api-sports.io/football/teams/${club.team_id}.png`}
+          alt={`${club.name} crest`}
+          loading="lazy"
+          onError={() =>
+            setImageError(true)
+          }
+        />
+      )}
+
+      {imageError && (
+        <>
+          <FootballIcon
+            name="shield"
+            size={48}
+          />
+
+          <span>
+            {getClubInitials(club.name)}
+          </span>
+        </>
+      )}
+    </div>
+  );
+}
+
+
 /* =========================================================
    APP
 ========================================================= */
@@ -372,6 +439,10 @@ function App() {
   const [screen, setScreen] = useState("landing");
   const [score, setScore] = useState(0);
 
+  const [clubCatalog, setClubCatalog] = useState([]);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState("");
+  const [selectedLeague, setSelectedLeague] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [teamSearch, setTeamSearch] = useState("");
 
@@ -380,6 +451,7 @@ function App() {
   const [teamError, setTeamError] = useState("");
 
   const [selectedRole, setSelectedRole] = useState(null);
+  const [investmentBudget, setInvestmentBudget] = useState(50);
   const [candidates, setCandidates] = useState([]);
   const [candidatesLoading, setCandidatesLoading] = useState(false);
   const [candidatesError, setCandidatesError] = useState("");
@@ -401,7 +473,9 @@ function App() {
         selectedTeam
       )}&role=${encodeURIComponent(
         selectedRole
-      )}&limit=10&min_minutes=450&min_role_fit=70`
+      )}&budget_millions=${encodeURIComponent(
+        investmentBudget
+      )}&limit=10&min_minutes=450&min_role_fit=80`
     );
 
     const data = await response.json();
@@ -434,8 +508,12 @@ async function openPlayerAnalysis(player) {
     const response = await fetch(
       `${API_BASE}/api/analyze?player=${encodeURIComponent(
         player.name
+      )}&player_id=${encodeURIComponent(
+        player.player_id
       )}&team=${encodeURIComponent(
         selectedTeam
+      )}&budget_millions=${encodeURIComponent(
+        investmentBudget
       )}`
     );
 
@@ -457,6 +535,48 @@ async function openPlayerAnalysis(player) {
     setAnalysisLoading(false);
   }
 }
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadClubCatalog() {
+      setCatalogLoading(true);
+      setCatalogError("");
+
+      try {
+        const response = await fetch(
+          `${API_BASE}/api/clubs`
+        );
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+            "Unable to load club catalog."
+          );
+        }
+
+        if (active) {
+          setClubCatalog(data.leagues || []);
+        }
+      } catch (error) {
+        if (active) {
+          setCatalogError(error.message);
+        }
+      } finally {
+        if (active) {
+          setCatalogLoading(false);
+        }
+      }
+    }
+
+    loadClubCatalog();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
 
   useEffect(() => {
     if (screen !== "landing") {
@@ -482,49 +602,68 @@ async function openPlayerAnalysis(player) {
 
 
   const filteredTeams = useMemo(() => {
+    const clubs = selectedLeague?.clubs || [];
     const query = teamSearch
       .trim()
       .toLowerCase();
 
     if (!query) {
-      return PREMIER_LEAGUE_TEAMS;
+      return clubs;
     }
 
-    return PREMIER_LEAGUE_TEAMS.filter((team) =>
-      team
+    return clubs.filter((club) =>
+      club.name
         .toLowerCase()
         .includes(query)
     );
-  }, [teamSearch]);
+  }, [selectedLeague, teamSearch]);
 
 
   function openAnalysis() {
+    setScreen("league");
+  }
+
+
+  function selectLeague(league) {
+    setSelectedLeague(league);
+    setSelectedTeam(null);
+    setTeamSearch("");
+    setTeamProfile(null);
+    setSelectedRole(null);
     setScreen("club");
   }
 
 
   function goHome() {
     setScreen("landing");
+    setSelectedLeague(null);
     setSelectedTeam(null);
     setTeamSearch("");
     setTeamProfile(null);
     setSelectedRole(null);
+    setInvestmentBudget(50);
     setTeamError("");
   }
 
 
-  async function continueToPosition() {
-    if (!selectedTeam) {
+  async function continueToPosition(teamName = null) {
+    const targetTeam =
+      typeof teamName === "string"
+        ? teamName
+        : selectedTeam;
+
+    if (!targetTeam) {
       return;
     }
 
+    setSelectedTeam(targetTeam);
     setTeamLoading(true);
     setTeamError("");
 
     try {
       const response = await fetch(
         `${API_BASE}/api/team?team=${encodeURIComponent(
-          selectedTeam
+          targetTeam
         )}`
       );
 
@@ -563,15 +702,26 @@ async function openPlayerAnalysis(player) {
 
       {screen === "club" && (
         <ClubSelectionScreen
+          selectedLeague={selectedLeague}
           selectedTeam={selectedTeam}
           setSelectedTeam={setSelectedTeam}
           teamSearch={teamSearch}
           setTeamSearch={setTeamSearch}
           teams={filteredTeams}
-          onBack={goHome}
+          onBack={() => setScreen("league")}
           onContinue={continueToPosition}
           loading={teamLoading}
           error={teamError}
+        />
+      )}
+
+      {screen === "league" && (
+        <LeagueSelectionScreen
+          leagues={clubCatalog}
+          loading={catalogLoading}
+          error={catalogError}
+          onBack={goHome}
+          onSelect={selectLeague}
         />
       )}
 
@@ -580,6 +730,8 @@ async function openPlayerAnalysis(player) {
     teamProfile={teamProfile}
     selectedRole={selectedRole}
     setSelectedRole={setSelectedRole}
+    investmentBudget={investmentBudget}
+    setInvestmentBudget={setInvestmentBudget}
     onBack={() => setScreen("club")}
     onFindCandidates={findBestCandidates}
     loading={candidatesLoading}
@@ -593,8 +745,11 @@ async function openPlayerAnalysis(player) {
     role={selectedRole}
     formation={teamProfile.primary_formation}
     candidates={candidates}
+    budget={investmentBudget}
     onBack={() => setScreen("position")}
     onSelectPlayer={openPlayerAnalysis}
+    analysisLoading={analysisLoading}
+    analysisError={analysisError}
   />
 )}
 
@@ -868,7 +1023,7 @@ function AnalysisHeader({
       <div className="analysis-progress">
         <ProgressStep
           number="01"
-          label="Club"
+          label="League"
           state={step > 1 ? "complete" : "active"}
         />
 
@@ -882,7 +1037,7 @@ function AnalysisHeader({
 
         <ProgressStep
           number="02"
-          label="Position"
+          label="Club"
           state={
             step === 2
               ? "active"
@@ -902,9 +1057,29 @@ function AnalysisHeader({
 
         <ProgressStep
           number="03"
-          label="Candidates"
+          label="Position"
           state={
             step === 3
+              ? "active"
+              : step > 3
+                ? "complete"
+                : ""
+          }
+        />
+
+        <div
+          className={
+            step > 3
+              ? "progress-line complete"
+              : "progress-line"
+          }
+        />
+
+        <ProgressStep
+          number="04"
+          label="Candidates"
+          state={
+            step === 4
               ? "active"
               : ""
           }
@@ -939,10 +1114,125 @@ function ProgressStep({
 
 
 /* =========================================================
+   LEAGUE SELECTION
+========================================================= */
+
+function LeagueSelectionScreen({
+  leagues,
+  loading,
+  error,
+  onBack,
+  onSelect,
+}) {
+  return (
+    <div className="club-screen league-screen">
+      <AnalysisHeader
+        step={1}
+        onBack={onBack}
+      />
+
+      <main className="club-selection league-selection">
+        <section className="club-heading">
+          <div className="heading-sport-mark">
+            <FootballIcon
+              name="trophy"
+              size={42}
+            />
+          </div>
+
+          <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            STEP 01 — TARGET LEAGUE
+          </div>
+
+          <h2>
+            Select the
+            <br />
+            <span>target league.</span>
+          </h2>
+
+          <p>
+            Choose where your target club competes.
+            Candidate scouting will still cover all five
+            major European leagues.
+          </p>
+        </section>
+
+        {loading && (
+          <div className="league-loading">
+            Loading league and club data...
+          </div>
+        )}
+
+        {error && (
+          <div className="api-error">
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <section className="league-grid">
+            {leagues.map((league) => (
+              <button
+                key={league.league_id}
+                className="league-card"
+                onClick={() => onSelect(league)}
+              >
+                <div className="club-card-glow" />
+
+                <div className="league-card-watermark">
+                  <FootballIcon
+                    name="ball"
+                    size={128}
+                  />
+                </div>
+
+                <div className="league-card-top">
+                  <div className="league-code">
+                    {getLeagueCode(league.name)}
+                  </div>
+
+                  <div className="league-sport-icon">
+                    <FootballIcon
+                      name="trophy"
+                      size={21}
+                    />
+                  </div>
+                </div>
+
+                <div className="league-card-copy">
+                  <span>
+                    {league.country}
+                  </span>
+
+                  <strong>
+                    {league.name}
+                  </strong>
+
+                  <small>
+                    {league.club_count} CLUBS
+                  </small>
+                </div>
+
+                <div className="club-select-indicator">
+                  →
+                </div>
+              </button>
+            ))}
+          </section>
+        )}
+      </main>
+    </div>
+  );
+}
+
+
+/* =========================================================
    CLUB SELECTION
 ========================================================= */
 
 function ClubSelectionScreen({
+  selectedLeague,
   selectedTeam,
   setSelectedTeam,
   teamSearch,
@@ -953,18 +1243,38 @@ function ClubSelectionScreen({
   loading,
   error,
 }) {
+  function handleClubClick(clubName) {
+    if (loading) {
+      return;
+    }
+
+    if (selectedTeam === clubName) {
+      onContinue(clubName);
+      return;
+    }
+
+    setSelectedTeam(clubName);
+  }
+
   return (
     <div className="club-screen">
       <AnalysisHeader
-        step={1}
+        step={2}
         onBack={onBack}
       />
 
       <main className="club-selection">
         <section className="club-heading">
+          <div className="heading-sport-mark">
+            <FootballIcon
+              name="shield"
+              size={42}
+            />
+          </div>
+
           <div className="eyebrow">
             <span className="eyebrow-dot" />
-            STEP 01 — CLUB PROFILE
+            STEP 02 — CLUB PROFILE
           </div>
 
           <h2>
@@ -975,15 +1285,19 @@ function ClubSelectionScreen({
 
           <p>
             Choose the club you want to strengthen.
-            TransFit AI will analyze its tactical identity,
-            formation structure and squad needs.
+            Select it once, then click the same club again
+            to continue. TransFit AI will analyze its
+            tactical identity and squad needs.
           </p>
         </section>
 
         <div className="club-toolbar">
           <div className="club-search">
             <span className="search-icon">
-              ⌕
+              <FootballIcon
+                name="search"
+                size={20}
+              />
             </span>
 
             <input
@@ -994,7 +1308,9 @@ function ClubSelectionScreen({
                   event.target.value
                 )
               }
-              placeholder="Search Premier League club..."
+              placeholder={`Search ${
+                selectedLeague?.name || "league"
+              } club...`}
             />
 
             <span className="club-count">
@@ -1010,40 +1326,55 @@ function ClubSelectionScreen({
         </div>
 
         <section className="club-grid">
-          {teams.map((team) => {
+          {teams.map((club) => {
             const selected =
-              selectedTeam === team;
+              selectedTeam === club.name;
 
             return (
               <button
-                key={team}
+                key={club.team_id}
                 className={
                   selected
                     ? "club-card selected"
                     : "club-card"
                 }
+                aria-pressed={selected}
+                aria-label={
+                  selected
+                    ? `Continue with ${club.name}`
+                    : `Select ${club.name}`
+                }
+                disabled={loading}
                 onClick={() =>
-                  setSelectedTeam(team)
+                  handleClubClick(club.name)
                 }
               >
                 <div className="club-card-glow" />
 
-                <div className="club-badge">
-                  {getClubInitials(team)}
-                </div>
+                <ClubBadge club={club} />
 
                 <div className="club-info">
                   <span className="club-league">
-                    PREMIER LEAGUE
+                    {selectedLeague?.name}
                   </span>
 
                   <strong>
-                    {team}
+                    {club.name}
                   </strong>
+
+                  <small className="club-action-copy">
+                    {selected
+                      ? "SELECTED · CLICK AGAIN TO CONTINUE"
+                      : "SELECT CLUB"}
+                  </small>
                 </div>
 
                 <div className="club-select-indicator">
-                  {selected ? "✓" : "→"}
+                  {loading && selected
+                    ? "…"
+                    : selected
+                      ? "→"
+                      : "+"}
                 </div>
               </button>
             );
@@ -1070,6 +1401,10 @@ function ClubSelectionScreen({
             <strong>
               {selectedTeam || "Select a club"}
             </strong>
+
+            <small>
+              Click the selected card again to continue
+            </small>
           </div>
 
           <button
@@ -1078,7 +1413,7 @@ function ClubSelectionScreen({
               !selectedTeam ||
               loading
             }
-            onClick={onContinue}
+            onClick={() => onContinue()}
           >
             {loading
               ? "Loading Club..."
@@ -1101,6 +1436,8 @@ function PositionSelectionScreen({
   teamProfile,
   selectedRole,
   setSelectedRole,
+  investmentBudget,
+  setInvestmentBudget,
   onBack,
   onFindCandidates,
   loading,
@@ -1116,7 +1453,7 @@ function PositionSelectionScreen({
   return (
     <div className="position-screen">
       <AnalysisHeader
-        step={2}
+        step={3}
         onBack={onBack}
       />
 
@@ -1125,7 +1462,7 @@ function PositionSelectionScreen({
           <div>
             <div className="eyebrow">
               <span className="eyebrow-dot" />
-              STEP 02 — POSITION TARGETING
+              STEP 03 — POSITION & INVESTMENT
             </div>
 
             <h2>
@@ -1142,6 +1479,15 @@ function PositionSelectionScreen({
           </div>
 
           <div className="team-formation-card">
+            <div className="formation-card-club-logo">
+              <ClubBadge
+                club={{
+                  team_id: teamProfile.team_id,
+                  name: teamProfile.team,
+                }}
+              />
+            </div>
+
             <span className="formation-card-label">
               PRIMARY SYSTEM
             </span>
@@ -1241,7 +1587,10 @@ function PositionSelectionScreen({
             {!selectedRole ? (
               <div className="role-placeholder">
                 <div className="role-placeholder-icon">
-                  +
+                  <FootballIcon
+                    name="ball"
+                    size={38}
+                  />
                 </div>
 
                 <h3>
@@ -1256,7 +1605,14 @@ function PositionSelectionScreen({
             ) : (
               <div className="selected-role-details">
                 <div className="selected-role-code">
-                  {selectedRole}
+                  <FootballIcon
+                    name="target"
+                    size={21}
+                  />
+
+                  <strong>
+                    {selectedRole}
+                  </strong>
                 </div>
 
                 <span className="selected-role-caption">
@@ -1314,13 +1670,96 @@ function PositionSelectionScreen({
                     </strong>
                   </div>
                 </div>
+
+                <div className="budget-control">
+                  <div className="budget-control-header">
+                    <div>
+                      <span className="budget-title">
+                        <FootballIcon
+                          name="wallet"
+                          size={14}
+                        />
+
+                        POSITION INVESTMENT
+                      </span>
+
+                      <small>
+                        Transfermarkt market-value benchmark
+                      </small>
+                    </div>
+
+                    <label>
+                      €
+
+                      <input
+                        type="number"
+                        min="1"
+                        max="250"
+                        step="1"
+                        value={investmentBudget}
+                        onChange={(event) => {
+                          const value = Number(
+                            event.target.value
+                          );
+
+                          setInvestmentBudget(
+                            Math.max(
+                              1,
+                              Math.min(250, value || 1)
+                            )
+                          );
+                        }}
+                      />
+
+                      M
+                    </label>
+                  </div>
+
+                  <input
+                    className="budget-slider"
+                    type="range"
+                    min="1"
+                    max="250"
+                    step="1"
+                    value={investmentBudget}
+                    onChange={(event) =>
+                      setInvestmentBudget(
+                        Number(event.target.value)
+                      )
+                    }
+                  />
+
+                  <div className="budget-scale">
+                    <span>€1M</span>
+
+                    <strong>
+                      Stretch limit €{
+                        (
+                          investmentBudget * 1.15
+                        ).toFixed(1)
+                      }M
+                    </strong>
+
+                    <span>€250M</span>
+                  </div>
+
+                  <p>
+                    Candidates may exceed the selected
+                    budget by up to 15%. Sporting fit is
+                    scored independently from price.
+                  </p>
+                </div>
               </div>
             )}
 
             <div className="position-side-footer">
               <button
   className="continue-button position-continue"
-  disabled={!selectedRole || loading}
+  disabled={
+    !selectedRole ||
+    !investmentBudget ||
+    loading
+  }
   onClick={onFindCandidates}
 >
   {loading
@@ -1337,7 +1776,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by Transfer Fit V5
+                Powered by Transfer Fit V6
               </small>
             </div>
           </aside>
@@ -1441,6 +1880,20 @@ function getClubInitials(team) {
     .map((word) => word[0])
     .join("")
     .toUpperCase();
+}
+
+
+function getLeagueCode(leagueName) {
+  const codes = {
+    "Premier League": "PL",
+    "La Liga": "LL",
+    "Serie A": "SA",
+    Bundesliga: "BL",
+    "Ligue 1": "L1",
+  };
+
+  return codes[leagueName] ||
+    getClubInitials(leagueName);
 }
 
 

@@ -4,6 +4,10 @@ import pandas as pd
 
 RAW_PLAYER_FILE = "data/processed/player_profiles_season_2025.csv"
 TACTICAL_PLAYER_FILE = "data/processed/player_tactical_profiles_2025.csv"
+REALISM_PLAYER_FILE = (
+    "data/processed/"
+    "player_realism_profiles_2025.csv"
+)
 
 FULL_RELIABILITY_MINUTES = 900
 
@@ -55,30 +59,33 @@ PERFORMANCE_WEIGHTS = {
 
     "AM": {
         "rating": 0.15,
-        "key_passes_per90": 0.25,
+        "key_passes_per90": 0.23,
         "assists_per90": 0.15,
-        "goals_per90": 0.10,
-        "shots_on_target_per90": 0.10,
-        "successful_dribbles_per90": 0.15,
-        "dribble_success_rate": 0.10,
+        "goals": 0.15,
+        "goals_per90": 0.05,
+        "shots_on_target_per90": 0.07,
+        "successful_dribbles_per90": 0.12,
+        "dribble_success_rate": 0.08,
     },
 
     "W": {
         "rating": 0.15,
-        "goals_per90": 0.15,
+        "goals": 0.20,
+        "goals_per90": 0.08,
         "assists_per90": 0.15,
-        "shots_on_target_per90": 0.15,
+        "shots_on_target_per90": 0.12,
         "key_passes_per90": 0.15,
-        "successful_dribbles_per90": 0.15,
-        "dribble_success_rate": 0.10,
+        "successful_dribbles_per90": 0.10,
+        "dribble_success_rate": 0.05,
     },
 
     "FW": {
         "rating": 0.15,
-        "goals_per90": 0.25,
-        "shots_on_target_per90": 0.20,
-        "shot_accuracy": 0.15,
-        "shots_per90": 0.10,
+        "goals": 0.25,
+        "goals_per90": 0.10,
+        "shots_on_target_per90": 0.15,
+        "shot_accuracy": 0.12,
+        "shots_per90": 0.08,
         "assists_per90": 0.10,
         "key_passes_per90": 0.05,
     },
@@ -104,6 +111,35 @@ def load_data():
         on="player_id",
         how="left",
     )
+
+    try:
+        verified = pd.read_csv(
+            REALISM_PLAYER_FILE
+        )[[
+            "api_football_player_id",
+            "verified_position_group",
+        ]].rename(columns={
+            "api_football_player_id": "player_id"
+        })
+    except FileNotFoundError:
+        verified = None
+
+    if verified is not None:
+        df = df.merge(
+            verified,
+            on="player_id",
+            how="left",
+        )
+        has_verified_group = df[
+            "verified_position_group"
+        ].notna()
+        df.loc[
+            has_verified_group,
+            "position_group",
+        ] = df.loc[
+            has_verified_group,
+            "verified_position_group",
+        ]
 
     return df
 

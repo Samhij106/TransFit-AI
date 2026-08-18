@@ -30,16 +30,23 @@ from squad_need_engine import (
     squad_need_label,
 )
 
+from realistic_data_engine import (
+    blend_performance_score,
+    realism_scores,
+)
+
 
 # =========================================================
-# TRANSFER FIT V5 WEIGHTS
+# TRANSFER FIT V6 WEIGHTS
 # =========================================================
 
-TACTICAL_WEIGHT = 0.35
-POSITION_WEIGHT = 0.20
-PERFORMANCE_WEIGHT = 0.20
-POTENTIAL_WEIGHT = 0.10
-SQUAD_NEED_WEIGHT = 0.15
+TACTICAL_WEIGHT = 0.20
+POSITION_WEIGHT = 0.15
+PERFORMANCE_WEIGHT = 0.25
+PROVEN_WEIGHT = 0.20
+AVAILABILITY_WEIGHT = 0.10
+POTENTIAL_WEIGHT = 0.05
+SQUAD_NEED_WEIGHT = 0.05
 
 
 # =========================================================
@@ -91,7 +98,7 @@ def transfer_fit_label(score):
 
 
 # =========================================================
-# CALCULATE TRANSFER FIT V5
+# CALCULATE TRANSFER FIT V6
 # =========================================================
 
 def calculate_transfer_fit_v5(
@@ -102,6 +109,7 @@ def calculate_transfer_fit_v5(
     performance_player,
     potential_player,
     squad,
+    realism_player=None,
 ):
     # -----------------------------------------------------
     # 1. Tactical Fit
@@ -135,11 +143,27 @@ def calculate_transfer_fit_v5(
         )
     )
 
-    performance_score = (
+    league_performance_score = (
         performance_result[
             "performance_score"
         ]
     )
+
+    realism = realism_scores(
+        realism_player,
+        league_performance_score,
+        performance_player["minutes"],
+    )
+    performance_score = blend_performance_score(
+        league_performance_score,
+        realism["production_score"],
+    )
+    proven_score = realism[
+        "proven_score"
+    ]
+    availability_score = realism[
+        "availability_score"
+    ]
 
     # -----------------------------------------------------
     # 4. Potential
@@ -195,6 +219,16 @@ def calculate_transfer_fit_v5(
         * PERFORMANCE_WEIGHT
     )
 
+    proven_contribution = (
+        proven_score
+        * PROVEN_WEIGHT
+    )
+
+    availability_contribution = (
+        availability_score
+        * AVAILABILITY_WEIGHT
+    )
+
     potential_contribution = (
         potential_score
         * POTENTIAL_WEIGHT
@@ -209,6 +243,8 @@ def calculate_transfer_fit_v5(
         tactical_contribution
         + position_contribution
         + performance_contribution
+        + proven_contribution
+        + availability_contribution
         + potential_contribution
         + squad_need_contribution
     )
@@ -234,6 +270,28 @@ def calculate_transfer_fit_v5(
             1,
         ),
 
+        "league_performance_score": round(
+            league_performance_score,
+            1,
+        ),
+
+        "production_score": round(
+            realism["production_score"],
+            1,
+        ),
+
+        "proven_score": round(
+            proven_score,
+            1,
+        ),
+
+        "availability_score": round(
+            availability_score,
+            1,
+        ),
+
+        "realism_details": realism,
+
         "potential_score": round(
             potential_score,
             1,
@@ -256,6 +314,16 @@ def calculate_transfer_fit_v5(
 
         "performance_contribution": round(
             performance_contribution,
+            2,
+        ),
+
+        "proven_contribution": round(
+            proven_contribution,
+            2,
+        ),
+
+        "availability_contribution": round(
+            availability_contribution,
             2,
         ),
 
@@ -314,7 +382,7 @@ def print_result(
     )
 
     print(
-        "TRANSFIT AI - TRANSFER FIT V5"
+        "TRANSFIT AI - TRANSFER FIT V6"
     )
 
     print(
@@ -399,35 +467,49 @@ def print_result(
     print(
         f"Tactical Fit: "
         f"{result['tactical_score']} / 100 "
-        f"x 35% = "
+        f"x 20% = "
         f"{result['tactical_contribution']}"
     )
 
     print(
         f"Position Fit: "
         f"{result['position_score']} / 100 "
-        f"x 20% = "
+        f"x 15% = "
         f"{result['position_contribution']}"
     )
 
     print(
         f"Performance:  "
         f"{result['performance_score']} / 100 "
-        f"x 20% = "
+        f"x 25% = "
         f"{result['performance_contribution']}"
+    )
+
+    print(
+        f"Proven Level: "
+        f"{result['proven_score']} / 100 "
+        f"x 20% = "
+        f"{result['proven_contribution']}"
+    )
+
+    print(
+        f"Availability: "
+        f"{result['availability_score']} / 100 "
+        f"x 10% = "
+        f"{result['availability_contribution']}"
     )
 
     print(
         f"Potential:    "
         f"{result['potential_score']} / 100 "
-        f"x 10% = "
+        f"x 5% = "
         f"{result['potential_contribution']}"
     )
 
     print(
         f"Squad Need:   "
         f"{result['squad_need_score']} / 100 "
-        f"x 15% = "
+        f"x 5% = "
         f"{result['squad_need_contribution']}"
     )
 
@@ -697,7 +779,7 @@ def print_result(
 def main():
     parser = argparse.ArgumentParser(
         description=(
-            "TransFit AI Transfer Fit V5"
+            "TransFit AI Transfer Fit V6"
         )
     )
 

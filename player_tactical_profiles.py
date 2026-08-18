@@ -1,9 +1,20 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
+import sys
+
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(
+        encoding="utf-8"
+    )
 
 
 INPUT_FILE = "data/processed/player_profiles_season_2025.csv"
 OUTPUT_FILE = "data/processed/player_tactical_profiles_2025.csv"
+REALISM_FILE = Path(
+    "data/processed/player_realism_profiles_2025.csv"
+)
 
 
 # ---------------------------------------------------------
@@ -11,6 +22,38 @@ OUTPUT_FILE = "data/processed/player_tactical_profiles_2025.csv"
 # ---------------------------------------------------------
 
 df = pd.read_csv(INPUT_FILE)
+
+if REALISM_FILE.exists():
+    verified = pd.read_csv(
+        REALISM_FILE
+    )[[
+        "api_football_player_id",
+        "verified_primary_position",
+    ]].rename(columns={
+        "api_football_player_id": "player_id"
+    })
+    df = df.merge(
+        verified,
+        on="player_id",
+        how="left",
+    )
+    has_verified_position = df[
+        "verified_primary_position"
+    ].notna()
+    df.loc[
+        has_verified_position,
+        "primary_position",
+    ] = df.loc[
+        has_verified_position,
+        "verified_primary_position",
+    ]
+    df.loc[
+        has_verified_position,
+        "detailed_position",
+    ] = df.loc[
+        has_verified_position,
+        "verified_primary_position",
+    ]
 
 
 # ---------------------------------------------------------
@@ -22,6 +65,23 @@ def get_position_group(row):
     detailed = str(row.get("detailed_position", "")).upper().strip()
 
     combined = f"{pos} {detailed}"
+
+    # Side-neutral roles are intentional fallbacks for
+    # leagues where the raw feed has no lineup grid.
+    if pos == "FB" or detailed == "FB":
+        return "FB"
+
+    if pos == "W" or detailed == "W":
+        return "W"
+
+    if pos == "DEF" or detailed == "DEF":
+        return "CB"
+
+    if pos == "MID" or detailed == "MID":
+        return "CM"
+
+    if pos == "ATT" or detailed == "ATT":
+        return "FW"
 
     # Goalkeeper
     if any(x in combined for x in ["GK", "GOALKEEPER"]):
