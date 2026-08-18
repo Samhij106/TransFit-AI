@@ -133,7 +133,7 @@ function PlayerAnalysisScreen({
               <div className="analysis-score-copy">
 
                 <span>
-                  TRANSFER FIT V6
+                  TRANSFIT SCORE
                 </span>
 
                 <h2>
@@ -145,7 +145,8 @@ function PlayerAnalysisScreen({
                   compatibility, positional suitability,
                   current all-competition production,
                   three-season evidence, availability
-                  and squad context.
+                  and squad context. This is a normalized
+                  fit percentage, not transfer probability.
                 </p>
 
               </div>
@@ -268,7 +269,7 @@ function PlayerAnalysisScreen({
           />
 
           <OverviewItem
-            label="FINAL SCORE"
+            label="TRANSFIT SCORE"
             value={formatScore(scores.final)}
             highlight
           />
@@ -372,7 +373,7 @@ function PlayerAnalysisScreen({
           <div className="verdict-score">
 
             <span>
-              FINAL FIT
+              TRANSFIT SCORE
             </span>
 
             <strong>
@@ -380,7 +381,7 @@ function PlayerAnalysisScreen({
             </strong>
 
             <small>
-              /100
+              % FIT
             </small>
 
           </div>
@@ -541,7 +542,7 @@ function TransferScore({
         </strong>
 
         <span>
-          /100
+          % FIT
         </span>
 
       </div>

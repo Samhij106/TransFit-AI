@@ -1,3 +1,7 @@
+import unicodedata
+
+import pandas as pd
+
 from transfer_fit_engine import (
     load_data as load_tactical_data,
     find_team as find_tactical_team,
@@ -34,6 +38,7 @@ from league_config import LEAGUES
 from transfer_value_engine import (
     BUDGET_TOLERANCE,
     assess_budget,
+    load_market_values,
     resolve_transfer_value,
 )
 
@@ -41,6 +46,278 @@ from realistic_data_engine import (
     find_realism_by_id,
     load_realism_profiles,
 )
+
+
+_PLAYER_SEARCH_CATALOG = None
+
+
+def normalize_search_text(value):
+    normalized = unicodedata.normalize(
+        "NFKD",
+        str(value or ""),
+    )
+    normalized = "".join(
+        character
+        for character in normalized
+        if not unicodedata.combining(
+            character
+        )
+    )
+
+    return " ".join(
+        normalized.lower().split()
+    )
+
+
+def load_player_search_catalog():
+    global _PLAYER_SEARCH_CATALOG
+
+    if _PLAYER_SEARCH_CATALOG is not None:
+        return _PLAYER_SEARCH_CATALOG
+
+    performance_players = (
+        prepare_performance_data()
+    )
+    position_players, _ = load_position_data()
+
+    positions = position_players[[
+        "player_id",
+        "primary_position",
+        "secondary_position",
+        "position_source",
+    ]].drop_duplicates(
+        subset=["player_id"],
+        keep="first",
+    )
+
+    players = performance_players.drop(
+        columns=[
+            "primary_position",
+            "secondary_position",
+            "position_source",
+        ],
+        errors="ignore",
+    ).merge(
+        positions,
+        on="player_id",
+        how="left",
+    )
+    players = players[
+        players["position_group"] != "GK"
+    ].copy()
+    players = players.drop_duplicates(
+        subset=["player_id"],
+        keep="first",
+    )
+
+    market_values = load_market_values()
+    players["market_value_m_eur"] = players[
+        "player_id"
+    ].map(
+        lambda player_id: market_values.get(
+            int(player_id),
+            {},
+        ).get("market_value_m_eur")
+    )
+    players["value_source"] = players[
+        "player_id"
+    ].map(
+        lambda player_id: market_values.get(
+            int(player_id),
+            {},
+        ).get("value_source")
+    )
+    players["value_updated_at"] = players[
+        "player_id"
+    ].map(
+        lambda player_id: market_values.get(
+            int(player_id),
+            {},
+        ).get("value_updated_at")
+    )
+    players["normalized_name"] = players[
+        "name"
+    ].map(normalize_search_text)
+    players["normalized_team"] = players[
+        "team"
+    ].map(normalize_search_text)
+
+    _PLAYER_SEARCH_CATALOG = players
+    return _PLAYER_SEARCH_CATALOG
+
+
+def search_players(
+    query="",
+    limit=12,
+    target_team=None,
+    position=None,
+):
+    players = load_player_search_catalog().copy()
+    normalized_query = normalize_search_text(
+        query
+    )
+    normalized_target = normalize_search_text(
+        target_team
+    )
+
+    if normalized_target:
+        players = players[
+            ~players["normalized_team"].map(
+                lambda teams: normalized_target
+                in {
+                    normalize_search_text(team)
+                    for team in str(teams).split(" | ")
+                }
+            )
+        ].copy()
+
+    if position:
+        players = players[
+            players["primary_position"]
+            .astype(str)
+            .str.upper()
+            == str(position).upper()
+        ].copy()
+
+    if normalized_query:
+        name_match = players[
+            "normalized_name"
+        ].str.contains(
+            normalized_query,
+            regex=False,
+        )
+        team_match = players[
+            "normalized_team"
+        ].str.contains(
+            normalized_query,
+            regex=False,
+        )
+        players = players[
+            name_match | team_match
+        ].copy()
+
+        def match_rank(row):
+            name = row["normalized_name"]
+            team = row["normalized_team"]
+
+            if name == normalized_query:
+                return 0
+            if name.startswith(
+                normalized_query
+            ):
+                return 1
+            if any(
+                part.startswith(
+                    normalized_query
+                )
+                for part in name.split()
+            ):
+                return 2
+            if normalized_query in name:
+                return 3
+            if team.startswith(
+                normalized_query
+            ):
+                return 4
+            return 5
+
+        players["match_rank"] = players.apply(
+            match_rank,
+            axis=1,
+        )
+    else:
+        players["match_rank"] = 6
+
+    players["market_value_sort"] = (
+        pd.to_numeric(
+            players["market_value_m_eur"],
+            errors="coerce",
+        ).fillna(-1)
+    )
+    players = players.sort_values(
+        [
+            "match_rank",
+            "market_value_sort",
+            "minutes",
+            "name",
+        ],
+        ascending=[True, False, False, True],
+    ).head(
+        max(1, min(int(limit), 30))
+    )
+
+    results = []
+
+    for _, player in players.iterrows():
+        def optional_value(value):
+            if value is None or pd.isna(value):
+                return None
+
+            return value
+
+        secondary_position = player.get(
+            "secondary_position"
+        )
+        market_value = player.get(
+            "market_value_m_eur"
+        )
+        age = player.get("age")
+
+        results.append({
+            "player_id": int(
+                player["player_id"]
+            ),
+            "name": player["name"],
+            "current_team": player["team"],
+            "league": optional_value(
+                player.get("league")
+            ),
+            "age": (
+                None
+                if pd.isna(age)
+                else float(age)
+            ),
+            "nationality": optional_value(
+                player.get("nationality")
+            ),
+            "photo": (
+                None
+                if pd.isna(player.get("photo"))
+                else player.get("photo")
+            ),
+            "primary_position": optional_value(
+                player.get("primary_position")
+            ),
+            "secondary_position": (
+                None
+                if pd.isna(secondary_position)
+                else secondary_position
+            ),
+            "position_source": optional_value(
+                player.get("position_source")
+            ),
+            "minutes": int(float(
+                player.get("minutes", 0)
+            )),
+            "market_value_m_eur": (
+                None
+                if pd.isna(market_value)
+                else float(market_value)
+            ),
+            "value_source": optional_value(
+                player.get("value_source")
+            ),
+            "value_updated_at": optional_value(
+                player.get("value_updated_at")
+            ),
+        })
+
+    return {
+        "query": query,
+        "target_team": target_team,
+        "count": len(results),
+        "players": results,
+    }
 
 
 # =========================================================

@@ -7,6 +7,13 @@ target club. Transfer Fit V6 separates affordability from sporting quality
 and combines verified position, tactical fit, current all-competition output,
 three-season evidence, availability, limited age potential, and squad need.
 
+The product has two complementary workflows:
+
+1. Analyze a specific player: club selection, verified player search, optional
+   deal budget, and a player-to-club TransFit Score.
+2. Find transfer candidates: club, natural position, and investment budget,
+   followed by a ranked shortlist.
+
 ## Current scope
 
 - Target clubs: all 96 official clubs in the Big Five leagues.
@@ -158,6 +165,7 @@ The frontend uses `http://127.0.0.1:8000` by default. Set
 
 - `GET /api/health`
 - `GET /api/clubs`
+- `GET /api/players?q=joao&team=AC%20Milan&limit=12`
 - `GET /api/team?team=Arsenal`
 - `GET /api/rankings?team=Barcelona&role=ST&budget_millions=50`
 - `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&budget_millions=50`

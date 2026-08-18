@@ -431,6 +431,40 @@ function ClubBadge({ club }) {
 }
 
 
+function SearchPlayerImage({
+  player,
+  large = false,
+}) {
+  const [imageError, setImageError] =
+    useState(false);
+
+  const className = large
+    ? "search-player-image large"
+    : "search-player-image";
+
+  if (!player.photo || imageError) {
+    return (
+      <div className={`${className} fallback`}>
+        {getPlayerInitials(player.name)}
+      </div>
+    );
+  }
+
+  return (
+    <div className={className}>
+      <img
+        src={player.photo}
+        alt={player.name}
+        loading="lazy"
+        onError={() =>
+          setImageError(true)
+        }
+      />
+    </div>
+  );
+}
+
+
 /* =========================================================
    APP
 ========================================================= */
@@ -438,6 +472,8 @@ function ClubBadge({ club }) {
 function App() {
   const [screen, setScreen] = useState("landing");
   const [score, setScore] = useState(0);
+  const [analysisMode, setAnalysisMode] =
+    useState("player");
 
   const [clubCatalog, setClubCatalog] = useState([]);
   const [catalogLoading, setCatalogLoading] = useState(true);
@@ -458,6 +494,19 @@ function App() {
   const [playerAnalysis, setPlayerAnalysis] = useState(null);
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
+  const [analysisBackScreen, setAnalysisBackScreen] =
+    useState("candidates");
+
+  const [playerQuery, setPlayerQuery] = useState("");
+  const [playerResults, setPlayerResults] = useState([]);
+  const [playerSearchLoading, setPlayerSearchLoading] =
+    useState(false);
+  const [playerSearchError, setPlayerSearchError] =
+    useState("");
+  const [selectedPlayer, setSelectedPlayer] =
+    useState(null);
+  const [specificPlayerBudget, setSpecificPlayerBudget] =
+    useState("");
 
   async function findBestCandidates() {
   if (!selectedTeam || !selectedRole) {
@@ -496,15 +545,35 @@ function App() {
   }
 }
 
-async function openPlayerAnalysis(player) {
+async function openPlayerAnalysis(
+  player,
+  options = {}
+) {
   if (!player || !selectedTeam) {
     return;
   }
 
+  const requestedBudget =
+    Object.hasOwn(options, "budget")
+      ? options.budget
+      : investmentBudget;
+
+  setAnalysisBackScreen(
+    options.backScreen || "candidates"
+  );
   setAnalysisLoading(true);
   setAnalysisError("");
 
   try {
+    const budgetParameter =
+      requestedBudget !== null &&
+      requestedBudget !== "" &&
+      Number(requestedBudget) > 0
+        ? `&budget_millions=${encodeURIComponent(
+            Number(requestedBudget)
+          )}`
+        : "";
+
     const response = await fetch(
       `${API_BASE}/api/analyze?player=${encodeURIComponent(
         player.name
@@ -512,9 +581,7 @@ async function openPlayerAnalysis(player) {
         player.player_id
       )}&team=${encodeURIComponent(
         selectedTeam
-      )}&budget_millions=${encodeURIComponent(
-        investmentBudget
-      )}`
+      )}${budgetParameter}`
     );
 
     const data = await response.json();
@@ -579,6 +646,58 @@ async function openPlayerAnalysis(player) {
 
 
   useEffect(() => {
+    if (
+      screen !== "player-search" ||
+      !selectedTeam
+    ) {
+      return undefined;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(async () => {
+      setPlayerSearchLoading(true);
+      setPlayerSearchError("");
+
+      try {
+        const response = await fetch(
+          `${API_BASE}/api/players?q=${encodeURIComponent(
+            playerQuery.trim()
+          )}&team=${encodeURIComponent(
+            selectedTeam
+          )}&limit=12`,
+          {
+            signal: controller.signal,
+          }
+        );
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+            "Unable to search player profiles."
+          );
+        }
+
+        setPlayerResults(data.players || []);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setPlayerSearchError(error.message);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setPlayerSearchLoading(false);
+        }
+      }
+    }, 260);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [screen, playerQuery, selectedTeam]);
+
+
+  useEffect(() => {
     if (screen !== "landing") {
       return;
     }
@@ -619,7 +738,12 @@ async function openPlayerAnalysis(player) {
   }, [selectedLeague, teamSearch]);
 
 
-  function openAnalysis() {
+  function openAnalysis(mode) {
+    setAnalysisMode(mode);
+    setSelectedPlayer(null);
+    setPlayerQuery("");
+    setSpecificPlayerBudget("");
+    setAnalysisError("");
     setScreen("league");
   }
 
@@ -642,6 +766,12 @@ async function openPlayerAnalysis(player) {
     setTeamProfile(null);
     setSelectedRole(null);
     setInvestmentBudget(50);
+    setAnalysisMode("player");
+    setSelectedPlayer(null);
+    setPlayerQuery("");
+    setPlayerResults([]);
+    setSpecificPlayerBudget("");
+    setPlayerSearchError("");
     setTeamError("");
   }
 
@@ -678,7 +808,14 @@ async function openPlayerAnalysis(player) {
 
       setTeamProfile(data);
       setSelectedRole(null);
-      setScreen("position");
+      setSelectedPlayer(null);
+      setPlayerQuery("");
+      setSpecificPlayerBudget("");
+      setScreen(
+        analysisMode === "player"
+          ? "player-search"
+          : "position"
+      );
     } catch (error) {
       setTeamError(error.message);
     } finally {
@@ -696,7 +833,12 @@ async function openPlayerAnalysis(player) {
       {screen === "landing" && (
         <LandingScreen
           score={score}
-          onStart={openAnalysis}
+          onAnalyzePlayer={() =>
+            openAnalysis("player")
+          }
+          onFindCandidates={() =>
+            openAnalysis("candidates")
+          }
         />
       )}
 
@@ -710,6 +852,7 @@ async function openPlayerAnalysis(player) {
           teams={filteredTeams}
           onBack={() => setScreen("league")}
           onContinue={continueToPosition}
+          analysisMode={analysisMode}
           loading={teamLoading}
           error={teamError}
         />
@@ -722,6 +865,36 @@ async function openPlayerAnalysis(player) {
           error={catalogError}
           onBack={goHome}
           onSelect={selectLeague}
+          analysisMode={analysisMode}
+        />
+      )}
+
+      {screen === "player-search" && teamProfile && (
+        <PlayerSearchScreen
+          teamProfile={teamProfile}
+          query={playerQuery}
+          setQuery={(value) => {
+            setPlayerQuery(value);
+            setSelectedPlayer(null);
+          }}
+          players={playerResults}
+          selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
+          budget={specificPlayerBudget}
+          setBudget={setSpecificPlayerBudget}
+          loading={playerSearchLoading}
+          error={playerSearchError || analysisError}
+          analysisLoading={analysisLoading}
+          onBack={() => setScreen("club")}
+          onAnalyze={(player, budget) =>
+            openPlayerAnalysis(
+              player,
+              {
+                budget,
+                backScreen: "player-search",
+              }
+            )
+          }
         />
       )}
 
@@ -756,7 +929,7 @@ async function openPlayerAnalysis(player) {
 {screen === "analysis" && playerAnalysis && (
   <PlayerAnalysisScreen
     analysis={playerAnalysis}
-    onBack={() => setScreen("candidates")}
+    onBack={() => setScreen(analysisBackScreen)}
     onNewSearch={goHome}
   />
 )}
@@ -771,7 +944,11 @@ async function openPlayerAnalysis(player) {
    LANDING
 ========================================================= */
 
-function LandingScreen({ score, onStart }) {
+function LandingScreen({
+  score,
+  onAnalyzePlayer,
+  onFindCandidates,
+}) {
   return (
     <>
       <nav className="navbar">
@@ -799,9 +976,9 @@ function LandingScreen({ score, onStart }) {
 
         <button
           className="nav-button"
-          onClick={onStart}
+          onClick={onAnalyzePlayer}
         >
-          Launch Analysis
+          Analyze Player
         </button>
       </nav>
 
@@ -821,44 +998,56 @@ function LandingScreen({ score, onStart }) {
           </h1>
 
           <p className="hero-description">
-            TransFit AI analyzes tactical compatibility,
-            positional fit, performance, potential and
-            squad needs to identify smarter football
-            transfers.
+            Measure how well any player fits a selected
+            club, or let TransFit AI discover the best
+            natural-position candidates for your system.
           </p>
 
           <div className="hero-actions">
             <button
               className="primary-button"
-              onClick={onStart}
+              onClick={onAnalyzePlayer}
             >
-              Start Transfer Analysis
+              <FootballIcon
+                name="target"
+                size={18}
+              />
+
+              Analyze a Specific Player
               <span>→</span>
             </button>
 
-            <button className="secondary-button">
-              Explore Rankings
+            <button
+              className="secondary-button hero-secondary-action"
+              onClick={onFindCandidates}
+            >
+              <FootballIcon
+                name="chart"
+                size={18}
+              />
+
+              Find Transfer Candidates
             </button>
           </div>
 
           <div className="hero-trust">
             <div>
-              <strong>5</strong>
-              <span>AI Fit Dimensions</span>
+              <strong>7</strong>
+              <span>Fit Dimensions</span>
             </div>
 
             <div className="trust-separator" />
 
             <div>
-              <strong>424</strong>
+              <strong>2,097</strong>
               <span>Player Profiles</span>
             </div>
 
             <div className="trust-separator" />
 
             <div>
-              <strong>20</strong>
-              <span>Premier League Clubs</span>
+              <strong>96</strong>
+              <span>Big Five Clubs</span>
             </div>
           </div>
         </section>
@@ -978,6 +1167,10 @@ function LandingScreen({ score, onStart }) {
         <i />
         <span>PERFORMANCE</span>
         <i />
+        <span>PROVEN LEVEL</span>
+        <i />
+        <span>AVAILABILITY</span>
+        <i />
         <span>POTENTIAL</span>
         <i />
         <span>SQUAD NEED</span>
@@ -994,7 +1187,13 @@ function LandingScreen({ score, onStart }) {
 function AnalysisHeader({
   step,
   onBack,
+  mode = "candidates",
 }) {
+  const steps =
+    mode === "player"
+      ? ["League", "Club", "Player", "Score"]
+      : ["League", "Club", "Position", "Candidates"];
+
   return (
     <header className="analysis-navbar">
       <button
@@ -1021,69 +1220,40 @@ function AnalysisHeader({
       </div>
 
       <div className="analysis-progress">
-        <ProgressStep
-          number="01"
-          label="League"
-          state={step > 1 ? "complete" : "active"}
-        />
+        {steps.map((label, index) => {
+          const stepNumber = index + 1;
 
-        <div
-          className={
-            step > 1
-              ? "progress-line complete"
-              : "progress-line"
-          }
-        />
+          return (
+            <div
+              className="progress-step-group"
+              key={label}
+            >
+              {index > 0 && (
+                <div
+                  className={
+                    step > index
+                      ? "progress-line complete"
+                      : "progress-line"
+                  }
+                />
+              )}
 
-        <ProgressStep
-          number="02"
-          label="Club"
-          state={
-            step === 2
-              ? "active"
-              : step > 2
-                ? "complete"
-                : ""
-          }
-        />
-
-        <div
-          className={
-            step > 2
-              ? "progress-line complete"
-              : "progress-line"
-          }
-        />
-
-        <ProgressStep
-          number="03"
-          label="Position"
-          state={
-            step === 3
-              ? "active"
-              : step > 3
-                ? "complete"
-                : ""
-          }
-        />
-
-        <div
-          className={
-            step > 3
-              ? "progress-line complete"
-              : "progress-line"
-          }
-        />
-
-        <ProgressStep
-          number="04"
-          label="Candidates"
-          state={
-            step === 4
-              ? "active"
-              : ""
-          }
-        />
+              <ProgressStep
+                number={String(
+                  stepNumber
+                ).padStart(2, "0")}
+                label={label}
+                state={
+                  step > stepNumber
+                    ? "complete"
+                    : step === stepNumber
+                      ? "active"
+                      : ""
+                }
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="analysis-navbar-space" />
@@ -1123,12 +1293,14 @@ function LeagueSelectionScreen({
   error,
   onBack,
   onSelect,
+  analysisMode,
 }) {
   return (
     <div className="club-screen league-screen">
       <AnalysisHeader
         step={1}
         onBack={onBack}
+        mode={analysisMode}
       />
 
       <main className="club-selection league-selection">
@@ -1242,6 +1414,7 @@ function ClubSelectionScreen({
   onContinue,
   loading,
   error,
+  analysisMode,
 }) {
   function handleClubClick(clubName) {
     if (loading) {
@@ -1261,6 +1434,7 @@ function ClubSelectionScreen({
       <AnalysisHeader
         step={2}
         onBack={onBack}
+        mode={analysisMode}
       />
 
       <main className="club-selection">
@@ -1417,11 +1591,326 @@ function ClubSelectionScreen({
           >
             {loading
               ? "Loading Club..."
-              : "Continue to Position"}
+              : analysisMode === "player"
+                ? "Continue to Player Search"
+                : "Continue to Position"}
 
             <span>→</span>
           </button>
         </div>
+      </main>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   SPECIFIC PLAYER SEARCH
+========================================================= */
+
+function PlayerSearchScreen({
+  teamProfile,
+  query,
+  setQuery,
+  players,
+  selectedPlayer,
+  setSelectedPlayer,
+  budget,
+  setBudget,
+  loading,
+  error,
+  analysisLoading,
+  onBack,
+  onAnalyze,
+}) {
+  const budgetStatus = getPlayerBudgetPreview(
+    selectedPlayer,
+    budget
+  );
+
+  return (
+    <div className="player-search-screen">
+      <AnalysisHeader
+        step={3}
+        mode="player"
+        onBack={onBack}
+      />
+
+      <main className="player-search-page">
+        <section className="player-search-heading">
+          <div>
+            <div className="eyebrow">
+              <span className="eyebrow-dot" />
+              STEP 03 — PLAYER PROFILE
+            </div>
+
+            <h2>
+              Choose the player.
+              <br />
+              <span>Measure the fit.</span>
+            </h2>
+
+            <p>
+              Search verified player profiles across the
+              Big Five leagues. TransFit will compare the
+              selected player directly with the football
+              identity and squad needs of your club.
+            </p>
+          </div>
+
+          <div className="player-target-club">
+            <ClubBadge
+              club={{
+                team_id: teamProfile.team_id,
+                name: teamProfile.team,
+              }}
+            />
+
+            <div>
+              <span>TARGET CLUB</span>
+              <strong>{teamProfile.team}</strong>
+              <small>
+                {teamProfile.league} · {teamProfile.primary_formation}
+              </small>
+            </div>
+          </div>
+        </section>
+
+        <section className="player-search-layout">
+          <div className="player-search-catalog">
+            <div className="player-search-toolbar">
+              <FootballIcon
+                name="search"
+                size={22}
+              />
+
+              <input
+                value={query}
+                onChange={(event) =>
+                  setQuery(event.target.value)
+                }
+                placeholder="Search player or current club..."
+                autoFocus
+              />
+
+              <span>
+                {loading
+                  ? "SEARCHING"
+                  : `${players.length} PROFILES`}
+              </span>
+            </div>
+
+            <div className="player-results-heading">
+              <div>
+                <span>
+                  {query.trim()
+                    ? "SEARCH RESULTS"
+                    : "FEATURED PROFILES"}
+                </span>
+                <strong>
+                  {query.trim()
+                    ? `Matches for “${query.trim()}”`
+                    : "High-value verified players"}
+                </strong>
+              </div>
+
+              <small>
+                Goalkeepers are not supported yet
+              </small>
+            </div>
+
+            {error && (
+              <div className="api-error">
+                {error}
+              </div>
+            )}
+
+            {!error && !loading && players.length === 0 && (
+              <div className="player-search-empty">
+                <FootballIcon
+                  name="ball"
+                  size={34}
+                />
+                <strong>No player found</strong>
+                <span>
+                  Try another spelling or current club.
+                </span>
+              </div>
+            )}
+
+            <div className="player-result-grid">
+              {players.map((player) => {
+                const selected =
+                  selectedPlayer?.player_id ===
+                  player.player_id;
+
+                return (
+                  <button
+                    key={player.player_id}
+                    className={
+                      selected
+                        ? "player-result-card selected"
+                        : "player-result-card"
+                    }
+                    aria-pressed={selected}
+                    onClick={() =>
+                      setSelectedPlayer(player)
+                    }
+                  >
+                    <SearchPlayerImage
+                      player={player}
+                    />
+
+                    <div className="player-result-copy">
+                      <span>
+                        {player.current_team} · {player.league}
+                      </span>
+
+                      <strong>{player.name}</strong>
+
+                      <small>
+                        {player.primary_position} · Age {formatAge(player.age)}
+                      </small>
+                    </div>
+
+                    <div className="player-result-value">
+                      <span>TM VALUE</span>
+                      <strong>
+                        {formatMarketValue(
+                          player.market_value_m_eur
+                        )}
+                      </strong>
+                    </div>
+
+                    <div className="player-result-select">
+                      {selected ? "✓" : "+"}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <aside className="selected-player-panel">
+            <div className="selected-player-panel-top">
+              <span>PLAYER × CLUB</span>
+              <FootballIcon
+                name="target"
+                size={17}
+              />
+            </div>
+
+            {!selectedPlayer ? (
+              <div className="selected-player-placeholder">
+                <FootballIcon
+                  name="ball"
+                  size={42}
+                />
+                <h3>Select a player</h3>
+                <p>
+                  Choose a profile to generate its
+                  TransFit Score for {teamProfile.team}.
+                </p>
+              </div>
+            ) : (
+              <div className="selected-player-content">
+                <div className="selected-player-identity">
+                  <SearchPlayerImage
+                    player={selectedPlayer}
+                    large
+                  />
+
+                  <span>
+                    {selectedPlayer.current_team} · {selectedPlayer.league}
+                  </span>
+                  <h3>{selectedPlayer.name}</h3>
+                  <p>
+                    {selectedPlayer.primary_position} · Age {formatAge(selectedPlayer.age)}
+                  </p>
+                </div>
+
+                <div className="player-deal-summary">
+                  <div>
+                    <span>TRANSFERMARKT VALUE</span>
+                    <strong>
+                      {formatMarketValue(
+                        selectedPlayer.market_value_m_eur
+                      )}
+                    </strong>
+                  </div>
+
+                  <small>
+                    Updated {formatShortDate(
+                      selectedPlayer.value_updated_at
+                    )}
+                  </small>
+                </div>
+
+                <div className="optional-budget-control">
+                  <div>
+                    <span>OPTIONAL DEAL BUDGET</span>
+                    <small>
+                      Leave empty for sporting fit only
+                    </small>
+                  </div>
+
+                  <label>
+                    €
+                    <input
+                      type="number"
+                      min="1"
+                      max="300"
+                      step="1"
+                      value={budget}
+                      placeholder="—"
+                      onChange={(event) =>
+                        setBudget(event.target.value)
+                      }
+                    />
+                    M
+                  </label>
+                </div>
+
+                <div className={`budget-preview ${budgetStatus.tone}`}>
+                  <span>DEAL FEASIBILITY</span>
+                  <strong>{budgetStatus.label}</strong>
+                </div>
+
+                <div className="transfit-preview-note">
+                  <FootballIcon
+                    name="chart"
+                    size={17}
+                  />
+                  <p>
+                    The TransFit Score measures sporting
+                    compatibility. It is not a probability
+                    that the transfer will happen.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <button
+              className="continue-button player-analyze-button"
+              disabled={
+                !selectedPlayer || analysisLoading
+              }
+              onClick={() =>
+                onAnalyze(
+                  selectedPlayer,
+                  budget === ""
+                    ? null
+                    : Number(budget)
+                )
+              }
+            >
+              {analysisLoading
+                ? "Calculating TransFit Score..."
+                : "Generate TransFit Score"}
+              <span>→</span>
+            </button>
+          </aside>
+        </section>
       </main>
     </div>
   );
@@ -1880,6 +2369,112 @@ function getClubInitials(team) {
     .map((word) => word[0])
     .join("")
     .toUpperCase();
+}
+
+
+function getPlayerInitials(name) {
+  return String(name || "?")
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+
+function formatAge(age) {
+  const number = Number(age);
+
+  if (Number.isNaN(number)) {
+    return "-";
+  }
+
+  return Math.round(number);
+}
+
+
+function formatMarketValue(value) {
+  const number = Number(value);
+
+  if (
+    value === null ||
+    value === undefined ||
+    Number.isNaN(number)
+  ) {
+    return "Unavailable";
+  }
+
+  return `€${number}M`;
+}
+
+
+function formatShortDate(value) {
+  if (!value) {
+    return "date unavailable";
+  }
+
+  const date = new Date(
+    `${value}T00:00:00`
+  );
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+
+function getPlayerBudgetPreview(
+  player,
+  budget
+) {
+  if (!player || budget === "") {
+    return {
+      label: "No budget limit",
+      tone: "neutral",
+    };
+  }
+
+  const selectedBudget = Number(budget);
+  const marketValue = Number(
+    player.market_value_m_eur
+  );
+
+  if (
+    !Number.isFinite(selectedBudget) ||
+    selectedBudget <= 0 ||
+    !Number.isFinite(marketValue)
+  ) {
+    return {
+      label: "Value unavailable",
+      tone: "neutral",
+    };
+  }
+
+  if (marketValue <= selectedBudget) {
+    return {
+      label: "Within budget",
+      tone: "positive",
+    };
+  }
+
+  if (marketValue <= selectedBudget * 1.15) {
+    return {
+      label: "Within 15% stretch",
+      tone: "stretch",
+    };
+  }
+
+  return {
+    label: "Over budget",
+    tone: "negative",
+  };
 }
 
 

@@ -5,6 +5,7 @@ from transfit_service import (
     analyze_transfer,
     get_candidate_rankings,
     get_club_catalog,
+    search_players,
     get_team_profile,
 )
 
@@ -57,6 +58,32 @@ def health():
 @app.get("/api/clubs")
 def clubs():
     return get_club_catalog()
+
+
+# =========================================================
+# PLAYER SEARCH
+# =========================================================
+
+@app.get("/api/players")
+def players(
+    q: str = "",
+    limit: int = 12,
+    team: str | None = None,
+    position: str | None = None,
+):
+    try:
+        return search_players(
+            query=q,
+            limit=limit,
+            target_team=team,
+            position=position,
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
 
 # =========================================================
 # TEAM PROFILE
