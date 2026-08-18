@@ -35,11 +35,14 @@ from transfer_fit_v5 import (
     AVAILABILITY_WEIGHT,
     POTENTIAL_WEIGHT,
     SQUAD_NEED_WEIGHT,
+    SCORE_VERSION,
+    SCORE_WEIGHTS,
     transfer_fit_label,
 )
 
 from realistic_data_engine import (
     blend_performance_score,
+    calibrate_proven_level,
     find_realism_by_id,
     load_realism_profiles,
     realism_scores,
@@ -190,10 +193,14 @@ def calculate_candidate_score(
     performance_score = blend_performance_score(
         league_performance_score,
         realism["production_score"],
+        performance_player["position_group"],
     )
-    proven_score = realism[
-        "proven_score"
-    ]
+    proven_score = calibrate_proven_level(
+        league_performance_score,
+        realism["raw_proven_score"],
+        realism["market_validation_score"],
+        performance_player["position_group"],
+    )
     availability_score = realism[
         "availability_score"
     ]
@@ -437,6 +444,51 @@ def calculate_candidate_score(
             proven_score,
             1,
         ),
+
+        "raw_proven": round(
+            realism["raw_proven_score"],
+            1,
+        ),
+
+        "market_validation": (
+            None
+            if realism["market_validation_score"] is None
+            else round(
+                realism["market_validation_score"],
+                1,
+            )
+        ),
+
+        "score_contributions": {
+            "tactical": round(
+                tactical_score * TACTICAL_WEIGHT,
+                2,
+            ),
+            "role": round(
+                role_fit * POSITION_WEIGHT,
+                2,
+            ),
+            "performance": round(
+                performance_score * PERFORMANCE_WEIGHT,
+                2,
+            ),
+            "proven": round(
+                proven_score * PROVEN_WEIGHT,
+                2,
+            ),
+            "availability": round(
+                availability_score * AVAILABILITY_WEIGHT,
+                2,
+            ),
+            "potential": round(
+                potential_score * POTENTIAL_WEIGHT,
+                2,
+            ),
+            "squad_need": round(
+                squad_need * SQUAD_NEED_WEIGHT,
+                2,
+            ),
+        },
 
         "availability": round(
             availability_score,
@@ -885,6 +937,9 @@ def rank_candidates(
             "league_performance",
             "production",
             "proven",
+            "raw_proven",
+            "market_validation",
+            "score_contributions",
             "availability",
             "all_competitions",
             "potential",

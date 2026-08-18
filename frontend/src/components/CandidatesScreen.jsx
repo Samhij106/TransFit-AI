@@ -8,6 +8,7 @@ function CandidatesScreen({
   formation,
   budget,
   candidates = [],
+  scoringModel,
   onBack,
   onSelectPlayer,
   analysisLoading = false,
@@ -98,9 +99,9 @@ function CandidatesScreen({
             </h2>
 
             <p>
-              Players are ranked using tactical fit,
-              role suitability, performance,
-              development potential and squad need.
+              Role-aware rankings that separate sporting
+              fit from affordability and explain the
+              strongest evidence behind every result.
             </p>
           </div>
 
@@ -168,8 +169,22 @@ function CandidatesScreen({
                 {candidates.length}
               </strong>
             </div>
+
+            <div className="ranking-context-row">
+              <span>
+                MODEL
+              </span>
+
+              <strong className="ranking-model">
+                V7 ROLE-AWARE
+              </strong>
+            </div>
           </div>
         </section>
+
+        <ScoreArchitecture
+          model={scoringModel}
+        />
 
 
         {/* =============================================
@@ -244,12 +259,9 @@ function CandidatesScreen({
                 <i />
 
                 <span>
-                  {topCandidate.all_competitions?.source ===
-                  "transfermarkt_all_competitions"
-                    ? `${topCandidate.all_competitions.goals || 0}G · ${topCandidate.all_competitions.assists || 0}A`
-                    : `${formatMinutes(
-                        topCandidate.minutes
-                      )} MIN`}
+                  {getEvidenceSummary(
+                    topCandidate
+                  )}
                 </span>
               </div>
 
@@ -292,21 +304,34 @@ function CandidatesScreen({
               {/* Main Score */}
 
               <div className="top-score-row">
-                <div className="candidate-score-ring">
+                <div
+                  className="candidate-score-ring"
+                  style={{
+                    "--candidate-score-deg": `${Math.max(
+                      0,
+                      Math.min(
+                        360,
+                        Number(
+                          topCandidate.final_score || 0
+                        ) * 3.6
+                      )
+                    )}deg`,
+                  }}
+                >
                   <div className="candidate-score-inner">
                     <strong>
                       {topCandidate.final_score}
                     </strong>
 
                     <span>
-                      /100
+                      % FIT
                     </span>
                   </div>
                 </div>
 
                 <div className="top-score-copy">
                   <span>
-                    RANKING SCORE
+                    TRANSFIT SCORE
                   </span>
 
                   <strong>
@@ -316,11 +341,9 @@ function CandidatesScreen({
                   </strong>
 
                   <p>
-                    Ranked #1 for {team} at
-                    {" "}
-                    {role} using current all-competition
-                    output, three-season evidence and
-                    verified availability.
+                    Role-aware ranking for {team} at {" "}
+                    {role}, calibrated against verified
+                    position data and market consensus.
                   </p>
                 </div>
               </div>
@@ -358,7 +381,21 @@ function CandidatesScreen({
                   label="Potential"
                   value={topCandidate.potential}
                 />
+
+                <CandidateMetric
+                  label="Market Validation"
+                  value={topCandidate.market_validation}
+                />
+
+                <CandidateMetric
+                  label="Squad Need"
+                  value={topCandidate.squad_need}
+                />
               </div>
+
+              <DecisionSummary
+                candidate={topCandidate}
+              />
 
 
               <button
@@ -496,7 +533,7 @@ function CandidatesScreen({
                 <div className="preview-score">
                   <div>
                     <span>
-                      RANKING SCORE
+                      TRANSFIT SCORE
                     </span>
 
                     <strong>
@@ -570,7 +607,26 @@ function CandidatesScreen({
                       activeCandidate.potential
                     }
                   />
+
+                  <PreviewMetric
+                    label="Market Validation"
+                    value={
+                      activeCandidate.market_validation
+                    }
+                  />
+
+                  <PreviewMetric
+                    label="Squad Need"
+                    value={
+                      activeCandidate.squad_need
+                    }
+                  />
                 </div>
+
+                <DecisionSummary
+                  candidate={activeCandidate}
+                  compact
+                />
 
 
                 <button
@@ -644,6 +700,16 @@ function CandidatesHeader({
             ✓
           </span>
 
+          League
+        </div>
+
+        <div className="progress-line complete" />
+
+        <div className="progress-item complete">
+          <span>
+            ✓
+          </span>
+
           Club
         </div>
 
@@ -661,7 +727,7 @@ function CandidatesHeader({
 
         <div className="progress-item active">
           <span>
-            03
+            04
           </span>
 
           Candidates
@@ -737,14 +803,11 @@ function CandidateCard({
 
       <div className="candidate-row-stat">
         <span>
-          OUTPUT
+          {getEvidenceLabel(candidate)}
         </span>
 
         <strong>
-          {candidate.all_competitions?.source ===
-          "transfermarkt_all_competitions"
-            ? `${candidate.all_competitions.goals || 0}G · ${candidate.all_competitions.assists || 0}A`
-            : candidate.performance}
+          {getEvidenceSummary(candidate)}
         </strong>
       </div>
 
@@ -846,7 +909,7 @@ function CandidateMetric({
         </span>
 
         <strong>
-          {value}
+          {formatMetric(value)}
         </strong>
       </div>
 
@@ -882,7 +945,7 @@ function PreviewMetric({
         </span>
 
         <strong>
-          {value}
+          {formatMetric(value)}
         </strong>
       </div>
 
@@ -895,6 +958,115 @@ function PreviewMetric({
             )}%`,
           }}
         />
+      </div>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   SCORE ARCHITECTURE
+========================================================= */
+
+function ScoreArchitecture({
+  model,
+}) {
+  const weights = model?.weights || {
+    tactical: 25,
+    position: 15,
+    performance: 30,
+    proven: 15,
+    availability: 5,
+    potential: 5,
+    squad_need: 5,
+  };
+
+  const dimensions = [
+    ["Tactical", weights.tactical],
+    ["Role", weights.position],
+    ["Performance", weights.performance],
+    ["Proven", weights.proven],
+    ["Availability", weights.availability],
+    ["Potential", weights.potential],
+    ["Squad Need", weights.squad_need],
+  ];
+
+  return (
+    <section className="score-architecture">
+      <div className="score-architecture-copy">
+        <span>ROLE-AWARE MODEL</span>
+
+        <strong>
+          {model?.version || "TransFit V7 Role-Aware"}
+        </strong>
+
+        <p>
+          Attacking output is weighted by position;
+          deeper roles prioritize role performance,
+          tactical fit and verified market consensus.
+        </p>
+      </div>
+
+      <div className="score-weight-list">
+        {dimensions.map(([label, value]) => (
+          <div
+            className="score-weight-pill"
+            key={label}
+          >
+            <span>{label}</span>
+            <strong>{value}%</strong>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
+/* =========================================================
+   DECISION SUMMARY
+========================================================= */
+
+function DecisionSummary({
+  candidate,
+  compact = false,
+}) {
+  const { strengths, watchout } =
+    getCandidateSignals(candidate);
+
+  return (
+    <div
+      className={
+        compact
+          ? "decision-summary compact"
+          : "decision-summary"
+      }
+    >
+      <span className="decision-summary-label">
+        WHY THIS RANK
+      </span>
+
+      <div className="decision-signal-list">
+        {strengths.map((signal) => (
+          <div
+            className="decision-signal positive"
+            key={signal.label}
+          >
+            <span>↑</span>
+            <div>
+              <small>{signal.label}</small>
+              <strong>{formatMetric(signal.value)}</strong>
+            </div>
+          </div>
+        ))}
+
+        <div className="decision-signal watch">
+          <span>!</span>
+          <div>
+            <small>{watchout.label}</small>
+            <strong>{formatMetric(watchout.value)}</strong>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -954,6 +1126,104 @@ function getScoreTitle(
   }
 
   return "Alternative Option";
+}
+
+
+function formatMetric(value) {
+  if (value == null) {
+    return "N/A";
+  }
+
+  return Number(value).toFixed(1);
+}
+
+
+function getEvidenceLabel(candidate) {
+  const position = String(
+    candidate?.primary_position || ""
+  ).toUpperCase();
+
+  if ([
+    "ST", "LW", "RW", "LM", "RM", "CAM",
+  ].includes(position)) {
+    return "OUTPUT";
+  }
+
+  return "ROLE PERF";
+}
+
+
+function getEvidenceSummary(candidate) {
+  if (getEvidenceLabel(candidate) === "OUTPUT") {
+    const evidence = candidate?.all_competitions;
+
+    if (
+      evidence?.source ===
+      "transfermarkt_all_competitions"
+    ) {
+      return `${evidence.goals || 0}G · ${evidence.assists || 0}A`;
+    }
+  }
+
+  if (candidate?.performance != null) {
+    return `${formatMetric(candidate.performance)} PERF`;
+  }
+
+  return `${formatMinutes(candidate?.minutes)} MIN`;
+}
+
+
+function getCandidateSignals(candidate) {
+  const strengths = [
+    {
+      label: "Tactical fit",
+      value: candidate?.tactical,
+    },
+    {
+      label: "Role performance",
+      value: candidate?.performance,
+    },
+    {
+      label: "Proven level",
+      value: candidate?.proven,
+    },
+    {
+      label: "Market validation",
+      value: candidate?.market_validation,
+    },
+    {
+      label: "Squad need",
+      value: candidate?.squad_need,
+    },
+  ]
+    .filter((signal) => signal.value != null)
+    .sort((left, right) => right.value - left.value)
+    .slice(0, 2);
+
+  const watchout = [
+    {
+      label: "Availability watch",
+      value: candidate?.availability,
+    },
+    {
+      label: "Development runway",
+      value: candidate?.potential,
+    },
+    {
+      label: "Tactical risk",
+      value: candidate?.tactical,
+    },
+  ]
+    .filter((signal) => signal.value != null)
+    .sort((left, right) => left.value - right.value)[0] || {
+      label: "No major warning",
+      value: candidate?.final_score,
+    };
+
+  return {
+    strengths,
+    watchout,
+  };
 }
 
 

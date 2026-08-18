@@ -143,10 +143,10 @@ function PlayerAnalysisScreen({
                 <p>
                   Overall fit based on tactical
                   compatibility, positional suitability,
-                  current all-competition production,
-                  three-season evidence, availability
-                  and squad context. This is a normalized
-                  fit percentage, not transfer probability.
+                  role-aware performance, three-season
+                  evidence, market validation and squad
+                  context. This is a normalized fit
+                  percentage, not transfer probability.
                 </p>
 
               </div>
@@ -159,42 +159,49 @@ function PlayerAnalysisScreen({
               <ScoreCard
                 label="Tactical Fit"
                 value={scores.tactical}
+                weight={scores.weights?.tactical}
                 description="Playing style compatibility"
               />
 
               <ScoreCard
                 label="Position Fit"
                 value={scores.position}
+                weight={scores.weights?.position}
                 description="Formation & role suitability"
               />
 
               <ScoreCard
                 label="Performance"
                 value={scores.performance}
-                description="League detail + all competitions"
+                weight={scores.weights?.performance}
+                description="Position-aware current quality"
               />
 
               <ScoreCard
                 label="Proven Level"
                 value={scores.proven}
-                description="Competition-adjusted 3-season evidence"
+                weight={scores.weights?.proven}
+                description="Quality, history + market calibration"
               />
 
               <ScoreCard
                 label="Availability"
                 value={scores.availability}
+                weight={scores.weights?.availability}
                 description="Minutes, starts & appearances"
               />
 
               <ScoreCard
                 label="Potential"
                 value={scores.potential}
+                weight={scores.weights?.potential}
                 description="Development upside"
               />
 
               <ScoreCard
                 label="Squad Need"
                 value={scores.squad_need}
+                weight={scores.weights?.squad_need}
                 description="Need within target squad"
               />
 
@@ -297,7 +304,8 @@ function PlayerAnalysisScreen({
 
             <p>
               Each dimension is calculated separately,
-              then combined into the final Transfer Fit V6.
+              then combined using the {scores.version ||
+              "TransFit V7 Role-Aware"} architecture.
             </p>
 
           </div>
@@ -444,7 +452,7 @@ function AnalysisHeader({
         </span>
 
         <strong>
-          AI REPORT
+          V7 ROLE-AWARE
         </strong>
 
       </div>
@@ -559,6 +567,7 @@ function TransferScore({
 function ScoreCard({
   label,
   value,
+  weight,
   description,
 }) {
   const safeValue =
@@ -577,6 +586,12 @@ function ScoreCard({
 
         <span>
           {label}
+
+          {weight != null && (
+            <small>
+              {weight}% WEIGHT
+            </small>
+          )}
         </span>
 
         <strong>
@@ -936,8 +951,9 @@ function RealismModule({
 
       <p className="module-description">
         Uses Transfermarkt match records across all club
-        competitions. Recent seasons are weighted more
-        heavily and competition strength is adjusted.
+        competitions, but interprets production by role.
+        Goals matter most for attackers; deeper roles lean
+        on their position-specific performance profile.
       </p>
 
 
@@ -978,8 +994,8 @@ function RealismModule({
       <div className="realism-score-grid">
 
         <LargeMetric
-          label="CURRENT PRODUCTION"
-          value={data.production_score}
+          label="ROLE PERFORMANCE"
+          value={data.blended_performance_score}
         />
 
         <LargeMetric
@@ -992,6 +1008,11 @@ function RealismModule({
           value={data.availability_score}
         />
 
+        <LargeMetric
+          label="MARKET VALIDATION"
+          value={data.market_validation_score}
+        />
+
       </div>
 
 
@@ -1001,9 +1022,10 @@ function RealismModule({
         </span>
 
         <p>
-          Market value and sporting fit are separate.
-          Transfermarkt value controls affordability;
-          match evidence controls the sporting score.
+          Transfermarkt value still controls affordability.
+          A position-peer percentile is used only as a
+          modest external check inside Proven Level, helping
+          prevent statistical outliers from dominating.
         </p>
       </div>
 
@@ -1440,6 +1462,13 @@ function formatValueDate(value) {
 function formatScore(
   value
 ) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "-";
+  }
+
   const number =
     Number(value);
 
@@ -1456,6 +1485,13 @@ function formatScore(
 function formatInteger(
   value
 ) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "-";
+  }
+
   const number =
     Number(value);
 

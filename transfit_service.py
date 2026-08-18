@@ -24,6 +24,8 @@ from squad_need_engine import (
 )
 
 from transfer_fit_v5 import (
+    SCORE_VERSION,
+    SCORE_WEIGHTS,
     calculate_transfer_fit_v5,
     find_player_by_id,
     transfer_fit_label,
@@ -636,6 +638,16 @@ def analyze_transfer(
         },
 
         "scores": {
+            "version": result.get(
+                "score_version",
+                SCORE_VERSION,
+            ),
+
+            "weights": result.get(
+                "score_weights",
+                SCORE_WEIGHTS,
+            ),
+
             "final": result[
                 "final_score"
             ],
@@ -902,6 +914,11 @@ def get_candidate_rankings(
     )
 
     return {
+        "scoring_model": {
+            "version": SCORE_VERSION,
+            "weights": SCORE_WEIGHTS,
+        },
+
         "team": team[
             "team"
         ],

@@ -150,6 +150,7 @@ def load_identity_data():
     )[[
         "api_football_player_id",
         "transfermarkt_player_id",
+        "market_value_m_eur",
     ]]
 
     players = pd.read_csv(
@@ -717,6 +718,31 @@ def add_realism_scores(data):
         + appearances_score * 0.15
     )
 
+    data["market_value_m_eur"] = pd.to_numeric(
+        data["market_value_m_eur"],
+        errors="coerce",
+    )
+    data["market_validation_score"] = np.nan
+    valid_market = data["market_value_m_eur"].notna()
+    data.loc[
+        valid_market,
+        "market_validation_score",
+    ] = (
+        data[valid_market]
+        .groupby("verified_position_group")[
+            "market_value_m_eur"
+        ]
+        .rank(
+            pct=True,
+            method="average",
+        )
+        * 100
+    )
+    data["market_validation_score"] = pd.to_numeric(
+        data["market_validation_score"],
+        errors="coerce",
+    )
+
     score_columns = [
         "current_output_percentile",
         "current_rate_percentile",
@@ -726,6 +752,7 @@ def add_realism_scores(data):
         "production_score",
         "proven_score",
         "availability_score",
+        "market_validation_score",
     ]
     data[score_columns] = data[
         score_columns
@@ -819,6 +846,7 @@ def build_profiles():
         "age",
         "transfermarkt_player_id",
         "contract_expiration_date",
+        "market_value_m_eur",
     ]].rename(columns={
         "player_id": "api_football_player_id",
     }).merge(

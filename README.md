@@ -3,9 +3,10 @@
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
-target club. Transfer Fit V6 separates affordability from sporting quality
-and combines verified position, tactical fit, current all-competition output,
-three-season evidence, availability, limited age potential, and squad need.
+target club. TransFit V7 separates affordability from sporting quality and
+combines verified position, tactical fit, role-aware performance, three-season
+evidence, Transfermarkt peer validation, availability, limited age potential,
+and squad need.
 
 The product has two complementary workflows:
 
@@ -37,26 +38,28 @@ The product has two complementary workflows:
   striker shortlist. Closely related full-back/wing-back and wide-role pairs
   remain grouped where Transfermarkt uses a single canonical label.
 
-## Transfer Fit V6
+## TransFit V7 Role-Aware
 
 The final score is a weighted average on a 0-100 scale:
 
-- Current performance: 25%. A 55/45 blend of detailed domestic-league
-  percentiles and current all-competition production.
-- Tactical fit: 20%.
-- Proven level: 20%. Competition-adjusted output and playing time over three
-  seasons, with recent seasons weighted more heavily.
+- Current performance: 30%. Detailed domestic-league percentiles are blended
+  with all-competition output using role-specific weights. Goals and assists
+  matter most for attackers and minimally for deeper positions.
+- Tactical fit: 25%.
+- Proven level: 15%. Current role quality, competition-adjusted three-season
+  evidence, and a modest Transfermarkt percentile among positional peers.
 - Position and role fit: 15%.
-- Availability: 10%, using current all-competition minutes, starts, and
+- Availability: 5%, using current all-competition minutes, starts, and
   appearances.
 - Potential: 5%. Age is deliberately limited so a young outlier cannot
   dominate the ranking only because of age.
 - Squad need: 5%.
 
 For attackers, current total goals and assists carry more weight than per-90
-rate. Per-90 output is sample-size regressed and contributes only 25% of the
-all-competition production score. Midfielders and defenders use more
-position-appropriate playing-time and output blends.
+rate. Deeper roles are driven primarily by their role-specific metrics such as
+passing, ball winning, creation, and tactical compatibility. Market validation
+is an external guardrail inside Proven Level; market value still controls
+affordability separately and is not treated as an asking price.
 
 ## Architecture
 
@@ -68,7 +71,7 @@ position-appropriate playing-time and output blends.
 - `build_realistic_player_profiles.py`: verified positions, all-competition
   production, three-season evidence, and availability.
 - `realistic_data_engine.py`: shared realism score integration.
-- `transfer_fit_v5.py`: Transfer Fit V6 calculation (legacy filename retained
+- `transfer_fit_v5.py`: TransFit V7 calculation (legacy filename retained
   to avoid breaking existing imports).
 - `frontend/`: React and Vite web application.
 - `data/raw/`: API-Football exports.

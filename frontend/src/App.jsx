@@ -489,6 +489,8 @@ function App() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [investmentBudget, setInvestmentBudget] = useState(50);
   const [candidates, setCandidates] = useState([]);
+  const [candidateScoringModel, setCandidateScoringModel] =
+    useState(null);
   const [candidatesLoading, setCandidatesLoading] = useState(false);
   const [candidatesError, setCandidatesError] = useState("");
   const [playerAnalysis, setPlayerAnalysis] = useState(null);
@@ -537,6 +539,9 @@ function App() {
     }
 
     setCandidates(data.candidates || []);
+    setCandidateScoringModel(
+      data.scoring_model || null
+    );
     setScreen("candidates");
   } catch (error) {
     setCandidatesError(error.message);
@@ -744,6 +749,8 @@ async function openPlayerAnalysis(
     setPlayerQuery("");
     setSpecificPlayerBudget("");
     setAnalysisError("");
+    setCandidates([]);
+    setCandidateScoringModel(null);
     setScreen("league");
   }
 
@@ -772,6 +779,8 @@ async function openPlayerAnalysis(
     setPlayerResults([]);
     setSpecificPlayerBudget("");
     setPlayerSearchError("");
+    setCandidates([]);
+    setCandidateScoringModel(null);
     setTeamError("");
   }
 
@@ -918,6 +927,7 @@ async function openPlayerAnalysis(
     role={selectedRole}
     formation={teamProfile.primary_formation}
     candidates={candidates}
+    scoringModel={candidateScoringModel}
     budget={investmentBudget}
     onBack={() => setScreen("position")}
     onSelectPlayer={openPlayerAnalysis}
@@ -1032,8 +1042,8 @@ function LandingScreen({
 
           <div className="hero-trust">
             <div>
-              <strong>7</strong>
-              <span>Fit Dimensions</span>
+              <strong>V7</strong>
+              <span>Role-Aware Model</span>
             </div>
 
             <div className="trust-separator" />
@@ -1080,13 +1090,13 @@ function LandingScreen({
                   </span>
 
                   <span className="score-total">
-                    /100
+                  % FIT
                   </span>
                 </div>
               </div>
 
               <div className="score-copy">
-                <span>TRANSFER FIT</span>
+                <span>TRANSFIT SCORE</span>
                 <strong>Strong Match</strong>
 
                 <p>
@@ -1116,9 +1126,9 @@ function LandingScreen({
               />
 
               <Metric
-                label="Potential"
-                value="92"
-                width="92%"
+                label="Proven Level"
+                value="88"
+                width="88%"
               />
             </div>
 
@@ -1161,6 +1171,8 @@ function LandingScreen({
       </main>
 
       <div className="bottom-strip">
+        <span>ROLE-AWARE V7</span>
+        <i />
         <span>TACTICAL FIT</span>
         <i />
         <span>POSITION FIT</span>
@@ -2265,7 +2277,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by Transfer Fit V6
+                Powered by TransFit V7 Role-Aware
               </small>
             </div>
           </aside>

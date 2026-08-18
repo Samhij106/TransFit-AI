@@ -32,6 +32,7 @@ from squad_need_engine import (
 
 from realistic_data_engine import (
     blend_performance_score,
+    calibrate_proven_level,
     realism_scores,
 )
 
@@ -40,13 +41,24 @@ from realistic_data_engine import (
 # TRANSFER FIT V6 WEIGHTS
 # =========================================================
 
-TACTICAL_WEIGHT = 0.20
+TACTICAL_WEIGHT = 0.25
 POSITION_WEIGHT = 0.15
-PERFORMANCE_WEIGHT = 0.25
-PROVEN_WEIGHT = 0.20
-AVAILABILITY_WEIGHT = 0.10
+PERFORMANCE_WEIGHT = 0.30
+PROVEN_WEIGHT = 0.15
+AVAILABILITY_WEIGHT = 0.05
 POTENTIAL_WEIGHT = 0.05
 SQUAD_NEED_WEIGHT = 0.05
+
+SCORE_VERSION = "TransFit V7 Role-Aware"
+SCORE_WEIGHTS = {
+    "tactical": TACTICAL_WEIGHT * 100,
+    "position": POSITION_WEIGHT * 100,
+    "performance": PERFORMANCE_WEIGHT * 100,
+    "proven": PROVEN_WEIGHT * 100,
+    "availability": AVAILABILITY_WEIGHT * 100,
+    "potential": POTENTIAL_WEIGHT * 100,
+    "squad_need": SQUAD_NEED_WEIGHT * 100,
+}
 
 
 # =========================================================
@@ -157,10 +169,14 @@ def calculate_transfer_fit_v5(
     performance_score = blend_performance_score(
         league_performance_score,
         realism["production_score"],
+        performance_player["position_group"],
     )
-    proven_score = realism[
-        "proven_score"
-    ]
+    proven_score = calibrate_proven_level(
+        league_performance_score,
+        realism["raw_proven_score"],
+        realism["market_validation_score"],
+        performance_player["position_group"],
+    )
     availability_score = realism[
         "availability_score"
     ]
@@ -250,6 +266,10 @@ def calculate_transfer_fit_v5(
     )
 
     return {
+        "score_version": SCORE_VERSION,
+
+        "score_weights": SCORE_WEIGHTS,
+
         "final_score": round(
             final_score,
             1,
@@ -278,6 +298,20 @@ def calculate_transfer_fit_v5(
         "production_score": round(
             realism["production_score"],
             1,
+        ),
+
+        "raw_proven_score": round(
+            realism["raw_proven_score"],
+            1,
+        ),
+
+        "market_validation_score": (
+            None
+            if realism["market_validation_score"] is None
+            else round(
+                realism["market_validation_score"],
+                1,
+            )
         ),
 
         "proven_score": round(
