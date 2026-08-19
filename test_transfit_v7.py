@@ -5,6 +5,10 @@ from realistic_data_engine import (
     calibrate_proven_level,
 )
 from transfer_fit_v5 import SCORE_WEIGHTS
+from transfit_service import (
+    compare_players,
+    search_players,
+)
 
 
 class TransFitV7RegressionTests(unittest.TestCase):
@@ -51,6 +55,21 @@ class TransFitV7RegressionTests(unittest.TestCase):
             market_verified_player,
             output_outlier,
         )
+
+    def test_comparison_requires_at_least_two_players(self):
+        with self.assertRaises(ValueError):
+            compare_players(
+                "Barcelona",
+                [44],
+            )
+
+    def test_player_search_returns_empty_result_cleanly(self):
+        result = search_players(
+            "definitely-not-a-real-player-xyz"
+        )
+
+        self.assertEqual(result["count"], 0)
+        self.assertEqual(result["players"], [])
 
 
 if __name__ == "__main__":

@@ -76,6 +76,16 @@ function FootballIcon({
     );
   }
 
+  if (name === "versus") {
+    return (
+      <svg {...commonProps}>
+        <circle cx="7" cy="8" r="3" />
+        <circle cx="17" cy="16" r="3" />
+        <path d="M10 8h8l-2.5-2.5M14 16H6l2.5 2.5" />
+      </svg>
+    );
+  }
+
   return (
     <svg {...commonProps}>
       <circle cx="12" cy="12" r="9" />

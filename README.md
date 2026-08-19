@@ -8,12 +8,15 @@ combines verified position, tactical fit, role-aware performance, three-season
 evidence, Transfermarkt peer validation, availability, limited age potential,
 and squad need.
 
-The product has two complementary workflows:
+The product has three complementary workflows:
 
 1. Analyze a specific player: club selection, verified player search, optional
    deal budget, and a player-to-club TransFit Score.
 2. Find transfer candidates: club, natural position, and investment budget,
    followed by a ranked shortlist.
+3. Compare players: select a target club and two to four players, then compare
+   their club-specific TransFit scores, weighted dimensions, market values,
+   and the decisive reasons behind the winner.
 
 ## Current scope
 
@@ -73,6 +76,8 @@ affordability separately and is not treated as an asking price.
 - `realistic_data_engine.py`: shared realism score integration.
 - `transfer_fit_v5.py`: TransFit V7 calculation (legacy filename retained
   to avoid breaking existing imports).
+- `validate_model_benchmarks.py`: football sanity-check suite that protects
+  known realistic ordering and canonical-position exclusions.
 - `frontend/`: React and Vite web application.
 - `data/raw/`: API-Football exports.
 - `data/processed/`: generated position, performance, formation, and tactical
@@ -164,6 +169,23 @@ npm run dev
 The frontend uses `http://127.0.0.1:8000` by default. Set
 `VITE_API_BASE_URL` to point it at another API URL.
 
+## Model benchmarks
+
+Run the regression tests and the football benchmark suite before accepting a
+scoring-model change:
+
+```powershell
+.venv\Scripts\python.exe -m unittest test_transfit_v7.py
+.venv\Scripts\python.exe validate_model_benchmarks.py
+```
+
+The benchmark definitions live in
+`data/benchmarks/transfit_v7_benchmarks.json`. They currently protect the
+Barcelona CDM ordering that keeps Rodri above Casemiro, realistic striker
+quality ordering, and the exclusion of natural left wingers from the ST
+shortlist. Add a case whenever a confirmed football outlier is found and
+fixed.
+
 ## API
 
 - `GET /api/health`
@@ -172,6 +194,7 @@ The frontend uses `http://127.0.0.1:8000` by default. Set
 - `GET /api/team?team=Arsenal`
 - `GET /api/rankings?team=Barcelona&role=ST&budget_millions=50`
 - `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&budget_millions=50`
+- `GET /api/compare?team=Barcelona&player_ids=184,217,6009&budget_millions=120`
 
 Passing `player_id` is recommended because the expanded candidate pool can
 contain players with similar or duplicate display names.

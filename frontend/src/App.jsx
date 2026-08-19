@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import CandidatesScreen from "./components/CandidatesScreen";
+import ComparisonCenter from "./components/ComparisonCenter";
 import FootballIcon from "./components/FootballIcon";
 import PlayerAnalysisScreen from "./components/PlayerAnalysisScreen";
 
@@ -509,6 +510,16 @@ function App() {
     useState(null);
   const [specificPlayerBudget, setSpecificPlayerBudget] =
     useState("");
+  const [comparisonPlayers, setComparisonPlayers] =
+    useState([]);
+  const [comparisonBudget, setComparisonBudget] =
+    useState("");
+  const [comparisonResult, setComparisonResult] =
+    useState(null);
+  const [comparisonLoading, setComparisonLoading] =
+    useState(false);
+  const [comparisonError, setComparisonError] =
+    useState("");
 
   async function findBestCandidates() {
   if (!selectedTeam || !selectedRole) {
@@ -608,6 +619,75 @@ async function openPlayerAnalysis(
   }
 }
 
+
+function toggleComparisonPlayer(player) {
+  setComparisonPlayers((current) => {
+    const selected = current.some(
+      (item) => item.player_id === player.player_id
+    );
+
+    if (selected) {
+      return current.filter(
+        (item) => item.player_id !== player.player_id
+      );
+    }
+
+    if (current.length >= 4) {
+      return current;
+    }
+
+    return [...current, player];
+  });
+  setComparisonError("");
+}
+
+
+async function runPlayerComparison() {
+  if (
+    !selectedTeam ||
+    comparisonPlayers.length < 2
+  ) {
+    return;
+  }
+
+  setComparisonLoading(true);
+  setComparisonError("");
+
+  try {
+    const ids = comparisonPlayers
+      .map((player) => player.player_id)
+      .join(",");
+    const budgetParameter =
+      comparisonBudget !== "" &&
+      Number(comparisonBudget) > 0
+        ? `&budget_millions=${encodeURIComponent(
+            Number(comparisonBudget)
+          )}`
+        : "";
+    const response = await fetch(
+      `${API_BASE}/api/compare?team=${encodeURIComponent(
+        selectedTeam
+      )}&player_ids=${encodeURIComponent(
+        ids
+      )}${budgetParameter}`
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail ||
+        "Unable to compare the selected players."
+      );
+    }
+
+    setComparisonResult(data);
+  } catch (error) {
+    setComparisonError(error.message);
+  } finally {
+    setComparisonLoading(false);
+  }
+}
+
   useEffect(() => {
     let active = true;
 
@@ -652,7 +732,10 @@ async function openPlayerAnalysis(
 
   useEffect(() => {
     if (
-      screen !== "player-search" ||
+      ![
+        "player-search",
+        "comparison",
+      ].includes(screen) ||
       !selectedTeam
     ) {
       return undefined;
@@ -725,6 +808,11 @@ async function openPlayerAnalysis(
   }, [screen]);
 
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [screen, comparisonResult]);
+
+
   const filteredTeams = useMemo(() => {
     const clubs = selectedLeague?.clubs || [];
     const query = teamSearch
@@ -751,6 +839,10 @@ async function openPlayerAnalysis(
     setAnalysisError("");
     setCandidates([]);
     setCandidateScoringModel(null);
+    setComparisonPlayers([]);
+    setComparisonBudget("");
+    setComparisonResult(null);
+    setComparisonError("");
     setScreen("league");
   }
 
@@ -761,6 +853,8 @@ async function openPlayerAnalysis(
     setTeamSearch("");
     setTeamProfile(null);
     setSelectedRole(null);
+    setComparisonPlayers([]);
+    setComparisonResult(null);
     setScreen("club");
   }
 
@@ -781,6 +875,10 @@ async function openPlayerAnalysis(
     setPlayerSearchError("");
     setCandidates([]);
     setCandidateScoringModel(null);
+    setComparisonPlayers([]);
+    setComparisonBudget("");
+    setComparisonResult(null);
+    setComparisonError("");
     setTeamError("");
   }
 
@@ -820,10 +918,15 @@ async function openPlayerAnalysis(
       setSelectedPlayer(null);
       setPlayerQuery("");
       setSpecificPlayerBudget("");
+      setComparisonPlayers([]);
+      setComparisonResult(null);
+      setComparisonError("");
       setScreen(
         analysisMode === "player"
           ? "player-search"
-          : "position"
+          : analysisMode === "compare"
+            ? "comparison"
+            : "position"
       );
     } catch (error) {
       setTeamError(error.message);
@@ -847,6 +950,9 @@ async function openPlayerAnalysis(
           }
           onFindCandidates={() =>
             openAnalysis("candidates")
+          }
+          onComparePlayers={() =>
+            openAnalysis("compare")
           }
         />
       )}
@@ -907,6 +1013,38 @@ async function openPlayerAnalysis(
         />
       )}
 
+      {screen === "comparison" && teamProfile && (
+        <ComparisonCenter
+          teamProfile={teamProfile}
+          query={playerQuery}
+          setQuery={setPlayerQuery}
+          players={playerResults}
+          selectedPlayers={comparisonPlayers}
+          onTogglePlayer={toggleComparisonPlayer}
+          budget={comparisonBudget}
+          setBudget={setComparisonBudget}
+          searchLoading={playerSearchLoading}
+          comparisonLoading={comparisonLoading}
+          error={playerSearchError || comparisonError}
+          result={comparisonResult}
+          onCompare={runPlayerComparison}
+          onResetResult={() => {
+            setComparisonResult(null);
+            setComparisonError("");
+          }}
+          onBack={() => setScreen("club")}
+          onAnalyzePlayer={(report) =>
+            openPlayerAnalysis(
+              report.player,
+              {
+                budget: comparisonBudget,
+                backScreen: "comparison",
+              }
+            )
+          }
+        />
+      )}
+
       {screen === "position" && teamProfile && (
   <PositionSelectionScreen
     teamProfile={teamProfile}
@@ -958,6 +1096,7 @@ function LandingScreen({
   score,
   onAnalyzePlayer,
   onFindCandidates,
+  onComparePlayers,
 }) {
   return (
     <>
@@ -1037,6 +1176,18 @@ function LandingScreen({
               />
 
               Find Transfer Candidates
+            </button>
+
+            <button
+              className="secondary-button hero-compare-action"
+              onClick={onComparePlayers}
+            >
+              <FootballIcon
+                name="versus"
+                size={18}
+              />
+
+              Compare Players
             </button>
           </div>
 
@@ -1204,7 +1355,9 @@ function AnalysisHeader({
   const steps =
     mode === "player"
       ? ["League", "Club", "Player", "Score"]
-      : ["League", "Club", "Position", "Candidates"];
+      : mode === "compare"
+        ? ["League", "Club", "Players", "Compare"]
+        : ["League", "Club", "Position", "Candidates"];
 
   return (
     <header className="analysis-navbar">
@@ -1605,7 +1758,9 @@ function ClubSelectionScreen({
               ? "Loading Club..."
               : analysisMode === "player"
                 ? "Continue to Player Search"
-                : "Continue to Position"}
+                : analysisMode === "compare"
+                  ? "Continue to Comparison"
+                  : "Continue to Position"}
 
             <span>→</span>
           </button>

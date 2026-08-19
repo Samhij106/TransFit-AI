@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from transfit_service import (
     analyze_transfer,
+    compare_players,
     get_candidate_rankings,
     get_club_catalog,
     search_players,
@@ -77,6 +78,36 @@ def players(
             limit=limit,
             target_team=team,
             position=position,
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
+
+
+# =========================================================
+# PLAYER COMPARISON
+# =========================================================
+
+@app.get("/api/compare")
+def compare(
+    team: str,
+    player_ids: str,
+    budget_millions: float | None = None,
+):
+    try:
+        ids = [
+            int(value.strip())
+            for value in player_ids.split(",")
+            if value.strip()
+        ]
+
+        return compare_players(
+            team_name=team,
+            player_ids=ids,
+            budget_millions=budget_millions,
         )
 
     except (SystemExit, ValueError) as error:

@@ -1,4 +1,5 @@
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor
 
 import pandas as pd
 
@@ -197,6 +198,14 @@ def search_players(
         players = players[
             name_match | team_match
         ].copy()
+
+        if players.empty:
+            return {
+                "query": query,
+                "target_team": target_team,
+                "count": 0,
+                "players": [],
+            }
 
         def match_rank(row):
             name = row["normalized_name"]
@@ -982,6 +991,181 @@ def get_team_profile(team_name):
             team["secondary_percentage"]
         ),
         "formation_history": team["formation_history"],
+    }
+
+
+# =========================================================
+# PLAYER COMPARISON
+# =========================================================
+
+def compare_players(
+    team_name,
+    player_ids,
+    budget_millions=None,
+):
+    unique_ids = []
+
+    for player_id in player_ids:
+        player_id = int(player_id)
+
+        if player_id not in unique_ids:
+            unique_ids.append(player_id)
+
+    if not 2 <= len(unique_ids) <= 4:
+        raise ValueError(
+            "Select between 2 and 4 unique players."
+        )
+
+    catalog = load_player_search_catalog()
+    selected_players = []
+
+    for player_id in unique_ids:
+        match = catalog[
+            catalog["player_id"] == player_id
+        ]
+
+        if len(match) != 1:
+            raise ValueError(
+                f"Player profile not found: {player_id}"
+            )
+
+        player = match.iloc[0]
+        current_teams = {
+            team.strip()
+            for team in str(player["team"]).split("|")
+        }
+
+        if team_name in current_teams:
+            raise ValueError(
+                f"{player['name']} already plays for "
+                f"{team_name}."
+            )
+
+        selected_players.append({
+            "player_id": player_id,
+            "name": player["name"],
+        })
+
+    def analyze_selected(player):
+        return analyze_transfer(
+            player["name"],
+            team_name,
+            player_id=player["player_id"],
+            budget_millions=budget_millions,
+        )
+
+    with ThreadPoolExecutor(
+        max_workers=len(selected_players)
+    ) as executor:
+        reports = list(
+            executor.map(
+                analyze_selected,
+                selected_players,
+            )
+        )
+
+    reports.sort(
+        key=lambda report: report["scores"]["final"],
+        reverse=True,
+    )
+
+    best_score = reports[0]["scores"]["final"]
+
+    for rank, report in enumerate(reports, start=1):
+        report["comparison_rank"] = rank
+        report["score_gap_to_best"] = round(
+            best_score - report["scores"]["final"],
+            1,
+        )
+
+    metric_keys = [
+        "tactical",
+        "position",
+        "performance",
+        "proven",
+        "availability",
+        "potential",
+        "squad_need",
+    ]
+    dimension_leaders = {}
+
+    for metric in metric_keys:
+        leader = max(
+            reports,
+            key=lambda report: report["scores"][metric],
+        )
+        dimension_leaders[metric] = {
+            "player_id": leader["player"]["player_id"],
+            "name": leader["player"]["name"],
+            "score": leader["scores"][metric],
+        }
+
+    decisive_factors = []
+
+    if len(reports) > 1:
+        winner = reports[0]
+        runner_up = reports[1]
+        weights = winner["scores"]["weights"]
+
+        weight_keys = {
+            "tactical": "tactical",
+            "position": "position",
+            "performance": "performance",
+            "proven": "proven",
+            "availability": "availability",
+            "potential": "potential",
+            "squad_need": "squad_need",
+        }
+
+        for metric, weight_key in weight_keys.items():
+            raw_delta = (
+                winner["scores"][metric]
+                - runner_up["scores"][metric]
+            )
+            weighted_delta = (
+                raw_delta
+                * float(weights[weight_key])
+                / 100
+            )
+
+            decisive_factors.append({
+                "metric": metric,
+                "winner_score": winner["scores"][metric],
+                "runner_up_score": runner_up["scores"][metric],
+                "raw_delta": round(raw_delta, 1),
+                "weighted_delta": round(weighted_delta, 2),
+            })
+
+        decisive_factors.sort(
+            key=lambda factor: factor["weighted_delta"],
+            reverse=True,
+        )
+        decisive_factors = [
+            factor
+            for factor in decisive_factors
+            if factor["weighted_delta"] > 0
+        ]
+
+    return {
+        "target_team": reports[0]["target_team"],
+        "scoring_model": {
+            "version": SCORE_VERSION,
+            "weights": SCORE_WEIGHTS,
+        },
+        "selected_budget_m_eur": (
+            None
+            if budget_millions is None
+            else float(budget_millions)
+        ),
+        "player_count": len(reports),
+        "winner": {
+            "player_id": reports[0]["player"]["player_id"],
+            "name": reports[0]["player"]["name"],
+            "score": reports[0]["scores"]["final"],
+        },
+        "dimension_leaders": dimension_leaders,
+        "decisive_factors": decisive_factors[:3],
+        "players": reports,
     }
 
 

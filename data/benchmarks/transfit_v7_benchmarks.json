@@ -1,0 +1,81 @@
+{
+  "suite_version": 1,
+  "model_version": "TransFit V7 Role-Aware",
+  "description": "Football sanity checks that protect the TransFit ranking from known unrealistic regressions.",
+  "groups": [
+    {
+      "id": "barcelona-cdm-quality-order",
+      "team": "Barcelona",
+      "role": "CDM",
+      "limit": 250,
+      "min_minutes": 450,
+      "min_role_fit": 80,
+      "ordered_pairs": [
+        {
+          "preferred_player_id": 502,
+          "preferred_name": "J. Kimmich",
+          "comparison_player_id": 747,
+          "comparison_name": "Casemiro",
+          "minimum_score_gap": 3.0
+        },
+        {
+          "preferred_player_id": 1271,
+          "preferred_name": "A. Tchouameni",
+          "comparison_player_id": 747,
+          "comparison_name": "Casemiro",
+          "minimum_score_gap": 2.0
+        },
+        {
+          "preferred_player_id": 44,
+          "preferred_name": "Rodri",
+          "comparison_player_id": 747,
+          "comparison_name": "Casemiro",
+          "minimum_score_gap": 1.0
+        }
+      ]
+    },
+    {
+      "id": "barcelona-striker-quality-and-position",
+      "team": "Barcelona",
+      "role": "ST",
+      "limit": 300,
+      "min_minutes": 450,
+      "min_role_fit": 80,
+      "ordered_pairs": [
+        {
+          "preferred_player_id": 184,
+          "preferred_name": "H. Kane",
+          "comparison_player_id": 1465,
+          "comparison_name": "P. Aubameyang",
+          "minimum_score_gap": 5.0
+        },
+        {
+          "preferred_player_id": 217,
+          "preferred_name": "Lautaro Martinez",
+          "comparison_player_id": 6009,
+          "comparison_name": "J. Alvarez",
+          "minimum_score_gap": 2.0
+        },
+        {
+          "preferred_player_id": 6009,
+          "preferred_name": "J. Alvarez",
+          "comparison_player_id": 1465,
+          "comparison_name": "P. Aubameyang",
+          "minimum_score_gap": 2.0
+        }
+      ],
+      "excluded_players": [
+        {
+          "player_id": 762,
+          "name": "Vinicius Junior",
+          "reason": "Canonical position is LW, not ST"
+        },
+        {
+          "player_id": 339883,
+          "name": "K. Yildiz",
+          "reason": "Canonical position is LW, not ST"
+        }
+      ]
+    }
+  ]
+}
