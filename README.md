@@ -169,6 +169,22 @@ npm run dev
 The frontend uses `http://127.0.0.1:8000` by default. Set
 `VITE_API_BASE_URL` to point it at another API URL.
 
+## Free public demo
+
+The repository includes `render.yaml`, which creates two free Render services:
+
+- `transfit-ai-samhij106`: the React static site.
+- `transfit-ai-samhij106-api`: the FastAPI analysis service.
+
+Create a new Render Blueprint from this repository to deploy both services.
+The public frontend is configured to call the deployed API, and the API accepts
+requests from the deployed frontend through `FRONTEND_ORIGINS`. Localhost
+origins remain enabled for development.
+
+Free Render web services sleep after inactivity. The frontend shows a delayed
+engine-starting notice so portfolio visitors understand the first request can
+take longer without interrupting normal fast requests.
+
 ## Model benchmarks
 
 Run the regression tests and the football benchmark suite before accepting a

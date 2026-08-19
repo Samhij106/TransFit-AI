@@ -520,6 +520,8 @@ function App() {
     useState(false);
   const [comparisonError, setComparisonError] =
     useState("");
+  const [engineWakeSlow, setEngineWakeSlow] =
+    useState(false);
 
   async function findBestCandidates() {
   if (!selectedTeam || !selectedRole) {
@@ -813,6 +815,29 @@ async function runPlayerComparison() {
   }, [screen, comparisonResult]);
 
 
+  const backendBusy =
+    catalogLoading ||
+    teamLoading ||
+    candidatesLoading ||
+    analysisLoading ||
+    playerSearchLoading ||
+    comparisonLoading;
+
+
+  useEffect(() => {
+    if (!backendBusy) {
+      setEngineWakeSlow(false);
+      return undefined;
+    }
+
+    const timer = setTimeout(() => {
+      setEngineWakeSlow(true);
+    }, 4500);
+
+    return () => clearTimeout(timer);
+  }, [backendBusy]);
+
+
   const filteredTeams = useMemo(() => {
     const clubs = selectedLeague?.clubs || [];
     const query = teamSearch
@@ -941,6 +966,24 @@ async function runPlayerComparison() {
       <div className="background-grid" />
       <div className="spotlight spotlight-one" />
       <div className="spotlight spotlight-two" />
+
+      {engineWakeSlow && (
+        <div
+          className="engine-wake-notice"
+          role="status"
+          aria-live="polite"
+        >
+          <span className="engine-wake-pulse" />
+
+          <div>
+            <strong>Starting the analysis engine…</strong>
+            <small>
+              This free demo may need up to a minute after
+              a period of inactivity.
+            </small>
+          </div>
+        </div>
+      )}
 
       {screen === "landing" && (
         <LandingScreen

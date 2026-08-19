@@ -952,6 +952,98 @@ body {
 
 
 /* =========================================================
+   FREE DEMO ENGINE WAKE NOTICE
+========================================================= */
+
+.engine-wake-notice {
+  position: fixed;
+  z-index: 1200;
+  top: 22px;
+  left: 50%;
+  width: min(430px, calc(100% - 30px));
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(168, 255, 53, 0.25);
+  border-radius: 13px;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(12, 22, 13, 0.97),
+      rgba(5, 9, 6, 0.98)
+    );
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px);
+  animation: engineWakeEnter 0.35s ease both;
+}
+
+.engine-wake-notice > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.engine-wake-notice strong {
+  color: #ecf4ee;
+  font-size: 11px;
+}
+
+.engine-wake-notice small {
+  color: #7f8c83;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.engine-wake-pulse {
+  position: relative;
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 18px rgba(168, 255, 53, 0.6);
+}
+
+.engine-wake-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(168, 255, 53, 0.55);
+  border-radius: 50%;
+  animation: engineWakePulse 1.4s ease-out infinite;
+}
+
+@keyframes engineWakeEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes engineWakePulse {
+  from {
+    opacity: 0.8;
+    transform: scale(0.65);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+
+/* =========================================================
    PLAYER COMPARISON CENTER
 ========================================================= */
 
