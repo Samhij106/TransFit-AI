@@ -8,7 +8,7 @@ combines verified position, tactical fit, role-aware performance, three-season
 evidence, Transfermarkt peer validation, availability, limited age potential,
 and squad need.
 
-The product has three complementary workflows:
+The product has four complementary workflows:
 
 1. Analyze a specific player: club selection, verified player search, optional
    deal budget, and a player-to-club TransFit Score.
@@ -17,6 +17,9 @@ The product has three complementary workflows:
 3. Compare players: select a target club and two to four players, then compare
    their club-specific TransFit scores, weighted dimensions, market values,
    and the decisive reasons behind the winner.
+4. Plan a transfer window: select a club and total budget, audit the current
+   squad, identify its three highest-priority roles, and optimize Safe,
+   Balanced, and Ambitious multi-signing plans.
 
 ## Current scope
 
@@ -69,6 +72,8 @@ affordability separately and is not treated as an asking price.
 - `api.py`: FastAPI HTTP API.
 - `transfit_service.py`: web-facing service layer.
 - `candidate_ranking_engine.py`: role-specific candidate ranking.
+- `squad_planner_service.py`: squad audit and budget-constrained transfer
+  window optimizer built on the same V7 role-aware candidate scores.
 - `refresh_transfermarkt_values.py`: weekly market-value refresh and player
   identity matching plus source download.
 - `build_realistic_player_profiles.py`: verified positions, all-competition
@@ -192,6 +197,7 @@ scoring-model change:
 
 ```powershell
 .venv\Scripts\python.exe -m unittest test_transfit_v7.py
+.venv\Scripts\python.exe -m unittest test_squad_planner.py
 .venv\Scripts\python.exe validate_model_benchmarks.py
 ```
 
@@ -211,9 +217,16 @@ fixed.
 - `GET /api/rankings?team=Barcelona&role=ST&budget_millions=50`
 - `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&budget_millions=50`
 - `GET /api/compare?team=Barcelona&player_ids=184,217,6009&budget_millions=120`
+- `GET /api/squad-plan?team=Barcelona&budget_millions=150&max_signings=3`
 
 Passing `player_id` is recommended because the expanded candidate pool can
 contain players with similar or duplicate display names.
+
+The squad-plan endpoint treats the selected amount as a total transfer-fee
+budget. Safe and Balanced plans stay within that amount; Ambitious may use the
+same 15% tolerance as the candidate workflow. Wages, contract terms, and a
+selling club's willingness to negotiate are deliberately outside the current
+model boundary.
 
 ## Status
 

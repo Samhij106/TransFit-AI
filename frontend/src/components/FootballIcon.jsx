@@ -86,6 +86,20 @@ function FootballIcon({
     );
   }
 
+  if (name === "squad") {
+    return (
+      <svg {...commonProps}>
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M12 3v5M12 16v5M3 12h5M16 12h5" />
+        <circle cx="12" cy="12" r="3" />
+        <circle cx="7" cy="7" r="1.2" />
+        <circle cx="17" cy="7" r="1.2" />
+        <circle cx="7" cy="17" r="1.2" />
+        <circle cx="17" cy="17" r="1.2" />
+      </svg>
+    );
+  }
+
   return (
     <svg {...commonProps}>
       <circle cx="12" cy="12" r="9" />

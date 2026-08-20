@@ -11,6 +11,7 @@ from transfit_service import (
     search_players,
     get_team_profile,
 )
+from squad_planner_service import build_squad_plan
 
 
 app = FastAPI(
@@ -69,6 +70,30 @@ def health():
     return {
         "status": "ok",
     }
+
+
+# =========================================================
+# SQUAD UPGRADE LAB
+# =========================================================
+
+@app.get("/api/squad-plan")
+def squad_plan(
+    team: str,
+    budget_millions: float,
+    max_signings: int = 3,
+):
+    try:
+        return build_squad_plan(
+            team_name=team,
+            budget_millions=budget_millions,
+            max_signings=max_signings,
+        )
+
+    except (SystemExit, ValueError) as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
 
 
 @app.get("/api/clubs")

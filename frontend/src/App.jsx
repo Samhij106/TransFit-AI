@@ -4,6 +4,7 @@ import CandidatesScreen from "./components/CandidatesScreen";
 import ComparisonCenter from "./components/ComparisonCenter";
 import FootballIcon from "./components/FootballIcon";
 import PlayerAnalysisScreen from "./components/PlayerAnalysisScreen";
+import SquadUpgradeLab from "./components/SquadUpgradeLab";
 
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ||
@@ -520,6 +521,12 @@ function App() {
     useState(false);
   const [comparisonError, setComparisonError] =
     useState("");
+  const [squadBudget, setSquadBudget] = useState(150);
+  const [squadPlan, setSquadPlan] = useState(null);
+  const [squadPlanLoading, setSquadPlanLoading] =
+    useState(false);
+  const [squadPlanError, setSquadPlanError] =
+    useState("");
   const [engineWakeSlow, setEngineWakeSlow] =
     useState(false);
 
@@ -690,6 +697,44 @@ async function runPlayerComparison() {
   }
 }
 
+
+async function buildSquadUpgradePlan() {
+  if (
+    !selectedTeam
+    || !Number.isFinite(Number(squadBudget))
+    || Number(squadBudget) <= 0
+  ) {
+    return;
+  }
+
+  setSquadPlanLoading(true);
+  setSquadPlanError("");
+
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/squad-plan?team=${encodeURIComponent(
+        selectedTeam
+      )}&budget_millions=${encodeURIComponent(
+        Number(squadBudget)
+      )}&max_signings=3`
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail
+        || "Unable to build the squad upgrade plan."
+      );
+    }
+
+    setSquadPlan(data);
+  } catch (error) {
+    setSquadPlanError(error.message);
+  } finally {
+    setSquadPlanLoading(false);
+  }
+}
+
   useEffect(() => {
     let active = true;
 
@@ -812,7 +857,7 @@ async function runPlayerComparison() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [screen, comparisonResult]);
+  }, [screen, comparisonResult, squadPlan]);
 
 
   const backendBusy =
@@ -821,7 +866,8 @@ async function runPlayerComparison() {
     candidatesLoading ||
     analysisLoading ||
     playerSearchLoading ||
-    comparisonLoading;
+    comparisonLoading ||
+    squadPlanLoading;
 
 
   useEffect(() => {
@@ -868,6 +914,9 @@ async function runPlayerComparison() {
     setComparisonBudget("");
     setComparisonResult(null);
     setComparisonError("");
+    setSquadBudget(150);
+    setSquadPlan(null);
+    setSquadPlanError("");
     setScreen("league");
   }
 
@@ -880,6 +929,8 @@ async function runPlayerComparison() {
     setSelectedRole(null);
     setComparisonPlayers([]);
     setComparisonResult(null);
+    setSquadPlan(null);
+    setSquadPlanError("");
     setScreen("club");
   }
 
@@ -904,6 +955,9 @@ async function runPlayerComparison() {
     setComparisonBudget("");
     setComparisonResult(null);
     setComparisonError("");
+    setSquadBudget(150);
+    setSquadPlan(null);
+    setSquadPlanError("");
     setTeamError("");
   }
 
@@ -946,12 +1000,16 @@ async function runPlayerComparison() {
       setComparisonPlayers([]);
       setComparisonResult(null);
       setComparisonError("");
+      setSquadPlan(null);
+      setSquadPlanError("");
       setScreen(
         analysisMode === "player"
           ? "player-search"
           : analysisMode === "compare"
             ? "comparison"
-            : "position"
+            : analysisMode === "squad"
+              ? "squad-lab"
+              : "position"
       );
     } catch (error) {
       setTeamError(error.message);
@@ -996,6 +1054,9 @@ async function runPlayerComparison() {
           }
           onComparePlayers={() =>
             openAnalysis("compare")
+          }
+          onPlanSquad={() =>
+            openAnalysis("squad")
           }
         />
       )}
@@ -1088,6 +1149,23 @@ async function runPlayerComparison() {
         />
       )}
 
+      {screen === "squad-lab" && teamProfile && (
+        <SquadUpgradeLab
+          teamProfile={teamProfile}
+          budget={squadBudget}
+          setBudget={setSquadBudget}
+          loading={squadPlanLoading}
+          error={squadPlanError}
+          result={squadPlan}
+          onBuild={buildSquadUpgradePlan}
+          onReset={() => {
+            setSquadPlan(null);
+            setSquadPlanError("");
+          }}
+          onBack={() => setScreen("club")}
+        />
+      )}
+
       {screen === "position" && teamProfile && (
   <PositionSelectionScreen
     teamProfile={teamProfile}
@@ -1140,6 +1218,7 @@ function LandingScreen({
   onAnalyzePlayer,
   onFindCandidates,
   onComparePlayers,
+  onPlanSquad,
 }) {
   return (
     <>
@@ -1231,6 +1310,18 @@ function LandingScreen({
               />
 
               Compare Players
+            </button>
+
+            <button
+              className="secondary-button hero-squad-action"
+              onClick={onPlanSquad}
+            >
+              <FootballIcon
+                name="squad"
+                size={18}
+              />
+
+              Plan Transfer Window
             </button>
           </div>
 
@@ -1400,6 +1491,8 @@ function AnalysisHeader({
       ? ["League", "Club", "Player", "Score"]
       : mode === "compare"
         ? ["League", "Club", "Players", "Compare"]
+        : mode === "squad"
+          ? ["League", "Club", "Budget", "Window Plan"]
         : ["League", "Club", "Position", "Candidates"];
 
   return (
@@ -1803,6 +1896,8 @@ function ClubSelectionScreen({
                 ? "Continue to Player Search"
                 : analysisMode === "compare"
                   ? "Continue to Comparison"
+                  : analysisMode === "squad"
+                    ? "Continue to Squad Lab"
                   : "Continue to Position"}
 
             <span>→</span>
