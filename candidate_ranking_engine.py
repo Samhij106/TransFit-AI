@@ -49,7 +49,6 @@ from transfer_fit_v5 import (
 from realistic_data_engine import (
     blend_performance_score,
     calibrate_proven_level,
-    find_realism_by_id,
     load_realism_profiles,
     realism_scores,
 )
@@ -124,6 +123,29 @@ def invalid_integer_conversion(error):
     )
 
 
+def build_unique_player_index(dataframe):
+    """Index unique player rows once instead of filtering a DataFrame per candidate."""
+    index = {}
+    duplicates = set()
+
+    for _, player in dataframe.iterrows():
+        player_id_value = finite_number(player.get("player_id"))
+        if player_id_value is None:
+            continue
+
+        player_id = int(player_id_value)
+        if player_id in index:
+            duplicates.add(player_id)
+            continue
+
+        index[player_id] = player
+
+    for player_id in duplicates:
+        index.pop(player_id, None)
+
+    return index
+
+
 @lru_cache(maxsize=1)
 def load_candidate_ranking_data():
     """Load immutable ranking inputs once per API process."""
@@ -142,6 +164,10 @@ def load_candidate_ranking_data():
         potential_players,
         realism_players,
         raw,
+        build_unique_player_index(positions),
+        build_unique_player_index(tactical_players),
+        build_unique_player_index(potential_players),
+        build_unique_player_index(realism_players),
     )
 
 
@@ -655,6 +681,10 @@ def rank_candidates(
         potential_players,
         realism_players,
         raw,
+        position_players_by_id,
+        tactical_players_by_id,
+        potential_players_by_id,
+        realism_players_by_id,
     ) = load_candidate_ranking_data()
 
     formation_team = (
@@ -794,31 +824,10 @@ def rank_candidates(
         # Get player records by ID
         # ---------------------------------------------
 
-        position_player = (
-            find_by_id(
-                positions,
-                player_id,
-            )
-        )
-
-        tactical_player = (
-            find_by_id(
-                tactical_players,
-                player_id,
-            )
-        )
-
-        potential_player = (
-            find_by_id(
-                potential_players,
-                player_id,
-            )
-        )
-
-        realism_player = find_realism_by_id(
-            realism_players,
-            player_id,
-        )
+        position_player = position_players_by_id.get(player_id)
+        tactical_player = tactical_players_by_id.get(player_id)
+        potential_player = potential_players_by_id.get(player_id)
+        realism_player = realism_players_by_id.get(player_id)
 
         if (
             position_player is None
