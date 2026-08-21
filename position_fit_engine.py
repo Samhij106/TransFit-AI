@@ -270,7 +270,7 @@ POSITION_COMPATIBILITY = {
 
     "LM": {
         "LM": 100,
-        "LW": 90,
+        "LW": 100,
         "LWB": 80,
         "CAM": 72,
         "CM": 65,
@@ -280,7 +280,7 @@ POSITION_COMPATIBILITY = {
 
     "RM": {
         "RM": 100,
-        "RW": 90,
+        "RW": 100,
         "RWB": 80,
         "CAM": 72,
         "CM": 65,
@@ -290,7 +290,7 @@ POSITION_COMPATIBILITY = {
 
     "LW": {
         "LW": 100,
-        "LM": 90,
+        "LM": 100,
         "CAM": 75,
         "ST": 68,
         "LWB": 55,
@@ -299,7 +299,7 @@ POSITION_COMPATIBILITY = {
 
     "RW": {
         "RW": 100,
-        "RM": 90,
+        "RM": 100,
         "CAM": 75,
         "ST": 68,
         "RWB": 55,

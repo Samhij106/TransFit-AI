@@ -1,6 +1,6 @@
 import unittest
 
-from position_fit_engine import get_team_formation_options
+from position_fit_engine import compatibility, get_team_formation_options
 from squad_planner_service import (
     STRATEGIES,
     build_squad_plan,
@@ -171,6 +171,68 @@ class SquadPlannerTests(unittest.TestCase):
 
         self.assertEqual(scores, sorted(scores, reverse=True))
         self.assertEqual(len(set(scores)), 5)
+
+    def test_wide_midfield_and_wing_roles_are_equivalent(self):
+        self.assertEqual(compatibility("LM", "LW"), 100)
+        self.assertEqual(compatibility("LW", "LM"), 100)
+        self.assertEqual(compatibility("RM", "RW"), 100)
+        self.assertEqual(compatibility("RW", "RM"), 100)
+
+    def test_league_context_places_saka_above_greenwood(self):
+        greenwood = candidate(
+            70,
+            "M. Greenwood",
+            55,
+            88.8,
+            performance=94.4,
+            tactical=81.4,
+            proven=94.7,
+        )
+        greenwood["league_strength"] = 82
+        saka = candidate(
+            71,
+            "B. Saka",
+            110,
+            86,
+            performance=87.1,
+            tactical=75.4,
+            proven=93.7,
+        )
+        saka["league_strength"] = 100
+
+        self.assertGreater(
+            candidate_role_strength(saka),
+            candidate_role_strength(greenwood),
+        )
+
+    def test_elite_club_rejects_lower_league_bargain_starter(self):
+        greenwood = candidate(
+            72,
+            "M. Greenwood",
+            55,
+            88.8,
+            performance=94.4,
+            tactical=81.4,
+            proven=94.7,
+        )
+        greenwood["league_strength"] = 82
+        greenwood["deal_feasibility"] = {
+            "target_stature_percentile": 97.9,
+        }
+        assessment = {
+            "recruitment_intent": "starter_upgrade",
+            "starter_quality": 55,
+            "upgrade_baseline": 55,
+            "target_incumbent": "A. Semenyo",
+        }
+
+        fit = candidate_plan_fit(greenwood, assessment)
+
+        self.assertFalse(fit["eligible"])
+        self.assertEqual(
+            fit["reason"],
+            "Profile is below elite-club starter level",
+        )
 
     def test_manager_trust_keeps_regular_starter_in_lineup(self):
         cubarsi = {

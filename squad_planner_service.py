@@ -47,6 +47,10 @@ STARTER_UPGRADE_MARGIN = 5
 DEPTH_UPGRADE_MARGIN = 5
 DEPTH_STARTER_GAP = 6
 DEPTH_MAX_MARKET_VALUE = 60
+STARTER_SHORTLIST_QUALITY_BAND = 6
+ELITE_CLUB_PERCENTILE = 95
+ELITE_STARTER_MIN_VALUE_M_EUR = 75
+ELITE_STARTER_MIN_LEAGUE_STRENGTH = 90
 
 STRATEGIES = (
     {
@@ -493,7 +497,7 @@ def candidate_utility(
     )
     metrics = {
         "final_score": float(candidate["final_score"]),
-        "performance": float(candidate["performance"]),
+        "performance": competition_adjusted_performance(candidate),
         "proven": float(candidate["proven"]),
         "availability": float(candidate["availability"]),
         "potential": float(candidate["potential"]),
@@ -505,6 +509,18 @@ def candidate_utility(
         metrics[key] * weight
         for key, weight in strategy["weights"].items()
     )
+
+
+def competition_adjusted_performance(candidate):
+    """Scale output so weaker competitions cannot inflate recruitment level."""
+    league_score = candidate.get("league_strength")
+
+    if league_score is None or pd.isna(league_score):
+        league_score = league_strength_score(candidate.get("league"))
+
+    performance = float(candidate["performance"])
+    competition_factor = 0.50 + float(league_score) / 200
+    return clamp(performance * competition_factor)
 
 
 def candidate_plan_fit(candidate, assessment):
@@ -536,13 +552,35 @@ def candidate_plan_fit(candidate, assessment):
             assessment.get("upgrade_baseline", starter_quality)
         )
         improvement = projected_strength - baseline
-        eligible = improvement >= STARTER_UPGRADE_MARGIN
+        league_score = candidate.get("league_strength")
+
+        if league_score is None or pd.isna(league_score):
+            league_score = league_strength_score(candidate.get("league"))
+
+        value = float(candidate.get("estimated_value_m_eur", 0) or 0)
+        feasibility = candidate.get("deal_feasibility") or {}
+        target_stature = float(
+            feasibility.get("target_stature_percentile", 0) or 0
+        )
+        undersized_elite_profile = (
+            target_stature >= ELITE_CLUB_PERCENTILE
+            and float(league_score) < ELITE_STARTER_MIN_LEAGUE_STRENGTH
+            and value < ELITE_STARTER_MIN_VALUE_M_EUR
+        )
+        eligible = (
+            improvement >= STARTER_UPGRADE_MARGIN
+            and not undersized_elite_profile
+        )
         return {
             "eligible": eligible,
             "reason": (
                 "Clear starter upgrade"
                 if eligible
-                else "Not a clear upgrade on the current starter"
+                else (
+                    "Profile is below elite-club starter level"
+                    if undersized_elite_profile
+                    else "Not a clear upgrade on the current starter"
+                )
             ),
             "projected_strength": projected_strength,
             "improvement": max(0.0, improvement),
@@ -632,6 +670,23 @@ def optimize_strategy(
             key=lambda option: option[0],
             reverse=True,
         )
+
+        if (
+            role.get("recruitment_intent") == "starter_upgrade"
+            and ranked_options
+        ):
+            best_projected_strength = max(
+                option[2]["projected_strength"]
+                for option in ranked_options
+            )
+            ranked_options = [
+                option
+                for option in ranked_options
+                if option[2]["projected_strength"]
+                >= best_projected_strength
+                - STARTER_SHORTLIST_QUALITY_BAND
+            ]
+
         option_groups.append((
             role_name,
             ranked_options[:OPTIMIZATION_POOL_SIZE],
@@ -806,7 +861,7 @@ def candidate_role_strength(signing):
         league_score = league_strength_score(signing.get("league"))
 
     return clamp(
-        signing["performance"] * 0.47
+        competition_adjusted_performance(signing) * 0.47
         + signing["tactical"] * 0.23
         + signing["proven"] * 0.20
         + float(league_score) * 0.10
