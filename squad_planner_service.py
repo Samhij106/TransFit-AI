@@ -5,6 +5,7 @@ import pandas as pd
 
 from candidate_ranking_engine import (
     SUPPORTED_ROLES,
+    load_candidate_ranking_data,
     rank_candidates,
 )
 from position_fit_engine import (
@@ -1047,6 +1048,10 @@ def build_squad_plan(
         raise ValueError(
             "No material squad upgrade need was found for this formation."
         )
+
+    # Warm shared ranking inputs before the role workers start. On the
+    # free Render instance this avoids loading every CSV once per role.
+    load_candidate_ranking_data()
 
     with ThreadPoolExecutor(
         max_workers=len(priority_roles)

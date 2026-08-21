@@ -1,5 +1,6 @@
 import argparse
 import math
+from functools import lru_cache
 
 import pandas as pd
 
@@ -113,6 +114,35 @@ def finite_number(value):
         return None
 
     return number if math.isfinite(number) else None
+
+
+def invalid_integer_conversion(error):
+    message = str(error).lower()
+    return (
+        "integer" in message
+        and ("nan" in message or "infinity" in message)
+    )
+
+
+@lru_cache(maxsize=1)
+def load_candidate_ranking_data():
+    """Load immutable ranking inputs once per API process."""
+    positions, formation_teams = load_position_data()
+    tactical_players, tactical_teams = load_tactical_data()
+    performance_players = prepare_performance_data()
+    potential_players = prepare_potential_data()
+    realism_players = load_realism_profiles()
+    raw, _, _ = load_squad_data()
+    return (
+        positions,
+        formation_teams,
+        tactical_players,
+        tactical_teams,
+        performance_players,
+        potential_players,
+        realism_players,
+        raw,
+    )
 
 
 # =========================================================
@@ -619,7 +649,13 @@ def rank_candidates(
     (
         positions,
         formation_teams,
-    ) = load_position_data()
+        tactical_players,
+        tactical_teams,
+        performance_players,
+        potential_players,
+        realism_players,
+        raw,
+    ) = load_candidate_ranking_data()
 
     formation_team = (
         find_formation_team(
@@ -638,11 +674,6 @@ def rank_candidates(
     # Tactical Data
     # -----------------------------------------------------
 
-    (
-        tactical_players,
-        tactical_teams,
-    ) = load_tactical_data()
-
     tactical_team = (
         find_tactical_team(
             tactical_teams,
@@ -653,32 +684,6 @@ def rank_candidates(
     # -----------------------------------------------------
     # Performance Data
     # -----------------------------------------------------
-
-    performance_players = (
-        prepare_performance_data()
-    )
-
-    # -----------------------------------------------------
-    # Potential Data
-    # -----------------------------------------------------
-
-    potential_players = (
-        prepare_potential_data()
-    )
-
-    realism_players = (
-        load_realism_profiles()
-    )
-
-    # -----------------------------------------------------
-    # Raw Squad Data
-    # -----------------------------------------------------
-
-    (
-        raw,
-        _,
-        _,
-    ) = load_squad_data()
 
     # -----------------------------------------------------
     # Players who played for target team
@@ -864,6 +869,12 @@ def rank_candidates(
 
         except SystemExit:
             continue
+
+        except (TypeError, ValueError, OverflowError) as error:
+            if invalid_integer_conversion(error):
+                continue
+
+            raise
 
         if result is not None:
             results.append(
