@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 data/external/
+data/ml/*.csv
+data/ml/*.parquet
+data/ml/*.duckdb

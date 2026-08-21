@@ -1,0 +1,871 @@
+alias,current_club_id,evidence
+1. FC Heidenheim,2036,20
+1. FC Köln,3,19
+1. Fußballclub Heidenheim 1846,2036,21
+1.FC Köln,3,20
+1.FC Nuremberg,4,1
+1.FC Slovacko,5544,1
+1.FC Union Berlin,89,21
+1.FSV Mainz 05,39,21
+1899 Hoffenheim,533,16
+A.G.S Asteras Tripolis,6676,1
+AC Ajaccio,1147,1
+AC Carpi,4102,1
+AC Horsens,2414,1
+AC Milan,5,21
+AC Monza,2919,1
+AC Sparta Prague,197,1
+ACF Fiorentina,430,17
+ACSC FC Arges,41278,1
+ACSM Politehnica Iasi,33966,1
+ADO Den Haag,1268,1
+AEL Kalloni,28956,1
+AFC Bournemouth,989,19
+AFC Unirea 04 Slobozia,29700,1
+AJ Auxerre,290,21
+AO FK Zenit Sankt-Peterburg,964,1
+AO Platanias,21957,1
+AO Xanthi,128,1
+AOK Kerkyra,5219,1
+APO Levadiakos Football Club,2672,1
+APS Atromitos Athinon,3060,1
+AS Monaco,162,22
+AS Nancy-Lorraine,1159,1
+AS Roma,12,22
+AS Saint-Étienne,618,1
+ASFC Buzau (2016-2025),11380,1
+AZ Alkmaar,1090,1
+Aalborg BK,1053,1
+Aalesunds Fotballklubb,5619,1
+Aarhus GF,678,1
+Aberdeen FC,370,1
+Académica Coimbra,2990,1
+Adana Demirspor,3840,1
+Adanaspor,6,1
+Adelaide United,875,1
+Ajax Amsterdam,610,1
+Akhisarspor,19771,1
+Akron Togliatti,71985,1
+Al-Ahli Saudi Football Club,18487,1
+Al-Ettifaq Football Club,7732,1
+Al-Fateh Club,27221,1
+Al-Fayha FC,50531,1
+Al-Hazem Sport Club,9131,1
+Al-Hilal Saudi Football Club,1114,2
+Al-Ittihad Football Club,8023,1
+Al-Khaleej Club (Saihat),6070,1
+Al-Kholood Club,91427,1
+Al-Najma Sport Club,32328,1
+Al-Nassr Football Club,18544,1
+Al-Okhdood Club,71665,1
+Al-Orobah FC,39536,1
+Al-Qadsiah Saudi Football Club,26069,1
+Al-Raed SFC,22381,1
+Al-Riyadh Saudi Club,31008,1
+Al-Shabab Club,9840,1
+Al-Taawoun Football Club,28844,1
+Al-Wehda FC,17209,1
+Alanyaspor,11282,1
+Alaves,1108,19
+Albirex Niigata,8344,1
+Alianza FC,22902,1
+Allmänna Idrottsklubben,272,1
+Almere City FC,723,1
+Altay SK,2375,1
+Amiens SC,1416,1
+Amkar Perm,4128,1
+Angers,1420,17
+Angers SCO,1420,17
+Ankaraspor,2944,1
+Antalyaspor,589,1
+Anzhi Makhachkala ( -2022),2700,1
+Apollon Smyrnis,441,1
+Aris Thessalonikis,605,1
+Arminia Bielefeld,10,1
+Arsenal,11,20
+Arsenal FC,11,20
+Arsenal Kyiv,9007,1
+Arsenal Tula,3729,1
+Asociación Atlética Argentinos Juniors,1030,1
+Asociación Atlética Estudiantes,14602,1
+Asociación Deportivo Pasto,10090,1
+Asociación de Fomento Deportivo Riestra Barrio Colón,19775,1
+Associazione Sportiva Roma,12,26
+Associação Chapecoense de Futebol,17776,1
+Aston Villa,405,19
+Atalanta,800,19
+Atalanta BC,800,20
+Athens Kallithea,3062,1
+Athletic Bilbao,621,22
+Athletic Club,621,22
+Athlitiki Enosi Kifisias,30120,1
+Athlitiki Enosi Konstantinoupoleos,2441,1
+Athlitiki Enosi Larisas,4603,1
+Atlanta United Football Club,51663,1
+Atlas Guadalajara,8590,1
+Atletico Madrid,13,19
+Atlético Bucaramanga,6495,1
+Atlético Nacional,8172,1
+Atlético de Madrid,13,19
+Atlético de San Luis,40188,1
+Auckland FC,118373,1
+Austin FC,72309,1
+Austria Vienna,14,1
+Auxerre,290,20
+Avispa Fukuoka,9597,1
+Avs Futebol,110302,1
+B SAD,2457,1
+BK Häcken,1109,1
+BSC Young Boys,452,2
+Balikesirspor,20698,1
+Barcelona,131,22
+Basaksehir FK,6890,1
+Bayer 04 Leverkusen,15,21
+Bayer Leverkusen,15,20
+Bayern Munich,27,22
+Bayern München,27,22
+Beerschot AC,566,1
+Beerschot VA,41274,1
+Benevento Calcio,4171,1
+Beşiktaş Jimnastik Kulübü,114,2
+Boavista FC,2503,1
+Bodrum FK,44006,1
+"Bohemians Praha 1905, a.s.",715,1
+Bologna,1025,25
+Bologna Football Club 1909,1025,28
+Borussia Dortmund,16,23
+Borussia Mönchengladbach,18,19
+Bournemouth,989,18
+Boyacá Chicó FC,14649,1
+Brentford,1148,17
+Brentford FC,1148,17
+Brescia Calcio,19,1
+Brighton,1237,18
+Brighton & Hove Albion,1237,18
+Brisbane Roar,7831,1
+Bryne FK,1057,1
+Bröndby IF,206,1
+Bucheon Football Club 1995,35759,1
+Burnley,1132,21
+Burnley FC,1132,21
+Bursaspor,20,1
+CA Osasuna,331,21
+CA San Martín (San Juan),10511,1
+CD América de Cali,2352,1
+CD Cruz Azul,3711,1
+CD Feirense,3349,1
+CD Godoy Cruz Antonio Tomba,12574,1
+CD Leganés,1244,1
+CD Nacional,982,1
+CD Santa Clara,2423,1
+CD Tondela,7179,1
+CF América,3631,2
+CF Estrela Amadora,2431,1
+CF Monterrey,2407,1
+CF Os Belenenses,68608,1
+CF Pachuca,4035,2
+CF União Madeira (-2021),976,1
+CFR Cluj,7769,1
+CS Marítimo,1301,1
+Cagliari,1390,17
+Cagliari Calcio,1390,17
+Cardiff City,603,1
+Casa Pia AC,3268,1
+Catania FC,1627,1
+Caykur Rizespor,126,1
+Ceará Sporting Club,2029,1
+Celta Vigo,940,22
+Celta de Vigo,940,23
+Celtic FC,371,1
+Central Coast Mariners,6954,1
+Cercle Brugge,520,1
+Cerezo Osaka,1022,1
+Cesena FC,1429,1
+Charlotte Football Club,78435,1
+Chelsea,631,22
+Chelsea FC,631,23
+Chicago Fire Soccer Club,432,1
+Chievo Verona,862,1
+Chornomorets Odesa,6992,1
+Clermont Foot 63,3524,1
+Club Atlético Aldosivi,12301,1
+Club Atlético Banfield,830,1
+Club Atlético Barracas Central,25184,1
+Club Atlético Belgrano,2417,1
+Club Atlético Boca Juniors,189,1
+Club Atlético Central Córdoba,31284,1
+Club Atlético Gimnasia y Esgrima de Mendoza,14687,1
+Club Atlético Huracán,2063,1
+Club Atlético Independiente de Avellaneda,1234,1
+Club Atlético Lanús,333,1
+Club Atlético Newell’s Old Boys,1286,1
+Club Atlético Platense,928,1
+Club Atlético River Plate,209,1
+Club Atlético Rosario Central,1418,1
+Club Atlético San Lorenzo de Almagro,1775,1
+Club Atlético Sarmiento,12454,1
+Club Atlético Talleres,3938,1
+Club Atlético Tigre,11831,1
+Club Atlético Tucumán,14554,1
+Club Atlético Unión,7097,1
+Club Atlético Vélez Sársfield,1029,1
+Club Brugge KV,2282,2
+Club Estudiantes de La Plata,288,1
+Club Internacional de Fútbol Miami,69261,1
+Club León FC,4941,1
+Club Necaxa,1146,1
+Club Social y Deportivo Defensa y Justicia,2402,1
+Club Sportivo Independiente Rivadavia,12179,1
+Club Tijuana,13353,1
+Club de Foot Montréal,4078,1
+Club de Gimnasia y Esgrima La Plata,1106,1
+Club de Regatas Vasco da Gama,978,1
+Clube Atlético Mineiro,330,1
+Clube Atlético Paranaense,679,1
+Clube de Regatas do Flamengo,614,1
+Clube do Remo,10997,1
+Colorado Rapids,1247,1
+Columbus Crew,813,1
+Como,1047,21
+Como 1907,1047,22
+Coritiba Foot Ball Club,776,1
+Cracovia,5689,1
+Cremonese,2239,20
+Cruzeiro Esporte Clube,609,1
+Crystal Palace,873,17
+Cádiz CF,2687,1
+Córdoba CF,993,1
+D.C. United,2440,1
+Daegu FC,6504,1
+Damac Football Club,50532,1
+De Graafschap Doetinchem,642,1
+Degerfors IF,3641,1
+Delfino Pescara 1936,2921,1
+Denizlispor,833,1
+Deportes Tolima,10503,1
+Deportivo Alavés,1108,19
+Deportivo Cali,9961,1
+Deportivo Guadalajara,6711,1
+Deportivo Pereira,9811,1
+Deportivo Toluca,1804,1
+Deportivo de La Coruña,897,1
+Desna Chernigiv,16239,1
+Desportivo Aves (- 2020),3336,1
+Dijon FCO,2969,1
+Dinamo Makhachkala,75231,1
+Djurgårdens Idrottsförening,1044,1
+Dnipro Dnipropetrovsk (-2020),339,1
+Dundee FC,511,1
+Dundee United FC,1519,1
+Dynamo Kyiv,338,1
+EA Guingamp,855,1
+ESTAC Troyes,1095,1
+Eintracht Braunschweig,23,1
+Eintracht Frankfurt,24,19
+Elazigspor,2292,1
+Elche,1531,18
+Elche CF,1531,19
+Enisey Krasnoyarsk,3714,1
+Envigado FC,7136,1
+Epicentr Kamyanets-Podilskyi,84122,1
+Erzurumspor FK,39722,1
+Esbjerg fB,3426,1
+Eskisehirspor,825,1
+Espanyol,714,17
+Esporte Clube Bahia,10010,1
+Esporte Clube Juventude,10492,1
+Esporte Clube Vitória,2125,1
+Everton,29,19
+Everton FC,29,19
+Excelsior Rotterdam,798,1
+Eyüpspor,7160,1
+FC Alverca,2521,1
+FC Arouca,8024,1
+FC Augsburg,167,17
+FC Baník Ostrava a.s.,377,1
+FC Barcelona,131,24
+FC Basel 1893,26,1
+FC Blau-Weiss Linz,2157,1
+FC Botosani,8818,1
+FC Copenhagen,190,1
+FC Crotone,4083,1
+FC Dallas,8816,1
+FC Dinamo 1948,312,1
+FC Dordrecht,1455,1
+FC Emmen,1283,1
+FC Empoli,749,1
+FC Famalicão,3329,1
+FC Fredericia,5776,1
+FC Girondins Bordeaux,40,1
+FC Groningen,202,1
+FC Helsingör,22110,1
+FC Hermannstadt,58049,1
+FC Hradec Kralove,1897,1
+FC Ingolstadt 04,4795,1
+FC Juárez,49283,1
+FC Khimki (-2025),3719,1
+FC Kudrivka,87883,1
+FC Lorient,1158,20
+FC Lugano,2790,1
+FC Luzern,434,1
+FC Metaloglobus Bucharest,37624,1
+FC Metz,347,21
+FC Midtjylland,865,2
+FC Minaj,61825,1
+FC Nantes,995,18
+FC Nordsjaelland,2778,1
+FC Oleksandriya,18303,1
+FC Orenburg,14589,1
+FC Paços de Ferreira,2995,1
+FC Penafiel,3327,1
+FC Porto,720,1
+FC Rapid 1923,455,1
+FC Rubin Kazan,2698,1
+FC Schalke 04,33,1
+FC Shakhtar Donetsk,660,2
+FC Sion,321,1
+FC Slovan Liberec,697,1
+FC Sochaux-Montbéliard,750,1
+FC St. Gallen 1879,257,1
+FC St. Pauli,35,19
+FC Thun,938,1
+FC Tosno (-2018),40426,1
+FC Toulouse,415,18
+FC Twente Enschede,317,1
+FC Universitatea Cluj,6429,1
+FC Utrecht,200,1
+FC Vestsjaelland,20100,1
+FC Viktoria Plzen,941,1
+FC Vizela,6912,1
+FC Volendam,724,1
+FC Winterthur,242,1
+FC Zlin,5545,1
+FC Zürich,260,1
+FCSB,301,1
+FCV Dender EH,9010,1
+FCV Farul Constanta,29831,1
+FK Baltika,2741,1
+FK Csikszereda Miercurea Ciuc,37255,1
+FK Cukaricki,6621,1
+FK Dinamo Moskva,121,1
+FK Dukla Prague,450,1
+FK Haugesund,2761,1
+FK IMT Belgrad,32113,1
+FK Jablonec,1322,1
+FK Javor-Matis Ivanjica,8819,1
+FK Jedinstvo Ub,20887,1
+FK Krasnodar,16704,1
+FK Mariupol,6993,1
+FK Mlada Boleslav,5546,1
+FK Mladost Lucani,6622,1
+FK Napredak Krusevac,788,1
+FK Nizhny Novgorod,49702,1
+FK Novi Pazar,4633,1
+FK Pardubice,1496,1
+FK Partizan Belgrade,669,1
+FK Polissya Zhytomyr,53646,1
+FK Radnicki 1923 Kragujevac,4645,1
+FK Radnicki Nis,7567,1
+FK Radnik Surdulica,33328,1
+FK Rostov,1083,1
+FK Sevastopol (- 2014),16245,1
+FK Sochi,41231,1
+FK Spartak Moskva,232,1
+FK Spartak Subotica,15276,1
+FK TSC Backa Topola,3137,1
+FK Tekstilac Odzaci,36922,1
+FK Teplice,814,1
+FK Ufa,28095,1
+FK Vojvodina Novi Sad,448,1
+FK Zeleznicar Pancevo,59358,1
+FSV Mainz 05,39,21
+Fagiano Okayama Sports Club,22171,1
+Fakel Voronezh,1124,1
+Falkirk FC,1191,1
+Fatih Karagümrük,6646,1
+Fenerbahce,36,1
+Feyenoord Rotterdam,234,1
+Fiorentina,430,17
+Fluminense Football Club,2462,1
+Football Club Anyang,38898,1
+Football Club Cincinnati,51772,1
+Football Club Lausanne-Sport,527,1
+Football Club Mito HollyHock,21975,1
+Football Club Pohang Steelers,311,1
+Football Club Seoul,6500,1
+Fortaleza CEIF,32041,1
+Fortaleza Esporte Clube,10870,1
+Fortuna Düsseldorf,38,1
+Fortuna Sittardia Combinatie,385,1
+Fotballklubben Bodø/Glimt,501,1
+Foundation Coorperation Hana Financial Group Inc. Football Club,6499,1
+Fredrikstad Fotballklubb,3837,1
+Frosinone Calcio,8970,1
+Fulham,931,18
+Fulham FC,931,18
+Fußballclub Red Bull Salzburg,409,1
+GD Chaves,3325,1
+GD Estoril Praia,1465,1
+GFC Ajaccio,3558,1
+GKS GieKSa Katowice Spółka Akcyjna,6456,1
+GNK Dinamo Zagreb,419,1
+GS Ergotelis,5220,1
+Galatasaray,141,1
+Gamba Osaka,596,1
+Gangwon Football Club,21459,1
+Gaziantep FK,2832,1
+Gaziantepspor (- 2020),524,1
+Genoa,252,17
+Genoa CFC,252,17
+Gençlerbirliği Spor Kulübü,820,1
+Getafe,3709,18
+Getafe CF,3709,18
+Gil Vicente FC,2424,1
+Gimcheon Sangmu Football Club,6505,1
+Giresunspor,11688,1
+Girona,12321,21
+Girona FC,12321,23
+Go Ahead Eagles,1435,1
+Goverla Uzhgorod (- 2016),6996,1
+Granada CF,16795,1
+Grasshopper Club Zurich,504,1
+Grazer AK 1902,316,1
+Grêmio Foot-Ball Porto Alegrense,210,1
+Gwangju Football Club,30925,1
+Górnik Zabrze,428,1
+Göteborgs Atlet- och Idrottssällskap,7009,1
+Göztepe,1467,1
+HNK Gorica,24575,1
+HNK Hajduk Split,447,1
+HNK Rijeka,144,1
+HNK Sibenik,223,1
+HNK Vukovar 1991,456,1
+Halmstads BK,1011,1
+Hamarkameratene,4309,1
+Hamburger SV,41,21
+Hamilton Academical FC,2999,1
+Hammarby IF,1059,1
+Hannover 96,42,1
+Hatayspor,7775,1
+Heart of Midlothian FC,43,1
+Hellas Verona,276,19
+Heracles Almelo,1304,1
+Hertha BSC,44,1
+Hibernian FC,903,1
+Hitachi Kashiwa Reysol,6632,1
+Hobro IK,5818,1
+Holstein Kiel,269,1
+Houston Dynamo,9168,1
+Huddersfield Town,1110,1
+Hull City,3008,1
+Hvidovre IF,1894,1
+IFK Norrköping,2844,1
+IFK Värnamo,3622,1
+IK Sirius,7945,1
+Idrettsklubben Start,267,1
+Idrottsföreningen  Brommapojkarna,1092,1
+Idrottsföreningen Elfsborg,1101,1
+Idrottsföreningen Kamraterna Göteborg,801,1
+Incheon United Football Club,2996,1
+Independiente Medellín,10093,1
+Independiente Santa Fe,11648,1
+Ingulets Petrove,49364,1
+Instituto Atlético Central Córdoba,1829,1
+Inter,46,20
+Inter Milan,46,20
+Internacional de Bogotá,17425,1
+Inverness Caledonian Thistle FC,2451,1
+Ionikos Nikeas,553,1
+Ipswich Town,677,1
+Iraklis Thessaloniki,47,1
+Istanbulspor,924,1
+JEF United,672,1
+Jagiellonia Bialystok,2300,1
+Jeju SK Football Club,19684,1
+Jeonbuk Hyundai Motors,6502,1
+Junior FC,11854,1
+Juventus,506,20
+Juventus FC,506,24
+KAA Gent,157,1
+KAS Eupen,1245,1
+KFUM-Kameratene Oslo,23184,1
+KRC Genk,1184,1
+KSC Lokeren (- 2020),498,1
+KV Kortrijk,601,1
+KV Mechelen,354,1
+KV Oostende,2861,1
+KVC Westerlo,968,1
+Kalmar Fotbollförening,3654,1
+Kardemir Karabükspor,1506,1
+Karpaty Lviv,85465,1
+Karpaty Lviv (-2021),2477,1
+Kashima Antlers FC,2241,1
+Kasimpasa,10484,1
+Kawasaki Frontale,9598,1
+Kayseri Erciyesspor,6894,1
+Kayserispor,3205,1
+Kilmarnock FC,2553,1
+Kocaelispor,120,1
+Kolos Kovalivka,48332,1
+Konyaspor,2293,1
+Korona Kielce,6110,1
+Kristiansund Ballklubb,21101,1
+Kryvbas Kryvyi Rig,3592,1
+Kuban Krasnodar (-2018),2439,1
+Kyoto Purple Sanga,593,1
+LASK,413,1
+LNZ Cherkasy,63007,1
+LOSC Lille,1082,21
+Lazio,398,25
+Le Havre,738,19
+Le Havre AC,738,19
+Lecce,1005,19
+Lech Poznan,238,1
+Lechia Gdansk,4000,1
+Leeds,399,20
+Leeds United,399,22
+Legia Warszawa,255,1
+Leicester City,1003,1
+Lens,826,18
+Levante,3368,24
+Levante UD,3368,25
+Lierse SK (- 2018),204,1
+Lille,1082,21
+Lillestrøm Sportsklubb,353,1
+Liverpool,31,20
+Liverpool FC,31,20
+Livingston FC,1241,1
+Livyi Bereg Kyiv,86209,1
+Llaneros FC,38628,1
+Lorient,1158,20
+Los Angeles Football Club,51828,1
+Los Angeles Galaxy,1061,1
+Luton Town,1031,1
+Lyngby Boldklub,369,1
+Lyon,1041,16
+MFK Karvina,13726,1
+MKE Ankaragücü,868,1
+Macarthur FC,71085,1
+Mallorca,237,21
+Malmö Fotbollförening,496,1
+Manchester City,281,24
+Manchester United,985,20
+Marseille,244,24
+Mazatlán FC,82696,1
+Melbourne City FC,25580,1
+Melbourne Victory,7006,1
+Mersin Talimyurdu SK,3216,1
+Metalist Kharkiv,83678,1
+Metalist Kharkiv (- 2016),6414,1
+Metalurg Donetsk (- 2015),2783,1
+Metalurg Zaporizhya (-2016),6994,1
+Metz,347,20
+Middlesbrough FC,641,1
+Millonarios FC,2350,1
+Minnesota United FC,56089,1
+Mirasol Futebol Clube,3876,1
+Mjällby Almänna Idrottsförening,2719,1
+Molde Fotballklubb,687,1
+Monaco,162,22
+Montpellier HSC,969,1
+Mordovia Saransk (-2020),11126,1
+Moreirense FC,979,1
+Morski Związkowy Klub Sportowy Arka Gdynia Spółka Akcyjna,6107,1
+Motherwell FC,987,1
+Motor Lublin Spółka Akcyjna,3527,1
+Málaga CF,1084,1
+NAC Breda,132,1
+NEC Nijmegen,467,1
+NK Istra 1961,999,1
+NK Lokomotiva Zagreb,11194,1
+NK Osijek,327,1
+NK Varazdin,599,1
+NK Veres Rivne,26459,1
+Nagoya Grampus Eight,1066,1
+Nantes,995,18
+Napoli,6195,24
+Nashville SC,63966,1
+Neom Sports Club,34911,1
+New England Revolution,626,1
+New York City Football Club,40058,1
+Newcastle,762,22
+Newcastle United,762,22
+Newcastle United Jets,5551,1
+Nice,417,19
+Niki Volou,5572,1
+Norwich City,1123,1
+Nottingham Forest,703,22
+Nîmes Olympique,1160,1
+OFK Beograd,53,1
+OGC Nice,417,19
+Obolon Kyiv,39097,1
+Odense Boldklub,173,1
+Olimpik Donetsk,23611,1
+Olympiakos Syndesmos Filathlon Peiraios,683,3
+Olympique Lyon,1041,17
+Olympique Marseille,244,30
+Omilos Filathlon Irakliou FC,653,1
+Once Caldas,6984,1
+Orduspor,2323,1
+Orlando City Soccer Club,45604,1
+Osasuna,331,20
+Oud-Heverlee Leuven,2727,1
+Oviedo,2497,21
+PAS Giannina,2671,1
+PAS Lamia 1964,3999,1
+PEC Zwolle,1269,1
+PFK CSKA Moskva,2410,1
+PFK Krylya Sovetov Samara,2696,1
+PFK Lviv,18105,1
+PFK Stal Kamyanske (-2018),16247,1
+PFK Tambov (-2021),41201,1
+PSV Eindhoven,383,1
+Palermo FC,458,1
+Panathinaikos Athlitikos Omilos,265,1
+Panetolikos Agrinio,6418,1
+Panionios Athens,169,1
+Panserraikos Serres,3385,1
+Panthessalonikios Athlitikos Omilos Konstantinoupoliton,1091,1
+Panthrakikos Komotini,7185,1
+Paris FC,10004,20
+Paris Saint Germain,583,21
+Paris Saint-Germain,583,21
+Parma,130,17
+Parma Calcio 1913,130,17
+Partick Thistle FC,2760,1
+Pendikspor,3209,1
+Perth Glory,970,1
+Petrolul Ploiesti,9465,1
+Philadelphia Union,25467,1
+Piast Gliwice,6112,1
+Pisa,4172,24
+Pisa Sporting Club,4172,24
+Pogon Szczecin,324,1
+Portimonense SC,7378,1
+Portland Timbers,4291,1
+Puebla FC,5662,1
+Puszcza Niepolomice,28893,1
+Queens Park Rangers,1039,1
+Querétaro FC,4961,1
+RAAL La Louvière,3901,1
+RAEC Mons (- 2015),1411,1
+RB Leipzig,23826,23
+RC Lens,826,20
+RC Strasbourg Alsace,667,20
+RCD Espanyol Barcelona,714,18
+RCD Mallorca,237,21
+RFC Seraing,2715,1
+RFK Akhmat Grozny,3725,1
+RKC Waalwijk,235,1
+RSC Anderlecht,58,3
+RWD Molenbeek,54189,1
+Racing Club Asociación Civil de Avellaneda,1444,1
+Radomiak Radom,7154,1
+Rakuten Vissel Kobe,3958,1
+Raków Częstochowa,9644,1
+Randers FC,5724,1
+Rangers FC,124,1
+Rapid Vienna,170,1
+Rayo Vallecano,367,22
+Reading FC,1032,1
+Real Betis,150,23
+Real Betis Balompié,150,23
+Real Madrid,418,25
+Real Oviedo,2497,21
+Real Salt Lake,6643,1
+Real Sociedad,681,20
+Real Valladolid CF,366,1
+Real Zaragoza,142,1
+Red Bull Bragantino,8793,1
+Red Bull New York,623,1
+Red Star Belgrade,159,1
+Rennes,273,19
+Rio Ave FC,2425,1
+Rionegro Águilas,20590,1
+Roda JC Kerkrade,192,1
+Rosenborg Ballklub,195,1
+Ross County FC,2759,1
+Rotor Volgograd,3609,1
+Royal Antwerp FC,1096,2
+Royal Charleroi Sporting Club,172,1
+Royal Excel Mouscron (-2022),29228,1
+Rukh Lviv,48726,1
+S-Pulse,1062,1
+S. A. F. Botafogo,537,1
+SC Bastia,595,1
+SC Beira-Mar,1436,1
+SC Braga,1075,1
+SC Cambuur Leeuwarden,133,1
+SC Dnipro-1,60551,1
+SC Farense,4294,1
+SC Freiburg,60,22
+SC Heerenveen,306,1
+SC Olhanense,4750,1
+SC Otelul Galati,4959,1
+SC Paderborn 07,127,1
+SC Poltava,81401,1
+SC Telstar,1434,1
+SD Eibar,1533,1
+SD Huesca,5358,1
+SK Austria Klagenfurt,28760,1
+SK Beveren,28643,1
+SK Dynamo Ceske Budejovice,1321,1
+"SK Sigma Olomouc, a.s.",2311,1
+SK Slavia Prague,62,1
+SK Tavriya Simferopol ( - 2022),2227,1
+SKA Khabarovsk,3690,1
+SL Benfica,294,1
+SM Caen,1162,1
+SPAL,2722,1
+SSC Napoli,6195,28
+SV Darmstadt 98,105,1
+SV Ried,266,1
+SV Werder Bremen,86,23
+Samsunspor,152,1
+San Diego Football Club,114977,1
+San Jose Earthquakes,218,1
+Sandefjord Fotball,6399,1
+Sanfrecce Hiroshima,2697,1
+Santos Futebol Clube,221,1
+Santos Laguna,1403,1
+Sarpsborg 08 Fotballforening,10217,1
+Sassuolo,6574,19
+Seattle Sounders FC,9636,1
+Sepsi OSK Sf. Gheorghe,54585,1
+Servette FC,61,1
+Sevilla,368,20
+Sevilla FC,368,20
+Sheffield United,350,1
+Shonan Bellmare,8457,1
+Siena FC,1387,1
+Silkeborg IF,1177,1
+Sint-Truidense VV,475,1
+Sivasspor,2381,1
+Slask Wroclaw,759,1
+Slaven Belupo Koprivnica,2362,1
+Sociedade Esportiva Palmeiras,1023,1
+Società Sportiva Lazio S.p.A.,398,25
+Southampton FC,180,1
+SpVgg Greuther Fürth,65,1
+Sparta Rotterdam,468,1
+Spartak Vladikavkaz (-2020),2703,1
+Spezia Calcio,3522,1
+Sport Club Corinthians Paulista,199,1
+Sport Club Internacional,6600,1
+Sport Club do Recife,8718,1
+Sportclub Rheindorf Altach,3551,1
+Sporting CP,336,1
+Sporting Gijón,2448,1
+Sporting Kansas City,4284,1
+Sportklub Puntigamer Sturm Graz,122,1
+Sportsklubben Brann,1100,1
+St. Johnstone FC,2578,1
+St. Louis City Soccer Club,82686,1
+St. Mirren FC,465,1
+Stade Brestois 29,3911,22
+Stade Reims,1421,1
+Stade Rennais FC,273,21
+Stal Mielec,22431,1
+Standard Liège,3057,1
+Stoke City,512,1
+Strasbourg,667,18
+Strømsgodset IF,2817,1
+Sunderland,289,18
+Sunderland AFC,289,20
+Suwon FC,31622,1
+Swansea City,2288,1
+Sydney FC,8054,1
+São Paulo Futebol Clube,585,1
+Sönderjyske Fodbold,5817,1
+TOV FK Metalist 1925 Kharkiv,55686,1
+TSG 1899 Hoffenheim,533,17
+TSV Hartberg,4467,1
+Termalica Bruk-Bet Nieciecza Klub Sportowy,15906,1
+Thonon Évian Grand Genève FC,14171,1
+Tigres UANL,7055,1
+Tokyo Football Club,6631,1
+Tokyo Verdy,3734,1
+Tom Tomsk,3691,1
+Torino,416,22
+Torino FC,416,24
+Toronto FC,11141,1
+Torpedo Moscow,1186,1
+Tottenham,148,23
+Tottenham Hotspur,148,25
+Toulouse,415,18
+Trabzonspor,449,1
+Tromsø Idrettslag,1293,1
+UC Sampdoria,1038,1
+UD Almería,3302,1
+UD Las Palmas,472,1
+UNAM Pumas,7633,1
+US Cremonese,2239,24
+US Lecce,1005,22
+US Livorno 1915,1210,1
+US Salernitana 1919,380,1
+US Sassuolo,6574,20
+UTA Arad,952,1
+Udinese,410,19
+Udinese Calcio,410,19
+Ulsan Hyundai Football Club,3535,1
+Union Berlin,89,21
+Union Saint-Gilloise,3948,3
+Universitatea Craiova,40812,1
+Unión Magdalena,14680,1
+Ural Yekaterinburg,11127,1
+Urawa Red Diamonds,828,1
+V-Varen Nagasaki,23581,1
+VVV-Venlo,1426,1
+Valencia,1049,20
+Valencia CF,1049,20
+Valenciennes FC,1423,1
+Vancouver Whitecaps FC,6321,1
+Vejle Boldklub,443,1
+Vendsyssel FF,19657,1
+Venezia FC,607,1
+Veria NPS,2079,1
+VfB Stuttgart,79,20
+VfL Bochum,80,1
+VfL Wolfsburg,82,17
+Viborg FF,1063,1
+Viking Fotballklubb,239,1
+Villarreal,1050,18
+Villarreal CF,1050,23
+Vitesse Arnhem,499,1
+Vitória Guimarães SC,2420,1
+Vitória Setúbal FC,1085,1
+Volga Nizhniy Novgorod (- 2016),12438,1
+Volou Neos Podosferikos Syllogos,60949,1
+Volyn Lutsk,4482,1
+Vorskla Poltava,2740,1
+Västerås Sportklubb FK,5202,1
+Vålerengens Idrettsforening,76,1
+WSG Tirol,2446,1
+Watford FC,1010,1
+Wellington Phoenix,8445,1
+Werder Bremen,86,22
+West Bromwich Albion,984,1
+West Ham,379,20
+West Ham United,379,24
+Western Sydney Wanderers,36100,1
+Western United FC,71084,1
+Widzew Lodz,88,1
+Wigan Athletic,1071,1
+Willem II Tilburg,403,1
+Wisla Plock,2118,1
+Wolfsberger AC,4441,1
+Wolverhampton Wanderers,543,18
+Wolves,543,17
+Yeni Malatyaspor,19789,1
+Yokohama FC,943,1
+Yokohama Marinos,3828,1
+Yverdon Sport FC,322,1
+Zaglebie Lubin,168,1
+Zelvia,23568,1
+Zirka Kropyvnytskyi,8838,1
+Zorya Lugansk,10690,1
+Zulte Waregem,3508,1
+Örgryte IS,1118,1
+Östers IF,1236,1
+Ümraniyespor,24245,1
+"Футбольный клуб ""Локомотив"" Москва",932,1

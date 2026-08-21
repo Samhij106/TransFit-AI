@@ -30,6 +30,11 @@ from transfer_fit_engine import (
     load_data as load_tactical_data,
 )
 from league_strength_engine import league_strength_score
+from ml.transfer_success_engine import (
+    HYBRID_EXPERT_WEIGHT,
+    HYBRID_ML_WEIGHT,
+    HYBRID_SCORE_VERSION,
+)
 
 
 REFERENCE_RECRUIT_QUALITY = 80
@@ -452,6 +457,19 @@ def candidate_summary(candidate, role, assessment=None, plan_fit=None):
         "transfit_score": optional_number(
             candidate["final_score"]
         ),
+        "expert_score": optional_number(
+            candidate.get("expert_score")
+        ),
+        "ml_success_forecast": optional_number(
+            candidate.get("ml_success_forecast")
+        ),
+        "ml_success_percentile": optional_number(
+            candidate.get("ml_success_percentile")
+        ),
+        "ml_confidence": optional_text(
+            candidate.get("ml_confidence")
+        ),
+        "ml_prediction": candidate.get("ml_prediction"),
         "role_fit": optional_number(candidate["role_fit"]),
         "tactical": optional_number(candidate["tactical"]),
         "performance": optional_number(
@@ -1153,8 +1171,12 @@ def build_squad_plan(
 
     return {
         "scoring_model": {
-            "version": SCORE_VERSION,
+            "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
+            "hybrid_weights": {
+                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
+                "historical_ml": HYBRID_ML_WEIGHT * 100,
+            },
         },
         "team": {
             "team_id": int(formation_team["team_id"]),

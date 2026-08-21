@@ -12,12 +12,13 @@ from transfit_service import (
     get_team_profile,
 )
 from squad_planner_service import build_squad_plan
+from ml.transfer_success_engine import model_status
 
 
 app = FastAPI(
     title="TransFit AI API",
-    description="AI-powered football transfer fit analysis API",
-    version="1.0.0",
+    description="Hybrid expert-system and machine-learning football transfer analysis API",
+    version="2.0.0",
 )
 
 
@@ -61,7 +62,8 @@ def root():
     return {
         "app": "TransFit AI",
         "status": "running",
-        "version": "1.0.0",
+        "version": "2.0.0",
+        "machine_learning": model_status(),
     }
 
 
@@ -69,7 +71,13 @@ def root():
 def health():
     return {
         "status": "ok",
+        "ml_model_available": model_status()["available"],
     }
+
+
+@app.get("/api/ml/model")
+def ml_model():
+    return model_status()
 
 
 # =========================================================

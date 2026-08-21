@@ -1,7 +1,7 @@
 {
   "suite_version": 1,
-  "model_version": "TransFit V9 Role & League Context",
-  "description": "Football sanity checks that protect the TransFit ranking from known unrealistic regressions.",
+  "model_version": "TransFit V10 Historical ML Hybrid",
+  "description": "Football sanity checks that protect the hybrid expert and historical-ML ranking from known unrealistic regressions.",
   "groups": [
     {
       "id": "barcelona-cdm-quality-order",

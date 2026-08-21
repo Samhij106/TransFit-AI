@@ -1,0 +1,2064 @@
+api_football_player_id,transfermarkt_player_id,current_team,transfermarkt_club,current_club_id,broad_position,sub_position,recent_market_value_m_eur,market_value_trend_180d_pct,previous_transfers_3y,reference_date
+5,284730,Inter,Manchester City,281,Defender,Centre-Back,17.0,-22.72727272727273,1,2026-06-12
+6,575998,Marseille,Olympique Marseille,244,Defender,Centre-Back,18.0,-9.999999999999998,0,2026-06-12
+8,170986,Bayern München,Bayern Munich,27,Defender,Left-Back,5.0,-16.666666666666664,1,2026-06-12
+9,398073,Paris Saint Germain,Paris Saint-Germain,583,Defender,Right-Back,80.0,0.0,0,2026-06-12
+14,191422,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Central Midfield,2.0,0.0,4,2026-06-12
+16,74842,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Attacking Midfield,3.0,-14.28571428571429,0,2026-06-12
+17,315779,AC Milan,AC Milan,5,Attack,Right Winger,40.0,-33.333333333333336,1,2026-06-12
+18,401173,Aston Villa,Aston Villa,405,Attack,Left Winger,18.0,-9.999999999999998,5,2026-06-12
+20,35047,Girona,Girona FC,12321,Midfield,Defensive Midfield,1.2,-14.28571428571429,1,2026-06-12
+22,293281,Burnley,Burnley FC,1132,Attack,Left Winger,4.0,-19.999999999999996,4,2026-06-12
+23,366930,Real Sociedad,Real Sociedad,681,Defender,Left-Back,15.0,0.0,1,2026-06-12
+26,193900,FC Augsburg,FC Augsburg,167,Defender,Right-Back,2.5,0.0,1,2026-06-12
+29,121483,Atletico Madrid,Atlético de Madrid,13,Goalkeeper,Goalkeeper,15.0,-11.764705882352944,0,2026-06-12
+31,250845,Atletico Madrid,Atlético de Madrid,13,Defender,Centre-Back,9.0,-35.71428571428571,0,2026-06-12
+33,281963,Paris Saint Germain,Paris Saint-Germain,583,Defender,Left-Back,18.0,-9.999999999999998,1,2026-06-12
+44,357565,Manchester City,Manchester City,281,Midfield,Defensive Midfield,50.0,-33.333333333333336,0,2026-06-12
+45,205562,Girona,Girona FC,12321,Midfield,Attacking Midfield,1.8,-9.999999999999998,1,2026-06-12
+49,230784,Villarreal,Villarreal CF,1050,Midfield,Defensive Midfield,2.0,-60.0,1,2026-06-12
+52,505674,Rayo Vallecano,Rayo Vallecano,367,Attack,Centre-Forward,3.0,50.0,2,2026-06-12
+56,125781,Atletico Madrid,Atlético de Madrid,13,Attack,Second Striker,8.0,-27.27272727272727,2,2026-06-12
+59,128223,Como,Como 1907,1047,Attack,Centre-Forward,6.0,-25.0,4,2026-06-12
+68,187718,Lyon,Olympique Lyon,1041,Defender,Centre-Back,2.5,-16.666666666666664,1,2026-06-12
+74,287579,Real Betis,Fenerbahce,36,Midfield,Defensive Midfield,10.0,-16.666666666666664,6,2026-06-12
+81,490426,Monaco,AS Monaco,162,Midfield,Right Midfield,6.0,0.0,0,2026-06-12
+83,355861,Valencia,Valencia CF,1049,Attack,Left Winger,3.0,-25.0,6,2026-06-12
+85,358032,Espanyol,Torino FC,416,Attack,Right Winger,7.0,-12.5,4,2026-06-12
+86,368887,Juventus,Juventus FC,506,Attack,Centre-Forward,25.0,-37.5,2,2026-06-12
+95,463603,Chelsea,Chelsea FC,631,Defender,Centre-Back,15.0,-16.666666666666664,0,2026-06-12
+98,202591,RB Leipzig,RB Leipzig,23826,Defender,Right-Back,7.0,-41.666666666666664,0,2026-06-12
+102,161869,Toulouse,FC Toulouse,415,Defender,Right-Back,1.0,0.0,1,2026-06-12
+105,296422,Metz,FC Metz,347,Defender,Left-Back,0.9,-9.999999999999998,6,2026-06-12
+107,569389,Nice,OGC Nice,417,Attack,Left Winger,15.0,50.0,0,2026-06-12
+109,263918,Monaco,AS Monaco,162,Midfield,Attacking Midfield,18.0,0.0,0,2026-06-12
+110,536508,FC Augsburg,FC Augsburg,167,Midfield,Central Midfield,8.0,60.00000000000001,5,2026-06-12
+116,463618,Juventus,Juventus FC,506,Midfield,Central Midfield,38.0,-5.000000000000004,1,2026-06-12
+120,463620,Paris FC,Paris FC,10004,Attack,Centre-Forward,5.0,-28.57142857142857,1,2026-06-12
+126,283170,Elche,FC Barcelona,131,Goalkeeper,Goalkeeper,4.0,-50.0,1,2026-06-12
+131,494880,Fulham,Fulham FC,931,Defender,Centre-Back,8.0,100.0,1,2026-06-12
+133,182904,Atletico Madrid,Atlético de Madrid,13,Defender,Centre-Back,4.0,-33.333333333333336,6,2026-06-12
+134,341227,Bologna,Bologna Football Club 1909,1025,Defender,Left-Back,15.0,0.0,1,2026-06-12
+137,85370,Como,Como 1907,1047,Midfield,Central Midfield,1.4,-6.666666666666665,1,2026-06-12
+138,605184,West Ham,West Ham United,379,Defender,Centre-Back,22.0,-4.347826086956519,3,2026-06-12
+143,284854,Alaves,Deportivo Alavés,1108,Midfield,Central Midfield,3.0,0.0,3,2026-06-12
+153,288230,Paris Saint Germain,Paris Saint-Germain,583,Attack,Centre-Forward,100.0,0.0,1,2026-06-12
+158,195488,Girona,Girona FC,12321,Goalkeeper,Goalkeeper,1.8,-9.999999999999998,2,2026-06-12
+166,480763,Villarreal,Villarreal CF,1050,Defender,Centre-Back,8.0,-46.666666666666664,0,2026-06-12
+169,95810,Newcastle,Newcastle United,762,Defender,Right-Back,1.5,-40.0,0,2026-06-12
+171,341051,West Ham,West Ham United,379,Defender,Right-Back,12.0,-7.692307692307687,1,2026-06-12
+174,69633,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Attacking Midfield,2.5,-16.666666666666664,2,2026-06-12
+175,175722,Monaco,AS Monaco,162,Defender,Centre-Back,4.0,-42.85714285714286,4,2026-06-12
+184,132098,Bayern München,Bayern Munich,27,Attack,Centre-Forward,60.0,-7.692307692307687,1,2026-06-12
+194,111196,Inter,Inter Milan,46,Defender,Centre-Back,3.0,-14.28571428571429,0,2026-06-12
+200,392569,Cagliari,Cagliari Calcio,1390,Defender,Right-Back,3.0,-25.0,0,2026-06-12
+203,197471,Hellas Verona,Hellas Verona,276,Midfield,Central Midfield,1.3,-7.14285714285714,3,2026-06-12
+211,143812,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Central Midfield,1.0,-33.333333333333336,1,2026-06-12
+215,538918,Cagliari,Cagliari Calcio,1390,Attack,Second Striker,15.0,66.66666666666667,6,2026-06-12
+217,406625,Inter,Inter Milan,46,Attack,Centre-Forward,85.0,0.0,0,2026-06-12
+219,165895,Napoli,SSC Napoli,6195,Attack,Right Winger,5.0,-37.5,0,2026-06-12
+226,321528,Inter,Inter Milan,46,Defender,Right-Back,25.0,0.0,0,2026-06-12
+227,277179,AS Roma,Associazione Sportiva Roma,12,Defender,Left-Back,4.5,-73.52941176470588,6,2026-06-12
+231,364245,Monaco,AS Monaco,162,Defender,Right-Back,15.0,25.0,1,2026-06-12
+243,393238,Torino,Torino FC,416,Attack,Right Winger,6.0,-33.333333333333336,1,2026-06-12
+247,434675,Liverpool,Liverpool FC,31,Attack,Left Winger,60.0,-14.28571428571429,0,2026-06-12
+249,326029,AS Roma,Associazione Sportiva Roma,12,Attack,Centre-Forward,45.0,80.0,2,2026-06-12
+250,369962,Leeds,Leeds United,399,Attack,Centre-Forward,10.0,-33.333333333333336,1,2026-06-12
+253,120629,West Ham,West Ham United,379,Goalkeeper,Goalkeeper,4.0,-42.85714285714286,0,2026-06-12
+261,228948,Monaco,AS Monaco,162,Defender,Centre-Back,12.0,-33.333333333333336,3,2026-06-12
+264,100986,Lille,LOSC Lille,1082,Defender,Right-Back,1.5,-16.666666666666664,2,2026-06-12
+269,344381,AC Milan,AC Milan,5,Attack,Centre-Forward,25.0,-21.875,2,2026-06-12
+270,371141,Union Berlin,1.FC Union Berlin,89,Defender,Centre-Back,2.0,11.111111111111116,1,2026-06-12
+272,182913,AC Milan,Olympique Marseille,244,Midfield,Central Midfield,18.0,-9.999999999999998,3,2026-06-12
+278,342229,Real Madrid,Real Madrid,418,Attack,Centre-Forward,180.0,-9.999999999999998,1,2026-06-12
+280,105470,Liverpool,Liverpool FC,31,Goalkeeper,Goalkeeper,15.0,-11.764705882352944,0,2026-06-12
+281,340918,Brentford,Brentford FC,1148,Goalkeeper,Goalkeeper,28.0,27.27272727272727,1,2026-06-12
+283,314353,Real Madrid,Real Madrid,418,Defender,Right-Back,60.0,-14.28571428571429,1,2026-06-12
+284,256178,Liverpool,Liverpool FC,31,Defender,Centre-Back,13.0,-13.33333333333333,0,2026-06-12
+285,485583,Wolves,Wolverhampton Wanderers,543,Defender,Right-Back,3.5,-30.000000000000004,6,2026-06-12
+288,207917,Como,Como 1907,1047,Defender,Left-Back,1.0,0.0,1,2026-06-12
+289,234803,Liverpool,Liverpool FC,31,Defender,Left-Back,7.0,-41.666666666666664,0,2026-06-12
+290,139208,Liverpool,Liverpool FC,31,Defender,Centre-Back,15.0,-16.666666666666664,0,2026-06-12
+292,61651,Brentford,Brentford FC,1148,Midfield,Defensive Midfield,1.2,-40.0,3,2026-06-12
+293,433188,Liverpool,Liverpool FC,31,Midfield,Central Midfield,35.0,-12.5,0,2026-06-12
+296,3333,Brighton,Brighton & Hove Albion,1237,Midfield,Central Midfield,0.5,-33.333333333333336,1,2026-06-12
+306,148455,Liverpool,Liverpool FC,31,Attack,Right Winger,22.0,-26.66666666666667,0,2026-06-12
+312,240414,Napoli,SSC Napoli,6195,Goalkeeper,Goalkeeper,8.0,-42.85714285714286,0,2026-06-12
+314,15452,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,0.7,-12.5,2,2026-06-12
+319,278531,Cagliari,US Cremonese,2239,Defender,Centre-Back,4.0,0.0,4,2026-06-12
+325,358008,Cagliari,Cagliari Calcio,1390,Midfield,Defensive Midfield,6.5,62.5,5,2026-06-12
+328,350219,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Central Midfield,30.0,-25.0,0,2026-06-12
+329,181136,Inter,Inter Milan,46,Midfield,Central Midfield,10.0,0.0,1,2026-06-12
+372,401530,Real Madrid,Real Madrid,418,Defender,Centre-Back,20.0,-33.333333333333336,0,2026-06-12
+375,203348,Lille,LOSC Lille,1082,Defender,Centre-Back,2.0,-19.999999999999996,1,2026-06-12
+376,357156,Union Berlin,1.FC Union Berlin,89,Defender,Centre-Back,12.0,0.0,2,2026-06-12
+399,195778,VfB Stuttgart,VfB Stuttgart,79,Goalkeeper,Goalkeeper,12.0,0.0,2,2026-06-12
+407,127160,Metz,FC Metz,347,Midfield,Defensive Midfield,0.25,-16.666666666666664,3,2026-06-12
+409,245537,Lille,LOSC Lille,1082,Midfield,Defensive Midfield,4.5,-9.999999999999998,1,2026-06-12
+414,142031,Mallorca,RCD Mallorca,237,Midfield,Defensive Midfield,0.7,-12.5,1,2026-06-12
+415,332697,Juventus,Juventus FC,506,Midfield,Central Midfield,30.0,36.36363636363635,1,2026-06-12
+418,261905,Hellas Verona,Hellas Verona,276,Midfield,Central Midfield,2.8,-37.77777777777778,3,2026-06-12
+421,237662,Rennes,Stade Rennais FC,273,Attack,Centre-Forward,15.0,25.0,1,2026-06-12
+433,439022,Sevilla,Sevilla FC,368,Defender,Centre-Back,2.5,0.0,0,2026-06-12
+483,502670,Paris Saint Germain,Paris Saint-Germain,583,Attack,Left Winger,140.0,55.55555555555556,1,2026-06-12
+497,17259,Bayern München,Bayern Munich,27,Goalkeeper,Goalkeeper,4.0,0.0,0,2026-06-12
+502,161056,Bayern München,Bayern Munich,27,Midfield,Defensive Midfield,35.0,-12.5,0,2026-06-12
+505,59016,Real Madrid,Real Madrid,418,Defender,Centre-Back,3.0,-25.0,0,2026-06-12
+506,166601,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,4.0,-19.999999999999996,0,2026-06-12
+509,424204,Bayern München,Bayern Munich,27,Defender,Left-Back,40.0,-19.999999999999996,0,2026-06-12
+510,159471,Bayern München,Bayern Munich,27,Attack,Second Striker,18.0,-9.999999999999998,0,2026-06-12
+511,153084,Bayern München,Bayern Munich,27,Midfield,Central Midfield,12.0,-19.999999999999996,0,2026-06-12
+512,297583,Union Berlin,1.FC Union Berlin,89,Midfield,Attacking Midfield,3.5,0.0,4,2026-06-12
+519,190393,Lyon,Olympique Lyon,1041,Midfield,Central Midfield,10.0,-16.666666666666664,0,2026-06-12
+521,38253,Barcelona,FC Barcelona,131,Attack,Centre-Forward,7.0,-22.22222222222222,0,2026-06-12
+529,131225,Lyon,Olympique Lyon,1041,Defender,Left-Back,4.0,-19.999999999999996,0,2026-06-12
+531,12282,Girona,Girona FC,12321,Defender,Centre-Back,1.2,-14.28571428571429,1,2026-06-12
+532,326031,Manchester United,Manchester United,985,Defender,Centre-Back,30.0,-25.0,1,2026-06-12
+533,369684,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Right-Back,10.0,-28.57142857142857,5,2026-06-12
+537,111195,Brighton,Brighton & Hove Albion,1237,Defender,Right-Back,1.5,-40.0,0,2026-06-12
+538,326330,Barcelona,FC Barcelona,131,Midfield,Central Midfield,35.0,-22.22222222222222,0,2026-06-12
+541,361068,Udinese,Udinese Calcio,410,Midfield,Central Midfield,10.0,42.85714285714286,1,2026-06-12
+542,478573,Liverpool,Liverpool FC,31,Midfield,Defensive Midfield,80.0,-11.111111111111116,1,2026-06-12
+544,339332,Napoli,SSC Napoli,6195,Attack,Left Winger,22.0,-12.0,3,2026-06-12
+545,340456,Manchester United,Manchester United,985,Defender,Right-Back,18.0,-18.181818181818176,1,2026-06-12
+552,469822,Napoli,SSC Napoli,6195,Attack,Right Winger,23.0,-17.85714285714286,1,2026-06-12
+556,338670,AS Roma,Associazione Sportiva Roma,12,Goalkeeper,Goalkeeper,35.0,0.0,0,2026-06-12
+557,124419,Sevilla,Sevilla FC,368,Goalkeeper,Goalkeeper,3.0,-25.0,3,2026-06-12
+563,193082,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Left-Back,20.0,-16.666666666666664,1,2026-06-12
+567,258004,Manchester City,Manchester City,281,Defender,Centre-Back,55.0,-8.333333333333337,0,2026-06-12
+575,357162,Burnley,Burnley FC,1132,Midfield,Defensive Midfield,16.0,-27.27272727272727,1,2026-06-12
+608,334222,Alaves,Deportivo Alavés,1108,Attack,Centre-Forward,5.0,0.0,2,2026-06-12
+616,371021,Sassuolo,US Sassuolo,6574,Goalkeeper,Goalkeeper,7.5,0.0,2,2026-06-12
+619,466794,Barcelona,FC Barcelona,131,Defender,Centre-Back,40.0,33.33333333333333,2,2026-06-12
+622,176553,Athletic Club,Athletic Bilbao,621,Defender,Centre-Back,8.0,-11.111111111111116,2,2026-06-12
+626,186590,Manchester City,Manchester City,281,Defender,Centre-Back,12.0,-33.333333333333336,0,2026-06-12
+627,95424,Burnley,Burnley FC,1132,Defender,Right-Back,1.5,-40.0,3,2026-06-12
+628,466802,Parma,Parma Calcio 1913,130,Midfield,Central Midfield,15.0,0.0,0,2026-06-12
+629,88755,Napoli,SSC Napoli,6195,Midfield,Attacking Midfield,8.0,-46.666666666666664,1,2026-06-12
+631,406635,Manchester City,Manchester City,281,Midfield,Attacking Midfield,70.0,-12.5,0,2026-06-12
+636,241641,Manchester City,Manchester City,281,Midfield,Attacking Midfield,22.0,-18.518518518518523,0,2026-06-12
+637,406640,Borussia Dortmund,Borussia Dortmund,16,Midfield,Central Midfield,50.0,11.111111111111116,1,2026-06-12
+641,203853,Nottingham Forest,Ajax Amsterdam,610,Defender,Left-Back,8.0,-46.666666666666664,3,2026-06-12
+643,363205,Arsenal,Arsenal FC,11,Attack,Centre-Forward,17.0,-15.000000000000002,0,2026-06-12
+647,60561,Nantes,FC Nantes,995,Goalkeeper,Goalkeeper,0.9,-9.999999999999998,1,2026-06-12
+656,463665,Udinese,Udinese Calcio,410,Defender,Centre-Back,23.0,14.999999999999991,2,2026-06-12
+657,206746,Fulham,Fulham FC,931,Defender,Right-Back,8.0,-27.27272727272727,0,2026-06-12
+659,395237,Como,Como 1907,1047,Midfield,Central Midfield,13.0,-13.33333333333333,1,2026-06-12
+663,442891,Bayer Leverkusen,Bayer 04 Leverkusen,15,Attack,Left Winger,8.0,-33.333333333333336,1,2026-06-12
+664,353948,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Central Midfield,2.0,0.0,2,2026-06-12
+671,131996,Sunderland,Sunderland AFC,289,Attack,Right Winger,4.0,-19.999999999999996,3,2026-06-12
+697,396638,Fiorentina,Villarreal CF,1050,Attack,Left Winger,8.0,-11.111111111111116,7,2026-06-12
+702,55089,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Goalkeeper,Goalkeeper,2.5,-16.666666666666664,0,2026-06-12
+711,223974,FSV Mainz 05,Bologna Football Club 1909,1025,Defender,Centre-Back,6.0,9.090909090909083,8,2026-06-12
+714,232454,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Central Midfield,17.0,0.0,1,2026-06-12
+715,324278,RB Leipzig,RB Leipzig,23826,Midfield,Attacking Midfield,40.0,100.0,1,2026-06-12
+716,93844,Werder Bremen,SV Werder Bremen,86,Midfield,Central Midfield,0.9,-25.0,0,2026-06-12
+723,333241,Newcastle,Newcastle United,762,Midfield,Central Midfield,25.0,-16.666666666666664,0,2026-06-12
+725,284010,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Attack,Left Winger,7.0,-41.666666666666664,1,2026-06-12
+726,46580,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Attack,Second Striker,2.5,-16.666666666666664,0,2026-06-12
+730,108390,Real Madrid,Real Madrid,418,Goalkeeper,Goalkeeper,15.0,-16.666666666666664,0,2026-06-12
+733,138927,Real Madrid,Real Madrid,418,Defender,Right-Back,4.0,-42.85714285714286,0,2026-06-12
+734,341263,Levante,Levante UD,3368,Defender,Centre-Back,4.0,100.0,1,2026-06-12
+736,341264,Real Madrid,Real Madrid,418,Defender,Left-Back,10.0,-33.333333333333336,1,2026-06-12
+744,314678,Real Madrid,Real Madrid,418,Attack,Right Winger,35.0,0.0,1,2026-06-12
+747,16306,Manchester United,Manchester United,985,Midfield,Defensive Midfield,6.0,-25.0,0,2026-06-12
+748,319745,Real Madrid,Real Madrid,418,Midfield,Central Midfield,7.0,-12.5,0,2026-06-12
+750,261503,Real Betis,CF América,3631,Midfield,Central Midfield,6.0,-29.411764705882348,1,2026-06-12
+753,282411,Atletico Madrid,Atlético de Madrid,13,Defender,Right-Back,20.0,-9.090909090909093,0,2026-06-12
+754,27992,AC Milan,AC Milan,5,Midfield,Central Midfield,3.5,-12.5,1,2026-06-12
+756,369081,Real Madrid,Real Madrid,418,Midfield,Central Midfield,90.0,-25.0,0,2026-06-12
+757,221316,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Right-Back,1.5,-40.0,1,2026-06-12
+762,371998,Real Madrid,Real Madrid,418,Attack,Left Winger,140.0,-6.666666666666665,0,2026-06-12
+774,121985,Napoli,SSC Napoli,6195,Defender,Centre-Back,1.5,0.0,0,2026-06-12
+778,199248,AS Roma,Associazione Sportiva Roma,12,Midfield,Defensive Midfield,7.0,0.0,0,2026-06-12
+782,286297,AS Roma,Associazione Sportiva Roma,12,Midfield,Attacking Midfield,8.0,-11.111111111111116,0,2026-06-12
+786,392085,Udinese,Udinese Calcio,410,Attack,Second Striker,15.0,15.384615384615374,7,2026-06-12
+791,94529,AS Roma,Associazione Sportiva Roma,12,Attack,Left Winger,2.4,-4.0000000000000036,0,2026-06-12
+792,330659,Bournemouth,AFC Bournemouth,989,Midfield,Attacking Midfield,25.0,-21.875,2,2026-06-12
+794,242086,Bayer Leverkusen,Bayer 04 Leverkusen,15,Attack,Centre-Forward,18.0,-28.000000000000004,0,2026-06-12
+833,371851,Leeds,Leeds United,399,Defender,Centre-Back,20.0,11.111111111111116,1,2026-06-12
+842,293200,Torino,Torino FC,416,Midfield,Attacking Midfield,10.0,11.111111111111116,2,2026-06-12
+849,110923,Juventus,Juventus FC,506,Goalkeeper,Goalkeeper,2.0,0.0,0,2026-06-12
+851,44058,Barcelona,FC Barcelona,131,Goalkeeper,Goalkeeper,0.8,-11.111111111111116,2,2026-06-12
+855,182712,Barcelona,Al-Hilal Saudi Football Club,1114,Defender,Right-Back,8.0,-19.999999999999996,5,2026-06-12
+861,162959,Fiorentina,Juventus FC,506,Defender,Centre-Back,2.0,0.0,3,2026-06-12
+862,118689,Napoli,SSC Napoli,6195,Defender,Left-Back,3.5,0.0,1,2026-06-12
+863,354362,Tottenham,Tottenham Hotspur,148,Midfield,Defensive Midfield,20.0,-25.92592592592593,0,2026-06-12
+864,119296,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,3.0,-50.0,0,2026-06-12
+866,91970,Pisa,Pisa Sporting Club,4172,Midfield,Right Midfield,0.8,-19.999999999999996,3,2026-06-12
+873,197300,Bologna,Bologna Football Club 1909,1025,Attack,Right Winger,3.5,0.0,1,2026-06-12
+875,206050,AS Roma,Associazione Sportiva Roma,12,Attack,Second Striker,5.0,0.0,0,2026-06-12
+876,432090,Fiorentina,ACF Fiorentina,430,Midfield,Central Midfield,16.0,14.28571428571428,3,2026-06-12
+877,364135,Fiorentina,ACF Fiorentina,430,Attack,Centre-Forward,32.0,-28.888888888888886,3,2026-06-12
+881,430280,Fiorentina,ACF Fiorentina,430,Midfield,Defensive Midfield,6.0,-14.28571428571429,8,2026-06-12
+882,59377,Fiorentina,ACF Fiorentina,430,Goalkeeper,Goalkeeper,3.5,0.0,2,2026-06-12
+885,286384,Oviedo,Real Oviedo,2497,Defender,Centre-Back,1.2,-19.999999999999996,4,2026-06-12
+886,357147,Manchester United,Manchester United,985,Defender,Right-Back,30.0,7.14285714285714,0,2026-06-12
+889,184573,Aston Villa,Aston Villa,405,Defender,Centre-Back,5.0,-16.666666666666664,1,2026-06-12
+891,183288,Manchester United,Manchester United,985,Defender,Left-Back,8.0,-19.999999999999996,0,2026-06-12
+895,505219,Everton,Everton FC,29,Midfield,Defensive Midfield,45.0,80.0,0,2026-06-12
+896,392770,Marseille,Olympique Marseille,244,Midfield,Attacking Midfield,10.0,-44.44444444444444,2,2026-06-12
+897,532826,Marseille,Olympique Marseille,244,Attack,Right Winger,55.0,10.000000000000009,3,2026-06-12
+902,74683,Sassuolo,US Sassuolo,6574,Midfield,Defensive Midfield,1.6,-11.111111111111116,3,2026-06-12
+903,315969,Napoli,SSC Napoli,6195,Midfield,Central Midfield,40.0,-11.111111111111116,1,2026-06-12
+909,258923,Barcelona,FC Barcelona,131,Attack,Left Winger,40.0,0.0,3,2026-06-12
+910,40433,Sevilla,Sevilla FC,368,Attack,Second Striker,1.2,-14.28571428571429,3,2026-06-12
+916,346289,Valencia,Valencia CF,1049,Defender,Centre-Back,1.5,-46.42857142857143,0,2026-06-12
+918,221322,Valencia,Valencia CF,1049,Defender,Left-Back,4.0,-19.999999999999996,0,2026-06-12
+920,320271,Mallorca,RCD Mallorca,237,Defender,Left-Back,1.4,-6.666666666666665,1,2026-06-12
+924,74869,Nantes,FC Nantes,995,Midfield,Defensive Midfield,0.7,-12.5,2,2026-06-12
+925,225122,Real Sociedad,Real Sociedad,681,Attack,Left Winger,6.0,0.0,6,2026-06-12
+926,127189,Marseille,Olympique Marseille,244,Midfield,Defensive Midfield,3.0,-40.0,1,2026-06-12
+927,557149,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Attacking Midfield,28.0,12.00000000000001,1,2026-06-12
+930,372246,Real Sociedad,Real Sociedad,681,Midfield,Central Midfield,7.0,-12.5,3,2026-06-12
+931,398184,Barcelona,FC Barcelona,131,Attack,Centre-Forward,50.0,0.0,0,2026-06-12
+943,192616,Sassuolo,Olympique Marseille,244,Defender,Left-Back,3.0,0.0,2,2026-06-12
+951,237658,Pisa,Pisa Sporting Club,4172,Midfield,Central Midfield,4.0,-11.111111111111116,1,2026-06-12
+957,212723,Sevilla,Sevilla FC,368,Midfield,Central Midfield,7.5,0.0,1,2026-06-12
+961,507496,Le Havre,Le Havre AC,738,Attack,Left Winger,0.5,-16.666666666666664,3,2026-06-12
+963,48015,Monaco,AS Monaco,162,Goalkeeper,Goalkeeper,1.5,-16.666666666666664,1,2026-06-12
+972,196357,Bayern München,Bayern Munich,27,Defender,Centre-Back,28.0,-6.666666666666665,1,2026-06-12
+978,309400,Arsenal,Arsenal FC,11,Attack,Centre-Forward,55.0,0.0,1,2026-06-12
+979,118847,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Centre-Back,2.0,0.0,0,2026-06-12
+983,387626,Aston Villa,Associazione Sportiva Roma,12,Attack,Right Winger,14.0,-22.22222222222222,2,2026-06-12
+984,187492,Borussia Dortmund,Borussia Dortmund,16,Midfield,Attacking Midfield,15.0,-25.0,0,2026-06-12
+1014,507486,Bologna,Bologna Football Club 1909,1025,Midfield,Central Midfield,8.0,0.0,2,2026-06-12
+1031,391720,Lorient,FC Lorient,1158,Defender,Right-Back,1.2,19.999999999999996,0,2026-06-12
+1084,282144,Fiorentina,ACF Fiorentina,430,Defender,Centre-Back,6.5,-13.33333333333333,3,2026-06-12
+1090,395512,Hellas Verona,Hellas Verona,276,Midfield,Central Midfield,3.5,0.0,5,2026-06-12
+1095,223979,RB Leipzig,RB Leipzig,23826,Midfield,Central Midfield,10.0,0.0,0,2026-06-12
+1096,451276,Liverpool,Liverpool FC,31,Midfield,Attacking Midfield,100.0,17.647058823529417,1,2026-06-12
+1100,418560,Manchester City,Manchester City,281,Attack,Centre-Forward,200.0,0.0,0,2026-06-12
+1101,165793,Monaco,AS Monaco,162,Attack,Left Winger,10.0,-16.666666666666664,0,2026-06-12
+1118,129674,Levante,Levante UD,3368,Defender,Right-Back,2.0,-9.090909090909093,1,2026-06-12
+1119,328658,Brentford,Brentford FC,1148,Defender,Centre-Back,18.0,12.5,0,2026-06-12
+1124,341317,Union Berlin,1.FC Union Berlin,89,Attack,Centre-Forward,3.0,-25.0,4,2026-06-12
+1125,188077,Bournemouth,AFC Bournemouth,989,Midfield,Central Midfield,8.0,-11.111111111111116,0,2026-06-12
+1134,375877,Udinese,Udinese Calcio,410,Attack,Centre-Forward,2.5,-28.57142857142857,4,2026-06-12
+1135,344152,Lens,RC Lens,826,Attack,Centre-Forward,12.0,50.0,3,2026-06-12
+1138,370846,Marseille,Olympique Marseille,244,Midfield,Right Midfield,20.0,0.0,2,2026-06-12
+1139,57071,RB Leipzig,RB Leipzig,23826,Goalkeeper,Goalkeeper,1.0,-50.0,0,2026-06-12
+1142,147051,Lorient,FC Lorient,1158,Goalkeeper,Goalkeeper,2.5,-16.666666666666664,0,2026-06-12
+1145,357119,Liverpool,Liverpool FC,31,Defender,Centre-Back,45.0,-9.999999999999998,0,2026-06-12
+1146,348026,Sunderland,Sunderland AFC,289,Defender,Right-Back,16.0,6.666666666666665,3,2026-06-12
+1148,93740,RB Leipzig,RB Leipzig,23826,Defender,Centre-Back,5.0,-16.666666666666664,0,2026-06-12
+1149,344695,Bayern München,Bayern Munich,27,Defender,Centre-Back,70.0,0.0,0,2026-06-12
+1150,332705,Bournemouth,AFC Bournemouth,989,Midfield,Defensive Midfield,25.0,0.0,1,2026-06-12
+1156,405687,1. FC Köln,1.FC Köln,3,Midfield,Defensive Midfield,4.5,28.57142857142858,7,2026-06-12
+1157,223967,Bayern München,Bayern Munich,27,Defender,Right-Back,32.0,0.0,1,2026-06-12
+1159,106987,Borussia Dortmund,Borussia Dortmund,16,Midfield,Central Midfield,6.0,-14.28571428571429,2,2026-06-12
+1161,392765,Fulham,Fulham FC,931,Midfield,Attacking Midfield,20.0,-9.090909090909093,1,2026-06-12
+1165,517894,Manchester United,Manchester United,985,Attack,Centre-Forward,75.0,7.14285714285714,3,2026-06-12
+1167,157635,Hamburger SV,Hamburger SV,41,Attack,Centre-Forward,1.0,-33.333333333333336,1,2026-06-12
+1231,157672,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Defender,Right-Back,2.5,-7.4074074074074066,1,2026-06-12
+1234,337333,Union Berlin,1.FC Union Berlin,89,Midfield,Central Midfield,2.5,-37.5,6,2026-06-12
+1243,283628,West Ham,West Ham United,379,Midfield,Defensive Midfield,10.0,-16.666666666666664,0,2026-06-12
+1257,411975,Barcelona,FC Barcelona,131,Defender,Right-Back,60.0,-7.692307692307687,0,2026-06-12
+1266,334835,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Central Midfield,3.0,19.999999999999996,2,2026-06-12
+1271,413112,Real Madrid,Real Madrid,418,Midfield,Defensive Midfield,70.0,-6.666666666666665,0,2026-06-12
+1291,239962,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Centre-Back,5.0,-28.57142857142857,3,2026-06-12
+1302,391004,VfL Wolfsburg,VfL Wolfsburg,82,Attack,Centre-Forward,4.0,-42.85714285714286,0,2026-06-12
+1314,257732,Napoli,SSC Napoli,6195,Defender,Centre-Back,10.0,-16.666666666666664,0,2026-06-12
+1321,387106,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Attacking Midfield,8.0,-46.666666666666664,1,2026-06-12
+1322,316934,Bologna,Bologna Football Club 1909,1025,Midfield,Defensive Midfield,7.0,7.692307692307687,2,2026-06-12
+1323,293385,Barcelona,FC Barcelona,131,Midfield,Attacking Midfield,60.0,0.0,1,2026-06-12
+1337,361256,Lille,LOSC Lille,1082,Goalkeeper,Goalkeeper,10.0,0.0,2,2026-06-12
+1358,400489,Napoli,SSC Napoli,6195,Midfield,Attacking Midfield,13.0,-7.14285714285714,4,2026-06-12
+1361,369316,Brighton,Brighton & Hove Albion,1237,Defender,Left-Back,35.0,25.0,1,2026-06-12
+1408,338629,Leeds,Leeds United,399,Defender,Centre-Back,8.0,60.00000000000001,1,2026-06-12
+1417,381950,AC Milan,AC Milan,5,Midfield,Right Midfield,20.0,-19.999999999999996,4,2026-06-12
+1422,486049,Manchester City,Manchester City,281,Attack,Left Winger,75.0,15.384615384615374,1,2026-06-12
+1427,381967,Hamburger SV,Hamburger SV,41,Midfield,Central Midfield,12.0,50.0,5,2026-06-12
+1438,72476,Fulham,Fulham FC,931,Goalkeeper,Goalkeeper,6.0,-25.0,0,2026-06-12
+1439,191217,Real Betis,Real Betis Balompié,150,Defender,Right-Back,2.4,-4.0000000000000036,1,2026-06-12
+1442,94005,Atalanta,Atalanta BC,800,Defender,Centre-Back,4.0,-33.333333333333336,1,2026-06-12
+1445,415912,West Ham,West Ham United,379,Defender,Centre-Back,18.0,19.999999999999996,1,2026-06-12
+1454,465830,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Central Midfield,27.0,-3.57142857142857,4,2026-06-12
+1455,242631,Fulham,Fulham FC,931,Attack,Left Winger,20.0,-19.999999999999996,1,2026-06-12
+1456,285845,Lyon,Olympique Lyon,1041,Defender,Right-Back,10.0,0.0,1,2026-06-12
+1457,55735,Inter,Inter Milan,46,Midfield,Central Midfield,3.0,-14.28571428571429,0,2026-06-12
+1460,433177,Arsenal,Arsenal FC,11,Attack,Right Winger,110.0,-15.384615384615385,0,2026-06-12
+1461,165007,Alaves,Villarreal CF,1050,Midfield,Attacking Midfield,1.0,-16.666666666666664,3,2026-06-12
+1463,340329,Newcastle,Newcastle United,762,Midfield,Central Midfield,14.0,-12.5,0,2026-06-12
+1464,111455,Sunderland,Sunderland AFC,289,Midfield,Defensive Midfield,8.0,-19.999999999999996,2,2026-06-12
+1465,58864,Marseille,Olympique Marseille,244,Attack,Centre-Forward,2.5,-16.666666666666664,3,2026-06-12
+1468,340324,Crystal Palace,Crystal Palace,873,Attack,Centre-Forward,10.0,-37.5,1,2026-06-12
+1469,67063,Brighton,Brighton & Hove Albion,1237,Attack,Centre-Forward,3.0,-25.0,0,2026-06-12
+1482,367466,Valencia,Valencia CF,1049,Defender,Right-Back,2.5,-16.666666666666664,0,2026-06-12
+1485,240306,Manchester United,Manchester United,985,Midfield,Attacking Midfield,35.0,-12.5,0,2026-06-12
+1489,74294,Sevilla,Sevilla FC,368,Midfield,Defensive Midfield,2.0,-19.999999999999996,0,2026-06-12
+1496,411295,Barcelona,FC Barcelona,131,Attack,Left Winger,70.0,-12.5,0,2026-06-12
+1557,286415,Real Betis,Real Betis Balompié,150,Goalkeeper,Goalkeeper,2.5,0.0,6,2026-06-12
+1561,99922,Real Betis,Real Betis Balompié,150,Defender,Centre-Back,0.9,-9.999999999999998,1,2026-06-12
+1564,374139,Real Betis,Real Betis Balompié,150,Defender,Left-Back,3.5,-41.666666666666664,1,2026-06-12
+1567,80293,Lille,LOSC Lille,1082,Defender,Centre-Back,1.0,0.0,1,2026-06-12
+1578,348795,Real Betis,Real Betis Balompié,150,Midfield,Attacking Midfield,8.0,-46.666666666666664,2,2026-06-12
+1590,249994,Wolves,Wolverhampton Wanderers,543,Goalkeeper,Goalkeeper,3.5,-30.000000000000004,0,2026-06-12
+1600,338070,AS Roma,Associazione Sportiva Roma,12,Defender,Left-Back,4.5,-55.00000000000001,1,2026-06-12
+1622,315858,Manchester City,Manchester City,281,Goalkeeper,Goalkeeper,45.0,0.0,1,2026-06-12
+1631,86784,Real Betis,Real Betis Balompié,150,Defender,Left-Back,1.4,-6.666666666666665,1,2026-06-12
+1632,197747,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Centre-Back,6.0,-14.28571428571429,0,2026-06-12
+1639,459128,Fiorentina,ACF Fiorentina,430,Midfield,Central Midfield,9.0,19.999999999999996,6,2026-06-12
+1640,126414,Inter,Inter Milan,46,Midfield,Defensive Midfield,16.0,-27.27272727272727,0,2026-06-12
+1646,444523,West Ham,West Ham United,379,Midfield,Attacking Midfield,32.0,-8.571428571428575,1,2026-06-12
+1649,265078,Parma,Como 1907,1047,Attack,Centre-Forward,5.0,0.0,3,2026-06-12
+1672,346499,FC St. Pauli,FC St. Pauli,35,Midfield,Attacking Midfield,3.0,0.0,1,2026-06-12
+1695,15799,Oviedo,Real Oviedo,2497,Midfield,Central Midfield,0.2,0.0,1,2026-06-12
+1696,401922,Fulham,AC Milan,5,Attack,Right Winger,18.0,80.0,2,2026-06-12
+1697,357885,Real Betis,Real Betis Balompié,150,Midfield,Central Midfield,8.0,0.0,1,2026-06-12
+1700,341278,Girona,Girona FC,12321,Midfield,Central Midfield,5.0,-16.666666666666664,2,2026-06-12
+1701,335225,Mallorca,RCD Mallorca,237,Midfield,Central Midfield,2.4,0.0,2,2026-06-12
+1702,356197,Villarreal,Villarreal CF,1050,Defender,Left-Back,2.5,0.0,0,2026-06-12
+1703,527966,Rayo Vallecano,Rayo Vallecano,367,Defender,Right-Back,18.0,0.0,1,2026-06-12
+1707,177467,Villarreal,Villarreal CF,1050,Attack,Centre-Forward,2.5,-10.71428571428571,0,2026-06-12
+1746,415970,Burnley,Burnley FC,1132,Defender,Centre-Back,2.0,-50.0,3,2026-06-12
+1748,386552,Lecce,US Lecce,1005,Midfield,Central Midfield,2.2,-12.0,1,2026-06-12
+1798,107775,Union Berlin,1.FC Union Berlin,89,Goalkeeper,Goalkeeper,2.0,-19.999999999999996,0,2026-06-12
+1800,45672,Paris FC,Paris FC,10004,Goalkeeper,Goalkeeper,1.8,-9.999999999999998,1,2026-06-12
+1807,371149,AS Roma,Associazione Sportiva Roma,12,Defender,Centre-Back,35.0,16.666666666666675,1,2026-06-12
+1812,85906,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Centre-Back,1.2,0.0,0,2026-06-12
+1821,161011,Juventus,Juventus FC,506,Midfield,Left Midfield,2.0,-42.85714285714286,2,2026-06-12
+1825,213670,Osasuna,CA Osasuna,331,Midfield,Defensive Midfield,2.5,-10.71428571428571,0,2026-06-12
+1836,131075,Inter,Inter Milan,46,Defender,Centre-Back,2.0,-19.999999999999996,2,2026-06-12
+1841,126729,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Centre-Back,1.5,0.0,0,2026-06-12
+1844,239802,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Right-Back,2.5,-16.666666666666664,0,2026-06-12
+1847,457931,Rayo Vallecano,Rayo Vallecano,367,Defender,Centre-Back,2.0,-33.333333333333336,3,2026-06-12
+1852,199733,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Defensive Midfield,3.5,0.0,2,2026-06-12
+1863,105521,Paris FC,Bologna Football Club 1909,1025,Attack,Centre-Forward,1.8,-9.999999999999998,3,2026-06-12
+1864,487465,Chelsea,Chelsea FC,631,Attack,Right Winger,60.0,0.0,1,2026-06-12
+1902,238266,Real Sociedad,Real Sociedad,681,Defender,Centre-Back,2.8,-6.666666666666665,4,2026-06-12
+1904,394327,Aston Villa,Aston Villa,405,Midfield,Defensive Midfield,40.0,0.0,0,2026-06-12
+1910,290862,Paris FC,Paris FC,10004,Midfield,Defensive Midfield,5.0,-16.666666666666664,3,2026-06-12
+1914,174094,Nice,OGC Nice,417,Midfield,Central Midfield,3.5,-12.5,4,2026-06-12
+1915,190685,Metz,FC Metz,347,Defender,Right-Back,0.35,-12.5,2,2026-06-12
+1922,184892,Lens,RC Lens,826,Attack,Right Winger,5.0,0.0,1,2026-06-12
+1924,486046,RB Leipzig,RB Leipzig,23826,Goalkeeper,Goalkeeper,15.0,87.5,1,2026-06-12
+1926,358250,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,1.0,0.0,2,2026-06-12
+1929,413565,Bologna,Bologna Football Club 1909,1025,Defender,Centre-Back,22.0,-12.0,0,2026-06-12
+1930,369674,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Left-Back,7.0,-22.22222222222222,1,2026-06-12
+1934,333014,Fulham,Fulham FC,931,Midfield,Defensive Midfield,25.0,0.0,2,2026-06-12
+1938,207877,Genoa,Genoa CFC,252,Midfield,Central Midfield,2.5,0.0,5,2026-06-12
+1939,377243,Udinese,Udinese Calcio,410,Midfield,Central Midfield,4.5,0.0,1,2026-06-12
+1945,182201,Le Havre,Le Havre AC,738,Attack,Centre-Forward,0.7,-12.5,3,2026-06-12
+1946,144028,Arsenal,Arsenal FC,11,Attack,Left Winger,18.0,-9.999999999999998,0,2026-06-12
+2032,429983,Crystal Palace,Wolverhampton Wanderers,543,Attack,Centre-Forward,40.0,0.0,4,2026-06-12
+2057,76163,Cremonese,Club Atlético Belgrano,2417,Midfield,Attacking Midfield,0.6,-19.999999999999996,2,2026-06-12
+2061,537382,Girona,Girona FC,12321,Attack,Left Winger,8.0,-33.333333333333336,4,2026-06-12
+2063,198008,Elche,Elche CF,1531,Attack,Centre-Forward,3.0,0.0,5,2026-06-12
+2068,318470,Paris Saint Germain,Paris Saint-Germain,583,Goalkeeper,Goalkeeper,30.0,100.0,1,2026-06-12
+2165,404842,Everton,Everton FC,29,Defender,Left-Back,25.0,0.0,0,2026-06-12
+2181,419067,Metz,FC Metz,347,Attack,Left Winger,3.0,19.999999999999996,6,2026-06-12
+2182,264372,Girona,Girona FC,12321,Attack,Right Winger,15.0,0.0,0,2026-06-12
+2194,284732,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,7.0,0.0,1,2026-06-12
+2195,475413,Bayern München,Bayern Munich,27,Defender,Right-Back,10.0,-33.333333333333336,2,2026-06-12
+2202,297070,Paris FC,Paris FC,10004,Defender,Right-Back,1.5,-16.666666666666664,2,2026-06-12
+2204,84301,Lille,LOSC Lille,1082,Midfield,Defensive Midfield,3.0,-25.0,0,2026-06-12
+2207,640428,Real Madrid,Real Madrid,418,Midfield,Central Midfield,50.0,0.0,0,2026-06-12
+2214,353399,Stade Brestois 29,Stade Brestois 29,3911,Attack,Right Winger,7.0,0.0,0,2026-06-12
+2215,579930,Sassuolo,US Sassuolo,6574,Attack,Left Winger,19.0,35.71428571428572,0,2026-06-12
+2218,410225,Crystal Palace,Crystal Palace,873,Attack,Right Winger,40.0,14.28571428571428,2,2026-06-12
+2278,112515,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,1.2,-14.28571428571429,1,2026-06-12
+2279,392771,Leeds,Leeds United,399,Midfield,Defensive Midfield,30.0,50.0,2,2026-06-12
+2280,57500,Sevilla,Sevilla FC,368,Defender,Centre-Back,1.0,-16.666666666666664,2,2026-06-12
+2282,196948,Barcelona,FC Barcelona,131,Defender,Centre-Back,8.0,-19.999999999999996,0,2026-06-12
+2284,181778,Marseille,Olympique Marseille,244,Defender,Left-Back,9.0,-9.999999999999998,1,2026-06-12
+2285,86202,Real Madrid,Real Madrid,418,Defender,Centre-Back,6.0,-50.0,0,2026-06-12
+2286,173859,Atalanta,Atalanta BC,800,Midfield,Right Midfield,3.5,0.0,0,2026-06-12
+2287,131978,Aston Villa,Aston Villa,405,Midfield,Central Midfield,4.0,-19.999999999999996,2,2026-06-12
+2292,202886,AC Milan,AC Milan,5,Midfield,Central Midfield,8.5,-15.000000000000002,1,2026-06-12
+2295,82442,Lille,LOSC Lille,1082,Attack,Centre-Forward,0.9,-9.999999999999998,2,2026-06-12
+2298,392768,Nottingham Forest,Nottingham Forest,703,Attack,Left Winger,30.0,0.0,2,2026-06-12
+2299,65278,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Right Winger,1.0,0.0,0,2026-06-12
+2336,122840,Le Havre,Le Havre AC,738,Defender,Right-Back,0.5,-16.666666666666664,1,2026-06-12
+2360,295630,FC Augsburg,FC Augsburg,167,Defender,Left-Back,3.0,0.0,1,2026-06-12
+2413,378710,Tottenham,Tottenham Hotspur,148,Attack,Centre-Forward,25.0,-10.71428571428571,0,2026-06-12
+2449,378293,Real Sociedad,Girona FC,12321,Midfield,Central Midfield,6.0,-33.333333333333336,3,2026-06-12
+2461,80197,Oviedo,CF Pachuca,4035,Attack,Centre-Forward,0.35,-12.5,3,2026-06-12
+2465,242359,Atletico Madrid,Atlético de Madrid,13,Goalkeeper,Goalkeeper,3.0,0.0,3,2026-06-12
+2467,480762,Manchester United,Manchester United,985,Defender,Centre-Back,40.0,14.28571428571428,0,2026-06-12
+2470,268642,Valencia,Valencia CF,1049,Defender,Right-Back,1.4,-6.666666666666665,2,2026-06-12
+2476,342385,Valencia,West Ham United,379,Midfield,Defensive Midfield,4.0,-33.333333333333336,2,2026-06-12
+2483,332560,Nantes,RC Lens,826,Defender,Left-Back,1.8,-28.000000000000004,1,2026-06-12
+2484,289446,Cagliari,Cagliari Calcio,1390,Defender,Centre-Back,2.5,-16.666666666666664,2,2026-06-12
+2489,480692,Bayern München,Bayern Munich,27,Attack,Left Winger,70.0,0.0,1,2026-06-12
+2490,262980,Crystal Palace,Crystal Palace,873,Midfield,Defensive Midfield,6.0,-25.0,1,2026-06-12
+2495,73794,Torino,Torino FC,416,Attack,Centre-Forward,2.5,-16.666666666666664,3,2026-06-12
+2522,234523,Cremonese,US Cremonese,2239,Attack,Centre-Forward,1.8,-28.000000000000004,1,2026-06-12
+2553,249730,Torino,Torino FC,416,Defender,Centre-Back,2.0,-50.0,1,2026-06-12
+2598,358504,Eintracht Frankfurt,Eintracht Frankfurt,24,Attack,Right Winger,17.0,-31.999999999999996,1,2026-06-12
+2601,356141,Crystal Palace,Crystal Palace,873,Midfield,Attacking Midfield,10.0,-16.666666666666664,2,2026-06-12
+2617,59323,Girona,Girona FC,12321,Attack,Centre-Forward,0.7,-22.22222222222222,0,2026-06-12
+2668,462348,Nantes,FC Nantes,995,Attack,Centre-Forward,3.5,-12.5,2,2026-06-12
+2669,281769,AS Roma,Associazione Sportiva Roma,12,Defender,Centre-Back,7.0,0.0,4,2026-06-12
+2724,126664,Aston Villa,Aston Villa,405,Defender,Left-Back,6.0,-25.0,0,2026-06-12
+2725,353366,Marseille,Olympique Marseille,244,Defender,Centre-Back,12.0,-40.0,2,2026-06-12
+2729,260827,Fulham,Fulham FC,931,Defender,Centre-Back,20.0,-19.999999999999996,1,2026-06-12
+2735,167799,Marseille,Olympique Marseille,244,Midfield,Defensive Midfield,15.0,-16.666666666666664,3,2026-06-12
+2741,128969,Levante,Levante UD,3368,Goalkeeper,Goalkeeper,1.8,-9.999999999999998,3,2026-06-12
+2749,192557,FC St. Pauli,FC St. Pauli,35,Midfield,Central Midfield,1.0,-33.333333333333336,0,2026-06-12
+2762,293169,Oviedo,Real Oviedo,2497,Attack,Left Winger,2.5,0.0,6,2026-06-12
+2763,205938,Atalanta,Atalanta BC,800,Midfield,Central Midfield,6.0,-14.28571428571429,0,2026-06-12
+2771,236490,Nottingham Forest,Nottingham Forest,703,Defender,Right-Back,18.0,-9.999999999999998,1,2026-06-12
+2781,274862,Paris FC,Paris FC,10004,Attack,Left Winger,7.0,0.0,1,2026-06-12
+2799,305947,Fiorentina,ACF Fiorentina,430,Attack,Second Striker,12.0,-7.692307692307687,3,2026-06-12
+2802,42205,Inter,Inter Milan,46,Goalkeeper,Goalkeeper,2.0,-19.999999999999996,1,2026-06-12
+2803,192635,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Centre-Back,8.0,0.0,0,2026-06-12
+2806,135343,Newcastle,Newcastle United,762,Defender,Centre-Back,4.0,-33.333333333333336,0,2026-06-12
+2807,148252,Bologna,Bologna Football Club 1909,1025,Midfield,Central Midfield,3.0,-25.0,3,2026-06-12
+2810,334526,Monaco,AS Monaco,162,Midfield,Defensive Midfield,25.0,0.0,2,2026-06-12
+2813,94308,Espanyol,RCD Espanyol Barcelona,714,Goalkeeper,Goalkeeper,0.7,-12.5,2,2026-06-12
+2817,413507,Nottingham Forest,Nottingham Forest,703,Defender,Centre-Back,28.0,-6.666666666666665,1,2026-06-12
+2823,245056,Fulham,Fulham FC,931,Midfield,Central Midfield,10.0,-16.666666666666664,0,2026-06-12
+2864,349066,Liverpool,Liverpool FC,31,Attack,Centre-Forward,85.0,-29.166666666666664,1,2026-06-12
+2887,206040,Fulham,Fulham FC,931,Attack,Centre-Forward,3.0,-25.0,1,2026-06-12
+2897,503482,Bayern München,Bayern Munich,27,Defender,Centre-Back,20.0,-19.999999999999996,1,2026-06-12
+2906,314398,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Attacking Midfield,2.0,0.0,0,2026-06-12
+2915,124502,SC Freiburg,SC Freiburg,60,Defender,Centre-Back,5.0,-16.666666666666664,0,2026-06-12
+2916,162434,Werder Bremen,SV Werder Bremen,86,Defender,Centre-Back,2.5,-28.57142857142857,0,2026-06-12
+2917,190284,SC Freiburg,SC Freiburg,60,Midfield,Central Midfield,10.0,0.0,0,2026-06-12
+2919,127202,Nottingham Forest,Nottingham Forest,703,Goalkeeper,Goalkeeper,3.5,-41.666666666666664,1,2026-06-12
+2920,262226,Fulham,Fulham FC,931,Defender,Right-Back,8.0,-19.999999999999996,1,2026-06-12
+2922,168157,Oviedo,Real Oviedo,2497,Midfield,Defensive Midfield,1.8,-55.00000000000001,5,2026-06-12
+2924,177847,Sevilla,Sevilla FC,368,Attack,Right Winger,1.0,-16.666666666666664,3,2026-06-12
+2926,249565,Aston Villa,Aston Villa,405,Midfield,Central Midfield,30.0,-14.28571428571429,1,2026-06-12
+2932,130164,Everton,Everton FC,29,Goalkeeper,Goalkeeper,13.0,-13.33333333333333,0,2026-06-12
+2933,316125,Strasbourg,RC Strasbourg Alsace,667,Defender,Left-Back,10.0,-16.666666666666664,3,2026-06-12
+2934,118534,Everton,Everton FC,29,Defender,Centre-Back,3.0,-25.0,0,2026-06-12
+2935,177907,Manchester United,Manchester United,985,Defender,Centre-Back,8.0,-19.999999999999996,0,2026-06-12
+2936,173504,Everton,Everton FC,29,Defender,Centre-Back,5.0,-28.57142857142857,0,2026-06-12
+2937,357662,Arsenal,Arsenal FC,11,Midfield,Central Midfield,120.0,0.0,1,2026-06-12
+2938,181579,West Ham,West Ham United,379,Midfield,Central Midfield,5.0,-16.666666666666664,4,2026-06-12
+2939,123682,West Ham,West Ham United,379,Attack,Centre-Forward,4.0,-19.999999999999996,1,2026-06-12
+2973,354482,Marseille,Olympique Marseille,244,Defender,Right-Back,7.0,-30.000000000000004,2,2026-06-12
+2990,126665,Everton,Everton FC,29,Midfield,Defensive Midfield,0.5,-50.0,0,2026-06-12
+2998,80894,Bologna,Bologna Football Club 1909,1025,Goalkeeper,Goalkeeper,2.0,-19.999999999999996,0,2026-06-12
+3007,239743,Rennes,Stade Rennais FC,273,Defender,Right-Back,6.0,-14.28571428571429,4,2026-06-12
+3033,127048,Real Betis,Real Betis Balompié,150,Attack,Centre-Forward,1.2,-14.28571428571429,3,2026-06-12
+3080,414908,Wolves,Paris FC,10004,Midfield,Central Midfield,15.0,25.0,2,2026-06-12
+3240,182894,Metz,FC Metz,347,Defender,Centre-Back,2.0,0.0,6,2026-06-12
+3246,343052,Villarreal,Villarreal CF,1050,Attack,Right Winger,6.0,0.0,3,2026-06-12
+3406,354361,Napoli,SSC Napoli,6195,Midfield,Central Midfield,15.0,-40.0,0,2026-06-12
+3430,199953,Genoa,Genoa CFC,252,Attack,Centre-Forward,1.2,-7.692307692307687,0,2026-06-12
+3608,538006,Oviedo,Real Oviedo,2497,Midfield,Central Midfield,1.4,0.0,1,2026-06-12
+4399,560593,Nice,OGC Nice,417,Midfield,Central Midfield,12.0,0.0,0,2026-06-12
+5973,649672,Hamburger SV,Hamburger SV,41,Defender,Centre-Back,8.0,100.0,1,2026-06-12
+5996,648195,Chelsea,Chelsea FC,631,Midfield,Central Midfield,90.0,5.882352941176472,0,2026-06-12
+6002,401578,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Central Midfield,25.0,-16.666666666666664,0,2026-06-12
+6009,576024,Atletico Madrid,Atlético de Madrid,13,Attack,Centre-Forward,100.0,0.0,1,2026-06-12
+6010,628366,Valencia,Club Atlético River Plate,209,Attack,Centre-Forward,8.0,0.0,2,2026-06-12
+6056,497291,Nottingham Forest,Nottingham Forest,703,Midfield,Central Midfield,15.0,-6.25,1,2026-06-12
+6067,576028,Atletico Madrid,Atlético de Madrid,13,Attack,Left Winger,15.0,-25.0,4,2026-06-12
+6085,431190,Alaves,Deportivo Alavés,1108,Midfield,Defensive Midfield,1.0,0.0,0,2026-06-12
+6168,353032,Sunderland,Sunderland AFC,289,Defender,Centre-Back,13.0,8.333333333333325,3,2026-06-12
+6221,625202,Parma,Parma Calcio 1913,130,Defender,Centre-Back,2.0,33.33333333333333,0,2026-06-12
+6231,474800,Marseille,Olympique Marseille,244,Defender,Centre-Back,18.0,-9.999999999999998,1,2026-06-12
+6233,533568,Alaves,Deportivo Alavés,1108,Defender,Right-Back,3.0,0.0,2,2026-06-12
+6383,555820,Cremonese,US Cremonese,2239,Midfield,Central Midfield,5.0,-16.666666666666664,3,2026-06-12
+6409,552472,Parma,Parma Calcio 1913,130,Midfield,Defensive Midfield,1.4,-6.666666666666665,0,2026-06-12
+6490,844516,Getafe,RSC Anderlecht,58,Attack,Centre-Forward,2.5,25.0,2,2026-06-12
+6503,424042,Atletico Madrid,Atlético de Madrid,13,Defender,Right-Back,15.0,0.0,0,2026-06-12
+6610,469781,Bournemouth,AFC Bournemouth,989,Defender,Centre-Back,25.0,13.636363636363647,0,2026-06-12
+6638,533354,Alaves,Deportivo Alavés,1108,Defender,Centre-Back,1.0,0.0,1,2026-06-12
+6662,674806,Lecce,US Lecce,1005,Attack,Right Winger,4.0,14.28571428571428,1,2026-06-12
+6716,534033,Liverpool,Liverpool FC,31,Midfield,Central Midfield,70.0,-17.647058823529417,1,2026-06-12
+6904,522223,FC St. Pauli,FC St. Pauli,35,Midfield,Central Midfield,1.5,-25.0,0,2026-06-12
+7073,391766,Werder Bremen,SV Werder Bremen,86,Attack,Left Winger,4.0,-33.333333333333336,1,2026-06-12
+7288,196813,Eintracht Frankfurt,SV Werder Bremen,86,Goalkeeper,Goalkeeper,4.0,-11.111111111111116,1,2026-06-12
+7313,251322,Monaco,AS Monaco,162,Goalkeeper,Goalkeeper,3.5,-12.5,1,2026-06-12
+7327,434116,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Midfield,Left Midfield,9.0,80.0,1,2026-06-12
+7328,404950,RB Leipzig,RB Leipzig,23826,Midfield,Defensive Midfield,25.0,38.888888888888886,1,2026-06-12
+7332,502722,Real Sociedad,Real Sociedad,681,Midfield,Central Midfield,10.0,0.0,1,2026-06-12
+7334,496094,Borussia Dortmund,Borussia Dortmund,16,Attack,Right Winger,40.0,-33.333333333333336,0,2026-06-12
+7562,346853,Werder Bremen,SV Werder Bremen,86,Midfield,Attacking Midfield,15.0,-11.764705882352944,0,2026-06-12
+7578,397171,Auxerre,AJ Auxerre,290,Defender,Left-Back,4.0,14.28571428571428,0,2026-06-12
+7591,268429,Hellas Verona,Hellas Verona,276,Midfield,Central Midfield,3.5,-41.666666666666664,1,2026-06-12
+8474,340177,Paris FC,Paris FC,10004,Defender,Left-Back,1.8,-9.999999999999998,3,2026-06-12
+8483,291222,Hamburger SV,Hamburger SV,41,Attack,Left Winger,2.5,-28.57142857142857,0,2026-06-12
+8486,292534,FC St. Pauli,FC St. Pauli,35,Defender,Centre-Back,5.0,0.0,0,2026-06-12
+8489,533738,Juventus,Juventus FC,506,Attack,Centre-Forward,30.0,-14.28571428571429,1,2026-06-12
+8490,186233,Metz,FC Metz,347,Attack,Centre-Forward,0.9,-9.999999999999998,2,2026-06-12
+8492,238407,Atletico Madrid,Atlético de Madrid,13,Attack,Centre-Forward,18.0,-9.999999999999998,3,2026-06-12
+8493,221958,Lyon,Olympiakos Syndesmos Filathlon Peiraios,683,Attack,Centre-Forward,3.5,39.99999999999999,4,2026-06-12
+8574,290537,Como,Como 1907,1047,Goalkeeper,Goalkeeper,8.0,77.77777777777777,1,2026-06-12
+8586,336125,Como,Como 1907,1047,Defender,Right-Back,2.5,-16.666666666666664,1,2026-06-12
+8598,295313,Nottingham Forest,Nottingham Forest,703,Attack,Centre-Forward,8.0,-33.333333333333336,0,2026-06-12
+8641,340166,1. FC Köln,Union Saint-Gilloise,3948,Midfield,Right Midfield,2.5,-16.666666666666664,2,2026-06-12
+8643,649490,Lecce,US Lecce,1005,Attack,Right Winger,1.5,0.0,2,2026-06-12
+8651,395522,FC Augsburg,BSC Young Boys,452,Attack,Centre-Forward,2.5,-28.57142857142857,5,2026-06-12
+8673,621802,Werder Bremen,SV Werder Bremen,86,Defender,Left-Back,3.5,16.666666666666675,3,2026-06-12
+8680,569845,Nice,Union Saint-Gilloise,3948,Midfield,Defensive Midfield,7.0,0.0,2,2026-06-12
+8694,292808,Monaco,AS Monaco,162,Defender,Centre-Back,10.0,-16.666666666666664,1,2026-06-12
+8959,273669,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Attacking Midfield,1.5,-25.0,0,2026-06-12
+9026,248454,FC St. Pauli,FC St. Pauli,35,Goalkeeper,Goalkeeper,4.5,0.0,0,2026-06-12
+9363,653610,Marseille,Olympique Marseille,244,Attack,Left Winger,35.0,0.0,1,2026-06-12
+9366,432164,Nottingham Forest,Nottingham Forest,703,Attack,Centre-Forward,25.0,25.0,2,2026-06-12
+9700,646402,Lyon,Olympique Lyon,1041,Defender,Left-Back,10.0,42.85714285714286,1,2026-06-12
+9971,602105,Real Betis,Real Betis Balompié,150,Attack,Right Winger,40.0,33.33333333333333,3,2026-06-12
+10009,412363,Real Madrid,Real Madrid,418,Attack,Right Winger,45.0,-25.0,0,2026-06-12
+10077,691316,Inter,Inter Milan,46,Midfield,Right Midfield,22.0,-4.347826086956519,2,2026-06-12
+10097,607854,Atalanta,Atalanta BC,800,Midfield,Central Midfield,45.0,12.5,0,2026-06-12
+10135,520624,Newcastle,Newcastle United,762,Midfield,Central Midfield,70.0,-6.666666666666665,0,2026-06-12
+10169,663581,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Defensive Midfield,7.0,-41.666666666666664,3,2026-06-12
+10238,585982,Inter,Inter Milan,46,Defender,Left-Back,23.0,-11.538461538461542,3,2026-06-12
+10316,420064,Monaco,AS Monaco,162,Defender,Left-Back,12.0,-19.999999999999996,0,2026-06-12
+10329,626724,Chelsea,Chelsea FC,631,Attack,Centre-Forward,80.0,23.076923076923084,2,2026-06-12
+11346,144128,Elche,Elche CF,1531,Goalkeeper,Goalkeeper,0.1,-50.0,2,2026-06-12
+11379,275218,Rayo Vallecano,Rayo Vallecano,367,Goalkeeper,Goalkeeper,6.0,0.0,6,2026-06-12
+11421,385105,Sevilla,Sevilla FC,368,Defender,Left-Back,6.0,-14.28571428571429,1,2026-06-12
+13708,588989,Wolves,Sociedade Esportiva Palmeiras,1023,Attack,Right Winger,15.0,0.0,2,2026-06-12
+13736,493003,Crystal Palace,Crystal Palace,873,Defender,Right-Back,22.0,-18.518518518518523,1,2026-06-12
+14266,571271,Como,Como 1907,1047,Defender,Right-Back,3.5,39.99999999999999,1,2026-06-12
+14327,357796,Hellas Verona,Hellas Verona,276,Defender,Left-Back,1.5,-40.0,3,2026-06-12
+14329,435228,Torino,Torino FC,416,Defender,Centre-Back,5.0,-16.666666666666664,1,2026-06-12
+14330,362977,Union Berlin,1.FC Union Berlin,89,Defender,Right-Back,2.0,-19.999999999999996,0,2026-06-12
+14395,374954,FC Augsburg,FC Augsburg,167,Midfield,Defensive Midfield,6.0,0.0,3,2026-06-12
+15286,551505,Rennes,Stade Rennais FC,273,Attack,Right Winger,10.0,66.66666666666667,2,2026-06-12
+15573,346551,VfL Wolfsburg,VfL Wolfsburg,82,Goalkeeper,Goalkeeper,12.0,0.0,1,2026-06-12
+15592,289835,Werder Bremen,SV Werder Bremen,86,Midfield,Central Midfield,14.0,0.0,0,2026-06-12
+15673,442703,Lecce,US Lecce,1005,Midfield,Defensive Midfield,1.8,0.0,1,2026-06-12
+15723,543822,Pisa,Pisa Sporting Club,4172,Midfield,Defensive Midfield,1.2,0.0,1,2026-06-12
+15732,545332,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Centre-Forward,1.5,-16.666666666666664,5,2026-06-12
+15793,283227,Toulouse,FC Toulouse,415,Defender,Centre-Back,5.0,0.0,0,2026-06-12
+15811,343537,AS Roma,Associazione Sportiva Roma,12,Attack,Centre-Forward,15.0,-25.0,2,2026-06-12
+15870,400536,West Ham,West Ham United,379,Goalkeeper,Goalkeeper,15.0,0.0,2,2026-06-12
+15871,160929,1. FC Köln,1.FC Köln,3,Goalkeeper,Goalkeeper,3.0,0.0,0,2026-06-12
+15874,58995,SC Freiburg,SC Freiburg,60,Defender,Centre-Back,0.6,-14.28571428571429,1,2026-06-12
+15881,503871,Genoa,Genoa CFC,252,Midfield,Defensive Midfield,15.0,-16.666666666666664,0,2026-06-12
+15884,513245,VfL Wolfsburg,VfL Wolfsburg,82,Attack,Right Winger,4.0,-50.0,4,2026-06-12
+15908,540941,Brentford,Brentford FC,1148,Midfield,Attacking Midfield,30.0,0.0,0,2026-06-12
+15909,488785,Hellas Verona,Hellas Verona,276,Defender,Left-Back,2.5,0.0,1,2026-06-12
+15911,543499,Tottenham,Tottenham Hotspur,148,Attack,Right Winger,50.0,-9.090909090909093,2,2026-06-12
+15912,422951,Hellas Verona,Hellas Verona,276,Defender,Centre-Back,6.0,-19.999999999999996,3,2026-06-12
+15916,432982,VfL Wolfsburg,Rangers FC,124,Attack,Right Winger,6.0,-40.0,2,2026-06-12
+15917,268327,FC St. Pauli,Union Saint-Gilloise,3948,Midfield,Central Midfield,2.0,-19.999999999999996,2,2026-06-12
+16367,661171,Paris Saint Germain,Paris Saint-Germain,583,Defender,Centre-Back,80.0,14.28571428571428,2,2026-06-12
+17661,661053,Everton,Everton FC,29,Defender,Centre-Back,40.0,-11.111111111111116,1,2026-06-12
+18592,623570,Everton,Everton FC,29,Attack,Right Winger,55.0,22.222222222222232,2,2026-06-12
+18740,175446,Alaves,Deportivo Alavés,1108,Defender,Right-Back,2.2,-12.0,2,2026-06-12
+18742,171679,Wolves,Wolverhampton Wanderers,543,Defender,Right-Back,1.0,-33.333333333333336,1,2026-06-12
+18744,525247,West Ham,West Ham United,379,Defender,Centre-Back,13.0,-40.90909090909091,1,2026-06-12
+18746,429014,Nottingham Forest,Nottingham Forest,703,Midfield,Attacking Midfield,70.0,7.692307692307687,0,2026-06-12
+18753,204103,Fulham,West Ham United,379,Attack,Right Winger,6.0,-25.0,2,2026-06-12
+18766,306024,Leeds,Leeds United,399,Attack,Centre-Forward,22.0,46.66666666666666,1,2026-06-12
+18767,406040,Atletico Madrid,Atalanta BC,800,Attack,Left Winger,40.0,14.28571428571428,1,2026-06-12
+18778,398065,Newcastle,Newcastle United,762,Attack,Left Winger,32.0,0.0,1,2026-06-12
+18788,197838,Cremonese,US Cremonese,2239,Attack,Centre-Forward,1.0,0.0,1,2026-06-12
+18794,76467,Getafe,Getafe CF,3709,Defender,Right-Back,0.7,-12.5,1,2026-06-12
+18797,81512,Udinese,Udinese Calcio,410,Defender,Centre-Back,0.75,-6.25,1,2026-06-12
+18806,207014,Crystal Palace,Crystal Palace,873,Midfield,Central Midfield,5.0,-16.666666666666664,0,2026-06-12
+18814,272622,Fulham,Fulham FC,931,Defender,Centre-Back,8.0,-19.999999999999996,0,2026-06-12
+18821,342048,Elche,Elche CF,1531,Attack,Right Winger,2.0,-42.85714285714286,1,2026-06-12
+18846,477758,West Ham,West Ham United,379,Defender,Right-Back,15.0,-31.818181818181824,1,2026-06-12
+18861,177476,Manchester City,Manchester City,281,Defender,Centre-Back,12.0,-33.333333333333336,0,2026-06-12
+18862,85177,Crystal Palace,Crystal Palace,873,Defender,Right-Back,0.3,-40.0,0,2026-06-12
+18867,249513,Getafe,Getafe CF,3709,Defender,Left-Back,1.0,-16.666666666666664,3,2026-06-12
+18869,61841,Bournemouth,AFC Bournemouth,989,Defender,Right-Back,0.3,-40.0,0,2026-06-12
+18870,277033,Bournemouth,AFC Bournemouth,989,Attack,Right Winger,12.0,0.0,2,2026-06-12
+18872,249089,Bournemouth,AFC Bournemouth,989,Midfield,Central Midfield,11.0,-15.384615384615385,0,2026-06-12
+18883,258889,Tottenham,Tottenham Hotspur,148,Attack,Centre-Forward,28.0,-19.999999999999996,1,2026-06-12
+18885,99397,Leeds,Leeds United,399,Goalkeeper,Goalkeeper,0.2,0.0,1,2026-06-12
+18886,74960,Burnley,Burnley FC,1132,Goalkeeper,Goalkeeper,0.5,-33.333333333333336,1,2026-06-12
+18895,127108,Rayo Vallecano,Rayo Vallecano,367,Defender,Centre-Back,1.8,-9.999999999999998,2,2026-06-12
+18901,346707,Leeds,Leeds United,399,Midfield,Central Midfield,15.0,-16.666666666666664,1,2026-06-12
+18906,246968,Villarreal,Villarreal CF,1050,Attack,Centre-Forward,5.0,-16.666666666666664,3,2026-06-12
+18911,192080,Newcastle,Newcastle United,762,Goalkeeper,Goalkeeper,5.0,-28.57142857142857,0,2026-06-12
+18929,584769,Everton,Everton FC,29,Attack,Left Winger,18.0,-9.999999999999998,0,2026-06-12
+18931,108725,Nottingham Forest,Nottingham Forest,703,Attack,Centre-Forward,5.0,-37.5,2,2026-06-12
+18959,403151,Chelsea,Chelsea FC,631,Goalkeeper,Goalkeeper,22.0,0.0,1,2026-06-12
+18961,134270,Newcastle,Newcastle United,762,Defender,Centre-Back,4.0,-19.999999999999996,0,2026-06-12
+18963,148153,Brighton,Brighton & Hove Albion,1237,Defender,Centre-Back,3.5,-12.5,0,2026-06-12
+18964,364258,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Defender,Left-Back,4.0,-19.999999999999996,2,2026-06-12
+18967,367284,Genoa,Genoa CFC,252,Defender,Centre-Back,13.0,30.000000000000004,6,2026-06-12
+18968,410425,Tottenham,Tottenham Hotspur,148,Midfield,Defensive Midfield,10.0,-33.333333333333336,0,2026-06-12
+18970,82873,Brighton,Borussia Dortmund,16,Midfield,Central Midfield,2.5,-28.57142857142857,2,2026-06-12
+18979,325443,Arsenal,Arsenal FC,11,Attack,Centre-Forward,65.0,-7.14285714285714,2,2026-06-12
+19025,123275,Fulham,Fulham FC,931,Midfield,Central Midfield,0.5,-33.333333333333336,0,2026-06-12
+19030,406634,Marseille,Olympique Marseille,244,Midfield,Central Midfield,18.0,-9.999999999999998,3,2026-06-12
+19032,392775,Fulham,Fulham FC,931,Defender,Left-Back,22.0,10.000000000000009,1,2026-06-12
+19071,321247,Aston Villa,Aston Villa,405,Attack,Left Winger,16.0,-11.111111111111116,2,2026-06-12
+19088,258919,Crystal Palace,Crystal Palace,873,Goalkeeper,Goalkeeper,28.0,0.0,1,2026-06-12
+19128,417346,Fiorentina,Leeds United,399,Attack,Left Winger,6.5,-35.0,3,2026-06-12
+19143,110864,Wolves,Wolverhampton Wanderers,543,Goalkeeper,Goalkeeper,2.0,-60.0,1,2026-06-12
+19145,258878,Chelsea,Chelsea FC,631,Defender,Centre-Back,16.0,-19.999999999999996,1,2026-06-12
+19163,199527,Newcastle,Newcastle United,762,Attack,Right Winger,12.0,-19.999999999999996,0,2026-06-12
+19170,503743,Aston Villa,Aston Villa,405,Midfield,Attacking Midfield,90.0,28.57142857142858,2,2026-06-12
+19172,73517,Sevilla,Sevilla FC,368,Goalkeeper,Goalkeeper,0.8,-11.111111111111116,1,2026-06-12
+19179,253677,Aston Villa,Aston Villa,405,Defender,Centre-Back,3.0,-25.0,0,2026-06-12
+19182,342046,Burnley,Burnley FC,1132,Defender,Centre-Back,5.0,0.0,3,2026-06-12
+19185,412660,Udinese,Udinese Calcio,410,Attack,Centre-Forward,10.0,150.0,1,2026-06-12
+19187,203460,Everton,Everton FC,29,Attack,Left Winger,20.0,-19.999999999999996,1,2026-06-12
+19191,193116,Aston Villa,Aston Villa,405,Midfield,Central Midfield,13.0,-13.33333333333333,0,2026-06-12
+19192,503749,Newcastle,Newcastle United,762,Midfield,Central Midfield,35.0,0.0,1,2026-06-12
+19201,465717,Leeds,Leeds United,399,Defender,Right-Back,15.0,50.0,1,2026-06-12
+19209,303254,AC Milan,AC Milan,5,Defender,Centre-Back,17.0,-15.000000000000002,0,2026-06-12
+19220,346483,Manchester United,Manchester United,985,Midfield,Attacking Midfield,25.0,-21.875,1,2026-06-12
+19221,279455,Fulham,Fulham FC,931,Attack,Right Winger,25.0,25.0,0,2026-06-12
+19235,483348,Tottenham,Tottenham Hotspur,148,Defender,Left-Back,30.0,-6.25,5,2026-06-12
+19245,399434,Bournemouth,AFC Bournemouth,989,Midfield,Attacking Midfield,25.0,25.0,0,2026-06-12
+19263,480116,Juventus,Juventus FC,506,Defender,Centre-Back,23.0,14.999999999999991,4,2026-06-12
+19281,583255,Bournemouth,Manchester City,281,Attack,Right Winger,80.0,23.076923076923084,1,2026-06-12
+19298,425334,Aston Villa,Aston Villa,405,Defender,Right-Back,22.0,0.0,0,2026-06-12
+19305,425902,Nottingham Forest,Nottingham Forest,703,Midfield,Central Midfield,7.0,-30.000000000000004,0,2026-06-12
+19321,297212,Leeds,Leeds United,399,Defender,Centre-Back,18.0,50.0,4,2026-06-12
+19329,319301,Leeds,Leeds United,399,Attack,Right Winger,10.0,-28.57142857142857,0,2026-06-12
+19346,339556,Brentford,Brentford FC,1148,Defender,Left-Back,13.0,-13.33333333333333,0,2026-06-12
+19354,413403,Aston Villa,Aston Villa,405,Defender,Centre-Back,40.0,14.28571428571428,0,2026-06-12
+19364,217115,Sevilla,Olympique Marseille,244,Attack,Centre-Forward,4.0,0.0,6,2026-06-12
+19366,324358,Aston Villa,Aston Villa,405,Attack,Centre-Forward,25.0,-16.666666666666664,0,2026-06-12
+19428,314875,West Ham,West Ham United,379,Attack,Right Winger,30.0,-14.28571428571429,0,2026-06-12
+19461,314288,Leeds,Leeds United,399,Attack,Centre-Forward,10.0,25.0,1,2026-06-12
+19465,262749,Arsenal,Arsenal FC,11,Goalkeeper,Goalkeeper,30.0,-14.28571428571429,3,2026-06-12
+19484,250426,Wolves,Wolverhampton Wanderers,543,Attack,Centre-Forward,6.0,-33.333333333333336,3,2026-06-12
+19495,469050,Brentford,Brentford FC,1148,Defender,Centre-Back,30.0,-14.28571428571429,1,2026-06-12
+19518,156618,Metz,FC Metz,347,Defender,Right-Back,0.25,-16.666666666666664,1,2026-06-12
+19524,346779,Torino,Torino FC,416,Attack,Centre-Forward,5.0,-41.17647058823529,1,2026-06-12
+19545,472423,Chelsea,Chelsea FC,631,Defender,Right-Back,60.0,19.999999999999996,0,2026-06-12
+19549,349701,Fulham,Fulham FC,931,Defender,Left-Back,22.0,-26.66666666666667,0,2026-06-12
+19586,479999,Arsenal,Arsenal FC,11,Midfield,Attacking Midfield,65.0,0.0,1,2026-06-12
+19599,111873,Aston Villa,Aston Villa,405,Goalkeeper,Goalkeeper,12.0,-19.999999999999996,0,2026-06-12
+19617,566723,Bayern München,Bayern Munich,27,Attack,Right Winger,150.0,15.384615384615374,1,2026-06-12
+19625,392767,Auxerre,AJ Auxerre,290,Attack,Left Winger,6.0,19.999999999999996,1,2026-06-12
+19720,346314,Chelsea,Chelsea FC,631,Defender,Centre-Back,40.0,14.28571428571428,2,2026-06-12
+19738,433329,Lecce,US Lecce,1005,Defender,Left-Back,0.9,0.0,4,2026-06-12
+19760,413220,Leeds,Leeds United,399,Defender,Right-Back,12.0,0.0,1,2026-06-12
+19789,442248,Brentford,Brentford FC,1148,Defender,Centre-Back,3.0,-25.0,0,2026-06-12
+19824,633530,Udinese,Udinese Calcio,410,Defender,Left-Back,5.0,25.0,1,2026-06-12
+19827,242606,Burnley,Burnley FC,1132,Midfield,Central Midfield,4.0,-42.85714285714286,0,2026-06-12
+19911,282939,Sunderland,Sunderland AFC,289,Defender,Centre-Back,0.7,-46.15384615384615,0,2026-06-12
+20093,611793,Bournemouth,AFC Bournemouth,989,Defender,Centre-Back,23.0,228.57142857142856,3,2026-06-12
+20303,314241,Burnley,Burnley FC,1132,Midfield,Central Midfield,1.5,-25.0,1,2026-06-12
+20355,427568,Newcastle,Newcastle United,762,Goalkeeper,Goalkeeper,12.0,0.0,2,2026-06-12
+20520,85295,Rayo Vallecano,Rayo Vallecano,367,Defender,Right-Back,1.0,-16.666666666666664,0,2026-06-12
+20525,344886,Lens,RC Lens,826,Defender,Left-Back,8.0,60.00000000000001,1,2026-06-12
+20529,344892,Metz,FC Metz,347,Attack,Right Winger,5.0,0.0,1,2026-06-12
+20534,568696,Metz,FC Metz,347,Attack,Left Winger,3.0,-14.28571428571429,1,2026-06-12
+20542,170911,Auxerre,AJ Auxerre,290,Goalkeeper,Goalkeeper,0.8,-11.111111111111116,0,2026-06-12
+20546,250779,Stade Brestois 29,Stade Brestois 29,3911,Defender,Centre-Back,4.0,-19.999999999999996,0,2026-06-12
+20554,138055,Angers,Angers SCO,1420,Midfield,Central Midfield,1.8,-9.999999999999998,2,2026-06-12
+20558,474662,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Central Midfield,6.0,0.0,0,2026-06-12
+20566,448632,Nice,OGC Nice,417,Goalkeeper,Goalkeeper,7.0,-22.22222222222222,1,2026-06-12
+20589,413039,Manchester United,Manchester United,985,Attack,Right Winger,75.0,0.0,1,2026-06-12
+20600,318523,Lille,LOSC Lille,1082,Defender,Left-Back,7.0,0.0,4,2026-06-12
+20617,612826,FSV Mainz 05,1.FSV Mainz 05,39,Attack,Right Winger,2.0,-33.333333333333336,3,2026-06-12
+20634,384593,FC Augsburg,FC Augsburg,167,Midfield,Attacking Midfield,15.0,25.0,2,2026-06-12
+20638,633992,Sunderland,Sunderland AFC,289,Midfield,Central Midfield,28.0,39.99999999999999,5,2026-06-12
+20649,388165,Newcastle,Newcastle United,762,Attack,Centre-Forward,25.0,-28.57142857142857,1,2026-06-12
+20654,384859,Nantes,FC Nantes,995,Defender,Right-Back,1.0,-16.666666666666664,2,2026-06-12
+20656,342877,Torino,Torino FC,416,Defender,Centre-Back,2.8,86.66666666666667,5,2026-06-12
+20665,450050,Wolves,Wolverhampton Wanderers,543,Midfield,Central Midfield,16.0,0.0,1,2026-06-12
+20692,592979,Angers,Olympique Marseille,244,Midfield,Attacking Midfield,5.0,-28.57142857142857,1,2026-06-12
+20696,485963,Villarreal,Villarreal CF,1050,Midfield,Central Midfield,40.0,100.0,2,2026-06-12
+20704,435492,Paris FC,Paris FC,10004,Attack,Left Winger,1.5,25.0,0,2026-06-12
+20732,353404,Lille,LOSC Lille,1082,Attack,Right Winger,5.0,-16.666666666666664,2,2026-06-12
+20761,354726,Lens,RC Lens,826,Attack,Centre-Forward,1.2,-19.999999999999996,0,2026-06-12
+20762,282028,Lyon,Olympique Lyon,1041,Goalkeeper,Goalkeeper,1.5,-25.0,1,2026-06-12
+20780,424072,FC St. Pauli,FC St. Pauli,35,Attack,Left Winger,2.5,-28.57142857142857,1,2026-06-12
+20784,229006,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Attack,Right Winger,7.0,-41.666666666666664,1,2026-06-12
+20817,525140,Angers,Levante UD,3368,Attack,Centre-Forward,2.5,0.0,7,2026-06-12
+20844,620164,Oviedo,Real Oviedo,2497,Attack,Right Winger,3.5,-30.000000000000004,4,2026-06-12
+20850,371686,Angers,Angers SCO,1420,Defender,Right-Back,1.8,0.0,1,2026-06-12
+20869,668167,Paris FC,Paris FC,10004,Defender,Centre-Back,3.0,0.0,0,2026-06-12
+20917,238626,Lorient,FC Lorient,1158,Midfield,Defensive Midfield,1.8,-9.999999999999998,0,2026-06-12
+20925,374040,Paris FC,Paris FC,10004,Midfield,Central Midfield,1.5,-25.0,1,2026-06-12
+20959,475410,Pisa,Pisa Sporting Club,4172,Midfield,Attacking Midfield,4.5,-25.0,0,2026-06-12
+20995,434224,Crystal Palace,Crystal Palace,873,Defender,Centre-Back,50.0,42.85714285714286,1,2026-06-12
+21004,569384,Sevilla,Sevilla FC,368,Midfield,Defensive Midfield,15.0,25.0,4,2026-06-12
+21010,395695,Auxerre,AJ Auxerre,290,Midfield,Defensive Midfield,4.0,14.28571428571428,0,2026-06-12
+21079,127188,Nice,OGC Nice,417,Goalkeeper,Goalkeeper,0.7,-12.5,2,2026-06-12
+21087,395234,Sevilla,Sevilla FC,368,Midfield,Defensive Midfield,7.5,-25.0,2,2026-06-12
+21090,329145,Como,Como 1907,1047,Defender,Centre-Back,5.0,-41.17647058823529,2,2026-06-12
+21102,332889,Rennes,Stade Rennais FC,273,Midfield,Central Midfield,8.0,-11.111111111111116,1,2026-06-12
+21103,181382,Le Havre,Le Havre AC,738,Midfield,Defensive Midfield,2.5,-16.666666666666664,1,2026-06-12
+21104,487969,Tottenham,Tottenham Hotspur,148,Attack,Centre-Forward,20.0,-19.999999999999996,4,2026-06-12
+21138,578391,Manchester City,Manchester City,281,Defender,Left-Back,40.0,0.0,1,2026-06-12
+21145,214532,Angers,Angers SCO,1420,Midfield,Central Midfield,0.15,-25.0,0,2026-06-12
+21153,285323,Valencia,Valencia CF,1049,Midfield,Defensive Midfield,2.5,-44.44444444444444,3,2026-06-12
+21248,525155,Stade Brestois 29,Stade Brestois 29,3911,Goalkeeper,Goalkeeper,4.0,400.0,0,2026-06-12
+21381,192492,Angers,Angers SCO,1420,Defender,Centre-Back,1.0,-16.666666666666664,1,2026-06-12
+21393,270541,Borussia Dortmund,Borussia Dortmund,16,Attack,Centre-Forward,32.0,-19.999999999999996,3,2026-06-12
+21497,288225,Rennes,Stade Rennais FC,273,Midfield,Right Midfield,10.0,-33.333333333333336,1,2026-06-12
+21509,318528,Inter,Inter Milan,46,Attack,Centre-Forward,50.0,-16.666666666666664,1,2026-06-12
+21568,203746,Lens,RC Lens,826,Defender,Right-Back,2.5,-16.666666666666664,1,2026-06-12
+21570,485965,Nantes,FC Nantes,995,Defender,Centre-Back,2.5,-16.666666666666664,3,2026-06-12
+21587,290587,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Defensive Midfield,5.0,-16.666666666666664,1,2026-06-12
+21628,191056,Rennes,Stade Rennais FC,273,Goalkeeper,Goalkeeper,7.0,-30.000000000000004,1,2026-06-12
+21635,126557,Lens,RC Lens,826,Defender,Centre-Back,2.5,-16.666666666666664,0,2026-06-12
+21636,354352,Nantes,FC Nantes,995,Defender,Right-Back,0.8,0.0,2,2026-06-12
+21640,539232,Metz,FC Metz,347,Midfield,Central Midfield,2.0,-19.999999999999996,4,2026-06-12
+21641,651973,Le Havre,Le Havre AC,738,Attack,Right Winger,0.5,-37.5,1,2026-06-12
+21694,361914,Marseille,Olympique Marseille,244,Defender,Centre-Back,15.0,-31.818181818181824,3,2026-06-12
+21701,441170,Osasuna,CA Osasuna,331,Defender,Right-Back,3.0,0.0,4,2026-06-12
+21715,182916,Lens,RC Lens,826,Attack,Second Striker,5.0,25.0,0,2026-06-12
+21998,386047,West Ham,West Ham United,379,Defender,Centre-Back,15.0,0.0,4,2026-06-12
+22007,290017,Udinese,Udinese Calcio,410,Defender,Left-Back,3.0,0.0,1,2026-06-12
+22015,626913,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Centre-Forward,5.0,-50.0,3,2026-06-12
+22086,84085,Paris FC,Paris FC,10004,Defender,Centre-Back,0.15,-25.0,2,2026-06-12
+22090,495666,Arsenal,Arsenal FC,11,Defender,Centre-Back,100.0,11.111111111111116,0,2026-06-12
+22093,113707,Nantes,Olympiakos Syndesmos Filathlon Peiraios,683,Midfield,Attacking Midfield,1.2,-19.999999999999996,2,2026-06-12
+22094,475411,Chelsea,Chelsea FC,631,Defender,Centre-Back,28.0,0.0,0,2026-06-12
+22097,324811,Rennes,Stade Rennais FC,273,Attack,Right Winger,4.0,0.0,2,2026-06-12
+22134,344072,Nantes,FC Nantes,995,Defender,Right-Back,2.0,-19.999999999999996,1,2026-06-12
+22136,463605,Bournemouth,AFC Bournemouth,989,Defender,Centre-Back,25.0,-28.57142857142857,1,2026-06-12
+22147,624690,AS Roma,Associazione Sportiva Roma,12,Midfield,Central Midfield,50.0,0.0,1,2026-06-12
+22149,375885,Nottingham Forest,Nottingham Forest,703,Midfield,Defensive Midfield,20.0,-9.090909090909093,1,2026-06-12
+22160,318508,Brighton,Brighton & Hove Albion,1237,Defender,Centre-Back,15.0,-16.666666666666664,1,2026-06-12
+22163,16136,Nice,OGC Nice,417,Defender,Centre-Back,0.5,0.0,0,2026-06-12
+22166,344596,Lens,RC Lens,826,Defender,Centre-Back,20.0,100.0,2,2026-06-12
+22170,377393,Paris FC,Stade Brestois 29,3911,Midfield,Defensive Midfield,4.5,-9.999999999999998,1,2026-06-12
+22171,322305,Lorient,FC Lorient,1158,Midfield,Attacking Midfield,6.0,140.0,0,2026-06-12
+22173,272642,Lens,CF América,3631,Attack,Left Winger,10.0,0.0,5,2026-06-12
+22174,157507,Torino,Torino FC,416,Midfield,Defensive Midfield,1.2,-40.0,1,2026-06-12
+22177,531949,Nantes,FC Nantes,995,Attack,Centre-Forward,2.0,0.0,2,2026-06-12
+22220,415383,Angers,Angers SCO,1420,Goalkeeper,Goalkeeper,6.0,100.0,2,2026-06-12
+22221,182906,AC Milan,AC Milan,5,Goalkeeper,Goalkeeper,20.0,-19.999999999999996,0,2026-06-12
+22222,251075,AS Roma,Associazione Sportiva Roma,12,Defender,Right-Back,14.0,16.666666666666675,0,2026-06-12
+22224,435338,Arsenal,Arsenal FC,11,Defender,Centre-Back,75.0,0.0,0,2026-06-12
+22225,240692,Sunderland,Sunderland AFC,289,Defender,Left-Back,4.0,-19.999999999999996,1,2026-06-12
+22236,357164,AC Milan,AC Milan,5,Attack,Left Winger,50.0,-28.57142857142857,0,2026-06-12
+22239,644032,Hellas Verona,Hellas Verona,276,Midfield,Defensive Midfield,2.0,-19.999999999999996,3,2026-06-12
+22244,453016,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Right-Back,7.0,-30.000000000000004,0,2026-06-12
+22247,174196,Stade Brestois 29,Stade Brestois 29,3911,Defender,Right-Back,1.5,-16.666666666666664,0,2026-06-12
+22254,569598,AC Milan,AC Milan,5,Midfield,Defensive Midfield,23.0,-17.85714285714286,1,2026-06-12
+22260,372712,Nantes,FC Nantes,995,Midfield,Defensive Midfield,2.0,-33.333333333333336,2,2026-06-12
+22261,215977,Lens,RC Lens,826,Midfield,Central Midfield,4.0,-11.111111111111116,0,2026-06-12
+22264,283994,Stade Brestois 29,Stade Brestois 29,3911,Attack,Centre-Forward,3.0,-14.28571428571429,3,2026-06-12
+22842,358515,Paris FC,Paris FC,10004,Attack,Centre-Forward,3.5,-12.5,2,2026-06-12
+23363,691958,Lorient,FC Lorient,1158,Midfield,Central Midfield,3.0,200.0,3,2026-06-12
+23637,691841,Le Havre,Le Havre AC,738,Defender,Left-Back,2.5,38.888888888888886,1,2026-06-12
+23643,691786,Lens,Real Salt Lake,6643,Attack,Right Winger,4.5,12.5,6,2026-06-12
+24147,324795,Rennes,Stade Rennais FC,273,Midfield,Central Midfield,12.0,19.999999999999996,3,2026-06-12
+24641,187097,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Centre-Forward,1.2,0.0,1,2026-06-12
+24760,502676,Liverpool,Liverpool FC,31,Goalkeeper,Goalkeeper,28.0,0.0,3,2026-06-12
+24798,272278,VfB Stuttgart,VfB Stuttgart,79,Attack,Left Winger,12.0,19.999999999999996,0,2026-06-12
+24806,400546,VfB Stuttgart,VfB Stuttgart,79,Midfield,Central Midfield,10.0,400.0,0,2026-06-12
+24842,392710,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Defensive Midfield,2.5,-28.57142857142857,1,2026-06-12
+24845,370789,Borussia Dortmund,Borussia Dortmund,16,Defender,Right-Back,25.0,25.0,0,2026-06-12
+24848,75921,Union Berlin,1.FC Union Berlin,89,Defender,Right-Back,0.6,0.0,0,2026-06-12
+24854,234029,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Midfield,Central Midfield,3.5,16.666666666666675,0,2026-06-12
+24868,448258,VfB Stuttgart,VfB Stuttgart,79,Defender,Right-Back,10.0,0.0,0,2026-06-12
+24880,415194,Hamburger SV,Hamburger SV,41,Attack,Right Winger,1.0,42.85714285714286,0,2026-06-12
+24882,289592,Lyon,Olympique Lyon,1041,Midfield,Defensive Midfield,9.0,-9.999999999999998,5,2026-06-12
+24888,292246,Wolves,Wolverhampton Wanderers,543,Attack,Centre-Forward,6.0,-40.0,0,2026-06-12
+24894,448705,Borussia Dortmund,1. Fußballclub Heidenheim 1846,2036,Goalkeeper,Goalkeeper,7.0,0.0,5,2026-06-12
+24897,117478,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Right-Back,1.0,-16.666666666666664,0,2026-06-12
+24899,133731,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Centre-Back,2.5,0.0,0,2026-06-12
+24903,159088,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Defensive Midfield,6.0,-14.28571428571429,0,2026-06-12
+24904,251302,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Defensive Midfield,2.5,-16.666666666666664,1,2026-06-12
+24910,287920,Union Berlin,1.FC Union Berlin,89,Attack,Centre-Forward,1.5,-16.666666666666664,3,2026-06-12
+24914,196139,Hamburger SV,Hamburger SV,41,Attack,Centre-Forward,1.5,0.0,0,2026-06-12
+24953,441986,Inter,Inter Milan,46,Defender,Centre-Back,50.0,42.85714285714286,1,2026-06-12
+24955,283497,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Left Winger,1.7,-15.000000000000002,1,2026-06-12
+24961,154147,FC St. Pauli,FC St. Pauli,35,Defender,Centre-Back,1.5,0.0,1,2026-06-12
+24963,232320,VfB Stuttgart,VfB Stuttgart,79,Midfield,Defensive Midfield,8.0,-11.111111111111116,0,2026-06-12
+24969,388409,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Defensive Midfield,4.0,0.0,1,2026-06-12
+24979,192169,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Left-Back,1.0,-33.333333333333336,0,2026-06-12
+25008,175639,Nice,OGC Nice,417,Defender,Right-Back,4.0,-11.111111111111116,1,2026-06-12
+25011,334221,Werder Bremen,SV Werder Bremen,86,Defender,Centre-Back,4.0,0.0,0,2026-06-12
+25033,84993,Hamburger SV,Hamburger SV,41,Goalkeeper,Goalkeeper,1.2,0.0,0,2026-06-12
+25061,467563,Hellas Verona,Hellas Verona,276,Defender,Centre-Back,7.0,-6.666666666666665,5,2026-06-12
+25073,270171,Brentford,Brentford FC,1148,Midfield,Defensive Midfield,16.0,-11.111111111111116,0,2026-06-12
+25158,318204,RB Leipzig,RB Leipzig,23826,Defender,Left-Back,25.0,25.0,0,2026-06-12
+25203,227084,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Centre-Back,1.5,-40.0,1,2026-06-12
+25242,116088,1. FC Köln,1.FC Köln,3,Attack,Left Winger,1.8,-9.999999999999998,2,2026-06-12
+25282,257814,Borussia Dortmund,Borussia Dortmund,16,Goalkeeper,Goalkeeper,40.0,0.0,0,2026-06-12
+25287,263236,Tottenham,Tottenham Hotspur,148,Defender,Centre-Back,20.0,-9.090909090909093,3,2026-06-12
+25290,106405,FC Augsburg,FC Augsburg,167,Defender,Centre-Back,1.0,0.0,0,2026-06-12
+25297,120205,FC Augsburg,FC Augsburg,167,Attack,Centre-Forward,1.5,0.0,2,2026-06-12
+25300,124410,Union Berlin,1.FC Union Berlin,89,Midfield,Defensive Midfield,2.0,0.0,0,2026-06-12
+25313,342967,SC Freiburg,SC Freiburg,60,Attack,Right Winger,10.0,42.85714285714286,2,2026-06-12
+25314,156990,Werder Bremen,SV Werder Bremen,86,Defender,Centre-Back,10.0,-16.666666666666664,0,2026-06-12
+25342,282660,VfB Stuttgart,VfB Stuttgart,79,Defender,Left-Back,18.0,0.0,1,2026-06-12
+25346,227110,Hamburger SV,Hamburger SV,41,Defender,Centre-Back,4.0,0.0,1,2026-06-12
+25353,186368,Torino,Torino FC,416,Midfield,Right Midfield,2.5,-37.5,2,2026-06-12
+25368,193004,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,18.0,0.0,1,2026-06-12
+25375,245744,Mallorca,RCD Mallorca,237,Attack,Right Winger,1.5,-16.666666666666664,1,2026-06-12
+25380,335103,1. FC Köln,1.FC Köln,3,Attack,Left Winger,3.0,0.0,0,2026-06-12
+25391,75489,AC Milan,West Ham United,379,Attack,Centre-Forward,3.5,-56.25,3,2026-06-12
+25400,119277,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Central Midfield,1.8,-9.999999999999998,0,2026-06-12
+25408,117674,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Central Midfield,3.0,-33.333333333333336,0,2026-06-12
+25413,280575,FC Augsburg,FC Augsburg,167,Midfield,Central Midfield,3.5,0.0,0,2026-06-12
+25461,106872,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Attacking Midfield,1.8,-40.0,1,2026-06-12
+25502,388294,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Right-Back,2.0,-33.333333333333336,1,2026-06-12
+25626,284270,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Goalkeeper,Goalkeeper,8.0,60.00000000000001,1,2026-06-12
+25635,7161,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Attacking Midfield,1.5,-25.0,1,2026-06-12
+25638,278332,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Central Midfield,2.5,-28.57142857142857,0,2026-06-12
+25903,251299,FC Augsburg,FC Augsburg,167,Goalkeeper,Goalkeeper,12.0,0.0,1,2026-06-12
+25906,160963,FSV Mainz 05,1.FSV Mainz 05,39,Goalkeeper,Goalkeeper,2.5,-16.666666666666664,0,2026-06-12
+25907,82350,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Centre-Back,0.6,0.0,0,2026-06-12
+25914,251878,Genoa,Genoa CFC,252,Defender,Left-Back,5.0,-28.57142857142857,1,2026-06-12
+25915,127573,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Left-Back,1.5,0.0,1,2026-06-12
+25916,291200,Lyon,Olympique Lyon,1041,Defender,Centre-Back,15.0,0.0,1,2026-06-12
+25917,327251,RB Leipzig,RB Leipzig,23826,Defender,Right-Back,12.0,0.0,1,2026-06-12
+25926,333647,Eintracht Frankfurt,Eintracht Frankfurt,24,Attack,Centre-Forward,30.0,-14.28571428571429,1,2026-06-12
+25927,420002,Crystal Palace,Crystal Palace,873,Attack,Centre-Forward,30.0,-25.0,0,2026-06-12
+26171,288340,FSV Mainz 05,FC Augsburg,167,Attack,Centre-Forward,4.0,14.28571428571428,2,2026-06-12
+26232,125714,Bayer Leverkusen,Bayer 04 Leverkusen,15,Goalkeeper,Goalkeeper,6.0,-25.0,2,2026-06-12
+26236,93707,SC Freiburg,SC Freiburg,60,Defender,Left-Back,2.0,0.0,0,2026-06-12
+26237,110036,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,0.6,-14.28571428571429,2,2026-06-12
+26238,328784,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Centre-Back,10.0,-33.333333333333336,3,2026-06-12
+26239,93604,SC Freiburg,SC Freiburg,60,Defender,Right-Back,1.5,0.0,0,2026-06-12
+26240,225657,SC Freiburg,SC Freiburg,60,Defender,Centre-Back,10.0,-16.666666666666664,0,2026-06-12
+26242,413843,FC Augsburg,FC Augsburg,167,Defender,Centre-Back,6.0,0.0,4,2026-06-12
+26243,388198,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,55.0,0.0,0,2026-06-12
+26248,185077,SC Freiburg,SC Freiburg,60,Attack,Left Winger,4.0,-19.999999999999996,0,2026-06-12
+26249,177779,Union Berlin,1.FC Union Berlin,89,Midfield,Central Midfield,2.0,-19.999999999999996,0,2026-06-12
+26250,55099,SC Freiburg,SC Freiburg,60,Midfield,Defensive Midfield,0.5,0.0,0,2026-06-12
+26255,248999,SC Freiburg,SC Freiburg,60,Attack,Centre-Forward,3.0,0.0,0,2026-06-12
+26260,196095,1. FC Köln,1.FC Köln,3,Attack,Centre-Forward,2.0,0.0,3,2026-06-12
+26300,361260,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Defender,Centre-Back,15.0,200.0,0,2026-06-12
+26301,160938,Como,Como 1907,1047,Defender,Centre-Back,3.5,16.666666666666675,1,2026-06-12
+26302,251876,Mallorca,RCD Mallorca,237,Defender,Right-Back,3.0,-40.0,0,2026-06-12
+26315,486031,Atletico Madrid,Juventus FC,506,Attack,Left Winger,22.0,-8.333333333333337,4,2026-06-12
+26319,393512,Werder Bremen,SV Werder Bremen,86,Defender,Left-Back,4.5,-43.75,0,2026-06-12
+26475,339314,VfB Stuttgart,VfB Stuttgart,79,Attack,Centre-Forward,22.0,10.000000000000009,3,2026-06-12
+26530,394033,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Centre-Forward,0.3,-40.0,0,2026-06-12
+26845,523318,Como,Como 1907,1047,Attack,Centre-Forward,25.0,150.0,2,2026-06-12
+27157,242661,FC St. Pauli,FC St. Pauli,35,Defender,Right-Back,2.0,-19.999999999999996,0,2026-06-12
+28382,203123,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Attack,Centre-Forward,3.5,16.666666666666675,3,2026-06-12
+30396,124555,Torino,Torino FC,416,Defender,Left-Back,0.9,-35.71428571428571,3,2026-06-12
+30397,163639,Cremonese,US Cremonese,2239,Defender,Centre-Back,0.4,0.0,3,2026-06-12
+30399,404418,Atletico Madrid,Atlético de Madrid,13,Defender,Centre-Back,35.0,16.666666666666675,1,2026-06-12
+30410,341092,Liverpool,Liverpool FC,31,Attack,Right Winger,13.0,-27.77777777777778,1,2026-06-12
+30414,282388,Torino,Torino FC,416,Attack,Centre-Forward,7.0,39.99999999999999,3,2026-06-12
+30415,357498,Juventus,Juventus FC,506,Attack,Centre-Forward,35.0,0.0,0,2026-06-12
+30417,459763,Atalanta,Atalanta BC,800,Goalkeeper,Goalkeeper,30.0,19.999999999999996,1,2026-06-12
+30420,392956,Parma,Parma Calcio 1913,130,Defender,Right-Back,6.0,0.0,0,2026-06-12
+30421,165513,Atalanta,Atalanta BC,800,Defender,Centre-Back,4.0,-19.999999999999996,0,2026-06-12
+30422,273132,Fiorentina,ACF Fiorentina,430,Defender,Left-Back,4.0,-33.333333333333336,4,2026-06-12
+30423,275303,Lyon,Stade Rennais FC,273,Defender,Right-Back,1.8,-9.999999999999998,2,2026-06-12
+30425,256448,AS Roma,Associazione Sportiva Roma,12,Defender,Centre-Back,15.0,0.0,0,2026-06-12
+30432,133179,Atalanta,Atalanta BC,800,Midfield,Defensive Midfield,3.2,-8.571428571428575,0,2026-06-12
+30438,459151,Bologna,Bologna Football Club 1909,1025,Attack,Left Winger,14.0,-22.22222222222222,2,2026-06-12
+30440,432092,Fiorentina,ACF Fiorentina,430,Attack,Centre-Forward,14.0,-22.22222222222222,7,2026-06-12
+30441,256339,Como,US Cremonese,2239,Goalkeeper,Goalkeeper,2.8,-12.5,6,2026-06-12
+30469,240897,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,0.8,14.28571428571428,0,2026-06-12
+30484,342405,VfL Wolfsburg,VfL Wolfsburg,82,Midfield,Central Midfield,8.0,-33.333333333333336,0,2026-06-12
+30488,368482,Bologna,Bologna Football Club 1909,1025,Attack,Right Winger,15.0,-40.0,0,2026-06-12
+30497,516716,Juventus,Juventus FC,506,Defender,Centre-Back,35.0,0.0,0,2026-06-12
+30498,33571,Bologna,Bologna Football Club 1909,1025,Defender,Right-Back,0.6,-14.28571428571429,0,2026-06-12
+30505,564305,Cagliari,Cagliari Calcio,1390,Midfield,Central Midfield,7.0,16.666666666666675,4,2026-06-12
+30510,338425,Athletic Club,Athletic Bilbao,621,Attack,Left Winger,4.0,-19.999999999999996,0,2026-06-12
+30519,543666,Sassuolo,US Sassuolo,6574,Goalkeeper,Goalkeeper,3.0,0.0,5,2026-06-12
+30525,298975,Hellas Verona,Olympique Marseille,244,Defender,Right-Back,1.5,-25.0,4,2026-06-12
+30531,216569,Juventus,Juventus FC,506,Attack,Left Winger,8.0,0.0,2,2026-06-12
+30533,265088,Juventus,Juventus FC,506,Midfield,Defensive Midfield,25.0,0.0,2,2026-06-12
+30537,177843,Sassuolo,US Sassuolo,6574,Attack,Right Winger,7.0,-6.666666666666665,0,2026-06-12
+30542,345590,Bologna,Bologna Football Club 1909,1025,Midfield,Attacking Midfield,12.0,-19.999999999999996,3,2026-06-12
+30543,405885,Atalanta,Atalanta BC,800,Attack,Second Striker,22.0,0.0,4,2026-06-12
+30544,315867,Atalanta,Atalanta BC,800,Attack,Centre-Forward,25.0,0.0,1,2026-06-12
+30553,136514,Bologna,Bologna Football Club 1909,1025,Defender,Left-Back,1.2,-19.999999999999996,0,2026-06-12
+30554,346567,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Left-Back,4.5,28.57142857142858,4,2026-06-12
+30556,256678,Sassuolo,US Sassuolo,6574,Defender,Centre-Back,0.8,0.0,2,2026-06-12
+30558,255942,Inter,Inter Milan,46,Midfield,Central Midfield,50.0,-16.666666666666664,0,2026-06-12
+30561,235931,Cagliari,Cagliari Calcio,1390,Midfield,Central Midfield,1.5,-6.25,0,2026-06-12
+30611,241923,Hellas Verona,Hellas Verona,276,Goalkeeper,Goalkeeper,1.2,-40.0,0,2026-06-12
+30642,163048,Torino,Torino FC,416,Goalkeeper,Goalkeeper,1.2,19.999999999999996,1,2026-06-12
+30670,301238,Juventus,Juventus FC,506,Goalkeeper,Goalkeeper,10.0,-44.44444444444444,3,2026-06-12
+30690,462070,Oviedo,Real Oviedo,2497,Midfield,Defensive Midfield,3.0,0.0,5,2026-06-12
+30723,379163,Pisa,Pisa Sporting Club,4172,Midfield,Defensive Midfield,2.8,-6.666666666666665,0,2026-06-12
+30731,421873,Cagliari,Cagliari Calcio,1390,Goalkeeper,Goalkeeper,15.0,0.0,6,2026-06-12
+30733,317057,Pisa,Pisa Sporting Club,4172,Goalkeeper,Goalkeeper,1.8,-48.57142857142858,2,2026-06-12
+30753,348601,Pisa,Pisa Sporting Club,4172,Attack,Right Winger,1.8,-9.999999999999998,2,2026-06-12
+30765,303657,Celta Vigo,Celta de Vigo,940,Goalkeeper,Goalkeeper,9.0,80.0,5,2026-06-12
+30775,336960,Cremonese,US Cremonese,2239,Defender,Left-Back,2.0,-19.999999999999996,3,2026-06-12
+30776,355915,Tottenham,Tottenham Hotspur,148,Defender,Centre-Back,45.0,-25.0,0,2026-06-12
+30780,226025,Cagliari,Cagliari Calcio,1390,Midfield,Central Midfield,1.2,-14.28571428571429,8,2026-06-12
+30784,525704,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Defensive Midfield,23.0,-17.85714285714286,4,2026-06-12
+30785,454863,Union Berlin,1.FC Union Berlin,89,Midfield,Central Midfield,4.5,0.0,0,2026-06-12
+30792,99523,Pisa,Pisa Sporting Club,4172,Goalkeeper,Goalkeeper,0.1,0.0,0,2026-06-12
+30807,182893,Rennes,Stade Rennais FC,273,Midfield,Central Midfield,8.0,0.0,5,2026-06-12
+30810,308279,Fiorentina,ACF Fiorentina,430,Midfield,Defensive Midfield,9.0,-9.999999999999998,0,2026-06-12
+30848,413605,Cremonese,US Cremonese,2239,Attack,Centre-Forward,1.4,-6.666666666666665,4,2026-06-12
+30866,331401,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Right-Back,2.0,-19.999999999999996,0,2026-06-12
+30915,85528,Cremonese,US Cremonese,2239,Goalkeeper,Goalkeeper,0.5,0.0,3,2026-06-12
+30919,160986,Cremonese,US Cremonese,2239,Defender,Centre-Back,0.8,0.0,0,2026-06-12
+30924,371371,Mallorca,RCD Mallorca,237,Defender,Centre-Back,3.0,-40.0,5,2026-06-12
+30927,395122,Oviedo,Real Oviedo,2497,Midfield,Defensive Midfield,2.5,-16.666666666666664,2,2026-06-12
+30937,283735,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Left Winger,7.5,-50.0,0,2026-06-12
+31009,315853,Inter,Inter Milan,46,Defender,Centre-Back,65.0,-18.75,0,2026-06-12
+31010,198116,Inter,Inter Milan,46,Defender,Left-Back,50.0,0.0,0,2026-06-12
+31016,371436,Auxerre,AJ Auxerre,290,Defender,Centre-Back,1.2,-19.999999999999996,1,2026-06-12
+31021,197473,Cremonese,US Cremonese,2239,Midfield,Defensive Midfield,1.4,-22.22222222222222,3,2026-06-12
+31037,197929,Lazio,Società Sportiva Lazio S.p.A.,398,Goalkeeper,Goalkeeper,3.0,0.0,0,2026-06-12
+31042,169880,Napoli,SSC Napoli,6195,Defender,Right-Back,7.5,-25.0,0,2026-06-12
+31043,335209,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Centre-Back,5.0,0.0,1,2026-06-12
+31056,467992,AC Milan,AC Milan,5,Midfield,Defensive Midfield,22.0,-12.0,1,2026-06-12
+31057,391065,Marseille,Olympique Marseille,244,Attack,Left Winger,15.0,0.0,7,2026-06-12
+31094,315865,Sassuolo,US Sassuolo,6574,Attack,Centre-Forward,15.0,0.0,4,2026-06-12
+31098,390304,Bologna,Bologna Football Club 1909,1025,Goalkeeper,Goalkeeper,1.8,-9.999999999999998,0,2026-06-12
+31099,389837,Bologna,Bologna Football Club 1909,1025,Defender,Centre-Back,3.8,-24.0,3,2026-06-12
+31137,167491,Genoa,Genoa CFC,252,Defender,Right-Back,1.3,-7.14285714285714,0,2026-06-12
+31146,397033,Newcastle,Newcastle United,762,Midfield,Defensive Midfield,80.0,6.666666666666665,1,2026-06-12
+31156,257474,Napoli,SSC Napoli,6195,Goalkeeper,Goalkeeper,20.0,0.0,1,2026-06-12
+31173,394300,Inter,Inter Milan,46,Midfield,Central Midfield,22.0,-21.42857142857143,3,2026-06-12
+31211,258827,Cremonese,US Cremonese,2239,Midfield,Central Midfield,3.0,-25.0,3,2026-06-12
+31219,433584,Napoli,US Cremonese,2239,Midfield,Right Midfield,2.0,-9.090909090909093,5,2026-06-12
+31226,386446,Napoli,SSC Napoli,6195,Defender,Centre-Back,30.0,-33.333333333333336,1,2026-06-12
+31273,392538,Bologna,Bologna Football Club 1909,1025,Midfield,Central Midfield,8.0,-11.111111111111116,3,2026-06-12
+31318,354814,Pisa,US Sassuolo,6574,Attack,Centre-Forward,4.0,-33.333333333333336,6,2026-06-12
+31354,286047,Tottenham,Tottenham Hotspur,148,Goalkeeper,Goalkeeper,18.0,-40.0,1,2026-06-12
+31390,250153,Napoli,SSC Napoli,6195,Defender,Right-Back,1.5,-11.764705882352944,1,2026-06-12
+31406,337715,Valencia,Valencia CF,1049,Attack,Centre-Forward,4.0,0.0,3,2026-06-12
+31436,241527,Cremonese,US Cremonese,2239,Attack,Centre-Forward,2.5,13.636363636363647,3,2026-06-12
+31499,459988,Cagliari,Cagliari Calcio,1390,Attack,Centre-Forward,3.0,0.0,6,2026-06-12
+31507,386455,Lecce,US Lecce,1005,Attack,Left Winger,3.0,-14.28571428571429,3,2026-06-12
+31543,392516,Lecce,US Lecce,1005,Defender,Left-Back,3.5,-12.5,0,2026-06-12
+31560,279823,Pisa,Pisa Sporting Club,4172,Attack,Centre-Forward,1.2,-19.999999999999996,0,2026-06-12
+31604,149525,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,0.8,0.0,0,2026-06-12
+31624,457673,Parma,Olympiakos Syndesmos Filathlon Peiraios,683,Attack,Right Winger,6.5,-7.14285714285714,5,2026-06-12
+31631,136111,Genoa,Genoa CFC,252,Goalkeeper,Goalkeeper,1.0,-33.333333333333336,1,2026-06-12
+31642,346561,Fiorentina,ACF Fiorentina,430,Defender,Centre-Back,6.0,-14.28571428571429,0,2026-06-12
+31678,170481,Hellas Verona,Hellas Verona,276,Midfield,Central Midfield,0.5,0.0,7,2026-06-12
+31692,67556,Cremonese,US Cremonese,2239,Attack,Centre-Forward,1.0,0.0,3,2026-06-12
+31734,600041,Cagliari,Cagliari Calcio,1390,Attack,Left Winger,2.5,-10.71428571428571,4,2026-06-12
+32034,385394,Cagliari,Cagliari Calcio,1390,Defender,Centre-Back,6.0,-14.28571428571429,2,2026-06-12
+32862,405398,Real Sociedad,Real Sociedad,681,Attack,Right Winger,20.0,-33.333333333333336,0,2026-06-12
+32887,405385,Werder Bremen,SV Werder Bremen,86,Defender,Right-Back,5.5,-26.66666666666667,2,2026-06-12
+32893,353892,Bayern München,Bayern Munich,27,Defender,Centre-Back,18.0,0.0,1,2026-06-12
+32966,489359,Leeds,Leeds United,399,Midfield,Central Midfield,13.0,30.000000000000004,1,2026-06-12
+33165,405389,Le Havre,Le Havre AC,738,Defender,Centre-Back,5.0,66.66666666666667,1,2026-06-12
+33889,643574,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Defensive Midfield,40.0,60.00000000000001,1,2026-06-12
+35544,532937,Genoa,Genoa CFC,252,Defender,Centre-Back,12.0,-7.692307692307687,1,2026-06-12
+36827,315253,Marseille,Olympique Marseille,244,Goalkeeper,Goalkeeper,2.5,25.0,1,2026-06-12
+36878,124884,Aston Villa,Aston Villa,405,Goalkeeper,Goalkeeper,1.5,-40.0,1,2026-06-12
+36899,360518,Juventus,Juventus FC,506,Midfield,Defensive Midfield,14.0,-50.0,1,2026-06-12
+36902,460939,Manchester City,Manchester City,281,Midfield,Central Midfield,50.0,-23.076923076923073,2,2026-06-12
+36916,272812,Udinese,Udinese Calcio,410,Defender,Right-Back,2.0,0.0,0,2026-06-12
+36922,541231,Brentford,Brentford FC,1148,Defender,Centre-Back,32.0,14.28571428571428,4,2026-06-12
+36927,411537,Burnley,Burnley FC,1132,Attack,Centre-Forward,12.0,19.999999999999996,3,2026-06-12
+36932,227039,Le Havre,PEC Zwolle,1269,Attack,Right Winger,1.0,0.0,5,2026-06-12
+36980,226524,Cremonese,US Cremonese,2239,Midfield,Central Midfield,2.8,-6.666666666666665,4,2026-06-12
+36986,406042,Cremonese,US Cremonese,2239,Attack,Left Winger,,0.0,0,2026-06-12
+37117,387047,Union Berlin,1.FC Union Berlin,89,Defender,Centre-Back,13.0,0.0,0,2026-06-12
+37127,316264,Arsenal,Arsenal FC,11,Midfield,Attacking Midfield,65.0,-13.33333333333333,0,2026-06-12
+37137,315121,Genoa,Feyenoord Rotterdam,234,Goalkeeper,Goalkeeper,4.0,0.0,1,2026-06-12
+37143,420210,Sunderland,RB Leipzig,23826,Defender,Right-Back,20.0,0.0,2,2026-06-12
+37151,258364,Lille,LOSC Lille,1082,Defender,Left-Back,2.5,-16.666666666666664,1,2026-06-12
+37153,412953,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Midfield,Defensive Midfield,20.0,122.22222222222223,2,2026-06-12
+37246,81173,Bayer Leverkusen,Bayer 04 Leverkusen,15,Goalkeeper,Goalkeeper,0.7,0.0,3,2026-06-12
+37439,416380,1. FC Köln,1.FC Köln,3,Attack,Centre-Forward,9.0,28.57142857142858,3,2026-06-12
+37604,433984,Napoli,SSC Napoli,6195,Defender,Centre-Back,22.0,-21.42857142857143,2,2026-06-12
+37651,546926,Sassuolo,US Sassuolo,6574,Defender,Centre-Back,14.0,39.99999999999999,2,2026-06-12
+37652,203938,Angers,Angers SCO,1420,Midfield,Central Midfield,2.5,0.0,2,2026-06-12
+37724,474701,West Ham,West Ham United,379,Attack,Left Winger,35.0,59.09090909090908,1,2026-06-12
+37759,377729,FC St. Pauli,FC St. Pauli,35,Attack,Centre-Forward,3.0,-25.0,2,2026-06-12
+37882,314367,Burnley,Burnley FC,1132,Attack,Right Winger,6.0,-25.0,3,2026-06-12
+37938,188888,FSV Mainz 05,CA Osasuna,331,Attack,Left Winger,1.5,0.0,3,2026-06-12
+38112,303219,VfB Stuttgart,VfB Stuttgart,79,Defender,Centre-Back,15.0,0.0,3,2026-06-12
+38695,576314,Brighton,Brighton & Hove Albion,1237,Defender,Centre-Back,45.0,28.57142857142858,0,2026-06-12
+38699,429790,Oviedo,Real Oviedo,2497,Midfield,Attacking Midfield,1.4,-30.000000000000004,3,2026-06-12
+38734,361093,Newcastle,Newcastle United,762,Defender,Centre-Back,35.0,0.0,0,2026-06-12
+38746,420243,Arsenal,Arsenal FC,11,Defender,Right-Back,70.0,0.0,1,2026-06-12
+38747,420213,Marseille,Olympique Marseille,244,Midfield,Central Midfield,25.0,0.0,1,2026-06-12
+38749,470394,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Central Midfield,25.0,8.695652173913038,1,2026-06-12
+38750,473169,Sunderland,Sunderland AFC,289,Attack,Centre-Forward,30.0,50.0,1,2026-06-12
+38753,336012,Como,Como 1907,1047,Attack,Right Winger,10.0,-33.333333333333336,2,2026-06-12
+38798,338668,Werder Bremen,SV Werder Bremen,86,Midfield,Defensive Midfield,8.0,-19.999999999999996,1,2026-06-12
+39071,656681,Werder Bremen,SV Werder Bremen,86,Attack,Centre-Forward,5.0,-58.33333333333333,2,2026-06-12
+39115,476836,Toulouse,FC Toulouse,415,Midfield,Right Midfield,5.0,0.0,1,2026-06-12
+39121,500067,Sevilla,Sevilla FC,368,Attack,Left Winger,4.0,0.0,4,2026-06-12
+39143,564785,Sassuolo,US Sassuolo,6574,Midfield,Central Midfield,12.0,19.999999999999996,0,2026-06-12
+39254,464469,Bologna,Bologna Football Club 1909,1025,Defender,Centre-Back,13.0,-7.14285714285714,2,2026-06-12
+39279,370683,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Centre-Back,3.5,-30.000000000000004,0,2026-06-12
+39362,41609,Torino,Vitesse Arnhem,499,Attack,Centre-Forward,,0.0,0,2026-06-12
+40274,236966,FC St. Pauli,FC St. Pauli,35,Defender,Centre-Back,0.8,-11.111111111111116,0,2026-06-12
+40384,346546,Stade Brestois 29,Stade Brestois 29,3911,Goalkeeper,Goalkeeper,2.5,-37.5,2,2026-06-12
+40403,320748,Rennes,Stade Rennais FC,273,Midfield,Attacking Midfield,12.0,0.0,3,2026-06-12
+40405,357778,Torino,Torino FC,416,Attack,Centre-Forward,3.5,-12.5,2,2026-06-12
+40560,407098,VfL Wolfsburg,1.FC Köln,3,Attack,Left Winger,17.0,41.66666666666667,1,2026-06-12
+40582,345458,Sassuolo,US Sassuolo,6574,Defender,Right-Back,5.0,11.111111111111116,4,2026-06-12
+40592,454386,Parma,Kasimpasa,10484,Attack,Centre-Forward,5.0,100.0,1,2026-06-12
+40594,267160,Udinese,FC Midtjylland,865,Attack,Centre-Forward,3.5,-12.5,4,2026-06-12
+41104,257455,Tottenham,Tottenham Hotspur,148,Midfield,Defensive Midfield,15.0,-40.0,2,2026-06-12
+41144,401529,Fiorentina,ACF Fiorentina,430,Defender,Right-Back,16.0,-11.111111111111116,0,2026-06-12
+41146,111811,Angers,Angers SCO,1420,Defender,Left-Back,0.2,-19.999999999999996,1,2026-06-12
+41150,564545,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Centre-Back,35.0,0.0,0,2026-06-12
+41157,375382,Valencia,Valencia CF,1049,Midfield,Attacking Midfield,6.0,-33.333333333333336,0,2026-06-12
+41323,325223,Stade Brestois 29,Stade Brestois 29,3911,Attack,Centre-Forward,3.0,-14.28571428571429,4,2026-06-12
+41371,520530,Sassuolo,US Sassuolo,6574,Defender,Centre-Back,3.0,0.0,4,2026-06-12
+41552,525578,Rayo Vallecano,Rayo Vallecano,367,Midfield,Central Midfield,1.8,-9.999999999999998,0,2026-06-12
+41577,535955,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Left-Back,12.0,-19.999999999999996,6,2026-06-12
+41585,550550,Paris Saint Germain,Paris Saint-Germain,583,Attack,Centre-Forward,30.0,-14.28571428571429,3,2026-06-12
+41606,606718,Wolves,Wolverhampton Wanderers,543,Defender,Centre-Back,18.0,-28.000000000000004,0,2026-06-12
+41621,601883,Manchester City,Manchester City,281,Defender,Right-Back,50.0,31.578947368421062,1,2026-06-12
+41725,537598,Hamburger SV,Hamburger SV,41,Midfield,Attacking Midfield,18.0,0.0,3,2026-06-12
+41734,537602,Bologna,Juventus FC,506,Defender,Right-Back,8.0,-5.882352941176472,2,2026-06-12
+41964,406151,Cagliari,Cagliari Calcio,1390,Defender,Centre-Back,3.0,19.999999999999996,2,2026-06-12
+41970,498237,Oviedo,Real Oviedo,2497,Defender,Centre-Back,5.0,-50.0,6,2026-06-12
+42086,96533,Nantes,FC Nantes,995,Attack,Centre-Forward,0.1,-33.333333333333336,2,2026-06-12
+44594,631927,Lens,RC Lens,826,Defender,Right-Back,9.0,200.0,2,2026-06-12
+44814,428563,Bologna,Bologna Football Club 1909,1025,Midfield,Central Midfield,14.0,-30.000000000000004,0,2026-06-12
+44871,591949,Brentford,Brentford FC,1148,Defender,Right-Back,16.0,0.0,0,2026-06-12
+45826,574671,AC Milan,AC Milan,5,Defender,Centre-Back,40.0,42.85714285714286,1,2026-06-12
+45892,583699,Union Berlin,1.FC Union Berlin,89,Attack,Centre-Forward,9.0,50.0,5,2026-06-12
+46170,470794,Torino,Torino FC,416,Midfield,Central Midfield,7.0,-30.000000000000004,2,2026-06-12
+46646,248738,Osasuna,CA Osasuna,331,Goalkeeper,Goalkeeper,2.8,-6.666666666666665,0,2026-06-12
+46657,216870,Oviedo,Real Oviedo,2497,Defender,Right-Back,1.2,-25.0,3,2026-06-12
+46658,213260,Osasuna,CA Osasuna,331,Attack,Right Winger,1.6,-11.111111111111116,0,2026-06-12
+46662,552425,Osasuna,CA Osasuna,331,Midfield,Central Midfield,7.0,0.0,0,2026-06-12
+46667,298575,Osasuna,CA Osasuna,331,Attack,Right Winger,1.5,0.0,0,2026-06-12
+46673,284430,Oviedo,Real Oviedo,2497,Goalkeeper,Goalkeeper,3.0,50.0,2,2026-06-12
+46711,217144,Elche,Elche CF,1531,Midfield,Central Midfield,5.0,25.0,1,2026-06-12
+46731,349599,AC Milan,AC Milan,5,Defender,Left-Back,12.0,-14.28571428571429,1,2026-06-12
+46733,278296,Mallorca,RCD Mallorca,237,Defender,Centre-Back,1.0,-33.333333333333336,0,2026-06-12
+46738,277384,Mallorca,RCD Mallorca,237,Defender,Centre-Back,3.0,-33.333333333333336,0,2026-06-12
+46746,46413,Osasuna,CA Osasuna,331,Attack,Centre-Forward,2.8,-6.666666666666665,0,2026-06-12
+46759,311044,Rayo Vallecano,Rayo Vallecano,367,Defender,Left-Back,0.9,-9.999999999999998,1,2026-06-12
+46790,590690,Levante,Levante UD,3368,Attack,Right Winger,1.5,50.0,2,2026-06-12
+46792,210178,Fiorentina,Al-Hilal Saudi Football Club,1114,Defender,Centre-Back,2.0,-19.999999999999996,4,2026-06-12
+46795,257376,Getafe,Getafe CF,3709,Defender,Centre-Back,0.8,0.0,0,2026-06-12
+46799,506248,Espanyol,RCD Espanyol Barcelona,714,Midfield,Central Midfield,5.0,25.0,0,2026-06-12
+46813,559979,Getafe,Getafe CF,3709,Defender,Centre-Back,3.5,-41.666666666666664,1,2026-06-12
+46815,399776,Aston Villa,Aston Villa,405,Defender,Centre-Back,20.0,-19.999999999999996,1,2026-06-12
+46860,282421,Getafe,Getafe CF,3709,Midfield,Central Midfield,1.2,-19.999999999999996,2,2026-06-12
+46887,363057,Rayo Vallecano,Rayo Vallecano,367,Midfield,Central Midfield,3.0,0.0,2,2026-06-12
+46930,335457,VfB Stuttgart,VfB Stuttgart,79,Attack,Centre-Forward,22.0,0.0,1,2026-06-12
+46933,278837,Valencia,Valencia CF,1049,Attack,Right Winger,1.8,-9.999999999999998,1,2026-06-12
+46941,255495,Levante,Levante UD,3368,Defender,Centre-Back,0.5,-16.666666666666664,1,2026-06-12
+46966,326416,Oviedo,Real Oviedo,2497,Defender,Centre-Back,0.9,-9.999999999999998,0,2026-06-12
+46967,169497,Osasuna,CA Osasuna,331,Defender,Left-Back,1.0,-16.666666666666664,0,2026-06-12
+46973,277533,Elche,Elche CF,1531,Attack,Right Winger,0.1,0.0,0,2026-06-12
+46982,398163,Elche,GNK Dinamo Zagreb,419,Midfield,Central Midfield,1.8,0.0,4,2026-06-12
+46988,388516,Inter,Inter Milan,46,Goalkeeper,Goalkeeper,10.0,11.111111111111116,3,2026-06-12
+46990,417913,Real Betis,Real Betis Balompié,150,Goalkeeper,Goalkeeper,7.0,179.99999999999997,2,2026-06-12
+47007,126751,Athletic Club,Athletic Bilbao,621,Midfield,Central Midfield,2.0,-19.999999999999996,1,2026-06-12
+47013,361254,Sevilla,Elche CF,1531,Attack,Centre-Forward,4.0,0.0,3,2026-06-12
+47085,281989,Getafe,Getafe CF,3709,Midfield,Central Midfield,3.5,0.0,0,2026-06-12
+47109,517753,Rayo Vallecano,Rayo Vallecano,367,Midfield,Central Midfield,2.0,-9.090909090909093,0,2026-06-12
+47119,378139,Real Betis,Real Betis Balompié,150,Attack,Right Winger,4.0,14.28571428571428,0,2026-06-12
+47181,302371,Alaves,Deportivo Alavés,1108,Attack,Centre-Forward,7.5,114.28571428571428,1,2026-06-12
+47182,339816,Elche,US Lecce,1005,Attack,Left Winger,1.8,0.0,2,2026-06-12
+47225,557057,Levante,Levante UD,3368,Attack,Left Winger,2.0,0.0,0,2026-06-12
+47247,226012,Getafe,Getafe CF,3709,Goalkeeper,Goalkeeper,2.8,-6.666666666666665,0,2026-06-12
+47249,102423,Espanyol,RCD Espanyol Barcelona,714,Defender,Centre-Back,0.9,-9.999999999999998,0,2026-06-12
+47250,221150,Getafe,Getafe CF,3709,Defender,Centre-Back,1.4,-12.5,0,2026-06-12
+47251,170472,Valencia,Valencia CF,1049,Defender,Right-Back,0.9,-25.0,0,2026-06-12
+47254,376514,Napoli,SSC Napoli,6195,Defender,Left-Back,15.0,-16.666666666666664,0,2026-06-12
+47258,290249,Getafe,Getafe CF,3709,Midfield,Central Midfield,8.0,-19.999999999999996,0,2026-06-12
+47264,573775,Valencia,Valencia CF,1049,Attack,Centre-Forward,12.0,0.0,0,2026-06-12
+47269,212862,Real Sociedad,Real Sociedad,681,Goalkeeper,Goalkeeper,9.0,-35.71428571428571,0,2026-06-12
+47270,262396,Athletic Club,Athletic Bilbao,621,Goalkeeper,Goalkeeper,22.0,-12.0,0,2026-06-12
+47271,255488,Athletic Club,Athletic Bilbao,621,Defender,Centre-Back,0.9,-9.999999999999998,0,2026-06-12
+47273,61812,Athletic Club,Athletic Bilbao,621,Defender,Left-Back,1.0,-16.666666666666664,0,2026-06-12
+47276,255501,Athletic Club,Athletic Bilbao,621,Defender,Right-Back,1.0,-16.666666666666664,0,2026-06-12
+47277,338285,Valencia,Hellas Verona,276,Defender,Centre-Back,3.5,0.0,7,2026-06-12
+47278,524000,Athletic Club,Athletic Bilbao,621,Defender,Centre-Back,20.0,-33.333333333333336,0,2026-06-12
+47285,192009,Rayo Vallecano,Rayo Vallecano,367,Midfield,Central Midfield,2.5,0.0,0,2026-06-12
+47291,340205,Athletic Club,Athletic Bilbao,621,Attack,Centre-Forward,5.0,0.0,0,2026-06-12
+47294,255508,Athletic Club,Athletic Bilbao,621,Attack,Right Winger,8.0,-19.999999999999996,0,2026-06-12
+47296,229604,Marseille,Olympique Marseille,244,Goalkeeper,Goalkeeper,6.0,-33.333333333333336,1,2026-06-12
+47298,229804,Real Sociedad,Real Sociedad,681,Defender,Centre-Back,1.5,-16.666666666666664,0,2026-06-12
+47299,289255,Athletic Club,Athletic Bilbao,621,Defender,Right-Back,3.0,-25.0,2,2026-06-12
+47301,351809,Atletico Madrid,Atlético de Madrid,13,Defender,Centre-Back,20.0,-33.333333333333336,1,2026-06-12
+47302,246291,Real Betis,Real Betis Balompié,150,Defender,Centre-Back,2.5,-16.666666666666664,2,2026-06-12
+47303,517842,Real Sociedad,Real Sociedad,681,Defender,Left-Back,2.5,-28.57142857142857,0,2026-06-12
+47309,465967,Alaves,Deportivo Alavés,1108,Midfield,Central Midfield,2.5,-16.666666666666664,1,2026-06-12
+47311,338424,Arsenal,Arsenal FC,11,Midfield,Central Midfield,25.0,-16.666666666666664,1,2026-06-12
+47314,355628,Real Sociedad,Real Sociedad,681,Defender,Centre-Back,6.0,-33.333333333333336,0,2026-06-12
+47315,423440,Arsenal,Arsenal FC,11,Midfield,Defensive Midfield,75.0,0.0,1,2026-06-12
+47317,616369,Real Sociedad,Real Sociedad,681,Attack,Left Winger,18.0,-9.999999999999998,0,2026-06-12
+47323,351478,Real Sociedad,Real Sociedad,681,Attack,Centre-Forward,25.0,0.0,0,2026-06-12
+47329,501418,Elche,Elche CF,1531,Defender,Left-Back,2.8,-30.000000000000004,2,2026-06-12
+47336,142021,Mallorca,RCD Mallorca,237,Midfield,Central Midfield,3.0,-14.28571428571429,1,2026-06-12
+47341,336869,Real Betis,Real Betis Balompié,150,Midfield,Defensive Midfield,4.0,0.0,3,2026-06-12
+47348,278359,Celta Vigo,Celta de Vigo,940,Attack,Centre-Forward,2.8,-6.666666666666665,5,2026-06-12
+47349,408471,Espanyol,RCD Espanyol Barcelona,714,Attack,Left Winger,7.5,-25.0,0,2026-06-12
+47353,298197,Alaves,Deportivo Alavés,1108,Goalkeeper,Goalkeeper,6.0,0.0,0,2026-06-12
+47378,203043,Elche,Elche CF,1531,Defender,Centre-Back,0.3,-25.0,0,2026-06-12
+47380,284857,Chelsea,Chelsea FC,631,Defender,Left-Back,50.0,0.0,0,2026-06-12
+47396,93936,Espanyol,RCD Espanyol Barcelona,714,Attack,Centre-Forward,0.7,-12.5,2,2026-06-12
+47398,225593,Espanyol,RCD Espanyol Barcelona,714,Attack,Left Winger,1.0,-16.666666666666664,1,2026-06-12
+47400,404839,Real Madrid,Real Madrid,418,Goalkeeper,Goalkeeper,12.0,-19.999999999999996,0,2026-06-12
+47407,111508,Getafe,Getafe CF,3709,Defender,Right-Back,0.1,-50.0,4,2026-06-12
+47414,268670,Rayo Vallecano,Rayo Vallecano,367,Midfield,Defensive Midfield,1.2,-14.28571428571429,4,2026-06-12
+47418,300168,Athletic Club,Athletic Bilbao,621,Midfield,Defensive Midfield,1.2,-19.999999999999996,0,2026-06-12
+47429,276111,Oviedo,Real Oviedo,2497,Defender,Centre-Back,1.2,-14.28571428571429,0,2026-06-12
+47435,423444,Girona,Girona FC,12321,Midfield,Central Midfield,4.0,-19.999999999999996,1,2026-06-12
+47438,319859,Brentford,Brentford FC,1148,Midfield,Central Midfield,10.0,-16.666666666666664,0,2026-06-12
+47439,192735,Napoli,SSC Napoli,6195,Midfield,Defensive Midfield,10.0,-44.44444444444444,0,2026-06-12
+47440,309110,Real Sociedad,Real Sociedad,681,Midfield,Attacking Midfield,8.0,-33.333333333333336,0,2026-06-12
+47445,72047,Celta Vigo,Celta de Vigo,940,Attack,Centre-Forward,1.6,-11.111111111111116,0,2026-06-12
+47463,328480,Valencia,Valencia CF,1049,Midfield,Defensive Midfield,8.0,-11.111111111111116,1,2026-06-12
+47467,252677,Levante,Levante UD,3368,Attack,Centre-Forward,0.2,-50.0,1,2026-06-12
+47472,298976,Getafe,Getafe CF,3709,Attack,Centre-Forward,6.0,-19.999999999999996,0,2026-06-12
+47478,357884,Espanyol,RCD Espanyol Barcelona,714,Defender,Centre-Back,2.0,0.0,0,2026-06-12
+47480,563963,Monaco,AS Monaco,162,Defender,Centre-Back,10.0,0.0,1,2026-06-12
+47516,261504,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Central Midfield,20.0,0.0,1,2026-06-12
+47519,553875,Tottenham,Tottenham Hotspur,148,Defender,Right-Back,35.0,-12.5,2,2026-06-12
+47520,99353,Girona,Girona FC,12321,Attack,Right Winger,1.2,-19.999999999999996,3,2026-06-12
+47522,447661,Aston Villa,Nottingham Forest,703,Midfield,Central Midfield,18.0,-28.000000000000004,4,2026-06-12
+47527,165467,Valencia,Valencia CF,1049,Goalkeeper,Goalkeeper,2.0,0.0,1,2026-06-12
+47533,449796,Osasuna,CA Osasuna,331,Defender,Centre-Back,2.6,-7.14285714285714,1,2026-06-12
+47541,380598,Villarreal,Villarreal CF,1050,Midfield,Central Midfield,8.0,0.0,1,2026-06-12
+47543,257062,Rayo Vallecano,Rayo Vallecano,367,Attack,Left Winger,1.5,-16.666666666666664,0,2026-06-12
+47547,193098,Girona,Girona FC,12321,Defender,Left-Back,3.0,-14.28571428571429,3,2026-06-12
+47566,448628,Osasuna,CA Osasuna,331,Defender,Left-Back,1.8,-48.57142857142858,4,2026-06-12
+47574,175449,Osasuna,CA Osasuna,331,Midfield,Attacking Midfield,1.5,-16.666666666666664,0,2026-06-12
+47579,167721,Real Betis,Real Betis Balompié,150,Attack,Centre-Forward,1.2,-19.999999999999996,1,2026-06-12
+47582,459463,Real Betis,Real Betis Balompié,150,Attack,Centre-Forward,18.0,0.0,1,2026-06-12
+47903,392179,Burnley,Burnley FC,1132,Defender,Centre-Back,5.0,-16.666666666666664,2,2026-06-12
+47969,362108,Leeds,Leeds United,399,Defender,Left-Back,20.0,33.33333333333333,1,2026-06-12
+47985,496745,Bologna,Juventus FC,506,Defender,Right-Back,10.0,-23.076923076923073,4,2026-06-12
+47988,258987,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,4.5,-9.999999999999998,1,2026-06-12
+48047,222855,Udinese,Udinese Calcio,410,Midfield,Defensive Midfield,4.0,0.0,1,2026-06-12
+48119,644771,Atalanta,Atalanta BC,800,Defender,Centre-Back,15.0,-31.818181818181824,3,2026-06-12
+48142,139304,FC St. Pauli,FC St. Pauli,35,Defender,Centre-Back,0.6,-25.0,2,2026-06-12
+48193,300532,Parma,Parma Calcio 1913,130,Attack,Right Winger,1.8,-9.999999999999998,4,2026-06-12
+48198,579565,1. FC Köln,1.FC Köln,3,Midfield,Central Midfield,8.0,-19.999999999999996,4,2026-06-12
+48372,298583,Valencia,Valencia CF,1049,Defender,Centre-Back,2.5,25.0,4,2026-06-12
+48378,168989,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Right-Back,0.8,0.0,0,2026-06-12
+48389,346890,Leeds,Leeds United,399,Attack,Left Winger,25.0,38.888888888888886,4,2026-06-12
+48392,496857,Juventus,Juventus FC,506,Attack,Right Winger,10.0,-50.0,1,2026-06-12
+48465,394236,Valencia,BSC Young Boys,452,Midfield,Central Midfield,6.0,0.0,1,2026-06-12
+48471,345886,Sevilla,Sevilla FC,368,Attack,Left Winger,12.0,0.0,1,2026-06-12
+48489,298603,Hamburger SV,Hamburger SV,41,Defender,Left-Back,5.0,25.0,0,2026-06-12
+48555,243879,Espanyol,RCD Espanyol Barcelona,714,Midfield,Defensive Midfield,2.5,0.0,1,2026-06-12
+48574,382478,FC Augsburg,FC Augsburg,167,Defender,Centre-Back,5.0,0.0,4,2026-06-12
+48642,449592,Werder Bremen,SV Werder Bremen,86,Midfield,Central Midfield,7.0,-30.000000000000004,2,2026-06-12
+48648,365108,Nottingham Forest,Nottingham Forest,703,Attack,Right Winger,32.0,-19.999999999999996,2,2026-06-12
+48765,322517,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,3.0,-14.28571428571429,1,2026-06-12
+50026,358143,Nantes,FC Nantes,995,Defender,Centre-Back,2.5,-16.666666666666664,4,2026-06-12
+50030,496706,Lorient,FC Lorient,1158,Defender,Centre-Back,8.0,14.28571428571428,0,2026-06-12
+50048,256267,Mallorca,RCD Mallorca,237,Attack,Centre-Forward,4.5,0.0,0,2026-06-12
+50054,238993,Pisa,Pisa Sporting Club,4172,Goalkeeper,Goalkeeper,0.9,-9.999999999999998,4,2026-06-12
+50132,336077,Manchester United,Manchester United,985,Goalkeeper,Goalkeeper,5.0,-28.57142857142857,1,2026-06-12
+50735,429259,Toulouse,FC Toulouse,415,Defender,Centre-Back,7.0,16.666666666666675,1,2026-06-12
+50739,393323,Leeds,Leeds United,399,Midfield,Attacking Midfield,22.0,46.66666666666666,2,2026-06-12
+50852,504153,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Right-Back,7.0,0.0,0,2026-06-12
+50856,522784,Lazio,West Ham United,379,Attack,Centre-Forward,28.0,12.00000000000001,3,2026-06-12
+50863,393321,FC St. Pauli,New York City Football Club,40058,Midfield,Defensive Midfield,5.0,25.0,1,2026-06-12
+50956,467632,Toulouse,FC Toulouse,415,Midfield,Central Midfield,9.0,28.57142857142858,1,2026-06-12
+51016,638793,Villarreal,Villarreal CF,1050,Attack,Right Winger,12.0,19.999999999999996,4,2026-06-12
+51494,476701,Manchester United,Manchester United,985,Midfield,Defensive Midfield,25.0,-16.666666666666664,2,2026-06-12
+51530,578419,Oviedo,Real Oviedo,2497,Attack,Centre-Forward,4.0,0.0,2,2026-06-12
+55819,433887,Paris FC,Paris FC,10004,Defender,Left-Back,0.4,-19.999999999999996,1,2026-06-12
+55904,503686,Sunderland,Sunderland AFC,289,Defender,Centre-Back,20.0,25.0,0,2026-06-12
+56266,492319,Torino,Torino FC,416,Goalkeeper,Goalkeeper,2.5,-34.210526315789465,1,2026-06-12
+56293,335516,Pisa,Pisa Sporting Club,4172,Midfield,Right Midfield,5.0,-16.666666666666664,0,2026-06-12
+56396,449151,Genoa,Genoa CFC,252,Attack,Right Winger,1.1,-8.333333333333337,3,2026-06-12
+56459,238537,Lecce,US Lecce,1005,Goalkeeper,Goalkeeper,3.5,0.0,2,2026-06-12
+56473,323167,AC Milan,AC Milan,5,Defender,Centre-Back,17.0,-15.000000000000002,2,2026-06-12
+56560,324377,Lecce,US Lecce,1005,Midfield,Central Midfield,1.5,50.0,5,2026-06-12
+56851,377042,Cagliari,Cagliari Calcio,1390,Midfield,Central Midfield,5.0,-16.666666666666664,6,2026-06-12
+57446,607034,Sevilla,Sevilla FC,368,Attack,Centre-Forward,15.0,114.28571428571428,2,2026-06-12
+59421,651569,Hellas Verona,Hellas Verona,276,Attack,Centre-Forward,1.8,-28.000000000000004,3,2026-06-12
+61142,316884,Lyon,Olympique Lyon,1041,Goalkeeper,Goalkeeper,9.0,12.5,1,2026-06-12
+61774,660438,Real Sociedad,Real Sociedad,681,Attack,Centre-Forward,20.0,66.66666666666667,2,2026-06-12
+64003,410708,Leeds,Leeds United,399,Defender,Centre-Back,22.0,10.000000000000009,0,2026-06-12
+64255,249636,Le Havre,Le Havre AC,738,Defender,Centre-Back,3.0,0.0,0,2026-06-12
+64268,262939,Mallorca,RCD Mallorca,237,Defender,Left-Back,1.5,-16.666666666666664,3,2026-06-12
+64302,530298,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Right Winger,1.5,87.5,4,2026-06-12
+64309,618809,Levante,Levante UD,3368,Defender,Left-Back,6.0,0.0,5,2026-06-12
+66387,500053,Lyon,FC Viktoria Plzen,941,Midfield,Attacking Midfield,20.0,66.66666666666667,2,2026-06-12
+66407,345911,Wolves,Girona FC,12321,Defender,Centre-Back,22.0,0.0,2,2026-06-12
+66817,434433,Atalanta,US Lecce,1005,Attack,Centre-Forward,30.0,50.0,2,2026-06-12
+67889,652275,Lille,LOSC Lille,1082,Midfield,Attacking Midfield,25.0,13.636363636363647,1,2026-06-12
+67939,634131,Osasuna,CA Osasuna,331,Midfield,Attacking Midfield,7.5,-16.666666666666664,0,2026-06-12
+67943,673492,Nottingham Forest,Nottingham Forest,703,Defender,Centre-Back,14.0,0.0,1,2026-06-12
+67971,392757,Manchester City,Manchester City,281,Defender,Centre-Back,70.0,27.27272727272727,1,2026-06-12
+67972,488362,Tottenham,Tottenham Hotspur,148,Midfield,Central Midfield,32.0,-8.571428571428575,2,2026-06-12
+68177,677057,Metz,FC Metz,347,Attack,Left Winger,1.0,-16.666666666666664,3,2026-06-12
+69971,538874,Nice,OGC Nice,417,Attack,Centre-Forward,8.0,-19.999999999999996,3,2026-06-12
+70100,435648,Manchester United,Manchester United,985,Attack,Centre-Forward,20.0,-19.999999999999996,1,2026-06-12
+70366,432914,Nottingham Forest,Nottingham Forest,703,Goalkeeper,Goalkeeper,5.0,-28.57142857142857,5,2026-06-12
+70500,678406,Villarreal,Villarreal CF,1050,Defender,Left-Back,9.0,-9.999999999999998,1,2026-06-12
+70747,660867,Strasbourg,RC Strasbourg Alsace,667,Midfield,Attacking Midfield,25.0,25.0,3,2026-06-12
+72048,615350,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,4.0,100.0,5,2026-06-12
+72457,239647,Lorient,FC Lorient,1158,Attack,Centre-Forward,1.8,-9.999999999999998,1,2026-06-12
+73879,678655,Hamburger SV,Hamburger SV,41,Attack,Left Winger,4.0,-19.999999999999996,6,2026-06-12
+80296,352041,Leeds,Leeds United,399,Goalkeeper,Goalkeeper,10.0,-37.5,2,2026-06-12
+80752,670096,Lyon,Olympique Lyon,1041,Midfield,Defensive Midfield,10.0,-16.666666666666664,1,2026-06-12
+81573,445939,Manchester City,Manchester City,281,Attack,Centre-Forward,50.0,-23.076923076923073,2,2026-06-12
+83831,739769,Paris FC,Paris FC,10004,Attack,Right Winger,12.0,0.0,2,2026-06-12
+84082,555076,Auxerre,AFC Bournemouth,989,Midfield,Attacking Midfield,4.0,-19.999999999999996,9,2026-06-12
+84086,563137,Athletic Club,Athletic Bilbao,621,Attack,Right Winger,6.0,0.0,4,2026-06-12
+84087,494237,Sunderland,Sunderland AFC,289,Attack,Centre-Forward,18.0,0.0,6,2026-06-12
+84128,463613,Toulouse,FC Toulouse,415,Attack,Left Winger,18.0,50.0,1,2026-06-12
+84218,973949,Paris FC,Paris FC,10004,Midfield,Defensive Midfield,3.0,19.999999999999996,1,2026-06-12
+85041,418659,Marseille,Olympique Marseille,244,Attack,Centre-Forward,28.0,0.0,1,2026-06-12
+85914,794349,Stade Brestois 29,Stade Brestois 29,3911,Defender,Centre-Back,,0.0,3,2026-06-12
+89520,566615,Genoa,Genoa CFC,252,Midfield,Central Midfield,6.0,71.42857142857142,3,2026-06-12
+90590,538977,Brighton,Brighton & Hove Albion,1237,Attack,Centre-Forward,30.0,-6.25,1,2026-06-12
+90594,536482,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Right Midfield,6.0,0.0,3,2026-06-12
+90617,569140,Auxerre,AJ Auxerre,290,Attack,Centre-Forward,10.0,42.85714285714286,0,2026-06-12
+90641,236981,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,1.5,-40.0,0,2026-06-12
+90731,333903,FC St. Pauli,FC St. Pauli,35,Defender,Left-Back,1.0,0.0,0,2026-06-12
+90829,90317,FSV Mainz 05,1.FSV Mainz 05,39,Goalkeeper,Goalkeeper,0.35,39.99999999999999,1,2026-06-12
+91358,445126,Parma,Parma Calcio 1913,130,Defender,Left-Back,3.0,0.0,2,2026-06-12
+91422,357992,Atalanta,Atalanta BC,800,Midfield,Right Midfield,15.0,-31.818181818181824,3,2026-06-12
+91503,358003,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,4.5,-35.71428571428571,1,2026-06-12
+91745,560417,Rayo Vallecano,CF Pachuca,4035,Attack,Centre-Forward,4.0,14.28571428571428,4,2026-06-12
+92993,415381,Brighton,Brighton & Hove Albion,1237,Defender,Right-Back,25.0,0.0,1,2026-06-12
+93016,538964,Bologna,Bologna Football Club 1909,1025,Attack,Centre-Forward,9.0,-25.0,1,2026-06-12
+94562,552955,AC Milan,AC Milan,5,Attack,Centre-Forward,18.0,-9.999999999999998,1,2026-06-12
+96331,481513,Metz,FC Metz,347,Defender,Right-Back,2.5,0.0,0,2026-06-12
+98936,467623,Burnley,Burnley FC,1132,Attack,Centre-Forward,8.0,-19.999999999999996,0,2026-06-12
+99576,580657,Lille,LOSC Lille,1082,Attack,Left Winger,9.0,-9.999999999999998,1,2026-06-12
+101814,480267,Barcelona,FC Barcelona,131,Defender,Centre-Back,20.0,-19.999999999999996,0,2026-06-12
+104821,289257,Alaves,Deportivo Alavés,1108,Midfield,Central Midfield,1.8,-28.000000000000004,0,2026-06-12
+104832,505493,Levante,Levante UD,3368,Defender,Left-Back,1.0,-16.666666666666664,1,2026-06-12
+104949,568835,Levante,Levante UD,3368,Midfield,Central Midfield,3.0,50.0,0,2026-06-12
+105154,535820,Nice,OGC Nice,417,Attack,Left Winger,4.0,-19.999999999999996,4,2026-06-12
+106725,644401,Brentford,Brentford FC,1148,Midfield,Left Midfield,25.0,13.636363636363647,0,2026-06-12
+106727,293388,Levante,Levante UD,3368,Midfield,Defensive Midfield,1.8,-9.999999999999998,1,2026-06-12
+106835,504849,Brighton,Brighton & Hove Albion,1237,Attack,Left Winger,22.0,-26.66666666666667,0,2026-06-12
+106851,550580,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Attack,Centre-Forward,4.0,-42.85714285714286,2,2026-06-12
+107194,513031,Mallorca,RCD Mallorca,237,Midfield,Central Midfield,2.0,-16.666666666666664,0,2026-06-12
+108519,388513,Mallorca,RCD Mallorca,237,Defender,Right-Back,1.4,-6.666666666666665,1,2026-06-12
+110153,683571,Wolves,KRC Genk,1184,Attack,Centre-Forward,20.0,-9.090909090909093,1,2026-06-12
+115588,539795,Auxerre,AJ Auxerre,290,Defender,Centre-Back,4.0,233.33333333333334,4,2026-06-12
+115589,627442,Manchester United,Manchester United,985,Attack,Centre-Forward,75.0,25.0,2,2026-06-12
+116117,687626,Chelsea,Chelsea FC,631,Midfield,Defensive Midfield,100.0,-9.090909090909093,1,2026-06-12
+118307,465555,Bournemouth,AFC Bournemouth,989,Goalkeeper,Goalkeeper,28.0,0.0,4,2026-06-12
+118345,658533,Toulouse,Cercle Brugge,520,Midfield,Central Midfield,2.0,0.0,1,2026-06-12
+118956,545538,Lecce,US Lecce,1005,Attack,Left Winger,3.5,16.666666666666675,0,2026-06-12
+119121,515544,Sunderland,Sunderland AFC,289,Defender,Right-Back,22.0,22.222222222222232,0,2026-06-12
+119213,357628,Sevilla,Villarreal CF,1050,Attack,Left Winger,3.0,-25.0,4,2026-06-12
+119742,390688,Getafe,Getafe CF,3709,Defender,Right-Back,5.0,0.0,0,2026-06-12
+119853,164904,Le Havre,Le Havre AC,738,Goalkeeper,Goalkeeper,0.9,-9.999999999999998,3,2026-06-12
+122468,588426,Torino,Torino FC,416,Defender,Centre-Back,7.5,-16.666666666666664,1,2026-06-12
+122657,560483,Rayo Vallecano,Rayo Vallecano,367,Midfield,Attacking Midfield,1.0,-16.666666666666664,1,2026-06-12
+122734,599231,Celta Vigo,Celta de Vigo,940,Attack,Right Winger,10.0,42.85714285714286,1,2026-06-12
+123476,464195,Pisa,Cracovia,5689,Attack,Centre-Forward,2.5,-16.666666666666664,6,2026-06-12
+125171,483046,Bayern München,Bayern Munich,27,Defender,Right-Back,40.0,25.0,2,2026-06-12
+125173,452477,SC Freiburg,SC Freiburg,60,Attack,Centre-Forward,3.0,-40.0,2,2026-06-12
+125239,526050,Levante,Levante UD,3368,Midfield,Defensive Midfield,2.0,33.33333333333333,4,2026-06-12
+125720,307183,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Right Winger,1.2,-19.999999999999996,1,2026-06-12
+125743,595809,Everton,Everton FC,29,Attack,Centre-Forward,18.0,-9.999999999999998,1,2026-06-12
+126640,452483,Elche,Elche CF,1531,Defender,Centre-Back,20.0,122.22222222222223,1,2026-06-12
+126642,533295,VfL Wolfsburg,VfL Wolfsburg,82,Attack,Right Winger,12.0,-19.999999999999996,0,2026-06-12
+126757,485960,Rennes,Stade Rennais FC,273,Defender,Centre-Back,12.0,19.999999999999996,5,2026-06-12
+126889,434551,Cremonese,US Cremonese,2239,Midfield,Central Midfield,2.4,-19.999999999999996,1,2026-06-12
+126949,578539,Crystal Palace,Crystal Palace,873,Defender,Centre-Back,28.0,12.00000000000001,0,2026-06-12
+126974,780548,Lecce,US Lecce,1005,Midfield,Attacking Midfield,3.0,-40.0,2,2026-06-12
+126980,569939,Cremonese,US Cremonese,2239,Defender,Right-Back,3.8,-5.000000000000004,3,2026-06-12
+127011,459658,Juventus,Juventus FC,506,Defender,Left-Back,20.0,-33.333333333333336,1,2026-06-12
+127035,351955,Cremonese,US Cremonese,2239,Defender,Centre-Back,3.5,-12.5,1,2026-06-12
+127413,503881,Sassuolo,US Sassuolo,6574,Midfield,Central Midfield,5.0,-28.57142857142857,2,2026-06-12
+127426,412045,Espanyol,RCD Espanyol Barcelona,714,Midfield,Central Midfield,6.0,0.0,1,2026-06-12
+127471,161057,Union Berlin,1.FC Union Berlin,89,Goalkeeper,Goalkeeper,0.35,0.0,1,2026-06-12
+127619,581357,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Central Midfield,3.0,-25.0,0,2026-06-12
+127769,655488,Arsenal,Arsenal FC,11,Attack,Left Winger,45.0,0.0,0,2026-06-12
+127817,659813,Arsenal,Arsenal FC,11,Defender,Centre-Back,50.0,0.0,1,2026-06-12
+128287,624037,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Defensive Midfield,7.0,16.666666666666675,1,2026-06-12
+128338,592975,Sassuolo,US Sassuolo,6574,Defender,Right-Back,2.0,0.0,2,2026-06-12
+128342,662242,Le Havre,Le Havre AC,738,Midfield,Central Midfield,8.0,60.00000000000001,1,2026-06-12
+128384,487469,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Defensive Midfield,140.0,27.27272727272727,0,2026-06-12
+128398,571020,Athletic Club,Athletic Bilbao,621,Midfield,Attacking Midfield,25.0,-37.5,0,2026-06-12
+128461,392966,Bologna,Bologna Football Club 1909,1025,Defender,Right-Back,7.0,-6.666666666666665,5,2026-06-12
+128478,521407,Lecce,SSC Napoli,6195,Attack,Centre-Forward,2.0,-13.043478260869568,8,2026-06-12
+128533,518505,VfB Stuttgart,VfB Stuttgart,79,Attack,Right Winger,40.0,60.00000000000001,3,2026-06-12
+128582,455181,Rayo Vallecano,Rayo Vallecano,367,Attack,Right Winger,12.0,0.0,1,2026-06-12
+128853,391780,Union Berlin,1.FC Union Berlin,89,Defender,Left-Back,4.0,0.0,4,2026-06-12
+128951,591957,Alaves,Deportivo Alavés,1108,Defender,Left-Back,4.0,100.0,4,2026-06-12
+128985,632741,Levante,Levante UD,3368,Attack,Second Striker,1.8,28.57142857142858,5,2026-06-12
+128987,688707,Nice,OGC Nice,417,Midfield,Defensive Midfield,4.0,-11.111111111111116,3,2026-06-12
+129033,475959,Manchester City,Manchester City,281,Defender,Centre-Back,70.0,0.0,1,2026-06-12
+129058,565093,Brighton,Brighton & Hove Albion,1237,Goalkeeper,Goalkeeper,40.0,14.28571428571428,1,2026-06-12
+129119,490423,Como,Como 1907,1047,Defender,Right-Back,3.0,-14.28571428571429,5,2026-06-12
+129142,381753,Leeds,Leeds United,399,Midfield,Defensive Midfield,12.0,33.33333333333333,1,2026-06-12
+129643,648046,AS Roma,Associazione Sportiva Roma,12,Attack,Centre-Forward,20.0,-19.999999999999996,3,2026-06-12
+129678,593482,Girona,Girona FC,12321,Midfield,Central Midfield,10.0,0.0,3,2026-06-12
+129681,690799,Rennes,Stade Rennais FC,273,Defender,Centre-Back,12.0,33.33333333333333,4,2026-06-12
+129682,532776,Bournemouth,AFC Bournemouth,989,Attack,Left Winger,20.0,0.0,1,2026-06-12
+129693,694507,Hamburger SV,Hamburger SV,41,Attack,Right Winger,4.0,0.0,2,2026-06-12
+129695,540664,Nottingham Forest,RC Strasbourg Alsace,667,Attack,Right Winger,28.0,-12.5,2,2026-06-12
+129711,470607,Tottenham,Tottenham Hotspur,148,Attack,Right Winger,30.0,-14.28571428571429,2,2026-06-12
+129718,581678,Real Madrid,Real Madrid,418,Midfield,Attacking Midfield,130.0,-18.75,1,2026-06-12
+129791,505653,Borussia Dortmund,Borussia Dortmund,16,Attack,Centre-Forward,22.0,-21.42857142857143,6,2026-06-12
+130423,423744,Napoli,SSC Napoli,6195,Midfield,Defensive Midfield,20.0,0.0,1,2026-06-12
+131546,362086,Rayo Vallecano,Rayo Vallecano,367,Attack,Second Striker,2.8,-6.666666666666665,0,2026-06-12
+131548,349884,Oviedo,Real Oviedo,2497,Defender,Right-Back,0.6,-14.28571428571429,0,2026-06-12
+133110,538996,Sevilla,Sevilla FC,368,Defender,Centre-Back,1.2,-14.28571428571429,0,2026-06-12
+133185,689505,Atletico Madrid,Atlético de Madrid,13,Midfield,Central Midfield,20.0,-9.090909090909093,2,2026-06-12
+133609,683840,Barcelona,FC Barcelona,131,Midfield,Central Midfield,150.0,7.14285714285714,0,2026-06-12
+133729,457736,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Right Winger,8.0,23.076923076923084,2,2026-06-12
+134926,539134,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Attacking Midfield,9.0,12.5,8,2026-06-12
+135068,683895,Wolves,Beşiktaş Jimnastik Kulübü,114,Defender,Centre-Back,16.0,-11.111111111111116,2,2026-06-12
+135334,438001,Wolves,Wolverhampton Wanderers,543,Defender,Centre-Back,10.0,0.0,1,2026-06-12
+135519,462823,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Right Winger,15.0,-11.764705882352944,1,2026-06-12
+135526,567129,Sassuolo,US Sassuolo,6574,Defender,Left-Back,4.5,-9.999999999999998,1,2026-06-12
+135749,479648,Lille,LOSC Lille,1082,Attack,Left Winger,10.0,0.0,5,2026-06-12
+135775,466810,Monaco,AS Monaco,162,Attack,Left Winger,15.0,50.0,3,2026-06-12
+135883,436064,VfB Stuttgart,VfB Stuttgart,79,Defender,Centre-Back,25.0,400.0,4,2026-06-12
+136087,547985,Fiorentina,ACF Fiorentina,430,Defender,Left-Back,6.0,33.33333333333333,1,2026-06-12
+136117,461617,Real Betis,Real Betis Balompié,150,Attack,Left Winger,4.0,-50.0,2,2026-06-12
+136723,503987,Arsenal,Arsenal FC,11,Attack,Right Winger,50.0,0.0,1,2026-06-12
+137210,443710,VfB Stuttgart,VfB Stuttgart,79,Midfield,Defensive Midfield,45.0,0.0,1,2026-06-12
+137296,550957,Nantes,FC Nantes,995,Midfield,Defensive Midfield,1.0,0.0,7,2026-06-12
+137303,500689,Crystal Palace,Crystal Palace,873,Attack,Right Winger,25.0,-10.71428571428571,3,2026-06-12
+137976,503075,Atalanta,Atalanta BC,800,Defender,Centre-Back,22.0,-12.0,1,2026-06-12
+138776,518644,Valencia,Leeds United,399,Attack,Left Winger,8.0,33.33333333333333,2,2026-06-12
+138780,503680,Nottingham Forest,Nottingham Forest,703,Defender,Left-Back,28.0,12.00000000000001,0,2026-06-12
+138787,503733,Newcastle,Newcastle United,762,Attack,Left Winger,65.0,8.333333333333325,0,2026-06-12
+138816,485585,Aston Villa,Aston Villa,405,Defender,Left-Back,30.0,19.999999999999996,4,2026-06-12
+138822,571743,Burnley,Burnley FC,1132,Attack,Centre-Forward,5.0,-50.0,5,2026-06-12
+138835,503770,Monaco,AS Monaco,162,Attack,Centre-Forward,40.0,81.81818181818181,2,2026-06-12
+138873,677935,FC St. Pauli,FC St. Pauli,35,Attack,Centre-Forward,1.2,33.33333333333333,1,2026-06-12
+138908,567576,Nottingham Forest,Nottingham Forest,703,Midfield,Central Midfield,75.0,25.0,1,2026-06-12
+138935,659459,Borussia Dortmund,Borussia Dortmund,16,Midfield,Central Midfield,20.0,-19.999999999999996,3,2026-06-12
+139001,785353,Alaves,Deportivo Alavés,1108,Midfield,Central Midfield,4.0,33.33333333333333,1,2026-06-12
+140831,666547,Mallorca,RCD Mallorca,237,Attack,Right Winger,3.0,-14.28571428571429,1,2026-06-12
+142691,648020,Lille,LOSC Lille,1082,Defender,Centre-Back,15.0,-25.0,0,2026-06-12
+143648,340353,Udinese,Udinese Calcio,410,Goalkeeper,Goalkeeper,10.0,25.0,1,2026-06-12
+143831,264960,FC Augsburg,FC Augsburg,167,Midfield,Defensive Midfield,3.5,39.99999999999999,1,2026-06-12
+144319,704270,Lorient,FC Lorient,1158,Attack,Centre-Forward,3.5,-12.5,3,2026-06-12
+144740,530742,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Central Midfield,6.0,-7.692307692307687,4,2026-06-12
+146586,697277,FC St. Pauli,FC St. Pauli,35,Midfield,Central Midfield,10.0,25.0,2,2026-06-12
+146751,631002,Osasuna,CA Osasuna,331,Attack,Centre-Forward,3.0,0.0,2,2026-06-12
+147831,585959,Eintracht Frankfurt,Eintracht Frankfurt,24,Attack,Centre-Forward,25.0,0.0,2,2026-06-12
+147835,621993,Strasbourg,RC Strasbourg Alsace,667,Defender,Centre-Back,8.0,14.28571428571428,4,2026-06-12
+147859,435772,Atalanta,Atalanta BC,800,Midfield,Attacking Midfield,30.0,-14.28571428571429,3,2026-06-12
+148099,475188,Everton,Everton FC,29,Midfield,Central Midfield,35.0,25.0,2,2026-06-12
+148448,599733,FC St. Pauli,FC St. Pauli,35,Defender,Right-Back,3.5,16.666666666666675,1,2026-06-12
+152418,538971,Auxerre,AJ Auxerre,290,Midfield,Central Midfield,3.0,-14.28571428571429,3,2026-06-12
+152654,484547,Liverpool,Liverpool FC,31,Defender,Right-Back,35.0,-7.8947368421052655,1,2026-06-12
+152669,717118,Lorient,FC Lorient,1158,Defender,Left-Back,5.0,25.0,0,2026-06-12
+152849,557459,Tottenham,Tottenham Hotspur,148,Defender,Centre-Back,50.0,-23.076923076923073,1,2026-06-12
+152856,711337,Bournemouth,AFC Bournemouth,989,Attack,Centre-Forward,35.0,-12.5,1,2026-06-12
+152955,490606,Mallorca,RCD Mallorca,237,Goalkeeper,Goalkeeper,1.4,-6.666666666666665,4,2026-06-12
+152967,461883,Fulham,Fulham FC,931,Defender,Centre-Back,28.0,0.0,1,2026-06-12
+152982,568177,Chelsea,Chelsea FC,631,Midfield,Attacking Midfield,100.0,-16.666666666666664,1,2026-06-12
+153408,586984,Hellas Verona,Hellas Verona,276,Defender,Right-Back,1.0,100.0,4,2026-06-12
+153430,583189,Newcastle,Newcastle United,762,Attack,Right Winger,32.0,-36.0,2,2026-06-12
+156465,568698,Le Havre,Le Havre AC,738,Attack,Left Winger,8.0,60.00000000000001,4,2026-06-12
+156477,607223,Manchester City,Manchester City,281,Midfield,Attacking Midfield,90.0,80.0,1,2026-06-12
+156488,397676,Rayo Vallecano,Rayo Vallecano,367,Goalkeeper,Goalkeeper,1.8,0.0,1,2026-06-12
+156490,591193,Torino,Torino FC,416,Defender,Left-Back,2.6,-25.71428571428571,4,2026-06-12
+157052,502821,Arsenal,Arsenal FC,11,Defender,Left-Back,55.0,10.000000000000009,2,2026-06-12
+157146,412829,Elche,Elche CF,1531,Defender,Centre-Back,1.5,0.0,1,2026-06-12
+157912,649020,Metz,FC Metz,347,Midfield,Defensive Midfield,4.0,-19.999999999999996,3,2026-06-12
+157988,545647,Celta Vigo,Celta de Vigo,940,Defender,Right-Back,12.0,100.0,3,2026-06-12
+157997,536835,Manchester United,Manchester United,985,Attack,Right Winger,45.0,-9.999999999999998,0,2026-06-12
+158054,455661,Newcastle,Newcastle United,762,Attack,Centre-Forward,55.0,-21.42857142857143,3,2026-06-12
+158065,479638,Nice,OGC Nice,417,Attack,Right Winger,3.5,-12.5,2,2026-06-12
+158532,542452,Metz,FC Metz,347,Goalkeeper,Goalkeeper,2.0,-33.333333333333336,2,2026-06-12
+158551,700078,Lorient,FC Lorient,1158,Midfield,Right Midfield,1.5,-25.0,4,2026-06-12
+158644,578392,Borussia Dortmund,Borussia Dortmund,16,Attack,Centre-Forward,40.0,33.33333333333333,2,2026-06-12
+158694,503981,Newcastle,Newcastle United,762,Defender,Right-Back,45.0,12.5,1,2026-06-12
+158697,583199,Nottingham Forest,Nottingham Forest,703,Midfield,Attacking Midfield,18.0,-21.739130434782606,4,2026-06-12
+158698,632349,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Centre-Back,45.0,12.5,2,2026-06-12
+161569,514888,Parma,FC Midtjylland,865,Midfield,Central Midfield,6.5,-13.33333333333333,1,2026-06-12
+161585,487474,Juventus,Juventus FC,506,Attack,Right Winger,30.0,0.0,6,2026-06-12
+161621,607226,Burnley,Burnley FC,1132,Attack,Right Winger,13.0,-13.33333333333333,4,2026-06-12
+161622,659543,Nantes,FC Nantes,995,Attack,Centre-Forward,20.0,0.0,4,2026-06-12
+161670,631821,Girona,Girona FC,12321,Attack,Centre-Forward,15.0,0.0,1,2026-06-12
+161671,659089,Paris Saint Germain,Paris Saint-Germain,583,Defender,Centre-Back,40.0,-19.999999999999996,1,2026-06-12
+161702,728485,Lecce,US Lecce,1005,Defender,Right-Back,2.5,25.0,2,2026-06-12
+161747,711980,Strasbourg,RC Strasbourg Alsace,667,Defender,Right-Back,20.0,11.111111111111116,1,2026-06-12
+161859,613393,Parma,Parma Calcio 1913,130,Midfield,Attacking Midfield,5.0,-16.666666666666664,5,2026-06-12
+161904,708265,Paris Saint Germain,Paris Saint-Germain,583,Attack,Left Winger,70.0,0.0,1,2026-06-12
+161907,620322,Chelsea,Chelsea FC,631,Defender,Right-Back,35.0,0.0,1,2026-06-12
+161921,504215,Borussia Mönchengladbach,Borussia Dortmund,16,Midfield,Attacking Midfield,4.0,-33.333333333333336,3,2026-06-12
+161922,429874,Eintracht Frankfurt,Eintracht Frankfurt,24,Attack,Right Winger,15.0,0.0,2,2026-06-12
+161928,636688,Barcelona,FC Barcelona,131,Defender,Left-Back,50.0,-16.666666666666664,0,2026-06-12
+161933,466805,Manchester City,Manchester City,281,Midfield,Defensive Midfield,40.0,-11.111111111111116,3,2026-06-12
+161948,610849,Chelsea,Chelsea FC,631,Attack,Centre-Forward,28.0,-19.999999999999996,4,2026-06-12
+161963,548188,Elche,Elche CF,1531,Attack,Left Winger,6.0,19.999999999999996,8,2026-06-12
+162007,429915,Brighton,Brighton & Hove Albion,1237,Defender,Left-Back,22.0,0.0,2,2026-06-12
+162012,616631,Atletico Madrid,Atlético de Madrid,13,Defender,Left-Back,28.0,86.66666666666667,1,2026-06-12
+162016,566931,Tottenham,RB Leipzig,23826,Midfield,Attacking Midfield,40.0,-33.333333333333336,5,2026-06-12
+162032,525299,Napoli,SSC Napoli,6195,Defender,Left-Back,22.0,29.41176470588236,1,2026-06-12
+162037,467437,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Attacking Midfield,30.0,-14.28571428571429,5,2026-06-12
+162058,495625,Elche,Elche CF,1531,Defender,Centre-Back,3.5,-12.5,1,2026-06-12
+162076,568006,Sunderland,Sunderland AFC,289,Defender,Left-Back,6.0,-25.0,0,2026-06-12
+162106,503991,Atalanta,AC Milan,5,Midfield,Central Midfield,14.0,-22.22222222222222,2,2026-06-12
+162123,617074,Celta Vigo,Celta de Vigo,940,Midfield,Central Midfield,15.0,50.0,6,2026-06-12
+162127,617081,Valencia,Valencia CF,1049,Attack,Right Winger,9.0,-40.0,1,2026-06-12
+162141,490384,AC Milan,AC Milan,5,Defender,Centre-Back,23.0,14.999999999999991,5,2026-06-12
+162175,623024,Valencia,Valencia CF,1049,Defender,Left-Back,4.0,33.33333333333333,0,2026-06-12
+162188,585949,Juventus,Juventus FC,506,Defender,Centre-Back,32.0,14.28571428571428,3,2026-06-12
+162265,711996,Hamburger SV,Hamburger SV,41,Defender,Centre-Back,4.0,33.33333333333333,5,2026-06-12
+162266,495667,Como,Como 1907,1047,Midfield,Central Midfield,20.0,33.33333333333333,0,2026-06-12
+162267,654539,Bournemouth,AFC Bournemouth,989,Defender,Left-Back,30.0,50.0,1,2026-06-12
+162386,623773,1. FC Köln,1.FC Köln,3,Defender,Left-Back,4.0,0.0,2,2026-06-12
+162409,669380,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Centre-Back,25.0,0.0,1,2026-06-12
+162414,635645,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Centre-Back,10.0,66.66666666666667,3,2026-06-12
+162434,632896,Girona,Girona FC,12321,Defender,Centre-Back,3.0,0.0,1,2026-06-12
+162443,639712,Le Havre,Le Havre AC,738,Defender,Centre-Back,2.5,-16.666666666666664,0,2026-06-12
+162452,557407,AS Roma,Associazione Sportiva Roma,12,Defender,Right-Back,8.5,0.0,1,2026-06-12
+162453,463600,Paris Saint Germain,Paris Saint-Germain,583,Goalkeeper,Goalkeeper,25.0,-28.57142857142857,1,2026-06-12
+162465,532775,Nice,OGC Nice,417,Defender,Left-Back,10.0,0.0,0,2026-06-12
+162466,702441,Auxerre,AJ Auxerre,290,Defender,Centre-Back,6.0,50.0,1,2026-06-12
+162473,466783,Villarreal,Villarreal CF,1050,Goalkeeper,Goalkeeper,4.0,0.0,2,2026-06-12
+162480,597000,1. FC Köln,1.FC Köln,3,Midfield,Defensive Midfield,8.0,0.0,0,2026-06-12
+162489,566799,Manchester City,Manchester City,281,Goalkeeper,Goalkeeper,25.0,0.0,3,2026-06-12
+162498,568559,Tottenham,Tottenham Hotspur,148,Defender,Centre-Back,16.0,-27.27272727272727,3,2026-06-12
+162511,503883,Manchester United,Royal Antwerp FC,1096,Goalkeeper,Goalkeeper,35.0,39.99999999999999,2,2026-06-12
+162568,659513,Stade Brestois 29,Stade Brestois 29,3911,Defender,Centre-Back,6.0,-14.28571428571429,6,2026-06-12
+162590,618494,Lyon,Olympique Lyon,1041,Midfield,Defensive Midfield,30.0,66.66666666666667,4,2026-06-12
+162686,495621,Alaves,Deportivo Alavés,1108,Midfield,Defensive Midfield,10.0,0.0,2,2026-06-12
+162707,659542,Nice,OGC Nice,417,Attack,Centre-Forward,18.0,50.0,4,2026-06-12
+162712,331505,Celta Vigo,Celta de Vigo,940,Defender,Right-Back,18.0,0.0,0,2026-06-12
+162714,485706,Aston Villa,Aston Villa,405,Midfield,Defensive Midfield,45.0,7.14285714285714,1,2026-06-12
+162761,618472,RB Leipzig,RB Leipzig,23826,Defender,Centre-Back,50.0,11.111111111111116,1,2026-06-12
+162773,470038,Hamburger SV,Hamburger SV,41,Attack,Centre-Forward,5.0,25.0,0,2026-06-12
+162907,397225,Udinese,SSC Napoli,6195,Defender,Right-Back,4.5,-9.999999999999998,6,2026-06-12
+162931,622988,Rayo Vallecano,Rayo Vallecano,367,Attack,Right Winger,2.5,-16.666666666666664,2,2026-06-12
+162946,453870,FSV Mainz 05,1.FSV Mainz 05,39,Attack,Centre-Forward,8.0,-19.999999999999996,2,2026-06-12
+162952,618341,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Centre-Back,30.0,0.0,0,2026-06-12
+162964,620217,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Defender,Centre-Back,10.0,42.85714285714286,2,2026-06-12
+163004,461607,Rennes,Stade Rennais FC,273,Attack,Centre-Forward,35.0,133.33333333333334,3,2026-06-12
+163022,443331,SC Freiburg,SC Freiburg,60,Midfield,Defensive Midfield,12.0,0.0,1,2026-06-12
+163032,507341,FC Augsburg,Stade Rennais FC,273,Midfield,Attacking Midfield,12.0,50.0,4,2026-06-12
+163039,569383,FC Augsburg,FC Augsburg,167,Defender,Centre-Back,22.0,0.0,5,2026-06-12
+163069,524285,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Left-Back,8.0,33.33333333333333,1,2026-06-12
+163189,521964,Newcastle,Newcastle United,762,Defender,Centre-Back,45.0,12.5,1,2026-06-12
+169297,495839,Hellas Verona,Wisla Plock,2118,Defender,Centre-Back,3.0,275.0,3,2026-06-12
+174565,709726,Liverpool,Liverpool FC,31,Attack,Centre-Forward,80.0,-5.882352941176472,6,2026-06-12
+174625,798925,Le Havre,Le Havre AC,738,Defender,Right-Back,2.0,0.0,1,2026-06-12
+174660,829874,Angers,Angers SCO,1420,Defender,Right-Back,4.0,122.22222222222223,1,2026-06-12
+174703,766412,Lorient,FC Lorient,1158,Midfield,Right Midfield,5.0,150.0,2,2026-06-12
+174724,807689,Toulouse,FC Toulouse,415,Attack,Centre-Forward,3.0,-25.0,1,2026-06-12
+174881,649026,Paris FC,Paris FC,10004,Defender,Centre-Back,9.0,80.0,2,2026-06-12
+174915,763182,Auxerre,AJ Auxerre,290,Attack,Right Winger,3.0,-14.28571428571429,1,2026-06-12
+174918,730581,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Centre-Back,20.0,-28.57142857142857,3,2026-06-12
+174927,768380,Le Havre,Le Havre AC,738,Defender,Centre-Back,8.0,0.0,0,2026-06-12
+174937,667967,Le Havre,Le Havre AC,738,Midfield,Central Midfield,4.0,-19.999999999999996,0,2026-06-12
+177618,435796,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Right-Back,4.0,-46.666666666666664,0,2026-06-12
+177665,344069,Leeds,Leeds United,399,Midfield,Defensive Midfield,28.0,39.99999999999999,2,2026-06-12
+177807,596153,Werder Bremen,SV Werder Bremen,86,Attack,Right Winger,5.0,-28.57142857142857,1,2026-06-12
+177815,337092,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Centre-Back,1.8,-28.000000000000004,2,2026-06-12
+178077,473050,Brentford,Brentford FC,1148,Attack,Left Winger,35.0,0.0,2,2026-06-12
+178106,471055,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Attack,Centre-Forward,3.0,-33.333333333333336,2,2026-06-12
+178709,405670,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Defensive Midfield,7.0,16.666666666666675,5,2026-06-12
+178749,528833,Atalanta,Atalanta BC,800,Midfield,Attacking Midfield,16.0,6.666666666666665,3,2026-06-12
+178768,526845,SC Freiburg,SC Freiburg,60,Goalkeeper,Goalkeeper,25.0,25.0,0,2026-06-12
+178769,335993,SC Freiburg,SC Freiburg,60,Defender,Right-Back,15.0,87.5,2,2026-06-12
+178921,704155,FC St. Pauli,FC St. Pauli,35,Attack,Centre-Forward,3.0,-40.0,7,2026-06-12
+179139,562742,Mallorca,RCD Mallorca,237,Goalkeeper,Goalkeeper,6.0,19.999999999999996,2,2026-06-12
+179400,842341,Burnley,Burnley FC,1132,Defender,Centre-Back,28.0,12.00000000000001,3,2026-06-12
+179843,620313,Le Havre,Le Havre AC,738,Midfield,Defensive Midfield,6.0,50.0,3,2026-06-12
+179955,652331,Celta Vigo,Celta de Vigo,940,Defender,Right-Back,6.0,100.0,5,2026-06-12
+180317,624258,Liverpool,Liverpool FC,31,Defender,Right-Back,25.0,-16.666666666666664,1,2026-06-12
+180496,729814,Villarreal,Villarreal CF,1050,Attack,Centre-Forward,30.0,7.14285714285714,6,2026-06-12
+180560,607224,Burnley,Burnley FC,1132,Midfield,Attacking Midfield,15.0,7.14285714285714,3,2026-06-12
+180731,711969,VfB Stuttgart,VfB Stuttgart,79,Defender,Right-Back,9.0,-25.0,3,2026-06-12
+180762,528181,Parma,Parma Calcio 1913,130,Goalkeeper,Goalkeeper,1.5,114.28571428571428,0,2026-06-12
+180927,741142,Getafe,Club Brugge KV,2282,Defender,Centre-Back,2.5,25.0,2,2026-06-12
+181259,658115,Osasuna,CA Osasuna,331,Defender,Left-Back,3.5,-22.22222222222222,1,2026-06-12
+181421,724520,Real Betis,Real Betis Balompié,150,Attack,Left Winger,40.0,100.0,2,2026-06-12
+181582,520840,Valencia,Valencia CF,1049,Defender,Centre-Back,5.0,25.0,1,2026-06-12
+181701,705395,Barcelona,FC Barcelona,131,Defender,Centre-Back,35.0,75.0,2,2026-06-12
+181734,596122,Rayo Vallecano,Rayo Vallecano,367,Defender,Left-Back,10.0,0.0,0,2026-06-12
+181797,612517,Burnley,Burnley FC,1132,Defender,Centre-Back,12.0,0.0,7,2026-06-12
+181806,708072,Nottingham Forest,Nottingham Forest,703,Defender,Right-Back,15.0,0.0,2,2026-06-12
+181808,571607,Juventus,Juventus FC,506,Midfield,Central Midfield,15.0,7.14285714285714,2,2026-06-12
+181812,580195,Bayern München,Bayern Munich,27,Midfield,Attacking Midfield,100.0,-23.076923076923073,0,2026-06-12
+181908,472249,1. FC Köln,1.FC Köln,3,Attack,Right Winger,5.0,0.0,0,2026-06-12
+182181,488626,Athletic Club,Athletic Bilbao,621,Defender,Right-Back,5.0,-50.0,2,2026-06-12
+182201,730893,Crystal Palace,Crystal Palace,873,Defender,Left-Back,25.0,0.0,0,2026-06-12
+182219,548111,Atletico Madrid,Atlético de Madrid,13,Attack,Left Winger,40.0,-27.27272727272727,1,2026-06-12
+182486,603696,Oviedo,Real Oviedo,2497,Midfield,Central Midfield,2.0,33.33333333333333,2,2026-06-12
+182519,733576,Villarreal,Villarreal CF,1050,Attack,Left Winger,50.0,66.66666666666667,1,2026-06-12
+182546,580560,Alaves,Deportivo Alavés,1108,Defender,Centre-Back,5.0,0.0,1,2026-06-12
+182560,524010,Udinese,Udinese Calcio,410,Midfield,Central Midfield,1.5,-16.666666666666664,1,2026-06-12
+182592,555500,Osasuna,CA Osasuna,331,Defender,Centre-Back,3.5,0.0,1,2026-06-12
+182603,625660,Levante,Levante UD,3368,Midfield,Central Midfield,2.5,38.888888888888886,2,2026-06-12
+182621,710677,Osasuna,CA Osasuna,331,Midfield,Defensive Midfield,2.0,0.0,1,2026-06-12
+182636,72310,Oviedo,Adelaide United,875,Defender,Right-Back,,0.0,0,2026-06-12
+182638,638124,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,1.5,0.0,2,2026-06-12
+182639,610083,Levante,Levante UD,3368,Midfield,Central Midfield,1.6,-19.999999999999996,5,2026-06-12
+182661,626953,Elche,Celta de Vigo,940,Defender,Right-Back,4.0,-33.333333333333336,3,2026-06-12
+182674,628498,Espanyol,RCD Espanyol Barcelona,714,Attack,Right Winger,3.0,0.0,1,2026-06-12
+182718,561613,Barcelona,FC Barcelona,131,Goalkeeper,Goalkeeper,45.0,50.0,1,2026-06-12
+182770,668179,Levante,Levante UD,3368,Midfield,Attacking Midfield,15.0,0.0,1,2026-06-12
+182772,676042,Sevilla,Sevilla FC,368,Defender,Right-Back,10.0,-33.333333333333336,1,2026-06-12
+182784,620696,Alaves,Göteborgs Atlet- och Idrottssällskap,7009,Attack,Centre-Forward,1.5,0.0,3,2026-06-12
+183699,625651,Espanyol,RCD Espanyol Barcelona,714,Midfield,Defensive Midfield,12.0,140.0,4,2026-06-12
+183744,634431,Real Sociedad,Real Sociedad,681,Midfield,Central Midfield,10.0,25.0,0,2026-06-12
+183751,718034,Alaves,Deportivo Alavés,1108,Attack,Left Winger,2.5,66.66666666666667,2,2026-06-12
+183799,709187,Athletic Club,Athletic Bilbao,621,Attack,Left Winger,40.0,-33.333333333333336,0,2026-06-12
+183848,625014,Valencia,Valencia CF,1049,Goalkeeper,Goalkeeper,9.0,-40.0,1,2026-06-12
+183849,591916,Athletic Club,Athletic Bilbao,621,Defender,Centre-Back,7.5,-58.33333333333333,0,2026-06-12
+184194,709380,Oviedo,Real Oviedo,2497,Attack,Centre-Forward,0.7,-12.5,4,2026-06-12
+184226,568157,Crystal Palace,Villarreal CF,1050,Attack,Right Winger,30.0,-14.28571428571429,1,2026-06-12
+184420,709372,Villarreal,RCD Espanyol Barcelona,714,Defender,Left-Back,25.0,66.66666666666667,2,2026-06-12
+184459,560705,Getafe,Getafe CF,3709,Attack,Right Winger,1.5,-25.0,2,2026-06-12
+185398,687609,Sevilla,Sevilla FC,368,Attack,Centre-Forward,5.0,-16.666666666666664,1,2026-06-12
+187214,540536,Alaves,Deportivo Alavés,1108,Attack,Right Winger,,0.0,1,2026-06-12
+187318,531404,Elche,Elche CF,1531,Midfield,Defensive Midfield,3.5,16.666666666666675,2,2026-06-12
+187987,783396,Espanyol,RCD Espanyol Barcelona,714,Midfield,Central Midfield,3.0,0.0,5,2026-06-12
+188319,718201,Nice,FC Basel 1893,26,Attack,Centre-Forward,4.0,-33.333333333333336,6,2026-06-12
+189866,627290,Elche,Elche CF,1531,Defender,Centre-Back,1.0,0.0,0,2026-06-12
+190485,657430,Mallorca,RCD Mallorca,237,Midfield,Defensive Midfield,15.0,0.0,1,2026-06-12
+190686,557612,Auxerre,AJ Auxerre,290,Attack,Centre-Forward,4.0,0.0,2,2026-06-12
+191160,815078,SC Freiburg,SC Freiburg,60,Defender,Left-Back,6.0,0.0,1,2026-06-12
+191189,806793,Auxerre,AJ Auxerre,290,Defender,Centre-Back,9.0,12.5,1,2026-06-12
+191240,830890,Auxerre,AJ Auxerre,290,Defender,Right-Back,3.0,0.0,4,2026-06-12
+191740,592387,1. FC Köln,1.FC Köln,3,Defender,Right-Back,5.5,0.0,1,2026-06-12
+191979,663237,Parma,Parma Calcio 1913,130,Attack,Left Winger,5.5,-31.25,2,2026-06-12
+192032,628886,Levante,Levante UD,3368,Attack,Centre-Forward,8.0,6.666666666666665,2,2026-06-12
+193293,578421,Lyon,Olympique Lyon,1041,Defender,Centre-Back,8.0,220.00000000000003,3,2026-06-12
+193501,807165,Lorient,FC Lorient,1158,Defender,Centre-Back,7.0,75.0,6,2026-06-12
+193617,750904,Nice,OGC Nice,417,Midfield,Right Midfield,7.0,39.99999999999999,1,2026-06-12
+193681,695422,Auxerre,AJ Auxerre,290,Goalkeeper,Goalkeeper,0.4,33.33333333333333,0,2026-06-12
+193952,585973,Nantes,FC Nantes,995,Midfield,Defensive Midfield,7.0,0.0,3,2026-06-12
+193953,796865,Auxerre,AJ Auxerre,290,Defender,Right-Back,2.5,212.5,3,2026-06-12
+194536,646991,Sunderland,Sunderland AFC,289,Goalkeeper,Goalkeeper,28.0,55.55555555555556,1,2026-06-12
+194837,540333,Hellas Verona,Hellas Verona,276,Midfield,Attacking Midfield,4.0,-19.999999999999996,3,2026-06-12
+194981,750878,Paris FC,Paris FC,10004,Goalkeeper,Goalkeeper,5.0,-16.666666666666664,1,2026-06-12
+195100,735568,Real Betis,Real Betis Balompié,150,Defender,Centre-Back,25.0,25.0,4,2026-06-12
+195103,735570,Wolves,Wolverhampton Wanderers,543,Midfield,Central Midfield,40.0,0.0,0,2026-06-12
+195106,735571,Fulham,Fulham FC,931,Attack,Centre-Forward,20.0,-19.999999999999996,0,2026-06-12
+195512,640109,Getafe,Getafe CF,3709,Attack,Centre-Forward,10.0,66.66666666666667,10,2026-06-12
+195717,716276,Wolves,Wolverhampton Wanderers,543,Defender,Centre-Back,12.0,19.999999999999996,3,2026-06-12
+195923,711625,Sevilla,Sevilla FC,368,Defender,Right-Back,12.0,0.0,3,2026-06-12
+195993,748319,Everton,Everton FC,29,Midfield,Central Midfield,15.0,0.0,6,2026-06-12
+196156,739443,Brentford,Brentford FC,1148,Attack,Centre-Forward,65.0,85.71428571428572,2,2026-06-12
+196187,798404,Rennes,Stade Rennais FC,273,Defender,Centre-Back,6.0,0.0,1,2026-06-12
+196855,684210,Burnley,Burnley FC,1132,Attack,Left Winger,20.0,33.33333333333333,5,2026-06-12
+197448,627228,Borussia Dortmund,Borussia Dortmund,16,Defender,Right-Back,17.0,-15.000000000000002,4,2026-06-12
+197779,911328,Nantes,US Lecce,1005,Midfield,Central Midfield,2.5,66.66666666666667,2,2026-06-12
+197830,568617,Udinese,Udinese Calcio,410,Goalkeeper,Goalkeeper,2.5,0.0,1,2026-06-12
+198654,579287,Borussia Dortmund,Borussia Dortmund,16,Defender,Left-Back,22.0,0.0,3,2026-06-12
+199044,661145,Real Sociedad,Real Sociedad,681,Defender,Right-Back,15.0,0.0,2,2026-06-12
+199089,572265,Napoli,SSC Napoli,6195,Attack,Centre-Forward,20.0,-19.999999999999996,8,2026-06-12
+199143,668606,SC Freiburg,SC Freiburg,60,Attack,Second Striker,24.0,60.00000000000001,3,2026-06-12
+199578,432298,Parma,Parma Calcio 1913,130,Goalkeeper,Goalkeeper,20.0,0.0,4,2026-06-12
+199824,705813,Espanyol,RCD Espanyol Barcelona,714,Defender,Right-Back,1.8,19.999999999999996,4,2026-06-12
+199837,746695,Atalanta,Atalanta BC,800,Attack,Left Winger,17.0,-5.555555555555558,1,2026-06-12
+199871,652061,Lyon,AC Sparta Prague,197,Midfield,Attacking Midfield,7.0,-12.5,3,2026-06-12
+199897,733371,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Defensive Midfield,2.0,33.33333333333333,1,2026-06-12
+200873,619461,Lorient,FC Lorient,1158,Attack,Centre-Forward,2.0,-19.999999999999996,2,2026-06-12
+202501,524290,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Attack,Centre-Forward,35.0,16.666666666666675,4,2026-06-12
+202526,645774,1. FC Heidenheim,SC Freiburg,60,Attack,Right Winger,6.0,0.0,4,2026-06-12
+202636,605265,FC St. Pauli,FC St. Pauli,35,Defender,Left-Back,2.5,-16.666666666666664,2,2026-06-12
+202696,605268,SC Freiburg,SC Freiburg,60,Attack,Centre-Forward,22.0,214.28571428571428,4,2026-06-12
+202736,503160,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Attacking Midfield,18.0,0.0,1,2026-06-12
+202838,678479,1. FC Köln,1.FC Köln,3,Midfield,Central Midfield,2.0,-33.333333333333336,0,2026-06-12
+202854,608832,Everton,Everton FC,29,Midfield,Attacking Midfield,16.0,0.0,1,2026-06-12
+203007,467434,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Central Midfield,20.0,17.647058823529417,1,2026-06-12
+203011,530173,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Defensive Midfield,1.5,0.0,1,2026-06-12
+203040,553285,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Attack,Centre-Forward,17.0,41.66666666666667,3,2026-06-12
+203219,604113,Lecce,US Lecce,1005,Defender,Centre-Back,4.5,18.421052631578938,2,2026-06-12
+203224,598577,Liverpool,Liverpool FC,31,Midfield,Attacking Midfield,100.0,-9.090909090909093,1,2026-06-12
+203376,607720,Bayern München,Bayern Munich,27,Goalkeeper,Goalkeeper,18.0,50.0,4,2026-06-12
+203428,683625,Toulouse,FC Toulouse,415,Attack,Centre-Forward,3.0,-14.28571428571429,1,2026-06-12
+203474,550108,Atalanta,Atalanta BC,800,Midfield,Left Midfield,20.0,33.33333333333333,4,2026-06-12
+203483,673514,Parma,Parma Calcio 1913,130,Defender,Centre-Back,6.0,-7.692307692307687,5,2026-06-12
+203762,559328,Strasbourg,RC Strasbourg Alsace,667,Attack,Centre-Forward,25.0,-10.71428571428571,1,2026-06-12
+204039,556385,Tottenham,Tottenham Hotspur,148,Defender,Left-Back,30.0,-25.0,1,2026-06-12
+204043,368891,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Centre-Back,17.0,-29.166666666666664,3,2026-06-12
+206254,730861,Liverpool,Liverpool FC,31,Defender,Left-Back,35.0,-12.5,2,2026-06-12
+214310,646829,Lorient,FC Lorient,1158,Defender,Centre-Back,1.5,25.0,3,2026-06-12
+215827,539665,Auxerre,AJ Auxerre,290,Defender,Left-Back,1.5,150.0,4,2026-06-12
+226803,579928,Strasbourg,RC Strasbourg Alsace,667,Attack,Left Winger,15.0,0.0,1,2026-06-12
+231029,340322,Bayer Leverkusen,Bayer 04 Leverkusen,15,Attack,Right Winger,15.0,0.0,1,2026-06-12
+231032,460245,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Centre-Back,5.0,0.0,4,2026-06-12
+236955,748382,Hellas Verona,Hellas Verona,276,Attack,Centre-Forward,2.4,-19.999999999999996,5,2026-06-12
+237066,662261,Villarreal,Villarreal CF,1050,Defender,Centre-Back,12.0,0.0,5,2026-06-12
+237087,664708,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Defensive Midfield,20.0,-19.999999999999996,2,2026-06-12
+237129,568693,Tottenham,Tottenham Hotspur,148,Midfield,Central Midfield,30.0,-14.28571428571429,0,2026-06-12
+237819,900195,Fulham,FC Shakhtar Donetsk,660,Attack,Left Winger,25.0,-16.666666666666664,3,2026-06-12
+260898,592534,Hamburger SV,Hamburger SV,41,Midfield,Defensive Midfield,9.0,80.0,2,2026-06-12
+263177,503866,Hamburger SV,Hamburger SV,41,Midfield,Attacking Midfield,5.0,-37.5,6,2026-06-12
+263481,487843,Genoa,Genoa CFC,252,Attack,Centre-Forward,10.0,66.66666666666667,6,2026-06-12
+263482,616341,Paris Saint Germain,Paris Saint-Germain,583,Defender,Left-Back,80.0,6.666666666666665,0,2026-06-12
+263538,717411,Brentford,Brentford FC,1148,Midfield,Central Midfield,32.0,28.000000000000004,1,2026-06-12
+263699,749552,Sassuolo,US Sassuolo,6574,Attack,Left Winger,4.5,0.0,3,2026-06-12
+264122,595650,Lecce,US Lecce,1005,Attack,Centre-Forward,3.5,-22.22222222222222,1,2026-06-12
+264383,794758,Toulouse,FC Toulouse,415,Defender,Right-Back,1.2,-19.999999999999996,0,2026-06-12
+264470,624942,Osasuna,CA Osasuna,331,Attack,Left Winger,3.5,-50.0,6,2026-06-12
+264472,631007,AC Milan,US Cremonese,2239,Defender,Centre-Back,4.5,0.0,2,2026-06-12
+264705,608172,AC Milan,AC Milan,5,Midfield,Defensive Midfield,25.0,-21.875,2,2026-06-12
+264857,708635,Atalanta,Atalanta BC,800,Midfield,Left Midfield,20.0,400.0,4,2026-06-12
+265363,616344,VfB Stuttgart,VfB Stuttgart,79,Attack,Right Winger,15.0,0.0,3,2026-06-12
+265372,449597,Werder Bremen,SV Werder Bremen,86,Defender,Left-Back,2.2,0.0,2,2026-06-12
+265741,540056,Hamburger SV,FC Shakhtar Donetsk,660,Defender,Right-Back,2.0,-42.85714285714286,3,2026-06-12
+265782,661427,Wolves,Wolverhampton Wanderers,543,Defender,Left-Back,8.0,-19.999999999999996,2,2026-06-12
+265784,800176,Wolves,Wolverhampton Wanderers,543,Midfield,Defensive Midfield,25.0,-10.71428571428571,1,2026-06-12
+265820,667287,Brighton,Brighton & Hove Albion,1237,Midfield,Central Midfield,35.0,16.666666666666675,4,2026-06-12
+265826,725912,Tottenham,Tottenham Hotspur,148,Goalkeeper,Goalkeeper,15.0,15.384615384615374,4,2026-06-12
+266013,818495,Paris FC,Paris FC,10004,Defender,Centre-Back,10.0,0.0,4,2026-06-12
+266200,795274,Nantes,FC Nantes,995,Attack,Right Winger,2.7,-9.999999999999998,3,2026-06-12
+266202,593412,Oviedo,Real Oviedo,2497,Attack,Left Winger,4.0,0.0,6,2026-06-12
+266657,743591,Manchester City,Manchester City,281,Attack,Left Winger,35.0,-22.22222222222222,4,2026-06-12
+266658,798114,Alaves,Deportivo Alavés,1108,Midfield,Attacking Midfield,1.8,-9.999999999999998,1,2026-06-12
+266813,659516,Cremonese,US Cremonese,2239,Midfield,Central Midfield,6.0,-29.411764705882348,3,2026-06-12
+268341,509022,Juventus,Juventus FC,506,Defender,Centre-Back,14.0,-30.000000000000004,0,2026-06-12
+268571,787912,RB Leipzig,RB Leipzig,23826,Defender,Centre-Back,18.0,19.999999999999996,1,2026-06-12
+268960,555143,Real Sociedad,Real Sociedad,681,Midfield,Attacking Midfield,9.0,19.999999999999996,1,2026-06-12
+269163,764859,Celta Vigo,Celta de Vigo,940,Attack,Left Winger,20.0,100.0,0,2026-06-12
+269531,684315,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Centre-Back,20.0,33.33333333333333,2,2026-06-12
+270139,711544,Everton,Everton FC,29,Defender,Right-Back,18.0,12.5,3,2026-06-12
+270507,622380,Torino,Torino FC,416,Midfield,Central Midfield,15.0,7.14285714285714,3,2026-06-12
+270508,711999,Burnley,Burnley FC,1132,Midfield,Defensive Midfield,22.0,-12.0,4,2026-06-12
+270509,711976,Inter,RC Lens,826,Midfield,Central Midfield,20.0,11.111111111111116,4,2026-06-12
+270510,801734,Tottenham,Tottenham Hotspur,148,Attack,Centre-Forward,22.0,-26.66666666666667,3,2026-06-12
+271350,679423,Sassuolo,US Sassuolo,6574,Defender,Centre-Back,25.0,78.57142857142858,3,2026-06-12
+271540,804711,Angers,Angers SCO,1420,Defender,Centre-Back,8.0,100.0,0,2026-06-12
+271542,786436,Strasbourg,RC Strasbourg Alsace,667,Defender,Centre-Back,20.0,11.111111111111116,0,2026-06-12
+271580,549027,Elche,Elche CF,1531,Midfield,Central Midfield,4.0,-19.999999999999996,6,2026-06-12
+272460,557613,Rennes,Stade Rennais FC,273,Defender,Left-Back,15.0,25.0,2,2026-06-12
+273732,647435,Espanyol,RCD Espanyol Barcelona,714,Attack,Right Winger,10.0,0.0,1,2026-06-12
+274267,805908,Stade Brestois 29,Stade Brestois 29,3911,Defender,Left-Back,6.0,-14.28571428571429,2,2026-06-12
+274300,745200,Monaco,AS Monaco,162,Attack,Right Winger,50.0,11.111111111111116,0,2026-06-12
+274312,670847,Nice,OGC Nice,417,Attack,Right Winger,15.0,25.0,1,2026-06-12
+275651,827734,Inter,Inter Milan,46,Attack,Centre-Forward,35.0,0.0,1,2026-06-12
+275776,543771,Torino,Torino FC,416,Midfield,Defensive Midfield,12.0,-7.692307692307687,5,2026-06-12
+276184,910905,Strasbourg,Chelsea FC,631,Defender,Centre-Back,22.0,-12.0,7,2026-06-12
+276662,810411,Lorient,FC Lorient,1158,Attack,Left Winger,15.0,200.0,3,2026-06-12
+276670,855015,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Attacking Midfield,15.0,0.0,1,2026-06-12
+277003,901019,AS Roma,Associazione Sportiva Roma,12,Midfield,Central Midfield,23.0,14.999999999999991,2,2026-06-12
+277191,776798,Lens,RC Lens,826,Attack,Left Winger,5.0,25.0,6,2026-06-12
+277306,808348,Lens,RC Lens,826,Midfield,Central Midfield,40.0,166.66666666666666,5,2026-06-12
+278095,672381,Bologna,Olympique Marseille,244,Attack,Left Winger,28.0,75.0,4,2026-06-12
+278133,661207,Manchester City,Manchester City,281,Attack,Right Winger,28.0,12.00000000000001,2,2026-06-12
+278370,996897,Brighton,Brighton & Hove Albion,1237,Midfield,Central Midfield,25.0,0.0,2,2026-06-12
+278392,597659,Toulouse,FC Toulouse,415,Defender,Centre-Back,25.0,66.66666666666667,1,2026-06-12
+278453,579459,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Defender,Centre-Back,25.0,108.33333333333334,1,2026-06-12
+278619,712107,Villarreal,Villarreal CF,1050,Goalkeeper,Goalkeeper,12.0,0.0,1,2026-06-12
+278898,689637,Crystal Palace,Crystal Palace,873,Defender,Centre-Back,15.0,25.0,5,2026-06-12
+279822,541555,Osasuna,CA Osasuna,331,Defender,Centre-Back,15.0,-25.0,2,2026-06-12
+279993,654234,FC Augsburg,FC Augsburg,167,Midfield,Attacking Midfield,10.0,33.33333333333333,1,2026-06-12
+280055,809498,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Central Midfield,2.0,0.0,1,2026-06-12
+280074,691892,Eintracht Frankfurt,Eintracht Frankfurt,24,Defender,Left-Back,40.0,14.28571428571428,3,2026-06-12
+280339,569033,FSV Mainz 05,1.FSV Mainz 05,39,Attack,Second Striker,2.5,-28.57142857142857,2,2026-06-12
+280358,613192,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Central Midfield,10.0,66.66666666666667,3,2026-06-12
+280687,698678,Wolves,Wolverhampton Wanderers,543,Defender,Left-Back,12.0,19.999999999999996,2,2026-06-12
+281096,459665,Genoa,Genoa CFC,252,Midfield,Central Midfield,4.2,-30.000000000000004,3,2026-06-12
+281408,586853,Genoa,Genoa CFC,252,Attack,Centre-Forward,8.0,0.0,3,2026-06-12
+281495,698259,Udinese,Udinese Calcio,410,Defender,Centre-Back,12.0,33.33333333333333,1,2026-06-12
+281795,857818,Girona,Girona FC,12321,Attack,Right Winger,14.0,16.666666666666675,2,2026-06-12
+281826,818448,Genoa,Genoa CFC,252,Defender,Centre-Back,14.0,459.99999999999994,5,2026-06-12
+282054,692070,Espanyol,RCD Espanyol Barcelona,714,Defender,Centre-Back,4.0,-19.999999999999996,1,2026-06-12
+282125,628451,Chelsea,Chelsea FC,631,Midfield,Defensive Midfield,22.0,-26.66666666666667,1,2026-06-12
+282549,1011200,Nantes,RC Strasbourg Alsace,667,Midfield,Defensive Midfield,6.0,-14.28571428571429,5,2026-06-12
+282770,667121,Wolves,Wolverhampton Wanderers,543,Midfield,Left Midfield,15.0,0.0,3,2026-06-12
+283026,565821,Monaco,AS Monaco,162,Attack,Centre-Forward,15.0,-31.818181818181824,7,2026-06-12
+283058,776890,Bayern München,Bayern Munich,27,Attack,Centre-Forward,40.0,-11.111111111111116,2,2026-06-12
+283216,659520,Marseille,Olympique Marseille,244,Midfield,Central Midfield,8.0,-11.111111111111116,1,2026-06-12
+283668,826224,Girona,Girona FC,12321,Defender,Right-Back,10.0,0.0,0,2026-06-12
+283753,601143,FSV Mainz 05,1.FSV Mainz 05,39,Midfield,Right Midfield,2.5,66.66666666666667,1,2026-06-12
+284072,822458,Lorient,FC Lorient,1158,Attack,Centre-Forward,15.0,733.3333333333334,2,2026-06-12
+284230,701057,Manchester City,Manchester City,281,Defender,Right-Back,28.0,-19.999999999999996,0,2026-06-12
+284300,811778,Real Madrid,Real Madrid,418,Defender,Left-Back,50.0,-16.666666666666664,6,2026-06-12
+284322,820374,Manchester United,Manchester United,985,Midfield,Central Midfield,70.0,75.0,0,2026-06-12
+284324,811779,Chelsea,Chelsea FC,631,Attack,Left Winger,28.0,-37.77777777777778,1,2026-06-12
+284414,696181,Sunderland,Sunderland AFC,289,Attack,Left Winger,7.0,16.666666666666675,2,2026-06-12
+284428,741238,Nottingham Forest,Nottingham Forest,703,Midfield,Attacking Midfield,30.0,0.0,5,2026-06-12
+284446,698164,West Ham,West Ham United,379,Midfield,Defensive Midfield,10.0,25.0,5,2026-06-12
+284457,645686,Aston Villa,Aston Villa,405,Midfield,Defensive Midfield,18.0,50.0,3,2026-06-12
+284492,670858,Newcastle,Newcastle United,762,Defender,Left-Back,40.0,25.0,4,2026-06-12
+284500,696589,Everton,Everton FC,29,Midfield,Central Midfield,18.0,50.0,1,2026-06-12
+284570,728733,Genoa,Genoa CFC,252,Defender,Right-Back,15.0,-6.25,3,2026-06-12
+284797,823231,Brentford,Brentford FC,1148,Attack,Right Winger,35.0,0.0,1,2026-06-12
+285909,720038,Mallorca,RCD Mallorca,237,Midfield,Attacking Midfield,5.0,0.0,3,2026-06-12
+286084,466801,Real Betis,Real Betis Balompié,150,Midfield,Central Midfield,20.0,0.0,2,2026-06-12
+286458,747009,Crystal Palace,Crystal Palace,873,Midfield,Attacking Midfield,12.0,50.0,2,2026-06-12
+286474,550106,Lazio,Società Sportiva Lazio S.p.A.,398,Attack,Right Winger,7.0,27.27272727272727,6,2026-06-12
+286559,636093,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,2.0,-33.333333333333336,0,2026-06-12
+286593,668183,Athletic Club,Athletic Bilbao,621,Attack,Left Winger,1.5,0.0,7,2026-06-12
+286601,822331,Espanyol,RCD Espanyol Barcelona,714,Defender,Right-Back,15.0,0.0,0,2026-06-12
+286616,585323,Chelsea,Chelsea FC,631,Goalkeeper,Goalkeeper,15.0,0.0,1,2026-06-12
+286639,713644,Celta Vigo,Associazione Sportiva Roma,12,Attack,Left Winger,8.0,-19.999999999999996,8,2026-06-12
+286710,820957,SC Freiburg,SC Freiburg,60,Attack,Left Winger,7.5,25.0,1,2026-06-12
+286894,670882,Chelsea,Chelsea FC,631,Attack,Left Winger,30.0,-25.0,1,2026-06-12
+287564,652054,Bologna,Bologna Football Club 1909,1025,Defender,Centre-Back,13.0,30.000000000000004,1,2026-06-12
+287654,711374,Real Sociedad,Real Sociedad,681,Midfield,Defensive Midfield,25.0,66.66666666666667,3,2026-06-12
+287916,640556,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,7.0,-12.5,2,2026-06-12
+288006,610442,Napoli,SSC Napoli,6195,Attack,Centre-Forward,60.0,33.33333333333333,2,2026-06-12
+288102,744149,Crystal Palace,Crystal Palace,873,Midfield,Defensive Midfield,70.0,16.666666666666675,1,2026-06-12
+288206,597432,Union Berlin,1.FC Union Berlin,89,Defender,Centre-Back,20.0,11.111111111111116,1,2026-06-12
+288699,668547,Como,Como 1907,1047,Midfield,Defensive Midfield,35.0,39.99999999999999,5,2026-06-12
+288769,641537,Genoa,Associazione Sportiva Roma,12,Midfield,Attacking Midfield,8.5,-15.000000000000002,2,2026-06-12
+289460,830108,Werder Bremen,SV Werder Bremen,86,Defender,Centre-Back,2.0,0.0,3,2026-06-12
+289555,904662,Angers,Angers SCO,1420,Midfield,Attacking Midfield,4.0,60.00000000000001,3,2026-06-12
+289761,571604,Atalanta,Atalanta BC,800,Defender,Centre-Back,38.0,52.0,0,2026-06-12
+290106,907813,Real Sociedad,Real Sociedad,681,Midfield,Attacking Midfield,7.0,-12.5,1,2026-06-12
+290545,617755,VfL Wolfsburg,Sunderland AFC,289,Defender,Centre-Back,5.0,0.0,2,2026-06-12
+290549,565424,RB Leipzig,RB Leipzig,23826,Attack,Right Winger,20.0,-19.999999999999996,1,2026-06-12
+290740,709969,Rayo Vallecano,Villarreal CF,1050,Attack,Right Winger,12.0,0.0,2,2026-06-12
+291589,836441,Lecce,US Lecce,1005,Defender,Centre-Back,3.0,-14.28571428571429,1,2026-06-12
+291649,789082,Monaco,AS Monaco,162,Defender,Right-Back,18.0,-9.999999999999998,0,2026-06-12
+291964,861410,Real Madrid,Real Madrid,418,Midfield,Attacking Midfield,90.0,0.0,1,2026-06-12
+292172,856530,Parma,Parma Calcio 1913,130,Attack,Centre-Forward,15.0,50.0,4,2026-06-12
+293643,1110406,Auxerre,AJ Auxerre,290,Attack,Left Winger,7.0,-12.5,7,2026-06-12
+295026,580451,Como,Como 1907,1047,Midfield,Attacking Midfield,30.0,66.66666666666667,1,2026-06-12
+295223,929899,Oviedo,Real Oviedo,2497,Defender,Left-Back,1.5,-25.0,2,2026-06-12
+295793,844637,Atletico Madrid,Atlético de Madrid,13,Defender,Centre-Back,35.0,133.33333333333334,2,2026-06-12
+296560,848509,Wolves,Wolverhampton Wanderers,543,Defender,Right-Back,12.0,0.0,4,2026-06-12
+296667,646740,Barcelona,FC Barcelona,131,Midfield,Central Midfield,30.0,-25.0,0,2026-06-12
+297311,766583,Sevilla,Sevilla FC,368,Defender,Centre-Back,14.0,133.33333333333334,1,2026-06-12
+298165,843286,Pisa,Pisa Sporting Club,4172,Midfield,Central Midfield,7.0,-12.5,4,2026-06-12
+300885,907559,Real Betis,Real Betis Balompié,150,Midfield,Central Midfield,9.0,0.0,4,2026-06-12
+301187,817665,West Ham,West Ham United,379,Attack,Centre-Forward,18.0,260.0,6,2026-06-12
+301771,658536,Monaco,Sunderland AFC,289,Attack,Left Winger,22.0,0.0,3,2026-06-12
+301924,862606,Parma,Parma Calcio 1913,130,Attack,Centre-Forward,4.0,700.0,3,2026-06-12
+302069,705063,Pisa,Pisa Sporting Club,4172,Midfield,Left Midfield,4.5,-9.999999999999998,5,2026-06-12
+302632,743500,Hamburger SV,Hamburger SV,41,Defender,Right-Back,3.0,50.0,0,2026-06-12
+302868,671590,Stade Brestois 29,Stade Brestois 29,3911,Defender,Left-Back,4.5,125.0,1,2026-06-12
+303362,864306,Hellas Verona,KV Mechelen,354,Defender,Right-Back,7.0,0.0,2,2026-06-12
+304140,710885,Toulouse,FC Toulouse,415,Midfield,Central Midfield,1.5,-16.666666666666664,1,2026-06-12
+304317,866655,Everton,Everton FC,29,Attack,Right Winger,17.0,-43.333333333333336,3,2026-06-12
+304686,875332,FC Augsburg,TSG 1899 Hoffenheim,533,Defender,Centre-Back,5.0,0.0,2,2026-06-12
+304853,855256,Bournemouth,AFC Bournemouth,989,Midfield,Central Midfield,50.0,66.66666666666667,1,2026-06-12
+305730,867688,Brighton,Brighton & Hove Albion,1237,Midfield,Defensive Midfield,28.0,27.27272727272727,1,2026-06-12
+305834,743600,Chelsea,Chelsea FC,631,Midfield,Central Midfield,40.0,0.0,5,2026-06-12
+306727,742521,Girona,Girona FC,12321,Midfield,Central Midfield,2.5,0.0,2,2026-06-12
+306979,885445,Lille,LOSC Lille,1082,Attack,Centre-Forward,18.0,0.0,2,2026-06-12
+307123,743413,Manchester City,Manchester City,281,Defender,Left-Back,70.0,75.0,2,2026-06-12
+307835,872171,Paris Saint Germain,Paris Saint-Germain,583,Defender,Centre-Back,22.0,10.000000000000009,1,2026-06-12
+307929,610795,FC St. Pauli,FC St. Pauli,35,Defender,Centre-Back,3.0,200.0,2,2026-06-12
+308836,707844,Parma,Parma Calcio 1913,130,Midfield,Defensive Midfield,20.0,66.66666666666667,5,2026-06-12
+309364,1033005,Getafe,RSC Anderlecht,58,Attack,Left Winger,1.5,-40.0,3,2026-06-12
+309388,876298,Cagliari,Torino FC,416,Midfield,Defensive Midfield,5.5,-8.333333333333337,2,2026-06-12
+310943,830365,Napoli,SSC Napoli,6195,Attack,Left Winger,28.0,600.0,7,2026-06-12
+311067,849520,Bologna,Bologna Football Club 1909,1025,Attack,Centre-Forward,32.0,-8.571428571428575,1,2026-06-12
+311071,860992,Hellas Verona,Hellas Verona,276,Defender,Centre-Back,3.0,-40.0,2,2026-06-12
+311083,651005,Fiorentina,ACF Fiorentina,430,Midfield,Central Midfield,20.0,300.0,6,2026-06-12
+311543,903611,Sunderland,RSC Anderlecht,58,Attack,Left Winger,17.0,142.85714285714283,1,2026-06-12
+311773,953901,Villarreal,Villarreal CF,1050,Defender,Right-Back,20.0,100.0,6,2026-06-12
+312615,1005165,Hellas Verona,SSC Napoli,6195,Attack,Centre-Forward,12.0,0.0,2,2026-06-12
+312840,718303,Bayer Leverkusen,AZ Alkmaar,1090,Attack,Right Winger,25.0,25.0,2,2026-06-12
+312964,548254,Lille,LOSC Lille,1082,Defender,Centre-Back,25.0,150.0,1,2026-06-12
+312990,720518,Espanyol,RCD Espanyol Barcelona,714,Attack,Centre-Forward,10.0,0.0,5,2026-06-12
+313025,834487,Girona,Girona FC,12321,Defender,Right-Back,3.5,39.99999999999999,4,2026-06-12
+313059,834742,Mallorca,RCD Mallorca,237,Attack,Centre-Forward,3.5,0.0,2,2026-06-12
+313236,890719,Marseille,Olympique Marseille,244,Midfield,Attacking Midfield,35.0,-12.5,3,2026-06-12
+313245,890721,Arsenal,Arsenal FC,11,Defender,Left-Back,45.0,12.5,2,2026-06-12
+313383,889435,Atletico Madrid,Atlético de Madrid,13,Midfield,Central Midfield,10.0,25.0,1,2026-06-12
+313651,892221,Celta Vigo,Celta de Vigo,940,Midfield,Central Midfield,5.0,-44.44444444444444,1,2026-06-12
+313937,891998,Nice,OGC Nice,417,Defender,Centre-Back,10.0,150.0,0,2026-06-12
+314006,765467,Rayo Vallecano,Rayo Vallecano,367,Defender,Centre-Back,2.0,-33.333333333333336,2,2026-06-12
+314511,894914,RB Leipzig,RB Leipzig,23826,Attack,Left Winger,32.0,0.0,1,2026-06-12
+315237,609556,Newcastle,Newcastle United,762,Attack,Centre-Forward,28.0,86.66666666666667,1,2026-06-12
+315249,632831,Udinese,Udinese Calcio,410,Defender,Centre-Back,7.0,16.666666666666675,2,2026-06-12
+315699,834764,Valencia,Valencia CF,1049,Midfield,Central Midfield,25.0,0.0,1,2026-06-12
+316516,898352,Getafe,Getafe CF,3709,Defender,Centre-Back,1.5,-46.42857142857143,4,2026-06-12
+316517,861981,Levante,Levante UD,3368,Defender,Centre-Back,4.0,0.0,1,2026-06-12
+318053,906160,Udinese,Udinese Calcio,410,Defender,Centre-Back,3.5,-22.22222222222222,3,2026-06-12
+318592,912392,Elche,Elche CF,1531,Attack,Left Winger,2.5,-21.875,2,2026-06-12
+319572,849410,Strasbourg,RC Strasbourg Alsace,667,Midfield,Central Midfield,40.0,60.00000000000001,7,2026-06-12
+319919,531065,Auxerre,AJ Auxerre,290,Midfield,Defensive Midfield,1.8,0.0,2,2026-06-12
+320517,905997,Celta Vigo,Celta de Vigo,940,Attack,Centre-Forward,4.0,0.0,1,2026-06-12
+321648,743599,Toulouse,Göztepe,1467,Attack,Centre-Forward,8.0,100.0,3,2026-06-12
+321744,568333,Cagliari,Cagliari Calcio,1390,Defender,Left-Back,7.0,75.0,0,2026-06-12
+322595,658534,Auxerre,AJ Auxerre,290,Attack,Right Winger,0.8,-11.111111111111116,3,2026-06-12
+322627,724104,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Centre-Back,3.0,0.0,1,2026-06-12
+322630,633668,Bologna,Bologna Football Club 1909,1025,Midfield,Attacking Midfield,10.0,0.0,3,2026-06-12
+322865,969447,Lorient,FC Lorient,1158,Midfield,Attacking Midfield,2.5,-16.666666666666664,4,2026-06-12
+322984,655217,Lens,RC Lens,826,Defender,Centre-Back,25.0,108.33333333333334,1,2026-06-12
+323369,661212,Parma,Trabzonspor,449,Defender,Left-Back,4.0,0.0,2,2026-06-12
+323449,620598,VfB Stuttgart,VfB Stuttgart,79,Defender,Centre-Back,3.0,-25.0,1,2026-06-12
+323625,743496,Auxerre,AJ Auxerre,290,Midfield,Central Midfield,20.0,100.0,0,2026-06-12
+323935,742201,Atletico Madrid,Atlético de Madrid,13,Attack,Right Winger,40.0,0.0,3,2026-06-12
+323936,668951,AS Roma,Associazione Sportiva Roma,12,Attack,Right Winger,35.0,0.0,3,2026-06-12
+323951,730484,VfL Wolfsburg,VfL Wolfsburg,82,Defender,Left-Back,5.0,-16.666666666666664,2,2026-06-12
+324019,529895,Hamburger SV,Hamburger SV,41,Defender,Centre-Back,3.0,-14.28571428571429,1,2026-06-12
+324750,618813,Rayo Vallecano,Rayo Vallecano,367,Attack,Left Winger,1.5,-40.0,6,2026-06-12
+324957,798043,Union Berlin,1.FC Union Berlin,89,Defender,Left-Back,10.0,0.0,3,2026-06-12
+325346,912902,Toulouse,FC Toulouse,415,Goalkeeper,Goalkeeper,18.0,-9.999999999999998,1,2026-06-12
+325387,628365,Pisa,Pisa Sporting Club,4172,Midfield,Central Midfield,3.0,-25.0,1,2026-06-12
+325594,659518,Strasbourg,Club Brugge KV,2282,Midfield,Attacking Midfield,6.0,-40.0,5,2026-06-12
+325975,822959,Bayern München,Bayern Munich,27,Midfield,Central Midfield,40.0,0.0,1,2026-06-12
+326068,671594,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Attacking Midfield,9.0,28.57142857142858,3,2026-06-12
+326073,917778,Stade Brestois 29,Stade Brestois 29,3911,Attack,Centre-Forward,4.0,122.22222222222223,3,2026-06-12
+326102,957874,RB Leipzig,RB Leipzig,23826,Attack,Centre-Forward,30.0,0.0,4,2026-06-12
+326176,745181,West Ham,West Ham United,379,Midfield,Defensive Midfield,17.0,0.0,1,2026-06-12
+326757,796297,Borussia Dortmund,Borussia Dortmund,16,Midfield,Central Midfield,40.0,60.00000000000001,2,2026-06-12
+327631,876631,Sunderland,Sunderland AFC,289,Midfield,Central Midfield,35.0,9.375,1,2026-06-12
+327646,787151,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Defender,Left-Back,6.0,-14.28571428571429,1,2026-06-12
+327730,922563,West Ham,West Ham United,379,Defender,Left-Back,10.0,25.0,2,2026-06-12
+327831,692737,Union Berlin,1.FC Union Berlin,89,Midfield,Defensive Midfield,12.0,33.33333333333333,3,2026-06-12
+327897,744728,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Midfield,Attacking Midfield,10.0,100.0,5,2026-06-12
+328033,792380,Bayern München,Bayern Munich,27,Midfield,Defensive Midfield,90.0,38.46153846153846,2,2026-06-12
+328046,921655,Sassuolo,US Sassuolo,6574,Midfield,Central Midfield,25.0,78.57142857142858,6,2026-06-12
+328089,922693,Tottenham,Tottenham Hotspur,148,Midfield,Defensive Midfield,35.0,0.0,2,2026-06-12
+328105,922769,Newcastle,Newcastle United,762,Midfield,Central Midfield,25.0,25.0,1,2026-06-12
+328225,700106,RB Leipzig,RB Leipzig,23826,Midfield,Attacking Midfield,28.0,0.0,2,2026-06-12
+328262,789898,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Midfield,Attacking Midfield,5.0,-28.57142857142857,4,2026-06-12
+329578,620295,Werder Bremen,SV Werder Bremen,86,Goalkeeper,Goalkeeper,15.0,50.0,2,2026-06-12
+329720,892929,Celta Vigo,Celta de Vigo,940,Attack,Left Winger,8.0,0.0,1,2026-06-12
+329722,939374,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,4.0,60.00000000000001,1,2026-06-12
+329728,636695,Barcelona,FC Barcelona,131,Midfield,Defensive Midfield,18.0,-28.000000000000004,1,2026-06-12
+330238,927768,Burnley,Burnley FC,1132,Defender,Left-Back,4.0,-19.999999999999996,3,2026-06-12
+330437,741257,Bournemouth,AC Milan,5,Defender,Right-Back,22.0,22.222222222222232,4,2026-06-12
+331369,1124136,Alaves,Deportivo Alavés,1108,Attack,Right Winger,3.0,400.0,6,2026-06-12
+331678,914934,Pisa,Pisa Sporting Club,4172,Attack,Centre-Forward,3.8,-24.0,5,2026-06-12
+332308,834752,Athletic Club,Athletic Bilbao,621,Midfield,Attacking Midfield,5.0,0.0,1,2026-06-12
+332309,834491,Athletic Club,Athletic Bilbao,621,Midfield,Central Midfield,5.0,66.66666666666667,1,2026-06-12
+333116,982855,Lazio,Società Sportiva Lazio S.p.A.,398,Midfield,Defensive Midfield,6.8,-19.999999999999996,2,2026-06-12
+333137,947360,Monaco,AS Monaco,162,Defender,Left-Back,12.0,33.33333333333333,1,2026-06-12
+333502,892932,Celta Vigo,Celta de Vigo,940,Midfield,Central Midfield,15.0,500.0,2,2026-06-12
+333672,707274,Valencia,Valencia CF,1049,Defender,Centre-Back,9.0,-40.0,3,2026-06-12
+333682,646750,Arsenal,Arsenal FC,11,Defender,Centre-Back,40.0,14.28571428571428,1,2026-06-12
+334035,933900,Strasbourg,RC Strasbourg Alsace,667,Attack,Right Winger,8.0,0.0,4,2026-06-12
+334334,701757,Werder Bremen,SV Werder Bremen,86,Attack,Centre-Forward,3.0,-40.0,2,2026-06-12
+334362,820241,Hamburger SV,Hamburger SV,41,Attack,Centre-Forward,4.0,-42.85714285714286,3,2026-06-12
+334574,933908,Real Betis,Real Betis Balompié,150,Defender,Right-Back,4.0,0.0,1,2026-06-12
+334878,707230,Levante,Levante UD,3368,Midfield,Defensive Midfield,3.0,0.0,6,2026-06-12
+334879,707242,VfB Stuttgart,VfB Stuttgart,79,Attack,Right Winger,10.0,-16.666666666666664,3,2026-06-12
+334914,951579,VfL Wolfsburg,Olympique Lyon,1041,Defender,Right-Back,12.0,33.33333333333333,3,2026-06-12
+334925,980575,Lecce,US Lecce,1005,Midfield,Defensive Midfield,3.0,400.0,3,2026-06-12
+334952,883865,Toulouse,FC Toulouse,415,Defender,Right-Back,1.5,87.5,1,2026-06-12
+335051,670681,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Central Midfield,140.0,27.27272727272727,1,2026-06-12
+335056,655006,Strasbourg,RC Strasbourg Alsace,667,Midfield,Left Midfield,25.0,38.888888888888886,4,2026-06-12
+335071,583046,Lecce,US Lecce,1005,Midfield,Central Midfield,5.0,-16.666666666666664,0,2026-06-12
+335094,931838,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Central Midfield,28.0,-30.000000000000004,1,2026-06-12
+335095,667251,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Attack,Left Winger,6.0,0.0,3,2026-06-12
+335697,947431,Mallorca,RCD Mallorca,237,Defender,Centre-Back,1.2,100.0,5,2026-06-12
+336560,709957,Como,Como 1907,1047,Defender,Left-Back,12.0,19.999999999999996,9,2026-06-12
+336564,743498,Tottenham,Tottenham Hotspur,148,Attack,Left Winger,18.0,-18.181818181818176,2,2026-06-12
+336567,875334,Cagliari,Beşiktaş Jimnastik Kulübü,114,Attack,Centre-Forward,11.0,10.000000000000009,1,2026-06-12
+336573,743091,Torino,Torino FC,416,Midfield,Central Midfield,6.0,300.0,3,2026-06-12
+336585,880245,West Ham,West Ham United,379,Midfield,Central Midfield,50.0,56.25,5,2026-06-12
+336594,775605,Atletico Madrid,Atlético de Madrid,13,Midfield,Central Midfield,55.0,-8.333333333333337,0,2026-06-12
+336657,810092,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Central Midfield,80.0,60.00000000000001,0,2026-06-12
+336659,743384,Sunderland,Sunderland AFC,289,Attack,Right Winger,25.0,13.636363636363647,1,2026-06-12
+336671,805714,Villarreal,Villarreal CF,1050,Defender,Centre-Back,25.0,0.0,6,2026-06-12
+336711,935230,Real Madrid,Real Madrid,418,Attack,Centre-Forward,30.0,100.0,2,2026-06-12
+336998,710671,Athletic Club,Athletic Bilbao,621,Defender,Left-Back,2.5,-16.666666666666664,2,2026-06-12
+337593,671108,Borussia Mönchengladbach,Tottenham Hotspur,148,Defender,Centre-Back,5.0,0.0,2,2026-06-12
+338751,935231,Osasuna,CA Osasuna,331,Attack,Left Winger,30.0,200.0,2,2026-06-12
+338902,719999,Sevilla,Sevilla FC,368,Defender,Centre-Back,6.0,300.0,3,2026-06-12
+338958,792331,Barcelona,FC Barcelona,131,Attack,Right Winger,15.0,50.0,1,2026-06-12
+339105,895326,Girona,Girona FC,12321,Attack,Left Winger,6.0,19.999999999999996,3,2026-06-12
+339417,949113,Toulouse,FC Toulouse,415,Midfield,Central Midfield,9.0,125.0,4,2026-06-12
+339874,846310,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Central Midfield,15.0,100.0,2,2026-06-12
+339883,845654,Juventus,Juventus FC,506,Attack,Left Winger,75.0,0.0,1,2026-06-12
+339887,816585,Eintracht Frankfurt,Eintracht Frankfurt,24,Midfield,Attacking Midfield,45.0,0.0,2,2026-06-12
+340077,724129,Lille,LOSC Lille,1082,Attack,Centre-Forward,35.0,75.0,2,2026-06-12
+340151,834397,Strasbourg,RC Strasbourg Alsace,667,Goalkeeper,Goalkeeper,25.0,66.66666666666667,5,2026-06-12
+340154,926694,Marseille,Olympique Marseille,244,Midfield,Defensive Midfield,20.0,-28.57142857142857,5,2026-06-12
+340573,654982,VfB Stuttgart,VfB Stuttgart,79,Midfield,Attacking Midfield,35.0,9.375,2,2026-06-12
+340626,636703,Barcelona,FC Barcelona,131,Midfield,Attacking Midfield,100.0,42.85714285714286,2,2026-06-12
+340700,691482,Fiorentina,ACF Fiorentina,430,Midfield,Central Midfield,8.5,-5.555555555555558,1,2026-06-12
+341226,935760,Pisa,Pisa Sporting Club,4172,Attack,Centre-Forward,7.0,-6.666666666666665,3,2026-06-12
+341371,961297,Elche,Elche CF,1531,Midfield,Central Midfield,20.0,33.33333333333333,2,2026-06-12
+341640,935245,Real Madrid,Real Madrid,418,Defender,Centre-Back,20.0,-33.333333333333336,2,2026-06-12
+341641,726701,FC Augsburg,Sporting CP,336,Attack,Centre-Forward,4.0,60.00000000000001,7,2026-06-12
+341642,904802,Chelsea,Chelsea FC,631,Defender,Left-Back,40.0,14.28571428571428,1,2026-06-12
+341646,787618,Genoa,Racing Club Asociación Civil de Avellaneda,1444,Midfield,Attacking Midfield,7.5,-25.0,7,2026-06-12
+341838,663900,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,,0.0,1,2026-06-12
+342019,701819,AS Roma,Associazione Sportiva Roma,12,Defender,Centre-Back,18.0,125.0,4,2026-06-12
+342022,823486,Brentford,Brentford FC,1148,Defender,Right-Back,40.0,48.14814814814814,4,2026-06-12
+342035,746891,Sassuolo,US Sassuolo,6574,Midfield,Attacking Midfield,10.0,0.0,1,2026-06-12
+342063,660860,Paris FC,Paris FC,10004,Defender,Centre-Back,18.0,80.0,2,2026-06-12
+342177,796213,FSV Mainz 05,1.FSV Mainz 05,39,Attack,Centre-Forward,7.0,-41.666666666666664,0,2026-06-12
+342188,819636,VfL Wolfsburg,VfL Wolfsburg,82,Attack,Centre-Forward,15.0,150.0,2,2026-06-12
+342310,877124,Pisa,Royal Antwerp FC,1096,Defender,Centre-Back,4.0,60.00000000000001,4,2026-06-12
+342651,708086,Cremonese,US Cremonese,2239,Defender,Right-Back,2.5,0.0,5,2026-06-12
+342970,923831,Manchester United,Manchester United,985,Defender,Centre-Back,50.0,-9.090909090909093,1,2026-06-12
+343027,914562,Paris Saint Germain,Paris Saint-Germain,583,Attack,Right Winger,120.0,33.33333333333333,1,2026-06-12
+343189,798929,Torino,Torino FC,416,Midfield,Central Midfield,5.5,0.0,0,2026-06-12
+343202,948275,Elche,Elche CF,1531,Attack,Centre-Forward,10.0,150.0,4,2026-06-12
+343205,948273,Getafe,Getafe CF,3709,Midfield,Defensive Midfield,10.0,100.0,4,2026-06-12
+343286,865682,RB Leipzig,RB Leipzig,23826,Midfield,Central Midfield,16.0,-11.111111111111116,2,2026-06-12
+343316,919515,VfL Wolfsburg,Bayer 04 Leverkusen,15,Defender,Centre-Back,12.0,0.0,2,2026-06-12
+343558,924857,Udinese,Udinese Calcio,410,Midfield,Central Midfield,10.0,25.0,2,2026-06-12
+343562,724106,Sassuolo,US Sassuolo,6574,Midfield,Defensive Midfield,7.5,66.66666666666667,1,2026-06-12
+343609,970279,Angers,Angers SCO,1420,Defender,Left-Back,9.0,125.0,1,2026-06-12
+343684,937941,Everton,Everton FC,29,Attack,Centre-Forward,30.0,0.0,3,2026-06-12
+345388,952282,Lyon,Olympique Lyon,1041,Attack,Left Winger,20.0,300.0,3,2026-06-12
+345416,637803,Strasbourg,RC Strasbourg Alsace,667,Midfield,Defensive Midfield,5.0,25.0,2,2026-06-12
+345808,930781,Inter,Inter Milan,46,Attack,Centre-Forward,45.0,28.57142857142858,3,2026-06-12
+346866,654991,Werder Bremen,SV Werder Bremen,86,Attack,Left Winger,8.0,-42.85714285714286,3,2026-06-12
+347211,743515,Lens,RC Lens,826,Goalkeeper,Goalkeeper,30.0,200.0,5,2026-06-12
+347265,961022,Bologna,Bologna Football Club 1909,1025,Attack,Left Winger,9.0,-25.0,1,2026-06-12
+347316,866246,Tottenham,Tottenham Hotspur,148,Midfield,Central Midfield,35.0,-12.5,1,2026-06-12
+347395,703245,Napoli,SSC Napoli,6195,Midfield,Attacking Midfield,15.0,500.0,3,2026-06-12
+347644,855308,Udinese,Udinese Calcio,410,Midfield,Central Midfield,25.0,66.66666666666667,3,2026-06-12
+348205,668207,Inter,Inter Milan,46,Midfield,Central Midfield,40.0,33.33333333333333,2,2026-06-12
+348568,867137,Parma,Parma Calcio 1913,130,Defender,Centre-Back,12.0,50.0,0,2026-06-12
+348888,777005,FC Augsburg,FC Augsburg,167,Midfield,Attacking Midfield,12.0,0.0,1,2026-06-12
+349001,964580,AS Roma,Associazione Sportiva Roma,12,Defender,Right-Back,40.0,14.28571428571428,1,2026-06-12
+349344,539798,VfB Stuttgart,VfB Stuttgart,79,Defender,Centre-Back,10.0,0.0,1,2026-06-12
+349799,967346,Sunderland,Sunderland AFC,289,Attack,Centre-Forward,16.0,-11.111111111111116,3,2026-06-12
+350037,948294,Como,Como 1907,1047,Midfield,Attacking Midfield,80.0,23.076923076923084,2,2026-06-12
+350857,644408,Lazio,Società Sportiva Lazio S.p.A.,398,Defender,Centre-Back,16.0,255.55555555555554,1,2026-06-12
+351913,960571,Celta Vigo,Celta de Vigo,940,Attack,Right Winger,8.0,100.0,3,2026-06-12
+352375,977464,Bayer Leverkusen,Bayer 04 Leverkusen,15,Defender,Right-Back,8.0,14.28571428571428,1,2026-06-12
+353143,829838,1. FC Heidenheim,1. Fußballclub Heidenheim 1846,2036,Defender,Left-Back,5.0,1150.0,3,2026-06-12
+353609,982267,Cagliari,Bologna Football Club 1909,1025,Midfield,Defensive Midfield,6.0,0.0,5,2026-06-12
+354298,920470,Marseille,Olympique Marseille,244,Midfield,Defensive Midfield,4.5,125.0,2,2026-06-12
+354533,747720,Como,Como 1907,1047,Attack,Right Winger,20.0,0.0,2,2026-06-12
+355004,985383,Real Betis,Real Betis Balompié,150,Defender,Centre-Back,12.0,0.0,1,2026-06-12
+355167,810649,RB Leipzig,RB Leipzig,23826,Defender,Left-Back,5.0,66.66666666666667,2,2026-06-12
+356041,973085,Brighton,Brighton & Hove Albion,1237,Midfield,Defensive Midfield,55.0,-8.333333333333337,1,2026-06-12
+356888,813137,AS Roma,Associazione Sportiva Roma,12,Midfield,Central Midfield,30.0,150.0,1,2026-06-12
+358166,991487,Strasbourg,RC Strasbourg Alsace,667,Defender,Right-Back,15.0,66.66666666666667,2,2026-06-12
+358431,1034853,Rayo Vallecano,Rayo Vallecano,367,Defender,Centre-Back,7.5,25.0,6,2026-06-12
+361348,743386,Lyon,Olympique Lyon,1041,Attack,Left Winger,30.0,0.0,1,2026-06-12
+361352,802515,Lyon,Olympique Lyon,1041,Midfield,Attacking Midfield,15.0,87.5,2,2026-06-12
+361384,741289,Alaves,Deportivo Alavés,1108,Defender,Left-Back,4.0,-19.999999999999996,2,2026-06-12
+361393,863759,SC Freiburg,SC Freiburg,60,Defender,Centre-Back,15.0,1400.0,2,2026-06-12
+361497,890290,Real Madrid,Real Madrid,418,Defender,Centre-Back,60.0,-14.28571428571429,5,2026-06-12
+362564,881297,VfL Wolfsburg,Fußballclub Red Bull Salzburg,409,Attack,Right Winger,7.5,0.0,4,2026-06-12
+362711,984096,Nottingham Forest,Nottingham Forest,703,Defender,Centre-Back,15.0,25.0,3,2026-06-12
+362741,989574,Toulouse,FC Toulouse,415,Attack,Centre-Forward,6.0,200.0,2,2026-06-12
+362750,1127730,Oviedo,Real Oviedo,2497,Attack,Left Winger,4.5,0.0,3,2026-06-12
+362752,1043646,Parma,Parma Calcio 1913,130,Midfield,Central Midfield,6.5,0.0,1,2026-06-12
+362884,997861,Eintracht Frankfurt,Eintracht Frankfurt,24,Goalkeeper,Goalkeeper,7.0,0.0,1,2026-06-12
+363695,1005649,Nottingham Forest,Nottingham Forest,703,Defender,Centre-Back,50.0,-9.090909090909093,1,2026-06-12
+363792,991054,Metz,FC Metz,347,Defender,Centre-Back,3.0,0.0,2,2026-06-12
+364093,770436,Le Havre,Le Havre AC,738,Midfield,Central Midfield,4.5,350.0,3,2026-06-12
+364600,989621,Pisa,Pisa Sporting Club,4172,Midfield,Central Midfield,5.0,0.0,2,2026-06-12
+365331,727089,Sunderland,Sunderland AFC,289,Midfield,Central Midfield,35.0,39.99999999999999,2,2026-06-12
+365742,1009596,Stade Brestois 29,Stade Brestois 29,3911,Defender,Centre-Back,6.0,19.999999999999996,5,2026-06-12
+366735,1004708,Chelsea,Chelsea FC,631,Defender,Right-Back,25.0,25.0,2,2026-06-12
+367636,1004301,Rennes,Stade Rennais FC,273,Defender,Centre-Back,55.0,175.0,3,2026-06-12
+368030,955357,Bournemouth,AFC Bournemouth,989,Attack,Centre-Forward,70.0,218.18181818181816,4,2026-06-12
+368129,851385,Hellas Verona,Hellas Verona,276,Defender,Centre-Back,3.0,50.0,1,2026-06-12
+368260,1018259,Hellas Verona,Hellas Verona,276,Attack,Centre-Forward,7.0,-17.647058823529417,3,2026-06-12
+369500,1020191,Lens,RC Lens,826,Defender,Centre-Back,20.0,566.6666666666667,5,2026-06-12
+369544,1151929,Strasbourg,RC Strasbourg Alsace,667,Attack,Right Winger,12.0,100.0,3,2026-06-12
+369674,939964,Eintracht Frankfurt,Eintracht Frankfurt,24,Attack,Left Winger,25.0,0.0,1,2026-06-12
+371911,943795,Werder Bremen,SV Werder Bremen,86,Attack,Centre-Forward,7.0,0.0,6,2026-06-12
+371916,1005240,Monaco,AS Monaco,162,Defender,Centre-Back,15.0,0.0,2,2026-06-12
+374058,918969,Monaco,AS Monaco,162,Midfield,Central Midfield,40.0,33.33333333333333,2,2026-06-12
+374359,887638,AC Milan,AC Milan,5,Defender,Left-Back,22.0,22.222222222222232,2,2026-06-12
+375598,1016015,Lille,LOSC Lille,1082,Midfield,Defensive Midfield,15.0,25.0,2,2026-06-12
+375915,514285,Burnley,Burnley FC,1132,Defender,Left-Back,16.0,-11.111111111111116,1,2026-06-12
+375990,979551,Stade Brestois 29,Stade Brestois 29,3911,Attack,Left Winger,2.5,-16.666666666666664,3,2026-06-12
+377122,971570,Lyon,Real Madrid,418,Attack,Centre-Forward,40.0,60.00000000000001,2,2026-06-12
+378284,1038950,Levante,Levante UD,3368,Attack,Centre-Forward,15.0,-25.0,3,2026-06-12
+378353,1038308,Metz,FC Metz,347,Defender,Centre-Back,0.9,-9.999999999999998,4,2026-06-12
+379329,816580,Lille,LOSC Lille,1082,Defender,Right-Back,10.0,-16.666666666666664,1,2026-06-12
+380587,905011,Bayer Leverkusen,Bayer 04 Leverkusen,15,Midfield,Attacking Midfield,45.0,80.0,2,2026-06-12
+380873,1035765,Union Berlin,1.FC Union Berlin,89,Attack,Centre-Forward,12.0,0.0,2,2026-06-12
+380939,910541,Hamburger SV,Hamburger SV,41,Attack,Left Winger,5.0,66.66666666666667,1,2026-06-12
+380978,897424,RB Leipzig,RB Leipzig,23826,Midfield,Central Midfield,28.0,0.0,2,2026-06-12
+381197,1038512,Osasuna,CA Osasuna,331,Midfield,Central Midfield,1.0,0.0,1,2026-06-12
+382452,926952,Manchester United,Manchester United,985,Attack,Left Winger,35.0,16.666666666666675,3,2026-06-12
+383006,934527,Torino,Torino FC,416,Attack,Left Winger,3.0,19.999999999999996,1,2026-06-12
+383018,895937,Cagliari,Cagliari Calcio,1390,Defender,Right-Back,35.0,39.99999999999999,3,2026-06-12
+383026,885226,Cagliari,Cagliari Calcio,1390,Defender,Left-Back,4.0,60.00000000000001,3,2026-06-12
+383665,955448,RB Leipzig,RB Leipzig,23826,Attack,Left Winger,5.0,66.66666666666667,2,2026-06-12
+383685,1012534,Brighton,Brighton & Hove Albion,1237,Attack,Right Winger,45.0,12.5,4,2026-06-12
+383780,938729,Athletic Club,Athletic Bilbao,621,Midfield,Central Midfield,30.0,0.0,2,2026-06-12
+384112,816308,Lorient,FC Lorient,1158,Midfield,Right Midfield,2.0,0.0,1,2026-06-12
+384135,1076815,Celta Vigo,Celta de Vigo,940,Defender,Centre-Back,18.0,19.999999999999996,1,2026-06-12
+384543,1046867,AS Roma,Associazione Sportiva Roma,12,Defender,Centre-Back,12.0,60.00000000000001,1,2026-06-12
+385569,1071956,Angers,Angers SCO,1420,Defender,Centre-Back,2.5,-16.666666666666664,2,2026-06-12
+385788,603675,Cremonese,US Cremonese,2239,Defender,Centre-Back,0.8,14.28571428571428,4,2026-06-12
+386287,903666,Lille,LOSC Lille,1082,Attack,Right Winger,8.0,-11.111111111111116,1,2026-06-12
+386305,948278,Como,Como 1907,1047,Defender,Centre-Back,30.0,66.66666666666667,3,2026-06-12
+386828,937958,Barcelona,FC Barcelona,131,Attack,Right Winger,200.0,0.0,1,2026-06-12
+386859,937955,Elche,Elche CF,1531,Defender,Right-Back,12.0,0.0,3,2026-06-12
+387128,890385,Genoa,Genoa CFC,252,Defender,Centre-Back,2.5,0.0,2,2026-06-12
+387521,892160,Hamburger SV,Tottenham Hotspur,148,Defender,Centre-Back,60.0,50.0,6,2026-06-12
+387643,1067904,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Attack,Left Winger,40.0,60.00000000000001,2,2026-06-12
+387973,923595,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Attack,Centre-Forward,7.0,0.0,1,2026-06-12
+388547,814446,Torino,SSC Napoli,6195,Defender,Centre-Back,7.0,-6.666666666666665,4,2026-06-12
+388779,1004619,Nantes,FC Nantes,995,Midfield,Central Midfield,5.0,150.0,2,2026-06-12
+388871,948279,VfB Stuttgart,VfB Stuttgart,79,Midfield,Defensive Midfield,20.0,33.33333333333333,3,2026-06-12
+389315,1011131,Fulham,Fulham FC,931,Midfield,Attacking Midfield,25.0,25.0,2,2026-06-12
+389322,955281,Paris FC,Paris FC,10004,Defender,Left-Back,10.0,100.0,3,2026-06-12
+390586,667457,1899 Hoffenheim,TSG 1899 Hoffenheim,533,Midfield,Defensive Midfield,30.0,76.47058823529412,2,2026-06-12
+390742,1064871,Strasbourg,RC Strasbourg Alsace,667,Attack,Centre-Forward,35.0,39.99999999999999,4,2026-06-12
+391822,1064471,Celta Vigo,Celta de Vigo,940,Midfield,Attacking Midfield,16.0,0.0,5,2026-06-12
+392482,1060087,Brighton,Brighton & Hove Albion,1237,Attack,Centre-Forward,25.0,0.0,3,2026-06-12
+394573,1061122,Getafe,Getafe CF,3709,Attack,Left Winger,3.0,-62.5,3,2026-06-12
+394734,924117,VfB Stuttgart,VfB Stuttgart,79,Defender,Centre-Back,35.0,39.99999999999999,3,2026-06-12
+394950,986291,Lens,RC Lens,826,Midfield,Central Midfield,8.0,344.44444444444446,8,2026-06-12
+395040,1004834,Monaco,Al-Ittihad Football Club,8023,Attack,Centre-Forward,10.0,-16.666666666666664,3,2026-06-12
+395589,819566,Lens,RC Lens,826,Defender,Centre-Back,7.0,600.0,2,2026-06-12
+395762,1010854,Strasbourg,RC Strasbourg Alsace,667,Midfield,Central Midfield,9.0,-9.999999999999998,4,2026-06-12
+396193,926978,Strasbourg,FC Nordsjaelland,2778,Defender,Centre-Back,18.0,50.0,1,2026-06-12
+396380,990637,AC Milan,AC Milan,5,Defender,Right-Back,15.0,87.5,4,2026-06-12
+396623,962110,Barcelona,FC Barcelona,131,Defender,Centre-Back,80.0,0.0,3,2026-06-12
+396637,746712,Fiorentina,ACF Fiorentina,430,Defender,Centre-Back,18.0,-21.739130434782606,1,2026-06-12
+400948,1061282,Como,Como 1907,1047,Attack,Left Winger,30.0,0.0,2,2026-06-12
+402265,1074628,Lorient,FC Lorient,1158,Midfield,Central Midfield,20.0,122.22222222222223,2,2026-06-12
+402329,1078163,Manchester United,Manchester United,985,Defender,Centre-Back,30.0,200.0,3,2026-06-12
+402386,1088199,Lorient,FC Lorient,1158,Defender,Left-Back,15.0,114.28571428571428,3,2026-06-12
+403277,1096744,Angers,Angers SCO,1420,Attack,Centre-Forward,1.5,114.28571428571428,3,2026-06-12
+403878,568728,Metz,FC Metz,347,Goalkeeper,Goalkeeper,0.6,100.0,2,2026-06-12
+404172,1113451,Nice,OGC Nice,417,Defender,Centre-Back,10.0,150.0,5,2026-06-12
+404656,942497,1. FC Köln,1.FC Köln,3,Defender,Centre-Back,9.0,125.0,4,2026-06-12
+405073,1018938,Real Sociedad,Real Sociedad,681,Defender,Centre-Back,25.0,150.0,2,2026-06-12
+405237,1097113,Nice,OGC Nice,417,Attack,Right Winger,5.0,25.0,2,2026-06-12
+405239,1082774,Genoa,FC Alverca,2521,Midfield,Central Midfield,8.0,220.00000000000003,4,2026-06-12
+405360,1107733,Everton,Everton FC,29,Midfield,Central Midfield,12.0,900.0,6,2026-06-12
+406244,927353,SC Freiburg,SC Freiburg,60,Midfield,Central Midfield,50.0,66.66666666666667,2,2026-06-12
+406303,1052439,Strasbourg,RC Strasbourg Alsace,667,Midfield,Attacking Midfield,8.0,-19.999999999999996,4,2026-06-12
+407806,1012564,Bournemouth,AFC Bournemouth,989,Attack,Right Winger,60.0,140.0,2,2026-06-12
+408635,969192,Pisa,Pisa Sporting Club,4172,Midfield,Central Midfield,7.0,7.692307692307687,4,2026-06-12
+408870,1111776,Metz,FC Metz,347,Attack,Centre-Forward,,0.0,1,2026-06-12
+409216,903693,Paris Saint Germain,Paris Saint-Germain,583,Midfield,Central Midfield,40.0,0.0,2,2026-06-12
+409303,1111589,West Ham,West Ham United,379,Defender,Left-Back,28.0,0.0,2,2026-06-12
+412719,989112,Bournemouth,AFC Bournemouth,989,Defender,Centre-Back,20.0,0.0,3,2026-06-12
+412759,1006411,Crystal Palace,Crystal Palace,873,Defender,Centre-Back,28.0,39.99999999999999,4,2026-06-12
+413065,923945,FC Augsburg,FC Augsburg,167,Defender,Centre-Back,20.0,33.33333333333333,3,2026-06-12
+414359,1005575,Girona,Girona FC,12321,Defender,Centre-Back,30.0,0.0,4,2026-06-12
+414385,994536,Girona,Girona FC,12321,Midfield,Attacking Midfield,15.0,0.0,7,2026-06-12
+415155,1228231,Cagliari,Cagliari Calcio,1390,Defender,Centre-Back,10.0,100.0,4,2026-06-12
+415431,1130514,Strasbourg,RC Strasbourg Alsace,667,Midfield,Central Midfield,22.0,175.0,2,2026-06-12
+416062,1129198,Bologna,Bologna Football Club 1909,1025,Defender,Centre-Back,8.0,33.33333333333333,2,2026-06-12
+417830,1134251,Rennes,Stade Rennais FC,273,Defender,Centre-Back,12.0,19.999999999999996,3,2026-06-12
+419035,745173,Monaco,AS Monaco,162,Midfield,Central Midfield,15.0,87.5,1,2026-06-12
+419603,925838,Pisa,Pisa Sporting Club,4172,Defender,Centre-Back,3.5,39.99999999999999,3,2026-06-12
+419916,807386,RB Leipzig,RB Leipzig,23826,Attack,Centre-Forward,17.0,-29.166666666666664,3,2026-06-12
+421807,1144700,Levante,Levante UD,3368,Defender,Centre-Back,6.0,50.0,3,2026-06-12
+421875,986288,Angers,Angers SCO,1420,Attack,Centre-Forward,18.0,157.14285714285717,2,2026-06-12
+422572,1144627,VfL Wolfsburg,NEC Nijmegen,467,Attack,Centre-Forward,8.0,220.00000000000003,4,2026-06-12
+422780,1145504,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,10.0,-16.666666666666664,7,2026-06-12
+425207,1075575,Angers,Angers SCO,1420,Midfield,Defensive Midfield,2.5,257.14285714285717,2,2026-06-12
+425733,1056993,Chelsea,Chelsea FC,631,Attack,Right Winger,80.0,0.0,2,2026-06-12
+428084,1111777,Metz,FC Metz,347,Defender,Centre-Back,7.0,75.0,1,2026-06-12
+428237,1159864,Parma,Parma Calcio 1913,130,Defender,Centre-Back,10.0,66.66666666666667,2,2026-06-12
+430354,519872,Union Berlin,1.FC Union Berlin,89,Attack,Left Winger,4.0,0.0,4,2026-06-12
+431149,1145064,SC Freiburg,SC Freiburg,60,Attack,Right Winger,8.0,0.0,3,2026-06-12
+431413,916430,Lazio,Società Sportiva Lazio S.p.A.,398,Goalkeeper,Goalkeeper,8.0,566.6666666666667,5,2026-06-12
+432310,1168219,1. FC Köln,1.FC Köln,3,Attack,Left Winger,45.0,12.5,5,2026-06-12
+433396,1018920,Barcelona,FC Barcelona,131,Midfield,Defensive Midfield,30.0,200.0,2,2026-06-12
+434352,1178489,Metz,FC Metz,347,Midfield,Defensive Midfield,5.0,150.0,2,2026-06-12
+434410,1178488,Udinese,FC Metz,347,Attack,Centre-Forward,8.0,100.0,2,2026-06-12
+435482,1131161,Marseille,Olympique Marseille,244,Attack,Centre-Forward,18.0,80.0,4,2026-06-12
+435552,1061336,Villarreal,Villarreal CF,1050,Defender,Centre-Back,15.0,200.0,3,2026-06-12
+436260,1058368,Lecce,US Lecce,1005,Attack,Centre-Forward,15.0,0.0,4,2026-06-12
+437093,984964,Fiorentina,ACF Fiorentina,430,Defender,Left-Back,10.0,0.0,4,2026-06-12
+437349,1119881,Le Havre,Le Havre AC,738,Defender,Left-Back,1.8,1700.0,2,2026-06-12
+437776,6107,Lorient,Hull City,3008,Defender,Centre-Back,,0.0,0,2026-06-12
+438281,1176345,Rennes,Stade Rennais FC,273,Defender,Left-Back,7.0,366.6666666666667,2,2026-06-12
+438688,1097139,Lille,LOSC Lille,1082,Midfield,Central Midfield,50.0,25.0,1,2026-06-12
+440147,1084638,Werder Bremen,SV Werder Bremen,86,Defender,Centre-Back,28.0,39.99999999999999,4,2026-06-12
+442546,1073748,FSV Mainz 05,1.FSV Mainz 05,39,Defender,Centre-Back,18.0,620.0,4,2026-06-12
+443162,1190411,Como,Como 1907,1047,Attack,Left Winger,30.0,0.0,4,2026-06-12
+443163,961087,Real Betis,Real Betis Balompié,150,Attack,Right Winger,8.0,-19.999999999999996,2,2026-06-12
+443579,1160814,Lens,RC Lens,826,Attack,Centre-Forward,8.0,60.00000000000001,1,2026-06-12
+443674,1119456,Nantes,FC Nantes,995,Midfield,Attacking Midfield,10.0,11.111111111111116,2,2026-06-12
+444961,1058514,Bayer Leverkusen,Bayer 04 Leverkusen,15,Attack,Right Winger,15.0,1400.0,3,2026-06-12
+446067,962125,Elche,Associazione Sportiva Roma,12,Defender,Right-Back,4.5,350.0,3,2026-06-12
+446089,992569,Bologna,Bologna Football Club 1909,1025,Goalkeeper,Goalkeeper,3.5,250.0,2,2026-06-12
+446249,1185888,Paris Saint Germain,Paris Saint-Germain,583,Attack,Right Winger,30.0,19.999999999999996,3,2026-06-12
+448468,1114155,Werder Bremen,SV Werder Bremen,86,Midfield,Attacking Midfield,4.0,0.0,3,2026-06-12
+449153,1200289,Stade Brestois 29,Stade Brestois 29,3911,Midfield,Defensive Midfield,1.0,25.0,1,2026-06-12
+449249,1057316,Real Madrid,Real Madrid,418,Attack,Right Winger,45.0,-9.999999999999998,2,2026-06-12
+449509,1121298,Nice,OGC Nice,417,Defender,Centre-Back,10.0,42.85714285714286,8,2026-06-12
+449662,1141560,Rennes,Stade Rennais FC,273,Attack,Centre-Forward,18.0,80.0,4,2026-06-12
+450497,1063338,Levante,Levante UD,3368,Attack,Centre-Forward,20.0,900.0,2,2026-06-12
+451504,934878,Genoa,Genoa CFC,252,Attack,Centre-Forward,18.0,157.14285714285717,3,2026-06-12
+452685,1108466,Liverpool,Liverpool FC,31,Attack,Left Winger,30.0,100.0,2,2026-06-12
+452697,1191444,Toulouse,FC Toulouse,415,Defender,Left-Back,18.0,125.0,3,2026-06-12
+453792,975347,Monaco,AS Monaco,162,Midfield,Defensive Midfield,18.0,414.28571428571433,2,2026-06-12
+453906,1077175,Atalanta,Atalanta BC,800,Defender,Centre-Back,30.0,19.999999999999996,4,2026-06-12
+455316,1112449,Lecce,US Lecce,1005,Defender,Centre-Back,15.0,0.0,3,2026-06-12
+456206,1230661,Wolves,Wolverhampton Wanderers,543,Midfield,Attacking Midfield,20.0,7900.0,3,2026-06-12
+456831,1103652,Angers,Angers SCO,1420,Defender,Right-Back,2.0,1900.0,3,2026-06-12
+457541,1103958,Angers,Angers SCO,1420,Attack,Centre-Forward,15.0,200.0,3,2026-06-12
+463279,1232057,Levante,Levante UD,3368,Attack,Left Winger,1.5,400.0,5,2026-06-12
+470282,1213681,Hamburger SV,Hamburger SV,41,Attack,Left Winger,5.0,0.0,3,2026-06-12
+471107,1053208,Paris Saint Germain,Paris Saint-Germain,583,Attack,Left Winger,8.0,14.28571428571428,2,2026-06-12
+471478,1268764,Getafe,Getafe CF,3709,Defender,Left-Back,1.0,0.0,3,2026-06-12
+474789,1280281,FC St. Pauli,FC St. Pauli,35,Attack,Centre-Forward,1.0,25.0,4,2026-06-12
+478991,1058359,Borussia Dortmund,Borussia Dortmund,16,Attack,Second Striker,15.0,400.0,3,2026-06-12
+489905,1075583,Toulouse,FC Toulouse,415,Defender,Centre-Back,5.0,4900.0,2,2026-06-12
+491087,1071596,Paris Saint Germain,FC Barcelona,131,Midfield,Attacking Midfield,10.0,0.0,5,2026-06-12
+491248,1301775,Mallorca,RCD Mallorca,237,Attack,Left Winger,15.0,25.0,4,2026-06-12
+494131,1075147,Bayern München,Bayern Munich,27,Midfield,Attacking Midfield,60.0,0.0,3,2026-06-12
+496896,1241211,Paris FC,AJ Auxerre,290,Midfield,Central Midfield,20.0,566.6666666666667,4,2026-06-12
+498791,1166473,Stade Brestois 29,Stade Brestois 29,3911,Defender,Centre-Back,0.8,1500.0,3,2026-06-12
+499380,932187,Parma,FC Luzern,434,Defender,Right-Back,10.0,42.85714285714286,4,2026-06-12
+501906,1070979,Borussia Mönchengladbach,Borussia Mönchengladbach,18,Midfield,Attacking Midfield,17.0,580.0,3,2026-06-12
+505295,1364454,Bayer Leverkusen,Bayer 04 Leverkusen,15,Attack,Centre-Forward,40.0,81.81818181818181,3,2026-06-12
+509470,1375227,Real Madrid,Real Madrid,418,Midfield,Central Midfield,20.0,566.6666666666667,4,2026-06-12
+513415,1228317,Le Havre,Le Havre AC,738,Defender,Centre-Back,4.0,3900.0,3,2026-06-12
+513776,1390649,RB Leipzig,RB Leipzig,23826,Attack,Left Winger,90.0,100.0,2,2026-06-12
+514464,1200427,Toulouse,FC Toulouse,415,Midfield,Central Midfield,15.0,400.0,3,2026-06-12
+519664,1187942,Lyon,Olympique Lyon,1041,Midfield,Central Midfield,15.0,87.5,2,2026-06-12
+522609,1241207,Nantes,FC Nantes,995,Defender,Centre-Back,25.0,108.33333333333334,3,2026-06-12
+568225,1074990,Borussia Dortmund,Borussia Dortmund,16,Defender,Centre-Back,10.0,900.0,4,2026-06-12
+579287,1063340,Levante,Levante UD,3368,Attack,Right Winger,2.0,300.0,2,2026-06-12

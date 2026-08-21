@@ -287,7 +287,7 @@ function CandidatesScreen({
               </span>
 
               <strong className="ranking-model">
-                V8 TRANSFER REALISM
+                {scoringModel?.version || "TransFit V10 Historical ML Hybrid"}
               </strong>
             </div>
           </div>
@@ -500,12 +500,14 @@ function CandidatesScreen({
                   </strong>
 
                   <p>
-                    Role-aware ranking for {team} at {" "}
-                    {role}, calibrated against verified
-                    position data and market consensus.
+                    A 70/30 hybrid of the role-aware expert
+                    engine and a model trained on historical
+                    transfer outcomes.
                   </p>
                 </div>
               </div>
+
+              <HybridEvidence candidate={topCandidate} />
 
 
               {/* Metrics */}
@@ -802,6 +804,8 @@ function CandidatesScreen({
                   />
                 </div>
 
+                <HybridEvidence candidate={activeCandidate} compact />
+
                 <DecisionSummary
                   candidate={activeCandidate}
                   compact
@@ -1039,7 +1043,7 @@ function CandidateCard({
       </div>
 
 
-      <div className="candidate-row-stat">
+      <div className="candidate-row-stat role-stat">
         <span>
           ROLE
         </span>
@@ -1050,7 +1054,7 @@ function CandidateCard({
       </div>
 
 
-      <div className="candidate-row-stat">
+      <div className="candidate-row-stat output-stat">
         <span>
           {getEvidenceLabel(candidate)}
         </span>
@@ -1061,7 +1065,18 @@ function CandidateCard({
       </div>
 
 
-      <div className="candidate-row-stat">
+      <div className="candidate-row-stat ml-stat">
+        <span>
+          ML PCTL
+        </span>
+
+        <strong>
+          {formatMlPercentile(candidate.ml_success_percentile)}
+        </strong>
+      </div>
+
+
+      <div className="candidate-row-stat value-stat">
         <span>
           {candidate.value_source === "transfermarkt"
             ? "TM VALUE"
@@ -1213,6 +1228,47 @@ function PreviewMetric({
 }
 
 
+function HybridEvidence({ candidate, compact = false }) {
+  const prediction = candidate?.ml_prediction || {};
+  const interval = prediction.prediction_interval || {};
+  const hasMl = candidate?.ml_success_forecast != null;
+
+  if (!hasMl) {
+    return (
+      <div className={`hybrid-evidence ${compact ? "compact" : ""} unavailable`}>
+        <span>HISTORICAL ML</span>
+        <strong>Expert model fallback</strong>
+        <small>No reliable historical player match was available.</small>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`hybrid-evidence ${compact ? "compact" : ""}`}>
+      <div>
+        <span>EXPERT ENGINE</span>
+        <strong>{formatMetric(candidate.expert_score)}</strong>
+        <small>70% of hybrid score</small>
+      </div>
+      <div>
+        <span>ML SUCCESS FORECAST</span>
+        <strong>{formatMetric(candidate.ml_success_forecast)}</strong>
+        <small>
+          {interval.lower != null && interval.upper != null
+            ? `${formatMetric(interval.lower)}–${formatMetric(interval.upper)} interval`
+            : "Historical outcome estimate"}
+        </small>
+      </div>
+      <div>
+        <span>HISTORICAL PERCENTILE</span>
+        <strong>{formatMlPercentile(candidate.ml_success_percentile)}</strong>
+        <small>30% of hybrid · {candidate.ml_confidence || "unknown"} confidence</small>
+      </div>
+    </div>
+  );
+}
+
+
 /* =========================================================
    SCORE ARCHITECTURE
 ========================================================= */
@@ -1243,20 +1299,28 @@ function ScoreArchitecture({
   return (
     <section className="score-architecture">
       <div className="score-architecture-copy">
-        <span>ROLE-AWARE MODEL</span>
+        <span>HYBRID DECISION MODEL</span>
 
         <strong>
-          {model?.version || "TransFit V8 Transfer Realism"}
+          {model?.version || "TransFit V10 Historical ML Hybrid"}
         </strong>
 
         <p>
-          Attacking output is weighted by position;
-          deeper roles prioritize role performance,
-          tactical fit and verified market consensus.
+          The expert engine measures sporting and deal fit.
+          Historical ML estimates how comparable transfers
+          performed during the following season.
         </p>
       </div>
 
       <div className="score-weight-list">
+        <div className="score-weight-pill hybrid-primary">
+          <span>Expert engine</span>
+          <strong>{model?.hybrid_weights?.expert_model ?? 70}%</strong>
+        </div>
+        <div className="score-weight-pill hybrid-primary">
+          <span>Historical ML</span>
+          <strong>{model?.hybrid_weights?.historical_ml ?? 30}%</strong>
+        </div>
         {dimensions.map(([label, value]) => (
           <div
             className="score-weight-pill"
@@ -1421,6 +1485,10 @@ function WhyPlayerDrawer({
           <div>
             <span>DEAL PATH</span>
             <strong>{getRealismLabel(candidate)}</strong>
+          </div>
+          <div>
+            <span>ML HISTORY</span>
+            <strong>{formatMlPercentile(candidate.ml_success_percentile)}</strong>
           </div>
         </div>
 
@@ -1633,6 +1701,12 @@ function formatMetric(value) {
   }
 
   return Number(value).toFixed(1);
+}
+
+
+function formatMlPercentile(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? `P${number.toFixed(1)}` : "N/A";
 }
 
 

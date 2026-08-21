@@ -59,6 +59,13 @@ from transfer_value_engine import (
 )
 from league_strength_engine import league_strength_score
 from transfer_realism_engine import assess_transfer_feasibility
+from ml.transfer_success_engine import (
+    HYBRID_EXPERT_WEIGHT,
+    HYBRID_ML_WEIGHT,
+    HYBRID_SCORE_VERSION,
+    hybrid_score,
+    predict_candidate_records,
+)
 
 
 # =========================================================
@@ -899,6 +906,47 @@ def rank_candidates(
             "\nNo suitable candidates found."
         )
 
+    ml_predictions = predict_candidate_records(
+        results,
+        target_team=formation_team["team"],
+        target_league=formation_team["league"],
+    )
+    for result, prediction in zip(results, ml_predictions):
+        expert_score = float(result["final_score"])
+        result["expert_score"] = round(expert_score, 1)
+        result["ml_prediction"] = prediction
+        result["ml_success_forecast"] = (
+            None
+            if prediction is None
+            else prediction["success_forecast"]
+        )
+        result["ml_success_percentile"] = (
+            None
+            if prediction is None
+            else prediction["success_percentile"]
+        )
+        result["ml_confidence"] = (
+            None
+            if prediction is None
+            else prediction["confidence"]
+        )
+        result["hybrid_weights"] = {
+            "expert_model": HYBRID_EXPERT_WEIGHT * 100,
+            "historical_ml": HYBRID_ML_WEIGHT * 100,
+        }
+        result["score_version"] = (
+            HYBRID_SCORE_VERSION
+            if prediction is not None
+            else SCORE_VERSION
+        )
+        result["final_score"] = hybrid_score(
+            expert_score,
+            prediction,
+        )
+        result["classification"] = transfer_fit_label(
+            result["final_score"]
+        )
+
     # -----------------------------------------------------
     # DataFrame
     # -----------------------------------------------------
@@ -1046,6 +1094,13 @@ def rank_candidates(
             "deal_feasibility_score",
             "league_strength",
             "transfer_realistic",
+            "score_version",
+            "expert_score",
+            "ml_success_forecast",
+            "ml_success_percentile",
+            "ml_confidence",
+            "ml_prediction",
+            "hybrid_weights",
             "final_score",
             "classification",
         ]

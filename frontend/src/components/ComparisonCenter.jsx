@@ -4,6 +4,8 @@ import FootballIcon from "./FootballIcon";
 
 
 const COMPARISON_METRICS = [
+  ["expert", "Expert Engine", "expert_model"],
+  ["ml_success_percentile", "Historical ML Percentile", "historical_ml"],
   ["tactical", "Tactical Fit"],
   ["position", "Position Fit"],
   ["performance", "Role Performance"],
@@ -267,9 +269,9 @@ function ComparisonCenter({
               />
 
               <p>
-                All players are scored with TransFit V8.
-                Sporting fit, club stature and deal feasibility
-                are evaluated separately before the final score.
+                All players are scored with TransFit V10.
+                The expert engine contributes 70% and historical
+                transfer-outcome ML contributes 30%.
               </p>
             </div>
 
@@ -380,6 +382,21 @@ function ComparisonResult({
                 <span>% FIT</span>
               </div>
 
+              <div className="comparison-card-hybrid">
+                <div>
+                  <span>EXPERT</span>
+                  <strong>{formatScore(report.scores.expert)}</strong>
+                </div>
+                <div>
+                  <span>ML HISTORY</span>
+                  <strong>
+                    {report.scores.ml_success_percentile != null
+                      ? `P${formatScore(report.scores.ml_success_percentile)}`
+                      : "N/A"}
+                  </strong>
+                </div>
+              </div>
+
               <div className="comparison-card-deal">
                 <div>
                   <span>MARKET VALUE</span>
@@ -477,14 +494,18 @@ function ComparisonResult({
                 </div>
               ))}
 
-              {COMPARISON_METRICS.map(([key, label]) => (
+              {COMPARISON_METRICS.map(([key, label, hybridKey]) => (
                 <ComparisonMetricRow
                   key={key}
                   metricKey={key}
                   label={label}
                   reports={reports}
                   leader={result.dimension_leaders?.[key]}
-                  weight={result.scoring_model?.weights?.[key]}
+                  weightLabel={
+                    hybridKey
+                      ? `${result.scoring_model?.hybrid_weights?.[hybridKey] ?? (hybridKey === "expert_model" ? 70 : 30)}% of final`
+                      : `${result.scoring_model?.weights?.[key] ?? 0}% of expert`
+                  }
                 />
               ))}
             </div>
@@ -528,13 +549,13 @@ function ComparisonMetricRow({
   label,
   reports,
   leader,
-  weight,
+  weightLabel,
 }) {
   return (
     <>
       <div className="comparison-matrix-label">
         <strong>{label}</strong>
-        <span>{weight ?? 0}% weight</span>
+        <span>{weightLabel}</span>
       </div>
 
       {reports.map((report) => {
@@ -746,6 +767,10 @@ function formatBudgetStatus(status) {
 
 
 function formatMetricLabel(metric) {
+  if (metric === "historical_ml") {
+    return "Historical ML";
+  }
+
   return String(metric || "")
     .split("_")
     .map((word) =>

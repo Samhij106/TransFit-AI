@@ -50,6 +50,14 @@ from realistic_data_engine import (
     find_realism_by_id,
     load_realism_profiles,
 )
+from ml.transfer_success_engine import (
+    HYBRID_EXPERT_WEIGHT,
+    HYBRID_ML_WEIGHT,
+    HYBRID_SCORE_VERSION,
+    build_feature_row,
+    hybrid_score,
+    predict_feature_rows,
+)
 
 
 _PLAYER_SEARCH_CATALOG = None
@@ -467,6 +475,45 @@ def analyze_transfer(
 
     transfer_value = result["transfer_value"]
 
+    ml_feature_row = build_feature_row(
+        transfermarkt_player_id=transfer_value.get(
+            "transfermarkt_player_id"
+        ),
+        current_team=tactical_player["team"],
+        target_team=formation_team["team"],
+        current_league=performance_player.get("league"),
+        target_league=formation_team["league"],
+        age=result["potential_result"]["age"],
+        market_value_m_eur=transfer_value[
+            "estimated_value_m_eur"
+        ],
+        appearances=result["realism_details"][
+            "current_appearances"
+        ],
+        starts=result["realism_details"]["current_starts"],
+        minutes=result["realism_details"]["current_minutes"],
+        goals=result["realism_details"]["current_goals"],
+        assists=result["realism_details"]["current_assists"],
+        primary_position=position_player["primary_position"],
+    )
+    ml_prediction = (
+        None
+        if ml_feature_row is None
+        else predict_feature_rows(
+            [ml_feature_row],
+            include_explanations=True,
+        )[0]
+    )
+    expert_score = float(result["final_score"])
+    result["expert_score"] = round(expert_score, 1)
+    result["ml_prediction"] = ml_prediction
+    result["final_score"] = hybrid_score(
+        expert_score,
+        ml_prediction,
+    )
+    if not result["transfer_feasibility"]["eligible"]:
+        result["final_score"] = min(result["final_score"], 55.0)
+
     budget_assessment = assess_budget(
         transfer_value[
             "estimated_value_m_eur"
@@ -636,9 +683,16 @@ def analyze_transfer(
         },
 
         "scores": {
-            "version": result.get(
-                "score_version",
-                SCORE_VERSION,
+            "version": (
+                HYBRID_SCORE_VERSION
+                if ml_prediction is not None
+                else result.get("score_version", SCORE_VERSION)
+            ),
+
+            "hybrid_version": (
+                HYBRID_SCORE_VERSION
+                if ml_prediction is not None
+                else None
             ),
 
             "weights": result.get(
@@ -649,6 +703,25 @@ def analyze_transfer(
             "final": result[
                 "final_score"
             ],
+
+            "expert": result["expert_score"],
+
+            "ml_success_forecast": (
+                None
+                if ml_prediction is None
+                else ml_prediction["success_forecast"]
+            ),
+
+            "ml_success_percentile": (
+                None
+                if ml_prediction is None
+                else ml_prediction["success_percentile"]
+            ),
+
+            "hybrid_weights": {
+                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
+                "historical_ml": HYBRID_ML_WEIGHT * 100,
+            },
 
             "classification": (
                 "Unrealistic Transfer"
@@ -885,6 +958,8 @@ def analyze_transfer(
             ],
         },
 
+        "machine_learning": ml_prediction,
+
         "transfer_value": {
             **transfer_value,
             **budget_assessment,
@@ -927,8 +1002,12 @@ def get_candidate_rankings(
 
     return {
         "scoring_model": {
-            "version": SCORE_VERSION,
+            "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
+            "hybrid_weights": {
+                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
+                "historical_ml": HYBRID_ML_WEIGHT * 100,
+            },
         },
 
         "team": team[
@@ -1088,6 +1167,8 @@ def compare_players(
         )
 
     metric_keys = [
+        "expert",
+        "ml_success_percentile",
         "tactical",
         "position",
         "performance",
@@ -1101,8 +1182,15 @@ def compare_players(
     dimension_leaders = {}
 
     for metric in metric_keys:
+        eligible_reports = [
+            report
+            for report in reports
+            if report["scores"].get(metric) is not None
+        ]
+        if not eligible_reports:
+            continue
         leader = max(
-            reports,
+            eligible_reports,
             key=lambda report: report["scores"][metric],
         )
         dimension_leaders[metric] = {
@@ -1139,6 +1227,7 @@ def compare_players(
                 raw_delta
                 * float(weights[weight_key])
                 / 100
+                * HYBRID_EXPERT_WEIGHT
             )
 
             decisive_factors.append({
@@ -1147,6 +1236,25 @@ def compare_players(
                 "runner_up_score": runner_up["scores"][metric],
                 "raw_delta": round(raw_delta, 1),
                 "weighted_delta": round(weighted_delta, 2),
+            })
+
+        winner_ml = winner["scores"].get(
+            "ml_success_percentile"
+        )
+        runner_up_ml = runner_up["scores"].get(
+            "ml_success_percentile"
+        )
+        if winner_ml is not None and runner_up_ml is not None:
+            raw_delta = winner_ml - runner_up_ml
+            decisive_factors.append({
+                "metric": "historical_ml",
+                "winner_score": winner_ml,
+                "runner_up_score": runner_up_ml,
+                "raw_delta": round(raw_delta, 1),
+                "weighted_delta": round(
+                    raw_delta * HYBRID_ML_WEIGHT,
+                    2,
+                ),
             })
 
         decisive_factors.sort(
@@ -1162,8 +1270,12 @@ def compare_players(
     return {
         "target_team": reports[0]["target_team"],
         "scoring_model": {
-            "version": SCORE_VERSION,
+            "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
+            "hybrid_weights": {
+                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
+                "historical_ml": HYBRID_ML_WEIGHT * 100,
+            },
         },
         "selected_budget_m_eur": (
             None

@@ -3,10 +3,11 @@
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
-target club. TransFit V8 combines verified position, tactical fit, role-aware
-performance, three-season evidence, Transfermarkt peer validation,
-availability, limited age potential, squad need, and a club-stature transfer
-feasibility layer.
+target club. TransFit V10 is a genuine hybrid AI system: a transparent
+football expert engine is combined with a supervised gradient-boosting model
+trained on 12,317 historical transfers. The UI exposes both components, the
+historical percentile, prediction interval and confidence instead of hiding
+the result behind one unexplained score.
 
 The product has four complementary workflows:
 
@@ -50,9 +51,31 @@ The product has four complementary workflows:
   striker shortlist. Closely related full-back/wing-back and wide-role pairs
   remain grouped where Transfermarkt uses a single canonical label.
 
-## TransFit V8 Transfer Realism
+## TransFit V10 Historical ML Hybrid
 
-The final score is a weighted average on a 0-100 scale:
+The final score is calculated as:
+
+```text
+TransFit Score = 70% expert-engine score + 30% historical ML percentile
+```
+
+The ML layer estimates the quality of the first 365 days after a player joins
+a target club. It was trained on transfers from 2014–2025 with a chronological
+train/validation/test split, using 24 pre-transfer player, club, league and
+market features. On 1,222 unseen recent transfers it achieved MAE 17.62 versus
+22.50 for the median baseline, NDCG@10 0.850 versus 0.716, and success AUC
+0.719 versus 0.500. Separate quantile models provide a visible 10–90%
+prediction interval.
+
+The model output is a forecast of post-transfer sporting success—not the
+probability that negotiations will be completed. If the player or club cannot
+be matched reliably, the application explicitly falls back to the expert
+engine and does not invent an ML result. See the complete
+[ML model card](docs/ML_MODEL_CARD.md).
+
+### Expert engine
+
+The expert component is a weighted average on a 0-100 scale:
 
 - Current performance: 27%. Detailed domestic-league percentiles are blended
   with all-competition output using role-specific weights. Goals and assists
@@ -81,9 +104,21 @@ affordability separately and is not treated as an asking price.
 
 - `api.py`: FastAPI HTTP API.
 - `transfit_service.py`: web-facing service layer.
+- `ml/build_transfer_dataset.py`: leakage-safe historical label and feature
+  pipeline built from the Transfermarkt community DuckDB dataset.
+- `ml/train_transfer_success.py`: chronological validation, hyperparameter
+  selection, gradient-boosting and quantile-model training, evaluation and
+  artifact export.
+- `ml/build_inference_context.py`: compact current player, club and alias
+  tables for production inference.
+- `ml/transfer_success_engine.py`: production feature construction, batch
+  prediction, uncertainty, percentile calibration and safe fallback.
+- `models/transfer_success_v1.joblib`: tracked trained model artifact.
+- `models/transfer_success_v1_metadata.json`: dataset hash, split, metrics,
+  calibration and feature importance.
 - `candidate_ranking_engine.py`: role-specific candidate ranking.
 - `squad_planner_service.py`: squad audit and budget-constrained transfer
-  window optimizer built on the same V8 transfer-realism candidate scores.
+  window optimizer built on the same V10 hybrid scores.
 - `transfer_realism_engine.py`: data-driven club-stature profiles, recruitment
   ceilings, transfer-path scoring and hard realism exclusions.
 - `refresh_transfermarkt_values.py`: weekly market-value refresh and player
@@ -91,7 +126,7 @@ affordability separately and is not treated as an asking price.
 - `build_realistic_player_profiles.py`: verified positions, all-competition
   production, three-season evidence, and availability.
 - `realistic_data_engine.py`: shared realism score integration.
-- `transfer_fit_v5.py`: TransFit V8 calculation (legacy filename retained
+- `transfer_fit_v5.py`: expert-engine calculation (legacy filename retained
   to avoid breaking existing imports).
 - `validate_model_benchmarks.py`: football sanity-check suite that protects
   known realistic ordering and canonical-position exclusions.
@@ -160,6 +195,25 @@ The downloaded source files are stored under `data/external/` and are ignored
 by Git. The community datasets are free to access, but a future commercial
 release should review Transfermarkt's source terms separately.
 
+### Rebuild the historical ML model
+
+Install the training-only dependency and place the community DuckDB snapshot
+at `data/external/transfermarkt-datasets.duckdb`, then run:
+
+```powershell
+.venv\Scripts\pip install -r requirements-ml.txt
+.venv\Scripts\python.exe -m ml.build_transfer_dataset
+.venv\Scripts\python.exe -m ml.train_transfer_success
+.venv\Scripts\python.exe -m ml.build_inference_context
+```
+
+The first command builds labels strictly from the 365 days after each
+transfer, while all 24 input features come from information available before
+the transfer. The trainer uses chronological splits and writes held-out
+metrics plus a SHA-256 dataset fingerprint. The 211 MB source database and
+generated training table remain outside Git; the small production context,
+model and metadata are tracked.
+
 ## Run locally
 
 Create an environment and install the Python dependencies:
@@ -210,6 +264,7 @@ scoring-model change:
 ```powershell
 .venv\Scripts\python.exe -m unittest test_transfit_v7.py
 .venv\Scripts\python.exe -m unittest test_squad_planner.py
+.venv\Scripts\python.exe -m unittest test_ml_transfer_success.py
 .venv\Scripts\python.exe validate_model_benchmarks.py
 ```
 
@@ -223,6 +278,7 @@ fixed.
 ## API
 
 - `GET /api/health`
+- `GET /api/ml/model` (model version and held-out metrics)
 - `GET /api/clubs`
 - `GET /api/players?q=joao&team=AC%20Milan&limit=12`
 - `GET /api/team?team=Arsenal`

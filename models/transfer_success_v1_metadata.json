@@ -1,0 +1,383 @@
+{
+  "version": "transfer-success-hgb-v1",
+  "trained_at": "2026-08-21T19:08:02.308934+00:00",
+  "dataset_sha256": "a401f161948fd65aa7bc736ec4e1377d21258d098837cbaabee16f2f96e753a3",
+  "date_split": {
+    "train_end": "2023-06-30",
+    "validation_end": "2024-06-30"
+  },
+  "samples": {
+    "train": 9406,
+    "validation": 1689,
+    "test": 1222
+  },
+  "target": "success_score",
+  "features": [
+    "age_at_transfer",
+    "market_value_m_eur",
+    "market_value_trend_180d_pct",
+    "pre_appearances",
+    "pre_starts",
+    "pre_minutes",
+    "pre_goals",
+    "pre_assists",
+    "pre_goal_assist_per90",
+    "pre_minutes_share",
+    "pre_start_share",
+    "from_points_per_game",
+    "to_points_per_game",
+    "from_goal_difference_per_game",
+    "to_goal_difference_per_game",
+    "league_strength_gap",
+    "previous_transfers_3y",
+    "is_cross_border",
+    "is_winter_window",
+    "broad_position",
+    "sub_position",
+    "from_competition_id",
+    "to_competition_id",
+    "to_club_id"
+  ],
+  "selected_parameters": {
+    "learning_rate": 0.07,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 40,
+    "l2_regularization": 4.0
+  },
+  "validation_search": [
+    {
+      "parameters": {
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 25,
+        "l2_regularization": 1.0
+      },
+      "metrics": {
+        "samples": 1689.0,
+        "mae": 16.9267,
+        "rmse": 22.42171,
+        "r2": 0.25032,
+        "ndcg_at_10": 0.7868,
+        "success_auc": 0.75872
+      }
+    },
+    {
+      "parameters": {
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 30,
+        "l2_regularization": 2.0
+      },
+      "metrics": {
+        "samples": 1689.0,
+        "mae": 16.93378,
+        "rmse": 22.52386,
+        "r2": 0.24347,
+        "ndcg_at_10": 0.78756,
+        "success_auc": 0.75907
+      }
+    },
+    {
+      "parameters": {
+        "learning_rate": 0.07,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 30,
+        "l2_regularization": 2.0
+      },
+      "metrics": {
+        "samples": 1689.0,
+        "mae": 16.87939,
+        "rmse": 22.45764,
+        "r2": 0.24791,
+        "ndcg_at_10": 0.79236,
+        "success_auc": 0.75971
+      }
+    },
+    {
+      "parameters": {
+        "learning_rate": 0.07,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 40,
+        "l2_regularization": 4.0
+      },
+      "metrics": {
+        "samples": 1689.0,
+        "mae": 16.87579,
+        "rmse": 22.53442,
+        "r2": 0.24276,
+        "ndcg_at_10": 0.78916,
+        "success_auc": 0.75534
+      }
+    }
+  ],
+  "test_metrics": {
+    "samples": 1222.0,
+    "mae": 17.62283,
+    "rmse": 23.10129,
+    "r2": 0.17152,
+    "ndcg_at_10": 0.8496,
+    "success_auc": 0.71941
+  },
+  "baseline_metrics": {
+    "samples": 1222.0,
+    "mae": 22.50242,
+    "rmse": 28.97869,
+    "r2": -0.30367,
+    "ndcg_at_10": 0.71627,
+    "success_auc": 0.5
+  },
+  "prediction_interval_coverage": 0.75286,
+  "prediction_quantiles": [
+    0.0,
+    3.03498,
+    3.66635,
+    4.14135,
+    4.52583,
+    4.85701,
+    5.15254,
+    5.38414,
+    5.69679,
+    5.9546,
+    6.22125,
+    6.46542,
+    6.71438,
+    7.00697,
+    7.33172,
+    7.58393,
+    7.86732,
+    8.16682,
+    8.48684,
+    8.78891,
+    9.07711,
+    9.34447,
+    9.68128,
+    9.94702,
+    10.21088,
+    10.53973,
+    10.84898,
+    11.22739,
+    11.51276,
+    11.80458,
+    12.17953,
+    12.57347,
+    12.99681,
+    13.42651,
+    13.85846,
+    14.2778,
+    14.7566,
+    15.20829,
+    15.63601,
+    16.04923,
+    16.48181,
+    16.99327,
+    17.44849,
+    17.97824,
+    18.57038,
+    19.16929,
+    19.80051,
+    20.35976,
+    20.96718,
+    21.66287,
+    22.28176,
+    22.92392,
+    23.61563,
+    24.19879,
+    24.88165,
+    25.44587,
+    26.08167,
+    26.67036,
+    27.44208,
+    28.02585,
+    28.71337,
+    29.25128,
+    29.86411,
+    30.49475,
+    31.10767,
+    31.79087,
+    32.44112,
+    33.04387,
+    33.65826,
+    34.21188,
+    34.82507,
+    35.54092,
+    36.14167,
+    36.97413,
+    37.67317,
+    38.33591,
+    38.95228,
+    39.78646,
+    40.50388,
+    41.34222,
+    42.08533,
+    42.85369,
+    43.61993,
+    44.36545,
+    45.16956,
+    46.07215,
+    46.9765,
+    47.99215,
+    48.96966,
+    49.99472,
+    51.02459,
+    52.24604,
+    53.37438,
+    54.95726,
+    56.33099,
+    57.74179,
+    59.60169,
+    61.74451,
+    64.46744,
+    68.28196,
+    85.16989
+  ],
+  "calibration": [
+    {
+      "samples": 123,
+      "predicted": 6.573,
+      "actual": 13.141
+    },
+    {
+      "samples": 122,
+      "predicted": 11.072,
+      "actual": 18.422
+    },
+    {
+      "samples": 122,
+      "predicted": 14.971,
+      "actual": 20.472
+    },
+    {
+      "samples": 122,
+      "predicted": 19.696,
+      "actual": 28.96
+    },
+    {
+      "samples": 122,
+      "predicted": 25.508,
+      "actual": 36.088
+    },
+    {
+      "samples": 122,
+      "predicted": 31.09,
+      "actual": 35.444
+    },
+    {
+      "samples": 122,
+      "predicted": 36.498,
+      "actual": 37.813
+    },
+    {
+      "samples": 122,
+      "predicted": 41.995,
+      "actual": 43.277
+    },
+    {
+      "samples": 122,
+      "predicted": 48.446,
+      "actual": 47.681
+    },
+    {
+      "samples": 123,
+      "predicted": 60.158,
+      "actual": 52.617
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "market_value_m_eur",
+      "importance": 2.127302
+    },
+    {
+      "feature": "previous_transfers_3y",
+      "importance": 0.99183
+    },
+    {
+      "feature": "age_at_transfer",
+      "importance": 0.443968
+    },
+    {
+      "feature": "to_competition_id",
+      "importance": 0.366249
+    },
+    {
+      "feature": "to_points_per_game",
+      "importance": 0.306657
+    },
+    {
+      "feature": "league_strength_gap",
+      "importance": 0.273005
+    },
+    {
+      "feature": "market_value_trend_180d_pct",
+      "importance": 0.255346
+    },
+    {
+      "feature": "to_club_id",
+      "importance": 0.254694
+    },
+    {
+      "feature": "broad_position",
+      "importance": 0.173076
+    },
+    {
+      "feature": "is_winter_window",
+      "importance": 0.12757
+    },
+    {
+      "feature": "pre_minutes",
+      "importance": 0.124313
+    },
+    {
+      "feature": "pre_start_share",
+      "importance": 0.122946
+    },
+    {
+      "feature": "sub_position",
+      "importance": 0.107115
+    },
+    {
+      "feature": "pre_starts",
+      "importance": 0.103327
+    },
+    {
+      "feature": "from_competition_id",
+      "importance": 0.06193
+    },
+    {
+      "feature": "from_goal_difference_per_game",
+      "importance": 0.047975
+    },
+    {
+      "feature": "from_points_per_game",
+      "importance": 0.027712
+    },
+    {
+      "feature": "pre_goal_assist_per90",
+      "importance": 0.019431
+    },
+    {
+      "feature": "pre_assists",
+      "importance": 0.010506
+    },
+    {
+      "feature": "is_cross_border",
+      "importance": 0.00272
+    },
+    {
+      "feature": "pre_appearances",
+      "importance": -0.004777
+    },
+    {
+      "feature": "pre_minutes_share",
+      "importance": -0.005167
+    },
+    {
+      "feature": "pre_goals",
+      "importance": -0.010839
+    },
+    {
+      "feature": "to_goal_difference_per_game",
+      "importance": -0.082365
+    }
+  ]
+}

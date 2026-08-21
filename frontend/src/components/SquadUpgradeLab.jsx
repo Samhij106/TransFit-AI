@@ -305,7 +305,7 @@ function SquadPlanResult({
           <div>
             <div className="eyebrow">
               <span className="eyebrow-dot" />
-              TRANSFIT WINDOW OPTIMIZER
+              TRANSFIT V10 · HISTORICAL ML WINDOW OPTIMIZER
             </div>
             <h2>
               Upgrade plan for
@@ -445,8 +445,27 @@ function SquadPlanResult({
                     </small>
                   </div>
                   <div className="squad-signing-score">
-                    <span>TRANSFIT</span>
+                    <span>HYBRID SCORE</span>
                     <strong>{formatScore(signing.transfit_score)}</strong>
+                  </div>
+                  <div className="squad-signing-ml">
+                    <div>
+                      <span>EXPERT</span>
+                      <strong>{formatScore(signing.expert_score)}</strong>
+                    </div>
+                    <div>
+                      <span>ML FORECAST</span>
+                      <strong>{formatScore(signing.ml_success_forecast)}</strong>
+                    </div>
+                    <div>
+                      <span>HISTORICAL PCTL</span>
+                      <strong>
+                        {signing.ml_success_percentile != null
+                          ? `P${formatScore(signing.ml_success_percentile)}`
+                          : "N/A"}
+                      </strong>
+                      <small>{signing.ml_confidence || "expert fallback"}</small>
+                    </div>
                   </div>
                   <div className="squad-signing-details">
                     <div>
@@ -500,7 +519,7 @@ function SquadPlanResult({
 
         <section className="squad-lab-actions">
           <div>
-            <span>MODEL BOUNDARY</span>
+            <span>{result.scoring_model?.version || "MODEL BOUNDARY"}</span>
             <p>{result.disclaimer}</p>
           </div>
           <div>

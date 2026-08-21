@@ -1392,8 +1392,15 @@ function LandingScreen({
 
           <div className="hero-trust">
             <div>
-              <strong>V8</strong>
-              <span>Transfer Realism</span>
+              <strong>V10</strong>
+              <span>Historical ML Hybrid</span>
+            </div>
+
+            <div className="trust-separator" />
+
+            <div>
+              <strong>12,317</strong>
+              <span>Historical Transfers</span>
             </div>
 
             <div className="trust-separator" />
@@ -1401,13 +1408,6 @@ function LandingScreen({
             <div>
               <strong>2,097</strong>
               <span>Player Profiles</span>
-            </div>
-
-            <div className="trust-separator" />
-
-            <div>
-              <strong>96</strong>
-              <span>Big Five Clubs</span>
             </div>
           </div>
         </section>
@@ -1520,8 +1520,104 @@ function LandingScreen({
         </section>
       </main>
 
+      <section className="landing-model-proof" id="engine">
+        <div className="landing-section-heading">
+          <div>
+            <span>MODEL PROOF · NOT AN AI LABEL</span>
+            <h2>A real historical ML layer.</h2>
+          </div>
+          <p>
+            Gradient boosting trained on past transfers, evaluated on
+            unseen future seasons and combined with a transparent football
+            expert engine.
+          </p>
+        </div>
+
+        <div className="landing-model-metrics">
+          <article>
+            <span>TRAINING DATA</span>
+            <strong>12,317</strong>
+            <small>Labeled historical transfers</small>
+          </article>
+          <article>
+            <span>HELD-OUT NDCG@10</span>
+            <strong>0.850</strong>
+            <small>Baseline 0.716</small>
+          </article>
+          <article>
+            <span>SUCCESS AUC</span>
+            <strong>0.719</strong>
+            <small>Baseline 0.500</small>
+          </article>
+          <article>
+            <span>MODEL FEATURES</span>
+            <strong>24</strong>
+            <small>Player, club, league and market context</small>
+          </article>
+        </div>
+
+        <div className="landing-hybrid-flow">
+          <article>
+            <span>01</span>
+            <strong>Expert engine</strong>
+            <p>Tactical, role, performance, squad and deal realism.</p>
+            <b>70%</b>
+          </article>
+          <i>+</i>
+          <article>
+            <span>02</span>
+            <strong>Historical ML</strong>
+            <p>Forecast, percentile, uncertainty and local explanation.</p>
+            <b>30%</b>
+          </article>
+          <i>→</i>
+          <article className="result">
+            <span>V10</span>
+            <strong>TransFit Score</strong>
+            <p>One recommendation with both evidence layers visible.</p>
+            <b>0–100</b>
+          </article>
+        </div>
+      </section>
+
+      <section className="landing-how" id="how">
+        <div className="landing-section-heading">
+          <div>
+            <span>FOUR DECISION WORKFLOWS</span>
+            <h2>From one player to a full window.</h2>
+          </div>
+        </div>
+        <div className="landing-how-grid">
+          {[
+            ["01", "Analyze a player", "Measure one player against a selected club and system."],
+            ["02", "Find candidates", "Rank natural-position targets under a realistic budget."],
+            ["03", "Compare a shortlist", "Expose the expert and ML reason behind the winner."],
+            ["04", "Plan the window", "Optimize several signings without sacrificing squad logic."],
+          ].map(([number, title, copy]) => (
+            <article key={number}>
+              <span>{number}</span>
+              <strong>{title}</strong>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="landing-about" id="about">
+        <div>
+          <span>HONEST MODEL BOUNDARY</span>
+          <h2>Decision support, not transfer prophecy.</h2>
+        </div>
+        <p>
+          TransFit forecasts first-season sporting outcomes under historical
+          patterns. It does not know private wages, negotiations, injuries or
+          player preference—and the interface shows uncertainty instead of
+          hiding it.
+        </p>
+      </section>
+
       <div className="bottom-strip">
-        <span>TRANSFER-REALISM V8</span>
+        <span>V10 HISTORICAL ML HYBRID</span>
         <i />
         <span>TACTICAL FIT</span>
         <i />
@@ -2758,7 +2854,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by TransFit V8 Transfer Realism
+                Powered by TransFit V10 Historical ML Hybrid
               </small>
             </div>
           </aside>

@@ -42,6 +42,9 @@ function PlayerAnalysisScreen({
   const transferValue =
     analysis.transfer_value || {};
 
+  const machineLearning =
+    analysis.machine_learning || {};
+
 
   return (
     <div className="player-analysis-screen">
@@ -49,6 +52,7 @@ function PlayerAnalysisScreen({
       <AnalysisHeader
         onBack={onBack}
         onNewSearch={onNewSearch}
+        modelVersion={scores.version}
       />
 
       <main className="player-analysis-page">
@@ -142,12 +146,10 @@ function PlayerAnalysisScreen({
                 </h2>
 
                 <p>
-                  Overall fit based on tactical
-                  compatibility, positional suitability,
-                  role-aware performance, three-season
-                  evidence, market validation, club stature and
-                  squad context. This is a normalized fit
-                  percentage, not transfer probability.
+                  Hybrid decision score: 70% role-aware expert
+                  engine and 30% historical ML evidence. It is
+                  decision support—not a prediction that the
+                  transfer will happen.
                 </p>
 
               </div>
@@ -289,6 +291,23 @@ function PlayerAnalysisScreen({
             highlight
           />
 
+          <OverviewItem
+            label="EXPERT ENGINE"
+            value={formatScore(scores.expert)}
+            note="70% of the hybrid score"
+          />
+
+          <OverviewItem
+            label="ML SUCCESS FORECAST"
+            value={formatScore(scores.ml_success_forecast)}
+            note={
+              scores.ml_success_percentile != null
+                ? `Historical percentile P${formatScore(scores.ml_success_percentile)}`
+                : "Historical match unavailable"
+            }
+            highlight
+          />
+
         </section>
 
 
@@ -313,13 +332,18 @@ function PlayerAnalysisScreen({
             <p>
               Each dimension is calculated separately,
               then combined using the {scores.version ||
-              "TransFit V8 Transfer Realism"} architecture.
+              "TransFit V10 Historical ML Hybrid"} architecture.
             </p>
 
           </div>
 
 
           <div className="analysis-module-grid">
+
+            <HistoricalMlModule
+              data={machineLearning}
+              scores={scores}
+            />
 
             <TacticalModule
               score={scores.tactical}
@@ -418,6 +442,7 @@ function PlayerAnalysisScreen({
 function AnalysisHeader({
   onBack,
   onNewSearch,
+  modelVersion,
 }) {
   return (
     <header className="analysis-navbar">
@@ -442,7 +467,7 @@ function AnalysisHeader({
         </span>
 
         <strong>
-          V8 TRANSFER REALISM
+          {modelVersion || "TRANSFIT V10 HISTORICAL ML HYBRID"}
         </strong>
 
       </div>
@@ -917,6 +942,101 @@ function PerformanceModule({
         </div>
       )}
 
+    </article>
+  );
+}
+
+
+function HistoricalMlModule({ data, scores }) {
+  const interval = data.prediction_interval || {};
+  const explanation = data.local_explanation || {};
+  const hasPrediction = scores.ml_success_forecast != null;
+
+  return (
+    <article className="analysis-module historical-ml-module">
+      <div className="historical-ml-heading">
+        <div>
+          <span>REAL MACHINE LEARNING LAYER</span>
+          <h3>Historical transfer-success forecast</h3>
+          <p>
+            A gradient-boosted model trained on 12,317 historical
+            transfers. The target combines post-transfer minutes,
+            starts, appearances, market-value development and retention
+            during the following 365 days.
+          </p>
+        </div>
+        <strong>{hasPrediction ? formatScore(scores.ml_success_forecast) : "N/A"}</strong>
+      </div>
+
+      {hasPrediction ? (
+        <>
+          <div className="historical-ml-evidence-grid">
+            <div>
+              <span>SUCCESS FORECAST</span>
+              <strong>{formatScore(scores.ml_success_forecast)}</strong>
+              <small>Modelled post-transfer outcome score</small>
+            </div>
+            <div>
+              <span>HISTORICAL PERCENTILE</span>
+              <strong>P{formatScore(scores.ml_success_percentile)}</strong>
+              <small>Compared with historical model predictions</small>
+            </div>
+            <div>
+              <span>10–90% INTERVAL</span>
+              <strong>
+                {interval.lower != null && interval.upper != null
+                  ? `${formatScore(interval.lower)}–${formatScore(interval.upper)}`
+                  : "N/A"}
+              </strong>
+              <small>Uncertainty range · {data.confidence || "unknown"} confidence</small>
+            </div>
+            <div>
+              <span>HYBRID CONTRIBUTION</span>
+              <strong>{scores.hybrid_weights?.historical_ml ?? 30}%</strong>
+              <small>Expert engine remains {scores.hybrid_weights?.expert_model ?? 70}%</small>
+            </div>
+          </div>
+
+          {(explanation.positive_drivers?.length > 0
+            || explanation.risk_drivers?.length > 0) && (
+            <div className="historical-ml-drivers">
+              <div>
+                <span>POSITIVE ML SIGNALS</span>
+                {(explanation.positive_drivers || []).map((driver) => (
+                  <p key={driver.feature}>
+                    <strong>{formatLabel(driver.feature)}</strong>
+                    <b>+{formatScore(driver.effect)}</b>
+                  </p>
+                ))}
+              </div>
+              <div>
+                <span>RISK SIGNALS</span>
+                {(explanation.risk_drivers || []).map((driver) => (
+                  <p key={driver.feature}>
+                    <strong>{formatLabel(driver.feature)}</strong>
+                    <b>{formatScore(driver.effect)}</b>
+                  </p>
+                ))}
+              </div>
+              <small>
+                One-feature counterfactual effects versus the training
+                median/mode. These are model explanations, not causal claims.
+              </small>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="historical-ml-fallback">
+          No reliable Transfermarkt identity match was found, so the
+          final result falls back to the expert engine without inventing
+          an ML prediction.
+        </div>
+      )}
+
+      <footer>
+        <span>{data.model_version || "Model unavailable"}</span>
+        <small>Forecast quality, not transfer probability</small>
+      </footer>
     </article>
   );
 }
