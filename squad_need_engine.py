@@ -786,6 +786,39 @@ def analyze_role(
                 / 100
             )
 
+        appearances = float(
+            player.get("appearances", 0) or 0
+        )
+        lineups = float(
+            player.get("lineups", 0) or 0
+        )
+        start_share = (
+            min(lineups / appearances, 1) * 100
+            if appearances > 0
+            else 0
+        )
+        minutes_evidence = min(
+            float(player["minutes"])
+            / max(matches_analyzed * 90, 1)
+            * 100,
+            100,
+        )
+        squad_status = (
+            start_share * 0.65
+            + minutes_evidence * 0.35
+        )
+        status_role_score = (
+            squad_status
+            * depth_compat
+            / 100
+        )
+        squad_role_quality = (
+            None
+            if role_quality is None
+            else role_quality * 0.65
+            + status_role_score * 0.35
+        )
+
         incumbents.append(
             {
                 "name": player[
@@ -809,6 +842,18 @@ def analyze_role(
                     effective_minutes
                 ),
 
+                "starts": round(lineups),
+
+                "start_share": round(
+                    start_share,
+                    1,
+                ),
+
+                "squad_status": round(
+                    squad_status,
+                    1,
+                ),
+
                 "performance_score": (
                     None
                     if pd.isna(
@@ -827,6 +872,15 @@ def analyze_role(
                     if role_quality is None
                     else round(
                         role_quality,
+                        1,
+                    )
+                ),
+
+                "squad_role_quality": (
+                    None
+                    if squad_role_quality is None
+                    else round(
+                        squad_role_quality,
                         1,
                     )
                 ),
@@ -860,51 +914,57 @@ def analyze_role(
     # INCUMBENT QUALITY
     # =====================================================
 
-    quality_values = [
-        x[
-            "role_quality"
-        ]
-        for x in incumbents
-        if x[
-            "role_quality"
-        ] is not None
-    ]
-
-    quality_values = sorted(
-        quality_values,
+    incumbents = sorted(
+        incumbents,
+        key=lambda player: (
+            player.get("squad_role_quality")
+            if player.get("squad_role_quality") is not None
+            else -1
+        ),
         reverse=True,
     )
 
-    # Around two squad options
-    # per expected starting slot
-    benchmark_count = max(
-        2,
-        math.ceil(
-            expected_slots
-            * 2
-        ),
+    starter_count = max(
+        1,
+        math.ceil(expected_slots),
     )
-
-    benchmark_values = (
-        quality_values[
-            :benchmark_count
+    starter_options = [
+        player
+        for player in incumbents[:starter_count]
+        if player.get("squad_role_quality") is not None
+    ]
+    depth_options = [
+        player
+        for player in incumbents[
+            starter_count:starter_count * 2
         ]
+        if player.get("squad_role_quality") is not None
+    ]
+
+    starter_quality = (
+        sum(
+            player["squad_role_quality"]
+            for player in starter_options
+        ) / len(starter_options)
+        if starter_options
+        else 50
+    )
+    depth_quality = (
+        sum(
+            player["squad_role_quality"]
+            for player in depth_options
+        ) / len(depth_options)
+        if depth_options
+        else 0
     )
 
-    if benchmark_values:
-
-        incumbent_quality = (
-            sum(
-                benchmark_values
-            )
-            / len(
-                benchmark_values
-            )
-        )
-
-    else:
-
-        incumbent_quality = 50
+    # The regular starter(s) define most of the role's quality.
+    # Depth remains relevant, but cannot make an elite starter look
+    # like a weak position simply because the reserve is developing.
+    incumbent_quality = (
+        starter_quality * 0.75
+        + depth_quality * 0.25
+    )
 
     # =====================================================
     # QUALITY NEED
@@ -917,6 +977,8 @@ def analyze_role(
         100
         - incumbent_quality
     )
+    starter_need = clamp(100 - starter_quality)
+    depth_quality_need = clamp(100 - depth_quality)
 
     # =====================================================
     # CANDIDATE ROLE QUALITY
@@ -1000,12 +1062,8 @@ def analyze_role(
     incumbents = sorted(
         incumbents,
         key=lambda x: (
-            x[
-                "role_quality"
-            ]
-            if x[
-                "role_quality"
-            ] is not None
+            x.get("squad_role_quality")
+            if x.get("squad_role_quality") is not None
             else -1
         ),
         reverse=True,
@@ -1055,6 +1113,32 @@ def analyze_role(
             incumbent_quality,
             1,
         ),
+
+        "starter_count": starter_count,
+
+        "starter_quality": round(
+            starter_quality,
+            1,
+        ),
+
+        "depth_quality": round(
+            depth_quality,
+            1,
+        ),
+
+        "starter_need": round(
+            starter_need,
+            1,
+        ),
+
+        "depth_quality_need": round(
+            depth_quality_need,
+            1,
+        ),
+
+        "starters": starter_options,
+
+        "depth_options": depth_options,
 
         "candidate_role_quality": round(
             candidate_role_quality,

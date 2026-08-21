@@ -37,22 +37,24 @@ from realistic_data_engine import (
 )
 from transfer_realism_engine import assess_transfer_feasibility
 from transfer_value_engine import resolve_transfer_value
+from league_strength_engine import league_strength_score
 
 
 # =========================================================
 # TRANSFER FIT V6 WEIGHTS
 # =========================================================
 
-TACTICAL_WEIGHT = 0.225
-POSITION_WEIGHT = 0.135
-PERFORMANCE_WEIGHT = 0.27
-PROVEN_WEIGHT = 0.135
-AVAILABILITY_WEIGHT = 0.045
-POTENTIAL_WEIGHT = 0.045
-SQUAD_NEED_WEIGHT = 0.045
-DEAL_FEASIBILITY_WEIGHT = 0.10
+TACTICAL_WEIGHT = 0.21
+POSITION_WEIGHT = 0.13
+PERFORMANCE_WEIGHT = 0.25
+PROVEN_WEIGHT = 0.125
+AVAILABILITY_WEIGHT = 0.04
+POTENTIAL_WEIGHT = 0.04
+SQUAD_NEED_WEIGHT = 0.04
+DEAL_FEASIBILITY_WEIGHT = 0.09
+LEAGUE_STRENGTH_WEIGHT = 0.075
 
-SCORE_VERSION = "TransFit V8 Transfer Realism"
+SCORE_VERSION = "TransFit V9 Role & League Context"
 SCORE_WEIGHTS = {
     "tactical": TACTICAL_WEIGHT * 100,
     "position": POSITION_WEIGHT * 100,
@@ -62,6 +64,7 @@ SCORE_WEIGHTS = {
     "potential": POTENTIAL_WEIGHT * 100,
     "squad_need": SQUAD_NEED_WEIGHT * 100,
     "deal_feasibility": DEAL_FEASIBILITY_WEIGHT * 100,
+    "league_strength": LEAGUE_STRENGTH_WEIGHT * 100,
 }
 
 
@@ -184,6 +187,9 @@ def calculate_transfer_fit_v5(
     availability_score = realism[
         "availability_score"
     ]
+    league_score = league_strength_score(
+        performance_player.get("league")
+    )
 
     # -----------------------------------------------------
     # 4. Potential
@@ -284,6 +290,11 @@ def calculate_transfer_fit_v5(
         * DEAL_FEASIBILITY_WEIGHT
     )
 
+    league_strength_contribution = (
+        league_score
+        * LEAGUE_STRENGTH_WEIGHT
+    )
+
     sporting_contribution = (
         tactical_contribution
         + position_contribution
@@ -292,6 +303,7 @@ def calculate_transfer_fit_v5(
         + availability_contribution
         + potential_contribution
         + squad_need_contribution
+        + league_strength_contribution
     )
     sporting_fit_score = (
         sporting_contribution
@@ -336,6 +348,11 @@ def calculate_transfer_fit_v5(
         ),
 
         "deal_feasibility_score": transfer_feasibility["score"],
+
+        "league_strength_score": round(
+            league_score,
+            1,
+        ),
 
         "transfer_feasibility": transfer_feasibility,
 
@@ -424,6 +441,11 @@ def calculate_transfer_fit_v5(
 
         "deal_feasibility_contribution": round(
             deal_feasibility_contribution,
+            2,
+        ),
+
+        "league_strength_contribution": round(
+            league_strength_contribution,
             2,
         ),
 

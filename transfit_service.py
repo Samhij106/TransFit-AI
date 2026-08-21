@@ -697,6 +697,10 @@ def analyze_transfer(
             "deal_feasibility": result[
                 "deal_feasibility_score"
             ],
+
+            "league_strength": result[
+                "league_strength_score"
+            ],
         },
 
         "tactical": {
@@ -1092,6 +1096,7 @@ def compare_players(
         "potential",
         "squad_need",
         "deal_feasibility",
+        "league_strength",
     ]
     dimension_leaders = {}
 
@@ -1122,6 +1127,7 @@ def compare_players(
             "potential": "potential",
             "squad_need": "squad_need",
             "deal_feasibility": "deal_feasibility",
+            "league_strength": "league_strength",
         }
 
         for metric, weight_key in weight_keys.items():

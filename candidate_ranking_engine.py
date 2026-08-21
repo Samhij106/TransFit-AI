@@ -38,6 +38,7 @@ from transfer_fit_v5 import (
     POTENTIAL_WEIGHT,
     SQUAD_NEED_WEIGHT,
     DEAL_FEASIBILITY_WEIGHT,
+    LEAGUE_STRENGTH_WEIGHT,
     SCORE_VERSION,
     SCORE_WEIGHTS,
     transfer_fit_label,
@@ -55,6 +56,7 @@ from transfer_value_engine import (
     assess_budget,
     resolve_transfer_value,
 )
+from league_strength_engine import league_strength_score
 from transfer_realism_engine import assess_transfer_feasibility
 
 
@@ -208,6 +210,9 @@ def calculate_candidate_score(
     availability_score = realism[
         "availability_score"
     ]
+    league_score = league_strength_score(
+        performance_player.get("league")
+    )
 
     # -----------------------------------------------------
     # Potential
@@ -310,6 +315,9 @@ def calculate_candidate_score(
 
         + transfer_feasibility["score"]
         * DEAL_FEASIBILITY_WEIGHT
+
+        + league_score
+        * LEAGUE_STRENGTH_WEIGHT
     )
 
     # -----------------------------------------------------
@@ -510,6 +518,10 @@ def calculate_candidate_score(
                 * DEAL_FEASIBILITY_WEIGHT,
                 2,
             ),
+            "league_strength": round(
+                league_score * LEAGUE_STRENGTH_WEIGHT,
+                2,
+            ),
         },
 
         "availability": round(
@@ -553,6 +565,11 @@ def calculate_candidate_score(
         "deal_feasibility_score": transfer_feasibility[
             "score"
         ],
+
+        "league_strength": round(
+            league_score,
+            1,
+        ),
 
         "transfer_realistic": transfer_feasibility[
             "eligible"
@@ -995,6 +1012,7 @@ def rank_candidates(
             "squad_need",
             "deal_feasibility",
             "deal_feasibility_score",
+            "league_strength",
             "transfer_realistic",
             "final_score",
             "classification",
