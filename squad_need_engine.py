@@ -52,6 +52,18 @@ def clamp(value, low=0, high=100):
     )
 
 
+def finite_number(value, default=0.0):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return float(default)
+
+    if not math.isfinite(number):
+        return float(default)
+
+    return number
+
+
 # =========================================================
 # LOAD DATA
 # =========================================================
@@ -758,12 +770,12 @@ def analyze_role(
         if depth_compat <= 0:
             continue
 
+        minutes = finite_number(player.get("minutes"))
+        appearances = finite_number(player.get("appearances"))
+        lineups = finite_number(player.get("lineups"))
+
         effective_minutes = (
-            float(
-                player[
-                    "minutes"
-                ]
-            )
+            minutes
             * depth_compat
             / 100
         )
@@ -790,19 +802,13 @@ def analyze_role(
                 / 100
             )
 
-        appearances = float(
-            player.get("appearances", 0) or 0
-        )
-        lineups = float(
-            player.get("lineups", 0) or 0
-        )
         start_share = (
             min(lineups / appearances, 1) * 100
             if appearances > 0
             else 0
         )
         minutes_evidence = min(
-            float(player["minutes"])
+            minutes
             / max(matches_analyzed * 90, 1)
             * 100,
             100,
@@ -830,11 +836,7 @@ def analyze_role(
                 ],
 
                 "minutes": round(
-                    float(
-                        player[
-                            "minutes"
-                        ]
-                    )
+                    minutes
                 ),
 
                 "role_compatibility": round(

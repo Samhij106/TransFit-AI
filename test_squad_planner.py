@@ -11,7 +11,10 @@ from squad_planner_service import (
     player_starting_selection_score,
 )
 from league_strength_engine import league_strength_score
-from squad_need_engine import squad_role_compatibility
+from squad_need_engine import (
+    finite_number as finite_squad_number,
+    squad_role_compatibility,
+)
 from candidate_ranking_engine import (
     finite_number,
     invalid_integer_conversion,
@@ -89,6 +92,8 @@ class SquadPlannerTests(unittest.TestCase):
                 ValueError("cannot convert float NaN to integer")
             )
         )
+        self.assertEqual(finite_squad_number(float("nan")), 0)
+        self.assertEqual(finite_squad_number(None), 0)
 
     def test_safe_plan_never_exceeds_selected_budget(self):
         priority_roles = [
