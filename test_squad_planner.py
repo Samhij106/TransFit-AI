@@ -12,6 +12,7 @@ from squad_planner_service import (
 )
 from league_strength_engine import league_strength_score
 from squad_need_engine import squad_role_compatibility
+from candidate_ranking_engine import finite_number
 
 
 def candidate(
@@ -74,6 +75,12 @@ class SquadPlannerTests(unittest.TestCase):
     def test_budget_must_be_positive(self):
         with self.assertRaises(ValueError):
             build_squad_plan("Barcelona", 0)
+
+    def test_invalid_candidate_numbers_are_rejected(self):
+        self.assertIsNone(finite_number(float("nan")))
+        self.assertIsNone(finite_number(float("inf")))
+        self.assertIsNone(finite_number("not-a-number"))
+        self.assertEqual(finite_number("450"), 450)
 
     def test_safe_plan_never_exceeds_selected_budget(self):
         priority_roles = [

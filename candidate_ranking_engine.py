@@ -1,4 +1,5 @@
 import argparse
+import math
 
 import pandas as pd
 
@@ -102,6 +103,16 @@ NATURAL_ROLE_POSITIONS = {
     "RW": {"RW", "RM"},
     "ST": {"ST"},
 }
+
+
+def finite_number(value):
+    """Return a finite float, or None for missing/invalid data."""
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+
+    return number if math.isfinite(number) else None
 
 
 # =========================================================
@@ -732,11 +743,14 @@ def rank_candidates(
     for _, performance_player in (
         performance_players.iterrows()
     ):
-        player_id = int(
-            performance_player[
-                "player_id"
-            ]
+        player_id_value = finite_number(
+            performance_player["player_id"]
         )
+
+        if player_id_value is None:
+            continue
+
+        player_id = int(player_id_value)
 
         # ---------------------------------------------
         # Skip current/season target-team players
@@ -764,13 +778,11 @@ def rank_candidates(
         # Minutes filter
         # ---------------------------------------------
 
-        minutes = float(
-            performance_player[
-                "minutes"
-            ]
+        minutes = finite_number(
+            performance_player["minutes"]
         )
 
-        if minutes < min_minutes:
+        if minutes is None or minutes < min_minutes:
             continue
 
         # ---------------------------------------------
