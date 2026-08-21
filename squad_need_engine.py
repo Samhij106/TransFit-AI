@@ -815,8 +815,8 @@ def analyze_role(
         squad_role_quality = (
             None
             if role_quality is None
-            else role_quality * 0.65
-            + status_role_score * 0.35
+            else role_quality * 0.55
+            + status_role_score * 0.45
         )
 
         incumbents.append(

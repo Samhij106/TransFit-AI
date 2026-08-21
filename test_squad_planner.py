@@ -4,10 +4,13 @@ from position_fit_engine import get_team_formation_options
 from squad_planner_service import (
     STRATEGIES,
     build_squad_plan,
+    candidate_plan_fit,
     candidate_role_strength,
     lineup_after_signings,
     optimize_strategy,
+    player_starting_selection_score,
 )
+from league_strength_engine import league_strength_score
 
 
 def candidate(
@@ -38,6 +41,12 @@ def candidate(
         "availability": 90,
         "potential": 75,
         "squad_need": 70,
+        "league_strength": 76,
+        "all_competitions": {
+            "appearances": 20,
+            "starts": 8,
+            "minutes": 900,
+        },
     }
 
 
@@ -149,6 +158,115 @@ class SquadPlannerTests(unittest.TestCase):
         }
 
         self.assertEqual(candidate_role_strength(signing), 100)
+
+    def test_league_strength_follows_requested_order(self):
+        leagues = [
+            "Premier League",
+            "La Liga",
+            "Serie A",
+            "Bundesliga",
+            "Ligue 1",
+        ]
+        scores = [league_strength_score(league) for league in leagues]
+
+        self.assertEqual(scores, sorted(scores, reverse=True))
+        self.assertEqual(len(set(scores)), 5)
+
+    def test_manager_trust_keeps_regular_starter_in_lineup(self):
+        cubarsi = {
+            "appearances": 31,
+            "lineups": 31,
+            "minutes": 2708,
+        }
+        rotation_defender = {
+            "appearances": 32,
+            "lineups": 26,
+            "minutes": 2140,
+        }
+
+        cubarsi_score = player_starting_selection_score(
+            cubarsi, 100, 66.6
+        )
+        rotation_score = player_starting_selection_score(
+            rotation_defender, 100, 74.8
+        )
+
+        self.assertGreater(cubarsi_score, rotation_score)
+
+    def test_small_upgrade_margin_does_not_replace_starter(self):
+        cherki = candidate(
+            50,
+            "R. Cherki",
+            90,
+            88.6,
+            performance=88.5,
+            tactical=83.4,
+            proven=90,
+        )
+        cherki["league_strength"] = 100
+        assessment = {
+            "recruitment_intent": "starter_upgrade",
+            "starter_quality": 75.7,
+            "upgrade_baseline": 88.5,
+            "target_incumbent": "Fermín",
+        }
+
+        fit = candidate_plan_fit(cherki, assessment)
+
+        self.assertFalse(fit["eligible"])
+
+    def test_depth_signing_does_not_remove_elite_starter(self):
+        starting_xi = [{
+            "slot_index": 1,
+            "role": "RW",
+            "player_id": 10,
+            "name": "Lamine Yamal",
+            "performance_score": 98,
+            "is_signing": False,
+        }]
+        signing = {
+            "role": "RW",
+            "player_id": 12,
+            "name": "Rotation Winger",
+            "recruitment_intent": "depth_upgrade",
+        }
+
+        lineup = lineup_after_signings(starting_xi, [signing])
+
+        self.assertEqual(lineup[0]["name"], "Lamine Yamal")
+        self.assertFalse(lineup[0]["is_signing"])
+
+    def test_transfer_count_is_a_cap_not_a_quota(self):
+        roles = [
+            {
+                "role": "ST",
+                "weakness_score": 70,
+                "role_strength": 55,
+            },
+            {
+                "role": "CAM",
+                "weakness_score": 50,
+                "role_strength": 90,
+                "starter_quality": 90,
+                "upgrade_baseline": 95,
+                "recruitment_intent": "starter_upgrade",
+            },
+        ]
+        candidates_by_role = {
+            "ST": (candidate(60, "Clear Upgrade", 20, 85),),
+            "CAM": (candidate(61, "No Upgrade", 20, 85),),
+        }
+
+        plan = optimize_strategy(
+            STRATEGIES[1],
+            roles,
+            candidates_by_role,
+            selected_budget=80,
+            max_signings=2,
+        )
+
+        self.assertIsNotNone(plan)
+        self.assertEqual(plan["signing_count"], 1)
 
     def test_optimizer_supports_more_than_three_transfers(self):
         roles = []

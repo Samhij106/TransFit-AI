@@ -169,8 +169,8 @@ function SquadUpgradeLab({
               <div>
                 <span>NUMBER OF TRANSFERS</span>
                 <small>
-                  Choose 1–8, or leave on Auto and the model will
-                  choose the strongest realistic upgrade plan.
+                  Set a maximum of 1–8, or leave on Auto. The model
+                  will never force a transfer without a clear need.
                 </small>
               </div>
 
@@ -393,12 +393,12 @@ function SquadPlanResult({
                 </div>
                 <div className="squad-priority-bars">
                   <SquadMiniBar
-                    label="Depth need"
-                    value={role.depth_need}
+                    label="Starter need"
+                    value={role.starter_need ?? role.quality_need}
                   />
                   <SquadMiniBar
-                    label="Quality need"
-                    value={role.quality_need}
+                    label="Rotation need"
+                    value={role.depth_quality_need ?? role.depth_need}
                   />
                 </div>
                 <small>
@@ -434,7 +434,11 @@ function SquadPlanResult({
                   </span>
                   <PlayerPortrait player={signing} />
                   <div className="squad-signing-role">
-                    <span>{signing.role} TARGET</span>
+                    <span>
+                      {signing.role} · {signing.recruitment_intent === "depth_upgrade"
+                        ? "ROTATION UPGRADE"
+                        : "STARTER UPGRADE"}
+                    </span>
                     <strong>{signing.name}</strong>
                     <small>
                       {signing.current_team} · Age {formatAge(signing.age)}
@@ -450,8 +454,18 @@ function SquadPlanResult({
                       <strong>€{formatMoney(signing.market_value_m_eur)}M</strong>
                     </div>
                     <div>
-                      <span>REPLACES</span>
-                      <strong>{afterPlayer?.replaces || "Squad option"}</strong>
+                      <span>
+                        {signing.recruitment_intent === "depth_upgrade"
+                          ? "SQUAD ROLE"
+                          : "REPLACES"}
+                      </span>
+                      <strong>
+                        {signing.recruitment_intent === "depth_upgrade"
+                          ? `Cover behind ${signing.protected_starter || "the starter"}`
+                          : afterPlayer?.replaces
+                            || signing.target_incumbent
+                            || "Current starter"}
+                      </strong>
                     </div>
                   </div>
                 </article>
@@ -863,7 +877,7 @@ function formatPlanningMode(result) {
   const requested = result.transfer_plan?.requested_signings;
 
   if (requested) {
-    return `${requested} requested transfers · Three strategies`;
+    return `Up to ${requested} transfers · Three strategies`;
   }
 
   return "Auto-selected transfer count · Three strategies";
@@ -874,7 +888,7 @@ function formatSigningCount(result, plan) {
   const requested = result.transfer_plan?.requested_signings;
 
   if (requested) {
-    return `${plan.signing_count}/${requested}`;
+    return `${plan.signing_count}/${requested} MAX`;
   }
 
   return `${plan.signing_count} AUTO`;

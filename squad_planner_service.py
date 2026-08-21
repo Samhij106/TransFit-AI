@@ -24,6 +24,11 @@ from squad_need_engine import (
 )
 from transfer_fit_v5 import SCORE_VERSION, SCORE_WEIGHTS
 from transfer_value_engine import BUDGET_TOLERANCE
+from transfer_fit_engine import (
+    find_team as find_tactical_team,
+    load_data as load_tactical_data,
+)
+from league_strength_engine import league_strength_score
 
 
 REFERENCE_RECRUIT_QUALITY = 80
@@ -34,6 +39,14 @@ ROLE_CANDIDATE_LIMIT = 60
 OPTIMIZATION_POOL_SIZE = 10
 OPTIMIZATION_BEAM_WIDTH = 2500
 AUTO_WEAKNESS_THRESHOLD = 45
+STARTER_QUALITY_WEIGHT = 0.78
+DEPTH_QUALITY_WEIGHT = 0.22
+STARTER_UPGRADE_THRESHOLD = 20
+DEPTH_UPGRADE_THRESHOLD = 32
+STARTER_UPGRADE_MARGIN = 5
+DEPTH_UPGRADE_MARGIN = 5
+DEPTH_STARTER_GAP = 6
+DEPTH_MAX_MARKET_VALUE = 60
 
 STRATEGIES = (
     {
@@ -139,6 +152,28 @@ def player_record(player, role, slot_index=None):
     }
 
 
+def player_starting_selection_score(player, role_fit, performance):
+    """Blend playing level with evidence of the manager's actual XI."""
+    appearances = float(player.get("appearances", 0) or 0)
+    starts = float(player.get("lineups", 0) or 0)
+    minutes = float(player.get("minutes", 0) or 0)
+    start_share = (
+        min(starts / appearances, 1) * 100
+        if appearances > 0
+        else 0
+    )
+    minutes_evidence = min(minutes / 2700, 1) * 100
+    manager_trust = (
+        start_share * 0.65
+        + minutes_evidence * 0.35
+    )
+    role_adjusted_quality = (
+        float(performance) * 0.62
+        + manager_trust * 0.38
+    )
+    return role_adjusted_quality * float(role_fit) / 100
+
+
 def starting_xi_for_formation(squad, formation):
     roles = FORMATION_ROLES.get(formation)
 
@@ -204,11 +239,10 @@ def starting_xi_for_formation(squad, formation):
                     else float(performance)
                 )
 
-            minutes = float(player.get("minutes", 0) or 0)
-            availability_bonus = min(minutes / 2700, 1) * 8
-            selection_score = (
-                performance * fit / 100
-                + availability_bonus
+            selection_score = player_starting_selection_score(
+                player,
+                fit,
+                performance,
             )
             options.append((selection_score, player))
 
@@ -236,6 +270,8 @@ def role_assessment(
     role,
     expected_slots,
     matches_analyzed,
+    role_context_need=0,
+    target_league_strength=90,
 ):
     reference_candidate = pd.Series({
         "primary_position": role,
@@ -254,31 +290,114 @@ def role_assessment(
     if result is None:
         return None
 
+    starter_quality = float(result["starter_quality"])
+    depth_quality = float(result["depth_quality"])
+    starter_need = float(result["starter_need"])
+    depth_quality_need = float(result["depth_quality_need"])
+    coverage_need = float(result["depth_need"])
     role_strength = (
-        float(result["incumbent_quality"]) * 0.72
-        + (100 - float(result["depth_need"])) * 0.28
+        starter_quality * STARTER_QUALITY_WEIGHT
+        + depth_quality * DEPTH_QUALITY_WEIGHT
+    )
+    weakness_score = clamp(
+        starter_need * 0.72
+        + depth_quality_need * 0.18
+        + coverage_need * 0.10
+        + float(role_context_need) * 0.65
     )
 
-    if result["depth_need"] >= 55:
-        priority_reason = "Critical depth shortage"
-    elif result["quality_need"] >= 42:
-        priority_reason = "Starting quality can improve"
-    elif result["upgrade_opportunity"] >= 65:
-        priority_reason = "Strong upgrade opportunity"
+    if (
+        starter_need >= STARTER_UPGRADE_THRESHOLD
+        or role_context_need >= 10
+    ):
+        recruitment_intent = "starter_upgrade"
+    elif (
+        depth_quality_need >= DEPTH_UPGRADE_THRESHOLD
+        or coverage_need >= 35
+    ):
+        recruitment_intent = "depth_upgrade"
     else:
-        priority_reason = "Tactical depth opportunity"
+        recruitment_intent = "no_action"
+
+    if role_context_need >= 10:
+        priority_reason = "Chance conversion can improve"
+    elif recruitment_intent == "starter_upgrade":
+        priority_reason = "Starting quality can improve"
+    elif coverage_need >= 55:
+        priority_reason = "Critical depth shortage"
+    elif recruitment_intent == "depth_upgrade":
+        priority_reason = "Rotation quality can improve"
+    else:
+        priority_reason = "No material upgrade need"
+
+    starters = result["starters"]
+    depth_options = result["depth_options"]
+    upgrade_baseline = min(
+        (
+            float(player["role_quality"]) * 0.70
+            + float(target_league_strength) * 0.10
+            + 20
+            for player in starters
+            if player.get("role_quality") is not None
+        ),
+        default=starter_quality,
+    )
 
     return {
         "role": role,
         "expected_slots": float(result["expected_slots"]),
-        "weakness_score": float(result["squad_need"]),
-        "depth_need": float(result["depth_need"]),
+        "weakness_score": round(weakness_score, 1),
+        "depth_need": coverage_need,
         "quality_need": float(result["quality_need"]),
         "incumbent_quality": float(result["incumbent_quality"]),
         "role_strength": round(clamp(role_strength), 1),
+        "starter_quality": round(starter_quality, 1),
+        "depth_quality": round(depth_quality, 1),
+        "starter_need": round(starter_need, 1),
+        "depth_quality_need": round(depth_quality_need, 1),
+        "role_context_need": round(float(role_context_need), 1),
+        "recruitment_intent": recruitment_intent,
+        "upgrade_baseline": round(upgrade_baseline, 1),
+        "protected_starter": (
+            " / ".join(player["name"] for player in starters)
+            if starters
+            else None
+        ),
+        "target_incumbent": (
+            min(
+                starters,
+                key=lambda player: player.get(
+                    "role_quality", 100
+                ),
+            )["name"]
+            if starters and recruitment_intent == "starter_upgrade"
+            else (
+                depth_options[-1]["name"]
+                if depth_options
+                else None
+            )
+        ),
         "priority_reason": priority_reason,
-        "incumbents": result["incumbents"][:3],
+        "starters": starters,
+        "depth_options": depth_options,
+        "incumbents": result["incumbents"][:4],
     }
+
+
+def contextual_role_need(tactical_team, role):
+    """Use team style to expose a real finishing gap at striker."""
+    if role != "ST" or tactical_team is None:
+        return 0
+
+    chance_creation = float(tactical_team.get("chance_creation", 0) or 0)
+    attacking_pressure = float(
+        tactical_team.get("attacking_pressure", 0) or 0
+    )
+    shooting_efficiency = float(
+        tactical_team.get("shooting_efficiency", 0) or 0
+    )
+    creation_level = (chance_creation + attacking_pressure) / 2
+    return round(clamp(creation_level - shooting_efficiency), 1)
 
 
 @lru_cache(maxsize=384)
@@ -299,7 +418,14 @@ def cached_role_candidates(team_name, role, formation):
     return tuple(rankings.to_dict(orient="records"))
 
 
-def candidate_summary(candidate, role):
+def candidate_summary(candidate, role, assessment=None, plan_fit=None):
+    assessment = assessment or {}
+    plan_fit = plan_fit or {}
+    league_score = candidate.get("league_strength")
+
+    if league_score is None or pd.isna(league_score):
+        league_score = league_strength_score(candidate.get("league"))
+
     return {
         "role": role,
         "player_id": int(candidate["player_id"]),
@@ -327,6 +453,7 @@ def candidate_summary(candidate, role):
             candidate["performance"]
         ),
         "proven": optional_number(candidate["proven"]),
+        "league_strength": optional_number(league_score),
         "availability": optional_number(
             candidate["availability"]
         ),
@@ -335,6 +462,21 @@ def candidate_summary(candidate, role):
         "deal_feasibility": candidate.get("deal_feasibility"),
         "deal_feasibility_score": optional_number(
             candidate.get("deal_feasibility_score")
+        ),
+        "all_competitions": candidate.get("all_competitions"),
+        "recruitment_intent": assessment.get(
+            "recruitment_intent", "starter_upgrade"
+        ),
+        "target_incumbent": plan_fit.get(
+            "target_incumbent",
+            assessment.get("target_incumbent"),
+        ),
+        "protected_starter": assessment.get("protected_starter"),
+        "projected_role_strength": optional_number(
+            plan_fit.get("projected_strength")
+        ),
+        "upgrade_margin": optional_number(
+            plan_fit.get("improvement")
         ),
     }
 
@@ -363,6 +505,78 @@ def candidate_utility(
         metrics[key] * weight
         for key, weight in strategy["weights"].items()
     )
+
+
+def candidate_plan_fit(candidate, assessment):
+    intent = assessment.get(
+        "recruitment_intent", "starter_upgrade"
+    )
+    projected_strength = candidate_role_strength(candidate)
+    starter_quality = float(
+        assessment.get(
+            "starter_quality",
+            assessment.get("role_strength", 50),
+        )
+    )
+    depth_quality = float(
+        assessment.get(
+            "depth_quality",
+            max(starter_quality - 20, 0),
+        )
+    )
+
+    if intent == "no_action":
+        return {
+            "eligible": False,
+            "reason": "No material role need",
+        }
+
+    if intent == "starter_upgrade":
+        baseline = float(
+            assessment.get("upgrade_baseline", starter_quality)
+        )
+        improvement = projected_strength - baseline
+        eligible = improvement >= STARTER_UPGRADE_MARGIN
+        return {
+            "eligible": eligible,
+            "reason": (
+                "Clear starter upgrade"
+                if eligible
+                else "Not a clear upgrade on the current starter"
+            ),
+            "projected_strength": projected_strength,
+            "improvement": max(0.0, improvement),
+            "target_incumbent": assessment.get("target_incumbent"),
+        }
+
+    value = float(candidate.get("estimated_value_m_eur", 0) or 0)
+    all_competitions = candidate.get("all_competitions") or {}
+    appearances = float(all_competitions.get("appearances", 0) or 0)
+    starts = float(all_competitions.get("starts", 0) or 0)
+    start_share = starts / appearances if appearances > 0 else 0
+    established_starter = starts >= 18 and start_share >= 0.65
+    improvement = projected_strength - depth_quality
+    below_starter_ceiling = (
+        projected_strength <= starter_quality - DEPTH_STARTER_GAP
+    )
+    affordable_rotation_profile = value <= DEPTH_MAX_MARKET_VALUE
+    eligible = (
+        improvement >= DEPTH_UPGRADE_MARGIN
+        and below_starter_ceiling
+        and affordable_rotation_profile
+        and not established_starter
+    )
+    return {
+        "eligible": eligible,
+        "reason": (
+            "Realistic rotation upgrade"
+            if eligible
+            else "Player profile is too senior for a reserve role"
+        ),
+        "projected_strength": projected_strength,
+        "improvement": max(0.0, improvement),
+        "target_incumbent": assessment.get("target_incumbent"),
+    }
 
 
 def optimize_strategy(
@@ -401,13 +615,18 @@ def optimize_strategy(
             if value <= 0 or value > budget_cap:
                 continue
 
+            plan_fit = candidate_plan_fit(candidate, role)
+
+            if not plan_fit["eligible"]:
+                continue
+
             utility = candidate_utility(
                 candidate,
                 role["weakness_score"],
                 budget_cap,
                 strategy,
             )
-            ranked_options.append((utility, candidate))
+            ranked_options.append((utility, candidate, plan_fit))
 
         ranked_options.sort(
             key=lambda option: option[0],
@@ -440,7 +659,7 @@ def optimize_strategy(
             ):
                 continue
 
-            for utility, candidate in ranked_options:
+            for utility, candidate, plan_fit in ranked_options:
                 player_id = int(candidate["player_id"])
                 value = float(candidate["estimated_value_m_eur"])
 
@@ -450,12 +669,7 @@ def optimize_strategy(
                 if state["cost"] + value > budget_cap + 1e-9:
                     continue
 
-                projected_strength = candidate_role_strength(candidate)
-                improvement = max(
-                    0.0,
-                    projected_strength
-                    - float(assessment.get("role_strength", 50)),
-                )
+                improvement = float(plan_fit["improvement"])
                 depth_impact = float(
                     assessment.get("depth_need", 0)
                 ) * 0.08
@@ -478,6 +692,7 @@ def optimize_strategy(
                         utility,
                         candidate,
                         impact,
+                        plan_fit,
                     )],
                     "player_ids": state["player_ids"] | {player_id},
                     "cost": state["cost"] + value,
@@ -498,26 +713,6 @@ def optimize_strategy(
         state for state in states if state["selected"]
     ]
 
-    if requested_count is not None and viable_states:
-        exact_states = [
-            state
-            for state in viable_states
-            if len(state["selected"]) == requested_count
-        ]
-
-        if exact_states:
-            viable_states = exact_states
-        else:
-            achieved_count = max(
-                len(state["selected"])
-                for state in viable_states
-            )
-            viable_states = [
-                state
-                for state in viable_states
-                if len(state["selected"]) == achieved_count
-            ]
-
     best_state = max(
         viable_states,
         key=lambda state: state["objective"],
@@ -532,8 +727,13 @@ def optimize_strategy(
         return None
 
     signings = [
-        candidate_summary(candidate, role)
-        for role, _, candidate, _ in best_combo
+        candidate_summary(
+            candidate,
+            role,
+            assessment_by_role[role],
+            plan_fit,
+        )
+        for role, _, candidate, _, plan_fit in best_combo
     ]
     total_cost = round(
         sum(signing["market_value_m_eur"] for signing in signings),
@@ -555,7 +755,7 @@ def optimize_strategy(
         for signing in signings
     ) / len(signings)
     total_impact = sum(
-        impact for _, _, _, impact in best_combo
+        impact for _, _, _, impact, _ in best_combo
     )
     coverage_target = (
         requested_count
@@ -592,7 +792,7 @@ def optimize_strategy(
         ),
         "window_score": round(clamp(window_score), 1),
         "planning_mode": (
-            "automatic" if max_signings is None else "fixed"
+            "automatic" if max_signings is None else "capped"
         ),
         "requested_signings": max_signings,
         "upgrade_impact_score": round(impact_score, 1),
@@ -600,10 +800,16 @@ def optimize_strategy(
 
 
 def candidate_role_strength(signing):
+    league_score = signing.get("league_strength")
+
+    if league_score is None or pd.isna(league_score):
+        league_score = league_strength_score(signing.get("league"))
+
     return clamp(
-        signing["performance"] * 0.55
-        + signing["tactical"] * 0.25
+        signing["performance"] * 0.47
+        + signing["tactical"] * 0.23
         + signing["proven"] * 0.20
+        + float(league_score) * 0.10
     )
 
 
@@ -631,6 +837,9 @@ def lineup_after_signings(starting_xi, signings):
     lineup = [dict(player) for player in starting_xi]
 
     for signing in signings:
+        if signing.get("recruitment_intent") == "depth_upgrade":
+            continue
+
         matching_slots = [
             (index, player)
             for index, player in enumerate(lineup)
@@ -702,6 +911,11 @@ def build_squad_plan(
     )
     formation_options = formation_team["formation_options"]
     selected_formation = formation_team["selected_formation"]
+    _, tactical_teams = load_tactical_data()
+    tactical_team = find_tactical_team(
+        tactical_teams,
+        formation_team["team"],
+    )
     raw, _, _ = load_squad_data()
     performance_players = prepare_performance_data()
     squad = build_team_squad(
@@ -739,6 +953,8 @@ def build_squad_plan(
             role,
             expected_slots,
             matches_analyzed,
+            contextual_role_need(tactical_team, role),
+            league_strength_score(formation_team["league"]),
         )
 
         if assessment is not None:
@@ -748,24 +964,34 @@ def build_squad_plan(
         key=lambda assessment: assessment["weakness_score"],
         reverse=True,
     )
+    actionable_assessments = [
+        assessment
+        for assessment in role_assessments
+        if assessment["recruitment_intent"] != "no_action"
+    ]
+
     if max_signings is None:
         priority_roles = [
             assessment
-            for assessment in role_assessments
+            for assessment in actionable_assessments
             if (
                 assessment["weakness_score"] >= AUTO_WEAKNESS_THRESHOLD
                 or assessment["depth_need"] >= 45
-                or assessment["quality_need"] >= 35
+                or assessment["starter_need"] >= STARTER_UPGRADE_THRESHOLD
+                or assessment["depth_quality_need"] >= DEPTH_UPGRADE_THRESHOLD
+                or assessment["role_context_need"] >= 10
             )
         ][:AUTO_MAX_SIGNINGS]
 
         if not priority_roles:
-            priority_roles = role_assessments[:1]
+            priority_roles = actionable_assessments[:1]
     else:
-        priority_roles = role_assessments[:max_signings]
+        priority_roles = actionable_assessments[:max_signings]
 
     if not priority_roles:
-        raise ValueError("No eligible outfield roles found.")
+        raise ValueError(
+            "No material squad upgrade need was found for this formation."
+        )
 
     with ThreadPoolExecutor(
         max_workers=len(priority_roles)
@@ -806,6 +1032,10 @@ def build_squad_plan(
         assessment["role"]: assessment["role_strength"]
         for assessment in role_assessments
     }
+    assessment_by_role = {
+        assessment["role"]: assessment
+        for assessment in role_assessments
+    }
     team_fit_before = weighted_team_fit(
         role_assessments,
         strengths_before,
@@ -817,10 +1047,24 @@ def build_squad_plan(
 
         for signing in plan["signings"]:
             role = signing["role"]
-            strengths_after[role] = max(
-                strengths_after.get(role, 0),
-                candidate_role_strength(signing),
-            )
+            projected_strength = candidate_role_strength(signing)
+            assessment = assessment_by_role[role]
+
+            if signing["recruitment_intent"] == "depth_upgrade":
+                strengths_after[role] = (
+                    assessment["starter_quality"]
+                    * STARTER_QUALITY_WEIGHT
+                    + max(
+                        assessment["depth_quality"],
+                        projected_strength,
+                    )
+                    * DEPTH_QUALITY_WEIGHT
+                )
+            else:
+                strengths_after[role] = max(
+                    strengths_after.get(role, 0),
+                    projected_strength,
+                )
 
         team_fit_after = weighted_team_fit(
             role_assessments,
@@ -871,7 +1115,7 @@ def build_squad_plan(
         },
         "transfer_plan": {
             "mode": (
-                "automatic" if max_signings is None else "fixed"
+                "automatic" if max_signings is None else "capped"
             ),
             "requested_signings": max_signings,
             "maximum_supported_signings": MAX_SIGNINGS,
@@ -884,7 +1128,8 @@ def build_squad_plan(
         "recommended_strategy": recommended_plan["id"],
         "plans": plans,
         "disclaimer": (
-            "Transfer-fee simulation with club-stature feasibility. "
+            "Transfer-fee simulation with club-stature and league-level "
+            "feasibility. "
             "Wages, contract terms and club willingness to sell are "
             "not modelled."
         ),
