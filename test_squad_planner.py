@@ -11,6 +11,7 @@ from squad_planner_service import (
     player_starting_selection_score,
 )
 from league_strength_engine import league_strength_score
+from squad_need_engine import squad_role_compatibility
 
 
 def candidate(
@@ -177,6 +178,27 @@ class SquadPlannerTests(unittest.TestCase):
         self.assertEqual(compatibility("LW", "LM"), 100)
         self.assertEqual(compatibility("RM", "RW"), 100)
         self.assertEqual(compatibility("RW", "RM"), 100)
+
+        self.assertEqual(
+            squad_role_compatibility(
+                {
+                    "primary_position": "LW",
+                    "position_history": "",
+                },
+                "LM",
+            ),
+            100,
+        )
+        self.assertEqual(
+            squad_role_compatibility(
+                {
+                    "primary_position": "RW",
+                    "position_history": "",
+                },
+                "RM",
+            ),
+            100,
+        )
 
     def test_league_context_places_saka_above_greenwood(self):
         greenwood = candidate(

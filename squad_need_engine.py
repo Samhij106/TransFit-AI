@@ -573,17 +573,19 @@ def squad_role_compatibility(
             starts,
         ) in history.items():
 
-            if position == role:
+            natural_compatibility = compatibility(
+                position,
+                role,
+            )
+
+            if natural_compatibility == 100:
 
                 score = 100
 
             else:
 
                 score = (
-                    compatibility(
-                        position,
-                        role,
-                    )
+                    natural_compatibility
                     * ADJACENT_DEPTH_DISCOUNT
                 )
 
@@ -608,14 +610,16 @@ def squad_role_compatibility(
     ):
         return 0
 
-    if primary == role:
+    natural_compatibility = compatibility(
+        primary,
+        role,
+    )
+
+    if natural_compatibility == 100:
         return 100
 
     return (
-        compatibility(
-            primary,
-            role,
-        )
+        natural_compatibility
         * ADJACENT_DEPTH_DISCOUNT
     )
 
