@@ -11,6 +11,7 @@ from transfer_fit_engine import (
 from position_fit_engine import (
     load_data as load_position_data,
     find_team as find_formation_team,
+    get_team_formation_options,
 )
 
 from age_potential_engine import (
@@ -991,6 +992,10 @@ def get_team_profile(team_name):
             team["secondary_percentage"]
         ),
         "formation_history": team["formation_history"],
+        "formation_options": get_team_formation_options(
+            team,
+            limit=3,
+        ),
     }
 
 

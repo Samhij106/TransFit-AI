@@ -522,6 +522,7 @@ function App() {
   const [comparisonError, setComparisonError] =
     useState("");
   const [squadBudget, setSquadBudget] = useState(150);
+  const [squadFormation, setSquadFormation] = useState("");
   const [squadPlan, setSquadPlan] = useState(null);
   const [squadPlanLoading, setSquadPlanLoading] =
     useState(false);
@@ -701,6 +702,7 @@ async function runPlayerComparison() {
 async function buildSquadUpgradePlan() {
   if (
     !selectedTeam
+    || !squadFormation
     || !Number.isFinite(Number(squadBudget))
     || Number(squadBudget) <= 0
   ) {
@@ -716,7 +718,9 @@ async function buildSquadUpgradePlan() {
         selectedTeam
       )}&budget_millions=${encodeURIComponent(
         Number(squadBudget)
-      )}&max_signings=3`
+      )}&max_signings=3&formation=${encodeURIComponent(
+        squadFormation
+      )}`
     );
     const data = await response.json();
 
@@ -915,6 +919,7 @@ async function buildSquadUpgradePlan() {
     setComparisonResult(null);
     setComparisonError("");
     setSquadBudget(150);
+    setSquadFormation("");
     setSquadPlan(null);
     setSquadPlanError("");
     setScreen("league");
@@ -931,6 +936,7 @@ async function buildSquadUpgradePlan() {
     setComparisonResult(null);
     setSquadPlan(null);
     setSquadPlanError("");
+    setSquadFormation("");
     setScreen("club");
   }
 
@@ -956,6 +962,7 @@ async function buildSquadUpgradePlan() {
     setComparisonResult(null);
     setComparisonError("");
     setSquadBudget(150);
+    setSquadFormation("");
     setSquadPlan(null);
     setSquadPlanError("");
     setTeamError("");
@@ -993,6 +1000,7 @@ async function buildSquadUpgradePlan() {
       }
 
       setTeamProfile(data);
+      setSquadFormation(data.primary_formation || "");
       setSelectedRole(null);
       setSelectedPlayer(null);
       setPlayerQuery("");
@@ -1154,6 +1162,8 @@ async function buildSquadUpgradePlan() {
           teamProfile={teamProfile}
           budget={squadBudget}
           setBudget={setSquadBudget}
+          selectedFormation={squadFormation}
+          setSelectedFormation={setSquadFormation}
           loading={squadPlanLoading}
           error={squadPlanError}
           result={squadPlan}

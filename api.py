@@ -81,12 +81,14 @@ def squad_plan(
     team: str,
     budget_millions: float,
     max_signings: int = 3,
+    formation: str | None = None,
 ):
     try:
         return build_squad_plan(
             team_name=team,
             budget_millions=budget_millions,
             max_signings=max_signings,
+            formation=formation,
         )
 
     except (SystemExit, ValueError) as error:

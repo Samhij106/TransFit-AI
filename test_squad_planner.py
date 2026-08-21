@@ -1,5 +1,6 @@
 import unittest
 
+from position_fit_engine import get_team_formation_options
 from squad_planner_service import (
     STRATEGIES,
     build_squad_plan,
@@ -41,6 +42,25 @@ def candidate(
 
 
 class SquadPlannerTests(unittest.TestCase):
+    def test_top_three_verified_formations_preserve_usage(self):
+        team = {
+            "primary_formation": "4-2-3-1",
+            "formation_history": (
+                "4-2-3-1:20 | 3-4-2-1:10 | "
+                "4-3-3:5 | 4-4-2:3"
+            ),
+        }
+
+        options = get_team_formation_options(team, limit=3)
+
+        self.assertEqual(
+            [option["formation"] for option in options],
+            ["4-2-3-1", "3-4-2-1", "4-3-3"],
+        )
+        self.assertEqual(options[0]["matches"], 20)
+        self.assertEqual(options[0]["usage_percentage"], 52.6)
+        self.assertTrue(options[0]["is_primary"])
+
     def test_budget_must_be_positive(self):
         with self.assertRaises(ValueError):
             build_squad_plan("Barcelona", 0)

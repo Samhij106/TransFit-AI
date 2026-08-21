@@ -28,6 +28,8 @@ function SquadUpgradeLab({
   teamProfile,
   budget,
   setBudget,
+  selectedFormation,
+  setSelectedFormation,
   loading,
   error,
   result,
@@ -67,6 +69,10 @@ function SquadUpgradeLab({
   const numericBudget = Number(budget);
   const validBudget = Number.isFinite(numericBudget)
     && numericBudget > 0;
+  const formationOptions = getFormationOptions(teamProfile);
+  const activeFormation = selectedFormation
+    || formationOptions[0]?.formation
+    || teamProfile.primary_formation;
 
   return (
     <div className="squad-lab-screen">
@@ -94,13 +100,23 @@ function SquadUpgradeLab({
             </p>
           </div>
 
-          <SquadClubIdentity team={teamProfile} />
+          <SquadClubIdentity
+            team={teamProfile}
+            formation={activeFormation}
+          />
         </section>
+
+        <FormationSelector
+          options={formationOptions}
+          selectedFormation={activeFormation}
+          onSelect={setSelectedFormation}
+          disabled={loading}
+        />
 
         <section className="squad-lab-builder">
           <div className="squad-budget-panel">
             <div className="squad-panel-label">
-              <span>01</span>
+              <span>02</span>
               TOTAL WINDOW BUDGET
             </div>
 
@@ -149,7 +165,7 @@ function SquadUpgradeLab({
 
           <div className="squad-strategy-panel">
             <div className="squad-panel-label">
-              <span>02</span>
+              <span>03</span>
               THREE OPTIMIZED WINDOWS
             </div>
 
@@ -248,7 +264,7 @@ function SquadPlanResult({
               <span>{result.team.name}</span>
             </h2>
             <p>
-              {result.team.primary_formation} · €
+              {getResultFormation(result)} · €
               {formatMoney(result.budget.selected_m_eur)}M total
               budget · Three role-aware strategies
             </p>
@@ -406,13 +422,13 @@ function SquadPlanResult({
             <FormationPitch
               title="Current XI"
               score={activePlan.team_fit_before}
-              formation={result.team.primary_formation}
+              formation={getResultFormation(result)}
               lineup={result.starting_xi}
             />
             <FormationPitch
               title={`${activePlan.name} XI`}
               score={activePlan.team_fit_after}
-              formation={result.team.primary_formation}
+              formation={getResultFormation(result)}
               lineup={activePlan.after_lineup}
               upgraded
             />
@@ -583,7 +599,94 @@ function SquadMiniBar({ label, value }) {
 }
 
 
-function SquadClubIdentity({ team }) {
+function FormationSelector({
+  options,
+  selectedFormation,
+  onSelect,
+  disabled,
+}) {
+  return (
+    <section className="squad-formation-selector">
+      <div className="squad-formation-selector-heading">
+        <div>
+          <div className="squad-panel-label">
+            <span>01</span>
+            SELECT MATCH PLAN
+          </div>
+          <h3>Choose the formation to upgrade</h3>
+        </div>
+        <p>
+          Up to three verified shapes, ranked by matches used
+          in the current club dataset.
+        </p>
+      </div>
+
+      <div
+        className={`squad-formation-options count-${options.length}`}
+      >
+        {options.map((option, index) => {
+          const active =
+            option.formation === selectedFormation;
+
+          return (
+            <button
+              className={active ? "active" : ""}
+              key={option.formation}
+              disabled={disabled}
+              aria-pressed={active}
+              onClick={() => onSelect(option.formation)}
+            >
+              <span className="squad-formation-rank">
+                0{index + 1}
+              </span>
+              <FormationGlyph formation={option.formation} />
+              <span className="squad-formation-option-copy">
+                <small>
+                  {option.is_primary
+                    ? "MOST USED"
+                    : "ALTERNATIVE SHAPE"}
+                </small>
+                <strong>{option.formation}</strong>
+                <span>
+                  {option.matches} matches · {formatScore(
+                    option.usage_percentage
+                  )}% usage
+                </span>
+              </span>
+              <i>{active ? "✓" : "→"}</i>
+            </button>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+
+function FormationGlyph({ formation }) {
+  const lines = String(formation)
+    .split("-")
+    .map(Number)
+    .filter((count) => Number.isFinite(count) && count > 0);
+
+  return (
+    <span className="squad-formation-glyph" aria-hidden="true">
+      <span className="glyph-line glyph-goalkeeper">
+        <b />
+      </span>
+      {lines.map((count, lineIndex) => (
+        <span className="glyph-line" key={`${count}-${lineIndex}`}>
+          {Array.from({ length: count }, (_, dotIndex) => (
+            <b key={dotIndex} />
+          ))}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+
+function SquadClubIdentity({ team, formation }) {
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -601,7 +704,7 @@ function SquadClubIdentity({ team }) {
       </div>
       <span>TARGET SQUAD</span>
       <strong>{team.team}</strong>
-      <small>{team.league} · {team.primary_formation}</small>
+      <small>{team.league} · Selected {formation}</small>
     </article>
   );
 }
@@ -635,7 +738,7 @@ function PlayerPortrait({ player, compact = false }) {
 
 
 function SquadLabHeader({ step, onBack }) {
-  const steps = ["League", "Club", "Budget", "Window Plan"];
+  const steps = ["League", "Club", "Setup", "Window Plan"];
 
   return (
     <header className="analysis-navbar">
@@ -673,6 +776,41 @@ function SquadLabHeader({ step, onBack }) {
       <div className="analysis-navbar-space" />
     </header>
   );
+}
+
+
+function getFormationOptions(team) {
+  if (Array.isArray(team.formation_options)
+      && team.formation_options.length > 0) {
+    return team.formation_options.slice(0, 3);
+  }
+
+  const fallback = [
+    {
+      formation: team.primary_formation,
+      matches: 0,
+      usage_percentage: team.primary_percentage || 0,
+      is_primary: true,
+    },
+  ];
+
+  if (team.secondary_formation
+      && team.secondary_formation !== team.primary_formation) {
+    fallback.push({
+      formation: team.secondary_formation,
+      matches: 0,
+      usage_percentage: team.secondary_percentage || 0,
+      is_primary: false,
+    });
+  }
+
+  return fallback;
+}
+
+
+function getResultFormation(result) {
+  return result.team.selected_formation
+    || result.team.primary_formation;
 }
 
 

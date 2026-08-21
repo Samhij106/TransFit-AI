@@ -12,6 +12,7 @@ from candidate_ranking_engine import (
 from position_fit_engine import (
     FORMATION_ROLES,
     find_team as find_formation_team,
+    get_team_formation_options,
     load_data as load_position_data,
 )
 from squad_need_engine import (
@@ -277,8 +278,8 @@ def role_assessment(
     }
 
 
-@lru_cache(maxsize=256)
-def cached_role_candidates(team_name, role):
+@lru_cache(maxsize=384)
+def cached_role_candidates(team_name, role, formation):
     rankings, _, _ = rank_candidates(
         team_name,
         role,
@@ -286,6 +287,7 @@ def cached_role_candidates(team_name, role):
         min_minutes=450,
         min_role_fit=80,
         budget_millions=None,
+        formation=formation,
     )
 
     return tuple(rankings.to_dict(orient="records"))
@@ -574,6 +576,7 @@ def build_squad_plan(
     team_name,
     budget_millions,
     max_signings=DEFAULT_MAX_SIGNINGS,
+    formation=None,
 ):
     selected_budget = float(budget_millions)
 
@@ -586,6 +589,34 @@ def build_squad_plan(
         formation_teams,
         team_name,
     )
+    formation_options = get_team_formation_options(
+        formation_team,
+        limit=3,
+    )
+    allowed_formations = {
+        option["formation"]
+        for option in formation_options
+    }
+    selected_formation = str(
+        formation
+        or formation_team["primary_formation"]
+    ).strip()
+
+    if selected_formation not in allowed_formations:
+        raise ValueError(
+            "Formation must be one of the club's three "
+            "most-used verified formations."
+        )
+
+    original_primary_formation = formation_team[
+        "primary_formation"
+    ]
+    formation_team = formation_team.copy()
+    formation_team["primary_formation"] = selected_formation
+    formation_team["formation_history"] = (
+        f"{selected_formation}:"
+        f"{int(formation_team['matches_analyzed'])}"
+    )
     raw, _, _ = load_squad_data()
     performance_players = prepare_performance_data()
     squad = build_team_squad(
@@ -595,7 +626,7 @@ def build_squad_plan(
         formation_team["team"],
         candidate_id=-1,
     )
-    formation = formation_team["primary_formation"]
+    formation = selected_formation
     formation_roles = FORMATION_ROLES.get(formation)
 
     if not formation_roles:
@@ -646,6 +677,7 @@ def build_squad_plan(
                 cached_role_candidates(
                     formation_team["team"],
                     assessment["role"],
+                    formation,
                 ),
             ),
             priority_roles,
@@ -725,7 +757,9 @@ def build_squad_plan(
             "team_id": int(formation_team["team_id"]),
             "name": formation_team["team"],
             "league": formation_team["league"],
-            "primary_formation": formation,
+            "primary_formation": original_primary_formation,
+            "selected_formation": formation,
+            "formation_options": formation_options,
             "matches_analyzed": matches_analyzed,
         },
         "budget": {

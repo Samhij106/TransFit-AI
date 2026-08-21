@@ -9,6 +9,7 @@ from transfer_fit_engine import (
 )
 
 from position_fit_engine import (
+    FORMATION_ROLES,
     load_data as load_position_data,
     find_team as find_formation_team,
 )
@@ -550,6 +551,7 @@ def rank_candidates(
     min_minutes,
     min_role_fit,
     budget_millions=None,
+    formation=None,
 ):
     # -----------------------------------------------------
     # Position / Formation Data
@@ -566,6 +568,21 @@ def rank_candidates(
             team_name,
         )
     )
+
+    if formation is not None:
+        formation = str(formation).strip()
+
+        if formation not in FORMATION_ROLES:
+            raise ValueError(
+                f"Unsupported formation: {formation}"
+            )
+
+        formation_team = formation_team.copy()
+        formation_team["primary_formation"] = formation
+        formation_team["formation_history"] = (
+            f"{formation}:"
+            f"{int(formation_team['matches_analyzed'])}"
+        )
 
     # -----------------------------------------------------
     # Tactical Data

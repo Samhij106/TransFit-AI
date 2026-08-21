@@ -608,6 +608,56 @@ def parse_formation_history(history):
     return formations
 
 
+def get_team_formation_options(team, limit=3):
+    """Return the club's most-used supported formations."""
+    history = parse_formation_history(
+        team.get("formation_history")
+    )
+    ranked = sorted(
+        history.items(),
+        key=lambda item: item[1],
+        reverse=True,
+    )
+    total_matches = sum(history.values())
+    options = []
+
+    for formation, matches in ranked:
+        if formation not in FORMATION_ROLES:
+            continue
+
+        options.append({
+            "formation": formation,
+            "matches": int(matches),
+            "usage_percentage": round(
+                matches / max(total_matches, 1) * 100,
+                1,
+            ),
+            "is_primary": (
+                formation == team.get("primary_formation")
+            ),
+        })
+
+        if len(options) >= max(1, int(limit)):
+            break
+
+    if not options:
+        primary = team.get("primary_formation")
+
+        if primary in FORMATION_ROLES:
+            options.append({
+                "formation": primary,
+                "matches": int(
+                    team.get("primary_matches", 0) or 0
+                ),
+                "usage_percentage": round(float(
+                    team.get("primary_percentage", 100) or 100
+                ), 1),
+                "is_primary": True,
+            })
+
+    return options
+
+
 # =========================================================
 # POSITION -> ROLE COMPATIBILITY
 # =========================================================

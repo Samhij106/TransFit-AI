@@ -18,8 +18,9 @@ The product has four complementary workflows:
    their club-specific TransFit scores, weighted dimensions, market values,
    and the decisive reasons behind the winner.
 4. Plan a transfer window: select a club and total budget, audit the current
-   squad, identify its three highest-priority roles, and optimize Safe,
-   Balanced, and Ambitious multi-signing plans.
+   squad, choose from up to three of its most-used verified formations,
+   identify the selected shape's three highest-priority roles, and optimize
+   Safe, Balanced, and Ambitious multi-signing plans.
 
 ## Current scope
 
@@ -217,7 +218,7 @@ fixed.
 - `GET /api/rankings?team=Barcelona&role=ST&budget_millions=50`
 - `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&budget_millions=50`
 - `GET /api/compare?team=Barcelona&player_ids=184,217,6009&budget_millions=120`
-- `GET /api/squad-plan?team=Barcelona&budget_millions=150&max_signings=3`
+- `GET /api/squad-plan?team=Barcelona&budget_millions=150&max_signings=3&formation=4-3-3`
 
 Passing `player_id` is recommended because the expanded candidate pool can
 contain players with similar or duplicate display names.
@@ -226,7 +227,10 @@ The squad-plan endpoint treats the selected amount as a total transfer-fee
 budget. Safe and Balanced plans stay within that amount; Ambitious may use the
 same 15% tolerance as the candidate workflow. Wages, contract terms, and a
 selling club's willingness to negotiate are deliberately outside the current
-model boundary.
+model boundary. The optional formation must be one of the club's three
+most-used supported shapes returned by `GET /api/team` in
+`formation_options`. When fewer than three shapes are present in the verified
+match data, only the real available options are returned.
 
 ## Status
 
