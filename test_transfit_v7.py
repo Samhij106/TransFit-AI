@@ -19,7 +19,11 @@ class TransFitV7RegressionTests(unittest.TestCase):
         )
         self.assertEqual(
             SCORE_WEIGHTS["availability"],
-            5,
+            4.5,
+        )
+        self.assertEqual(
+            SCORE_WEIGHTS["deal_feasibility"],
+            10,
         )
 
     def test_attacking_output_has_less_influence_on_dm(self):

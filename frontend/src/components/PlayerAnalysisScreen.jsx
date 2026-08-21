@@ -144,8 +144,8 @@ function PlayerAnalysisScreen({
                   Overall fit based on tactical
                   compatibility, positional suitability,
                   role-aware performance, three-season
-                  evidence, market validation and squad
-                  context. This is a normalized fit
+                  evidence, market validation, club stature and
+                  squad context. This is a normalized fit
                   percentage, not transfer probability.
                 </p>
 
@@ -205,6 +205,13 @@ function PlayerAnalysisScreen({
                 description="Need within target squad"
               />
 
+              <ScoreCard
+                label="Deal Feasibility"
+                value={scores.deal_feasibility}
+                weight={scores.weights?.deal_feasibility}
+                description="Club stature & realistic transfer path"
+              />
+
             </div>
 
           </div>
@@ -224,8 +231,8 @@ function PlayerAnalysisScreen({
           />
 
           <OverviewItem
-            label="PRIMARY SYSTEM"
-            value={targetTeam.primary_formation}
+            label="SELECTED SYSTEM"
+            value={targetTeam.selected_formation || targetTeam.primary_formation}
           />
 
           <OverviewItem
@@ -305,7 +312,7 @@ function PlayerAnalysisScreen({
             <p>
               Each dimension is calculated separately,
               then combined using the {scores.version ||
-              "TransFit V7 Role-Aware"} architecture.
+              "TransFit V8 Transfer Realism"} architecture.
             </p>
 
           </div>
@@ -452,7 +459,7 @@ function AnalysisHeader({
         </span>
 
         <strong>
-          V7 ROLE-AWARE
+          V8 TRANSFER REALISM
         </strong>
 
       </div>
@@ -1013,6 +1020,13 @@ function RealismModule({
           value={data.market_validation_score}
         />
 
+        <LargeMetric
+          label={`DEAL ${String(
+            data.transfer_feasibility?.status || "FEASIBILITY"
+          ).toUpperCase()}`}
+          value={data.transfer_feasibility?.score}
+        />
+
       </div>
 
 
@@ -1022,10 +1036,8 @@ function RealismModule({
         </span>
 
         <p>
-          Transfermarkt value still controls affordability.
-          A position-peer percentile is used only as a
-          modest external check inside Proven Level, helping
-          prevent statistical outliers from dominating.
+          {data.transfer_feasibility?.reason ||
+            "Club stature, squad value and the player's current market tier are checked before a transfer is treated as realistic."}
         </p>
       </div>
 

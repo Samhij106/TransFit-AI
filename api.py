@@ -80,7 +80,7 @@ def health():
 def squad_plan(
     team: str,
     budget_millions: float,
-    max_signings: int = 3,
+    max_signings: int | None = None,
     formation: str | None = None,
 ):
     try:
@@ -138,6 +138,7 @@ def compare(
     team: str,
     player_ids: str,
     budget_millions: float | None = None,
+    formation: str | None = None,
 ):
     try:
         ids = [
@@ -150,6 +151,7 @@ def compare(
             team_name=team,
             player_ids=ids,
             budget_millions=budget_millions,
+            formation=formation,
         )
 
     except (SystemExit, ValueError) as error:
@@ -187,6 +189,7 @@ def analyze(
     team: str,
     player_id: int | None = None,
     budget_millions: float | None = None,
+    formation: str | None = None,
 ):
     try:
         return analyze_transfer(
@@ -194,6 +197,7 @@ def analyze(
             team,
             player_id=player_id,
             budget_millions=budget_millions,
+            formation=formation,
         )
 
     except (SystemExit, ValueError) as error:
@@ -215,6 +219,7 @@ def rankings(
     min_minutes: int = 450,
     min_role_fit: float = 80,
     budget_millions: float | None = None,
+    formation: str | None = None,
 ):
     try:
         return get_candidate_rankings(
@@ -224,6 +229,7 @@ def rankings(
             min_minutes=min_minutes,
             min_role_fit=min_role_fit,
             budget_millions=budget_millions,
+            formation=formation,
         )
 
     except (SystemExit, ValueError) as error:

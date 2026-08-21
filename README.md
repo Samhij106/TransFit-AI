@@ -3,24 +3,25 @@
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
-target club. TransFit V7 separates affordability from sporting quality and
-combines verified position, tactical fit, role-aware performance, three-season
-evidence, Transfermarkt peer validation, availability, limited age potential,
-and squad need.
+target club. TransFit V8 combines verified position, tactical fit, role-aware
+performance, three-season evidence, Transfermarkt peer validation,
+availability, limited age potential, squad need, and a club-stature transfer
+feasibility layer.
 
 The product has four complementary workflows:
 
-1. Analyze a specific player: club selection, verified player search, optional
-   deal budget, and a player-to-club TransFit Score.
-2. Find transfer candidates: club, natural position, and investment budget,
-   followed by a ranked shortlist.
-3. Compare players: select a target club and two to four players, then compare
+1. Analyze a specific player: club and formation selection, verified player
+   search, optional deal budget, and a player-to-club TransFit Score.
+2. Find transfer candidates: club, one of its two most-used formations,
+   natural position, and investment budget, followed by a ranked shortlist.
+3. Compare players: select a target club, formation and two to four players,
+   then compare
    their club-specific TransFit scores, weighted dimensions, market values,
    and the decisive reasons behind the winner.
-4. Plan a transfer window: select a club and total budget, audit the current
-   squad, choose from up to three of its most-used verified formations,
-   identify the selected shape's three highest-priority roles, and optimize
-   Safe, Balanced, and Ambitious multi-signing plans.
+4. Plan a transfer window: select a club, one of its two most-used verified
+   formations and a total budget. The user can request between one and eight
+   transfers or leave the count on Auto so the model selects the strongest
+   meaningful upgrade plan. Safe, Balanced, and Ambitious plans are optimized.
 
 ## Current scope
 
@@ -36,6 +37,10 @@ The product has four complementary workflows:
   more heavily. The current season and two previous seasons are included.
 - Market value is a transfer benchmark, not an official asking price or a
   completed transfer fee.
+- Candidate eligibility also checks the target club's squad-value tier,
+  realistic signing ceiling, the player's current club tier, and the size of
+  the sporting-status step. Clearly unrealistic moves are removed from
+  shortlists even when the user enters a very large budget.
 - Goalkeepers are not supported yet.
 - Transfermarkt profile positions are canonical. Verified lineup positions
   add secondary-role evidence but cannot reclassify a full-back as a winger
@@ -45,22 +50,26 @@ The product has four complementary workflows:
   striker shortlist. Closely related full-back/wing-back and wide-role pairs
   remain grouped where Transfermarkt uses a single canonical label.
 
-## TransFit V7 Role-Aware
+## TransFit V8 Transfer Realism
 
 The final score is a weighted average on a 0-100 scale:
 
-- Current performance: 30%. Detailed domestic-league percentiles are blended
+- Current performance: 27%. Detailed domestic-league percentiles are blended
   with all-competition output using role-specific weights. Goals and assists
   matter most for attackers and minimally for deeper positions.
-- Tactical fit: 25%.
-- Proven level: 15%. Current role quality, competition-adjusted three-season
+- Tactical fit: 22.5%.
+- Proven level: 13.5%. Current role quality, competition-adjusted three-season
   evidence, and a modest Transfermarkt percentile among positional peers.
-- Position and role fit: 15%.
-- Availability: 5%, using current all-competition minutes, starts, and
+- Position and role fit: 13.5%.
+- Availability: 4.5%, using current all-competition minutes, starts, and
   appearances.
-- Potential: 5%. Age is deliberately limited so a young outlier cannot
+- Potential: 4.5%. Age is deliberately limited so a young outlier cannot
   dominate the ranking only because of age.
-- Squad need: 5%.
+- Squad need: 4.5%.
+- Deal feasibility: 10%. Club stature, squad value, realistic recruitment
+  ceiling, current-club status and player level define whether the path is
+  realistic, ambitious or unrealistic. An unrealistic result is capped and
+  excluded from automatic candidate lists.
 
 For attackers, current total goals and assists carry more weight than per-90
 rate. Deeper roles are driven primarily by their role-specific metrics such as
@@ -74,13 +83,15 @@ affordability separately and is not treated as an asking price.
 - `transfit_service.py`: web-facing service layer.
 - `candidate_ranking_engine.py`: role-specific candidate ranking.
 - `squad_planner_service.py`: squad audit and budget-constrained transfer
-  window optimizer built on the same V7 role-aware candidate scores.
+  window optimizer built on the same V8 transfer-realism candidate scores.
+- `transfer_realism_engine.py`: data-driven club-stature profiles, recruitment
+  ceilings, transfer-path scoring and hard realism exclusions.
 - `refresh_transfermarkt_values.py`: weekly market-value refresh and player
   identity matching plus source download.
 - `build_realistic_player_profiles.py`: verified positions, all-competition
   production, three-season evidence, and availability.
 - `realistic_data_engine.py`: shared realism score integration.
-- `transfer_fit_v5.py`: TransFit V7 calculation (legacy filename retained
+- `transfer_fit_v5.py`: TransFit V8 calculation (legacy filename retained
   to avoid breaking existing imports).
 - `validate_model_benchmarks.py`: football sanity-check suite that protects
   known realistic ordering and canonical-position exclusions.
@@ -215,10 +226,11 @@ fixed.
 - `GET /api/clubs`
 - `GET /api/players?q=joao&team=AC%20Milan&limit=12`
 - `GET /api/team?team=Arsenal`
-- `GET /api/rankings?team=Barcelona&role=ST&budget_millions=50`
-- `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&budget_millions=50`
-- `GET /api/compare?team=Barcelona&player_ids=184,217,6009&budget_millions=120`
-- `GET /api/squad-plan?team=Barcelona&budget_millions=150&max_signings=3&formation=4-3-3`
+- `GET /api/rankings?team=Barcelona&role=ST&formation=4-3-3&budget_millions=50`
+- `GET /api/analyze?player=H.%20Kane&player_id=184&team=Barcelona&formation=4-3-3&budget_millions=50`
+- `GET /api/compare?team=Barcelona&player_ids=184,217,6009&formation=4-3-3&budget_millions=120`
+- `GET /api/squad-plan?team=Barcelona&budget_millions=150&max_signings=5&formation=4-3-3`
+- `GET /api/squad-plan?team=Barcelona&budget_millions=150&formation=4-3-3` (Auto transfer count)
 
 Passing `player_id` is recommended because the expanded candidate pool can
 contain players with similar or duplicate display names.
@@ -227,9 +239,9 @@ The squad-plan endpoint treats the selected amount as a total transfer-fee
 budget. Safe and Balanced plans stay within that amount; Ambitious may use the
 same 15% tolerance as the candidate workflow. Wages, contract terms, and a
 selling club's willingness to negotiate are deliberately outside the current
-model boundary. The optional formation must be one of the club's three
-most-used supported shapes returned by `GET /api/team` in
-`formation_options`. When fewer than three shapes are present in the verified
+model boundary. The formation must be one of the club's two most-used
+supported shapes returned by `GET /api/team` in `formation_options`. When
+fewer than two shapes are present in the verified
 match data, only the real available options are returned.
 
 ## Status

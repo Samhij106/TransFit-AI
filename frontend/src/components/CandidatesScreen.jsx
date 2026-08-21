@@ -176,7 +176,7 @@ function CandidatesScreen({
               </span>
 
               <strong className="ranking-model">
-                V7 ROLE-AWARE
+                V8 TRANSFER REALISM
               </strong>
             </div>
           </div>
@@ -997,7 +997,7 @@ function ScoreArchitecture({
         <span>ROLE-AWARE MODEL</span>
 
         <strong>
-          {model?.version || "TransFit V7 Role-Aware"}
+          {model?.version || "TransFit V8 Transfer Realism"}
         </strong>
 
         <p>
@@ -1195,6 +1195,10 @@ function getCandidateSignals(candidate) {
       label: "Squad need",
       value: candidate?.squad_need,
     },
+    {
+      label: "Deal feasibility",
+      value: candidate?.deal_feasibility_score,
+    },
   ]
     .filter((signal) => signal.value != null)
     .sort((left, right) => right.value - left.value)
@@ -1212,6 +1216,10 @@ function getCandidateSignals(candidate) {
     {
       label: "Tactical risk",
       value: candidate?.tactical,
+    },
+    {
+      label: "Transfer difficulty",
+      value: candidate?.deal_feasibility_score,
     },
   ]
     .filter((signal) => signal.value != null)

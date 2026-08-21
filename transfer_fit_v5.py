@@ -35,21 +35,24 @@ from realistic_data_engine import (
     calibrate_proven_level,
     realism_scores,
 )
+from transfer_realism_engine import assess_transfer_feasibility
+from transfer_value_engine import resolve_transfer_value
 
 
 # =========================================================
 # TRANSFER FIT V6 WEIGHTS
 # =========================================================
 
-TACTICAL_WEIGHT = 0.25
-POSITION_WEIGHT = 0.15
-PERFORMANCE_WEIGHT = 0.30
-PROVEN_WEIGHT = 0.15
-AVAILABILITY_WEIGHT = 0.05
-POTENTIAL_WEIGHT = 0.05
-SQUAD_NEED_WEIGHT = 0.05
+TACTICAL_WEIGHT = 0.225
+POSITION_WEIGHT = 0.135
+PERFORMANCE_WEIGHT = 0.27
+PROVEN_WEIGHT = 0.135
+AVAILABILITY_WEIGHT = 0.045
+POTENTIAL_WEIGHT = 0.045
+SQUAD_NEED_WEIGHT = 0.045
+DEAL_FEASIBILITY_WEIGHT = 0.10
 
-SCORE_VERSION = "TransFit V7 Role-Aware"
+SCORE_VERSION = "TransFit V8 Transfer Realism"
 SCORE_WEIGHTS = {
     "tactical": TACTICAL_WEIGHT * 100,
     "position": POSITION_WEIGHT * 100,
@@ -58,6 +61,7 @@ SCORE_WEIGHTS = {
     "availability": AVAILABILITY_WEIGHT * 100,
     "potential": POTENTIAL_WEIGHT * 100,
     "squad_need": SQUAD_NEED_WEIGHT * 100,
+    "deal_feasibility": DEAL_FEASIBILITY_WEIGHT * 100,
 }
 
 
@@ -235,6 +239,26 @@ def calculate_transfer_fit_v5(
         * PERFORMANCE_WEIGHT
     )
 
+    transfer_value = resolve_transfer_value(
+        player_id=int(tactical_player["player_id"]),
+        performance_score=performance_score,
+        potential_score=potential_score,
+        age=potential_result["age"],
+        minutes=performance_player["minutes"],
+        league=performance_player.get("league"),
+        position_group=performance_player["position_group"],
+        position_source=position_player.get("position_source"),
+    )
+    transfer_feasibility = assess_transfer_feasibility(
+        target_team=formation_team["team"],
+        current_team=tactical_player["team"],
+        player_value_m_eur=transfer_value[
+            "estimated_value_m_eur"
+        ],
+        performance_score=performance_score,
+        proven_score=proven_score,
+    )
+
     proven_contribution = (
         proven_score
         * PROVEN_WEIGHT
@@ -255,7 +279,12 @@ def calculate_transfer_fit_v5(
         * SQUAD_NEED_WEIGHT
     )
 
-    final_score = (
+    deal_feasibility_contribution = (
+        transfer_feasibility["score"]
+        * DEAL_FEASIBILITY_WEIGHT
+    )
+
+    sporting_contribution = (
         tactical_contribution
         + position_contribution
         + performance_contribution
@@ -264,6 +293,17 @@ def calculate_transfer_fit_v5(
         + potential_contribution
         + squad_need_contribution
     )
+    sporting_fit_score = (
+        sporting_contribution
+        / max(1 - DEAL_FEASIBILITY_WEIGHT, 0.01)
+    )
+    final_score = (
+        sporting_contribution
+        + deal_feasibility_contribution
+    )
+
+    if not transfer_feasibility["eligible"]:
+        final_score = min(final_score, 55.0)
 
     return {
         "score_version": SCORE_VERSION,
@@ -289,6 +329,17 @@ def calculate_transfer_fit_v5(
             performance_score,
             1,
         ),
+
+        "sporting_fit_score": round(
+            sporting_fit_score,
+            1,
+        ),
+
+        "deal_feasibility_score": transfer_feasibility["score"],
+
+        "transfer_feasibility": transfer_feasibility,
+
+        "transfer_value": transfer_value,
 
         "league_performance_score": round(
             league_performance_score,
@@ -368,6 +419,11 @@ def calculate_transfer_fit_v5(
 
         "squad_need_contribution": round(
             squad_need_contribution,
+            2,
+        ),
+
+        "deal_feasibility_contribution": round(
+            deal_feasibility_contribution,
             2,
         ),
 

@@ -1281,6 +1281,330 @@ body {
   margin-top: 15px;
 }
 
+/* Shared formation gate used by every analysis flow */
+.formation-selection-screen {
+  min-height: 100vh;
+}
+
+.formation-selection-page {
+  width: min(1440px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 74px 0 110px;
+}
+
+.formation-selection-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 48px;
+}
+
+.formation-selection-hero h2 {
+  margin: 28px 0 20px;
+  color: #f5f8f3;
+  font-size: clamp(58px, 6.2vw, 102px);
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+
+.formation-selection-hero h2 span {
+  color: var(--green);
+}
+
+.formation-selection-hero p {
+  max-width: 760px;
+  margin: 0;
+  color: #849087;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.formation-target-club {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 320px;
+  padding: 22px 26px;
+  border: 1px solid rgba(151, 255, 30, .26);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(17, 31, 18, .9), rgba(7, 12, 9, .92));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .25);
+}
+
+.formation-target-club .club-badge {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+}
+
+.formation-target-club > div:last-child {
+  display: grid;
+  gap: 5px;
+}
+
+.formation-target-club span,
+.formation-choice-copy > span,
+.formation-selection-footer span {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+
+.formation-target-club strong {
+  color: #f4f7f2;
+  font-size: 21px;
+}
+
+.formation-target-club small {
+  color: #68736b;
+}
+
+.formation-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 64px;
+}
+
+.formation-choice-grid > button {
+  display: grid;
+  grid-template-columns: minmax(240px, .75fr) 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 24px 34px;
+  min-height: 390px;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(136, 163, 140, .16);
+  border-radius: 26px;
+  color: inherit;
+  text-align: left;
+  background: linear-gradient(145deg, rgba(13, 22, 15, .96), rgba(5, 10, 7, .98));
+  cursor: pointer;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.formation-choice-grid > button:hover,
+.formation-choice-grid > button.active {
+  transform: translateY(-4px);
+  border-color: rgba(151, 255, 30, .62);
+  box-shadow: 0 30px 85px rgba(82, 164, 17, .12), inset 0 0 80px rgba(111, 255, 24, .025);
+}
+
+.formation-choice-topline {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.formation-choice-topline span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.formation-choice-topline small {
+  color: #68756b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.formation-choice-topline i {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  border: 1px solid rgba(151, 255, 30, .22);
+  border-radius: 50%;
+  color: var(--green);
+  font-style: normal;
+}
+
+.formation-choice-pitch {
+  position: relative;
+  min-height: 260px;
+  border: 1px solid rgba(151, 255, 30, .22);
+  border-radius: 18px;
+  background:
+    linear-gradient(rgba(151, 255, 30, .035), rgba(151, 255, 30, .015)),
+    repeating-linear-gradient(90deg, transparent 0 24.8%, rgba(255, 255, 255, .018) 25% 25.2%);
+}
+
+.formation-choice-pitch::before,
+.formation-choice-pitch::after {
+  content: "";
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  height: 14%;
+  border: 1px solid rgba(151, 255, 30, .16);
+}
+
+.formation-choice-pitch::before {
+  top: 0;
+  border-top: 0;
+}
+
+.formation-choice-pitch::after {
+  bottom: 0;
+  border-bottom: 0;
+}
+
+.formation-choice-half {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(151, 255, 30, .15);
+}
+
+.formation-choice-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(151, 255, 30, .16);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.formation-choice-pitch > span {
+  position: absolute;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #071006;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 18px rgba(151, 255, 30, .48);
+  transform: translate(-50%, -50%);
+}
+
+.formation-choice-pitch > span.goalkeeper {
+  background: #f4f7f2;
+  box-shadow: none;
+}
+
+.formation-choice-copy {
+  align-self: center;
+}
+
+.formation-choice-copy strong {
+  display: block;
+  margin: 13px 0 20px;
+  color: #f5f8f3;
+  font-size: clamp(38px, 4vw, 62px);
+  letter-spacing: -.05em;
+}
+
+.formation-choice-copy p {
+  margin: 0;
+  color: #77827a;
+  line-height: 1.65;
+}
+
+.formation-selection-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 24px;
+  padding: 24px 28px;
+  border: 1px solid rgba(136, 163, 140, .15);
+  border-radius: 20px;
+  background: rgba(7, 13, 9, .88);
+}
+
+.formation-selection-footer > div {
+  display: grid;
+  gap: 6px;
+}
+
+.formation-selection-footer strong {
+  color: #f2f6f0;
+  font-size: 21px;
+}
+
+.formation-selection-footer .continue-button {
+  width: min(390px, 100%);
+}
+
+@media (max-width: 1050px) {
+  .formation-selection-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .formation-target-club {
+    width: min(100%, 430px);
+  }
+
+  .formation-choice-grid > button {
+    grid-template-columns: 1fr;
+  }
+
+  .formation-choice-pitch {
+    min-height: 230px;
+  }
+}
+
+@media (max-width: 760px) {
+  .formation-selection-page {
+    width: min(100% - 30px, 1440px);
+    padding: 42px 0 82px;
+  }
+
+  .formation-selection-hero h2 {
+    margin-top: 20px;
+    font-size: clamp(48px, 16vw, 70px);
+  }
+
+  .formation-target-club {
+    min-width: 0;
+    padding: 18px;
+  }
+
+  .formation-choice-grid {
+    grid-template-columns: 1fr;
+    margin-top: 38px;
+  }
+
+  .formation-choice-grid > button {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .formation-choice-pitch {
+    min-height: 250px;
+  }
+
+  .formation-selection-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .formation-selection-footer .continue-button {
+    width: 100%;
+  }
+
+  .squad-transfer-count-control {
+    grid-template-columns: 1fr;
+  }
+
+  .squad-transfer-count-actions {
+    width: 100%;
+  }
+
+  .squad-transfer-count-actions > button,
+  .squad-transfer-count-actions label {
+    flex: 1;
+  }
+}
+
 .squad-budget-panel,
 .squad-strategy-panel {
   padding: 28px;
@@ -1376,6 +1700,103 @@ body {
   color: #6f7b72;
   font-size: 8px;
   line-height: 1.5;
+}
+
+.squad-transfer-count-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid rgba(168, 255, 53, .12);
+  border-radius: 14px;
+  background: rgba(3, 8, 4, .55);
+}
+
+.squad-transfer-count-control > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+.squad-transfer-count-control > div:first-child span {
+  color: #dfe8e0;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.squad-transfer-count-control > div:first-child small {
+  max-width: 280px;
+  color: #68736b;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.squad-transfer-count-actions {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.squad-transfer-count-actions > button,
+.squad-transfer-count-actions label {
+  min-height: 48px;
+  border: 1px solid rgba(168, 255, 53, .16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .025);
+}
+
+.squad-transfer-count-actions > button {
+  padding: 0 16px;
+  color: #77827a;
+  font-size: 9px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.squad-transfer-count-actions > button.active {
+  border-color: var(--green);
+  color: #071005;
+  background: var(--green);
+}
+
+.squad-transfer-count-actions label {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.squad-transfer-count-actions input {
+  width: 42px;
+  border: 0;
+  outline: 0;
+  color: var(--green);
+  background: transparent;
+  font: 800 22px/1 inherit;
+  text-align: center;
+}
+
+.squad-transfer-count-actions label span {
+  color: #68736b;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+@media (max-width: 760px) {
+  .squad-transfer-count-control {
+    grid-template-columns: 1fr;
+  }
+
+  .squad-transfer-count-actions {
+    width: 100%;
+  }
+
+  .squad-transfer-count-actions > button,
+  .squad-transfer-count-actions label {
+    flex: 1;
+  }
 }
 
 .squad-strategy-preview-grid {

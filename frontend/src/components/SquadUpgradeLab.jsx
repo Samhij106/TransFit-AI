@@ -30,6 +30,8 @@ function SquadUpgradeLab({
   setBudget,
   selectedFormation,
   setSelectedFormation,
+  transferCount,
+  setTransferCount,
   loading,
   error,
   result,
@@ -76,7 +78,7 @@ function SquadUpgradeLab({
 
   return (
     <div className="squad-lab-screen">
-      <SquadLabHeader step={3} onBack={onBack} />
+      <SquadLabHeader step={4} onBack={onBack} />
 
       <main className="squad-lab-setup">
         <section className="squad-lab-setup-hero">
@@ -94,9 +96,9 @@ function SquadUpgradeLab({
 
             <p>
               Set one total investment. TransFit will audit
-              the current squad, identify the three strongest
-              upgrade opportunities and optimize three
-              different recruitment strategies.
+              the current squad, identify every meaningful
+              upgrade opportunity and optimize three different
+              recruitment strategies.
             </p>
           </div>
 
@@ -161,6 +163,52 @@ function SquadUpgradeLab({
                 </span>
               </div>
             </div>
+
+            <div className="squad-transfer-count-control">
+              <div>
+                <span>NUMBER OF TRANSFERS</span>
+                <small>
+                  Choose 1–8, or leave on Auto and the model will
+                  choose the strongest realistic upgrade plan.
+                </small>
+              </div>
+
+              <div className="squad-transfer-count-actions">
+                <button
+                  type="button"
+                  className={transferCount === "" ? "active" : ""}
+                  aria-pressed={transferCount === ""}
+                  onClick={() => setTransferCount("")}
+                >
+                  AUTO
+                </button>
+
+                <label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="8"
+                    step="1"
+                    value={transferCount}
+                    placeholder="—"
+                    onChange={(event) => {
+                      const value = event.target.value;
+
+                      if (value === "") {
+                        setTransferCount("");
+                        return;
+                      }
+
+                      setTransferCount(
+                        Math.max(1, Math.min(8, Number(value)))
+                      );
+                    }}
+                    aria-label="Requested number of transfers"
+                  />
+                  <span>TRANSFERS</span>
+                </label>
+              </div>
+            </div>
           </div>
 
           <div className="squad-strategy-panel">
@@ -209,7 +257,7 @@ function SquadUpgradeLab({
 
             <small className="squad-build-note">
               The first calculation can take 15–30 seconds
-              while three position markets are evaluated.
+              while the relevant position markets are evaluated.
             </small>
           </div>
         </section>
@@ -225,7 +273,7 @@ function SquadUpgradeLab({
                 Auditing depth, quality and market options…
               </strong>
               <p>
-                One model. Three priority roles. Thousands of
+                One model. Every meaningful priority role. Thousands of
                 possible windows under the selected budget.
               </p>
             </div>
@@ -249,7 +297,7 @@ function SquadPlanResult({
 
   return (
     <div className="squad-lab-screen squad-lab-result-screen">
-      <SquadLabHeader step={4} onBack={onReset} />
+      <SquadLabHeader step={5} onBack={onReset} />
 
       <main className="squad-lab-result">
         <section className="squad-result-hero">
@@ -266,7 +314,7 @@ function SquadPlanResult({
             <p>
               {getResultFormation(result)} · €
               {formatMoney(result.budget.selected_m_eur)}M total
-              budget · Three role-aware strategies
+              budget · {formatPlanningMode(result)}
             </p>
           </div>
 
@@ -316,7 +364,7 @@ function SquadPlanResult({
           />
           <SquadSummaryMetric
             label="POSITIONS"
-            value={`${activePlan.signing_count}/3`}
+            value={formatSigningCount(result, activePlan)}
             note={activePlan.signings.map((item) => item.role).join(" · ")}
           />
         </section>
@@ -324,7 +372,7 @@ function SquadPlanResult({
         <section className="squad-priority-section">
           <SquadSectionHeading
             eyebrow="SQUAD AUDIT"
-            title="Three upgrade priorities"
+            title={`${result.priority_roles.length} upgrade priorities`}
             copy={`Measured against a ${result.reference_recruit_quality}-quality reference recruit.`}
           />
 
@@ -616,7 +664,7 @@ function FormationSelector({
           <h3>Choose the formation to upgrade</h3>
         </div>
         <p>
-          Up to three verified shapes, ranked by matches used
+          The two most-used verified shapes, ranked by matches used
           in the current club dataset.
         </p>
       </div>
@@ -738,7 +786,7 @@ function PlayerPortrait({ player, compact = false }) {
 
 
 function SquadLabHeader({ step, onBack }) {
-  const steps = ["League", "Club", "Setup", "Window Plan"];
+  const steps = ["League", "Club", "Formation", "Plan", "Window"];
 
   return (
     <header className="analysis-navbar">
@@ -782,7 +830,7 @@ function SquadLabHeader({ step, onBack }) {
 function getFormationOptions(team) {
   if (Array.isArray(team.formation_options)
       && team.formation_options.length > 0) {
-    return team.formation_options.slice(0, 3);
+    return team.formation_options.slice(0, 2);
   }
 
   const fallback = [
@@ -811,6 +859,28 @@ function getFormationOptions(team) {
 function getResultFormation(result) {
   return result.team.selected_formation
     || result.team.primary_formation;
+}
+
+
+function formatPlanningMode(result) {
+  const requested = result.transfer_plan?.requested_signings;
+
+  if (requested) {
+    return `${requested} requested transfers · Three strategies`;
+  }
+
+  return "Auto-selected transfer count · Three strategies";
+}
+
+
+function formatSigningCount(result, plan) {
+  const requested = result.transfer_plan?.requested_signings;
+
+  if (requested) {
+    return `${plan.signing_count}/${requested}`;
+  }
+
+  return `${plan.signing_count} AUTO`;
 }
 
 

@@ -523,6 +523,7 @@ function App() {
     useState("");
   const [squadBudget, setSquadBudget] = useState(150);
   const [squadFormation, setSquadFormation] = useState("");
+  const [squadTransferCount, setSquadTransferCount] = useState("");
   const [squadPlan, setSquadPlan] = useState(null);
   const [squadPlanLoading, setSquadPlanLoading] =
     useState(false);
@@ -547,6 +548,8 @@ function App() {
         selectedRole
       )}&budget_millions=${encodeURIComponent(
         investmentBudget
+      )}&formation=${encodeURIComponent(
+        squadFormation
       )}&limit=10&min_minutes=450&min_role_fit=80`
     );
 
@@ -607,7 +610,9 @@ async function openPlayerAnalysis(
         player.player_id
       )}&team=${encodeURIComponent(
         selectedTeam
-      )}${budgetParameter}`
+      )}${budgetParameter}&formation=${encodeURIComponent(
+        squadFormation
+      )}`
     );
 
     const data = await response.json();
@@ -679,7 +684,9 @@ async function runPlayerComparison() {
         selectedTeam
       )}&player_ids=${encodeURIComponent(
         ids
-      )}${budgetParameter}`
+      )}${budgetParameter}&formation=${encodeURIComponent(
+        squadFormation
+      )}`
     );
     const data = await response.json();
 
@@ -713,14 +720,21 @@ async function buildSquadUpgradePlan() {
   setSquadPlanError("");
 
   try {
+    const transferCountParameter =
+      squadTransferCount !== ""
+      && Number(squadTransferCount) > 0
+        ? `&max_signings=${encodeURIComponent(
+            Number(squadTransferCount)
+          )}`
+        : "";
     const response = await fetch(
       `${API_BASE}/api/squad-plan?team=${encodeURIComponent(
         selectedTeam
       )}&budget_millions=${encodeURIComponent(
         Number(squadBudget)
-      )}&max_signings=3&formation=${encodeURIComponent(
+      )}&formation=${encodeURIComponent(
         squadFormation
-      )}`
+      )}${transferCountParameter}`
     );
     const data = await response.json();
 
@@ -920,6 +934,7 @@ async function buildSquadUpgradePlan() {
     setComparisonError("");
     setSquadBudget(150);
     setSquadFormation("");
+    setSquadTransferCount("");
     setSquadPlan(null);
     setSquadPlanError("");
     setScreen("league");
@@ -937,6 +952,7 @@ async function buildSquadUpgradePlan() {
     setSquadPlan(null);
     setSquadPlanError("");
     setSquadFormation("");
+    setSquadTransferCount("");
     setScreen("club");
   }
 
@@ -963,6 +979,7 @@ async function buildSquadUpgradePlan() {
     setComparisonError("");
     setSquadBudget(150);
     setSquadFormation("");
+    setSquadTransferCount("");
     setSquadPlan(null);
     setSquadPlanError("");
     setTeamError("");
@@ -1000,7 +1017,7 @@ async function buildSquadUpgradePlan() {
       }
 
       setTeamProfile(data);
-      setSquadFormation(data.primary_formation || "");
+      setSquadFormation("");
       setSelectedRole(null);
       setSelectedPlayer(null);
       setPlayerQuery("");
@@ -1010,21 +1027,58 @@ async function buildSquadUpgradePlan() {
       setComparisonError("");
       setSquadPlan(null);
       setSquadPlanError("");
-      setScreen(
-        analysisMode === "player"
-          ? "player-search"
-          : analysisMode === "compare"
-            ? "comparison"
-            : analysisMode === "squad"
-              ? "squad-lab"
-              : "position"
-      );
+      setScreen("formation");
     } catch (error) {
       setTeamError(error.message);
     } finally {
       setTeamLoading(false);
     }
   }
+
+
+  function continueFromFormation() {
+    if (!squadFormation) {
+      return;
+    }
+
+    setScreen(
+      analysisMode === "player"
+        ? "player-search"
+        : analysisMode === "compare"
+          ? "comparison"
+          : analysisMode === "squad"
+            ? "squad-lab"
+            : "position"
+    );
+  }
+
+
+  const activeTeamProfile = useMemo(() => {
+    if (!teamProfile || !squadFormation) {
+      return teamProfile;
+    }
+
+    const options = teamProfile.formation_options || [];
+    const selectedOption = options.find(
+      (option) => option.formation === squadFormation
+    );
+    const alternative = options.find(
+      (option) => option.formation !== squadFormation
+    );
+
+    return {
+      ...teamProfile,
+      selected_formation: squadFormation,
+      primary_formation: squadFormation,
+      primary_percentage:
+        selectedOption?.usage_percentage
+        ?? teamProfile.primary_percentage,
+      secondary_formation:
+        alternative?.formation || null,
+      secondary_percentage:
+        alternative?.usage_percentage || 0,
+    };
+  }, [teamProfile, squadFormation]);
 
 
   return (
@@ -1096,9 +1150,20 @@ async function buildSquadUpgradePlan() {
         />
       )}
 
+      {screen === "formation" && teamProfile && (
+        <FormationSelectionScreen
+          teamProfile={teamProfile}
+          selectedFormation={squadFormation}
+          setSelectedFormation={setSquadFormation}
+          onBack={() => setScreen("club")}
+          onContinue={continueFromFormation}
+          analysisMode={analysisMode}
+        />
+      )}
+
       {screen === "player-search" && teamProfile && (
         <PlayerSearchScreen
-          teamProfile={teamProfile}
+          teamProfile={activeTeamProfile}
           query={playerQuery}
           setQuery={(value) => {
             setPlayerQuery(value);
@@ -1112,7 +1177,7 @@ async function buildSquadUpgradePlan() {
           loading={playerSearchLoading}
           error={playerSearchError || analysisError}
           analysisLoading={analysisLoading}
-          onBack={() => setScreen("club")}
+          onBack={() => setScreen("formation")}
           onAnalyze={(player, budget) =>
             openPlayerAnalysis(
               player,
@@ -1127,7 +1192,7 @@ async function buildSquadUpgradePlan() {
 
       {screen === "comparison" && teamProfile && (
         <ComparisonCenter
-          teamProfile={teamProfile}
+          teamProfile={activeTeamProfile}
           query={playerQuery}
           setQuery={setPlayerQuery}
           players={playerResults}
@@ -1144,7 +1209,7 @@ async function buildSquadUpgradePlan() {
             setComparisonResult(null);
             setComparisonError("");
           }}
-          onBack={() => setScreen("club")}
+          onBack={() => setScreen("formation")}
           onAnalyzePlayer={(report) =>
             openPlayerAnalysis(
               report.player,
@@ -1159,11 +1224,13 @@ async function buildSquadUpgradePlan() {
 
       {screen === "squad-lab" && teamProfile && (
         <SquadUpgradeLab
-          teamProfile={teamProfile}
+          teamProfile={activeTeamProfile}
           budget={squadBudget}
           setBudget={setSquadBudget}
           selectedFormation={squadFormation}
           setSelectedFormation={setSquadFormation}
+          transferCount={squadTransferCount}
+          setTransferCount={setSquadTransferCount}
           loading={squadPlanLoading}
           error={squadPlanError}
           result={squadPlan}
@@ -1172,18 +1239,18 @@ async function buildSquadUpgradePlan() {
             setSquadPlan(null);
             setSquadPlanError("");
           }}
-          onBack={() => setScreen("club")}
+          onBack={() => setScreen("formation")}
         />
       )}
 
       {screen === "position" && teamProfile && (
   <PositionSelectionScreen
-    teamProfile={teamProfile}
+    teamProfile={activeTeamProfile}
     selectedRole={selectedRole}
     setSelectedRole={setSelectedRole}
     investmentBudget={investmentBudget}
     setInvestmentBudget={setInvestmentBudget}
-    onBack={() => setScreen("club")}
+    onBack={() => setScreen("formation")}
     onFindCandidates={findBestCandidates}
     loading={candidatesLoading}
     error={candidatesError}
@@ -1194,7 +1261,7 @@ async function buildSquadUpgradePlan() {
   <CandidatesScreen
     team={selectedTeam}
     role={selectedRole}
-    formation={teamProfile.primary_formation}
+    formation={squadFormation}
     candidates={candidates}
     scoringModel={candidateScoringModel}
     budget={investmentBudget}
@@ -1337,8 +1404,8 @@ function LandingScreen({
 
           <div className="hero-trust">
             <div>
-              <strong>V7</strong>
-              <span>Role-Aware Model</span>
+              <strong>V8</strong>
+              <span>Transfer Realism</span>
             </div>
 
             <div className="trust-separator" />
@@ -1466,7 +1533,7 @@ function LandingScreen({
       </main>
 
       <div className="bottom-strip">
-        <span>ROLE-AWARE V7</span>
+        <span>TRANSFER-REALISM V8</span>
         <i />
         <span>TACTICAL FIT</span>
         <i />
@@ -1498,12 +1565,12 @@ function AnalysisHeader({
 }) {
   const steps =
     mode === "player"
-      ? ["League", "Club", "Player", "Score"]
+      ? ["League", "Club", "Formation", "Player", "Score"]
       : mode === "compare"
-        ? ["League", "Club", "Players", "Compare"]
+        ? ["League", "Club", "Formation", "Players", "Compare"]
         : mode === "squad"
-          ? ["League", "Club", "Budget", "Window Plan"]
-        : ["League", "Club", "Position", "Candidates"];
+          ? ["League", "Club", "Formation", "Plan", "Window"]
+        : ["League", "Club", "Formation", "Position", "Candidates"];
 
   return (
     <header className="analysis-navbar">
@@ -1920,6 +1987,141 @@ function ClubSelectionScreen({
 
 
 /* =========================================================
+   FORMATION SELECTION
+========================================================= */
+
+function FormationSelectionScreen({
+  teamProfile,
+  selectedFormation,
+  setSelectedFormation,
+  onBack,
+  onContinue,
+  analysisMode,
+}) {
+  const options = (teamProfile.formation_options || []).slice(0, 2);
+
+  return (
+    <div className="club-screen formation-selection-screen">
+      <AnalysisHeader
+        step={3}
+        onBack={onBack}
+        mode={analysisMode}
+      />
+
+      <main className="formation-selection-page">
+        <section className="formation-selection-hero">
+          <div>
+            <div className="eyebrow">
+              <span className="eyebrow-dot" />
+              STEP 03 — MATCH PLAN
+            </div>
+
+            <h2>
+              Choose the system.
+              <br />
+              <span>Shape the analysis.</span>
+            </h2>
+
+            <p>
+              Select one of the two formations used most often
+              by {teamProfile.team}. Every following score,
+              shortlist and squad plan will use this shape.
+            </p>
+          </div>
+
+          <div className="formation-target-club">
+            <ClubBadge
+              club={{
+                team_id: teamProfile.team_id,
+                name: teamProfile.team,
+              }}
+            />
+            <div>
+              <span>TARGET CLUB</span>
+              <strong>{teamProfile.team}</strong>
+              <small>{teamProfile.league}</small>
+            </div>
+          </div>
+        </section>
+
+        <section className="formation-choice-grid">
+          {options.map((option, index) => {
+            const active = option.formation === selectedFormation;
+
+            return (
+              <button
+                key={option.formation}
+                className={active ? "active" : ""}
+                aria-pressed={active}
+                onClick={() => setSelectedFormation(option.formation)}
+              >
+                <div className="formation-choice-topline">
+                  <span>0{index + 1}</span>
+                  <small>
+                    {index === 0 ? "MOST USED" : "SECOND MOST USED"}
+                  </small>
+                  <i>{active ? "✓" : "→"}</i>
+                </div>
+
+                <FormationChoicePitch formation={option.formation} />
+
+                <div className="formation-choice-copy">
+                  <span>MATCH SYSTEM</span>
+                  <strong>{option.formation}</strong>
+                  <p>
+                    {option.matches} matches · {option.usage_percentage}%
+                    of the verified season sample
+                  </p>
+                </div>
+              </button>
+            );
+          })}
+        </section>
+
+        <div className="formation-selection-footer">
+          <div>
+            <span>SELECTED SYSTEM</span>
+            <strong>{selectedFormation || "Choose a formation"}</strong>
+          </div>
+
+          <button
+            className="continue-button"
+            disabled={!selectedFormation}
+            onClick={onContinue}
+          >
+            Continue with {selectedFormation || "formation"}
+            <span>→</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+function FormationChoicePitch({ formation }) {
+  const layout = FORMATION_LAYOUTS[formation] || [];
+
+  return (
+    <div className="formation-choice-pitch" aria-hidden="true">
+      <div className="formation-choice-half" />
+      <div className="formation-choice-circle" />
+      {layout.map((position) => (
+        <span
+          key={position.id}
+          className={position.locked ? "goalkeeper" : ""}
+          style={{
+            left: `${position.x}%`,
+            top: `${position.y}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+
+/* =========================================================
    SPECIFIC PLAYER SEARCH
 ========================================================= */
 
@@ -1946,7 +2148,7 @@ function PlayerSearchScreen({
   return (
     <div className="player-search-screen">
       <AnalysisHeader
-        step={3}
+        step={4}
         mode="player"
         onBack={onBack}
       />
@@ -2165,7 +2367,7 @@ function PlayerSearchScreen({
                   <div>
                     <span>OPTIONAL DEAL BUDGET</span>
                     <small>
-                      Leave empty for sporting fit only
+                      Leave empty to analyze without a hard budget filter
                     </small>
                   </div>
 
@@ -2197,9 +2399,9 @@ function PlayerSearchScreen({
                     size={17}
                   />
                   <p>
-                    The TransFit Score measures sporting
-                    compatibility. It is not a probability
-                    that the transfer will happen.
+                    The TransFit Score combines sporting fit
+                    with club-stature feasibility. It remains
+                    decision support, not a transfer probability.
                   </p>
                 </div>
               </div>
@@ -2257,7 +2459,7 @@ function PositionSelectionScreen({
   return (
     <div className="position-screen">
       <AnalysisHeader
-        step={3}
+        step={4}
         onBack={onBack}
       />
 
@@ -2580,7 +2782,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by TransFit V7 Role-Aware
+                Powered by TransFit V8 Transfer Realism
               </small>
             </div>
           </aside>

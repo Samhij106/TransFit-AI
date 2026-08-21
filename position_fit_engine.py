@@ -608,7 +608,7 @@ def parse_formation_history(history):
     return formations
 
 
-def get_team_formation_options(team, limit=3):
+def get_team_formation_options(team, limit=2):
     """Return the club's most-used supported formations."""
     history = parse_formation_history(
         team.get("formation_history")
@@ -656,6 +656,57 @@ def get_team_formation_options(team, limit=3):
             })
 
     return options
+
+
+def apply_selected_formation(team, formation=None, limit=2):
+    """Return a team profile scoped to one verified formation."""
+    options = get_team_formation_options(team, limit=limit)
+    selected = str(
+        formation or team.get("primary_formation") or ""
+    ).strip()
+    allowed = {
+        option["formation"]
+        for option in options
+    }
+
+    if selected not in allowed:
+        raise ValueError(
+            "Formation must be one of the club's two most-used "
+            "verified formations."
+        )
+
+    selected_option = next(
+        option
+        for option in options
+        if option["formation"] == selected
+    )
+    alternative = next(
+        (
+            option
+            for option in options
+            if option["formation"] != selected
+        ),
+        None,
+    )
+    scoped = team.copy()
+    scoped["selected_formation"] = selected
+    scoped["formation_options"] = options
+    scoped["primary_formation"] = selected
+    scoped["primary_percentage"] = selected_option[
+        "usage_percentage"
+    ]
+    scoped["secondary_formation"] = (
+        None if alternative is None
+        else alternative["formation"]
+    )
+    scoped["secondary_percentage"] = (
+        0 if alternative is None
+        else alternative["usage_percentage"]
+    )
+    scoped["formation_history"] = (
+        f"{selected}:{int(scoped['matches_analyzed'])}"
+    )
+    return scoped
 
 
 # =========================================================

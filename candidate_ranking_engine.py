@@ -10,6 +10,7 @@ from transfer_fit_engine import (
 
 from position_fit_engine import (
     FORMATION_ROLES,
+    apply_selected_formation,
     load_data as load_position_data,
     find_team as find_formation_team,
 )
@@ -36,6 +37,7 @@ from transfer_fit_v5 import (
     AVAILABILITY_WEIGHT,
     POTENTIAL_WEIGHT,
     SQUAD_NEED_WEIGHT,
+    DEAL_FEASIBILITY_WEIGHT,
     SCORE_VERSION,
     SCORE_WEIGHTS,
     transfer_fit_label,
@@ -53,6 +55,7 @@ from transfer_value_engine import (
     assess_budget,
     resolve_transfer_value,
 )
+from transfer_realism_engine import assess_transfer_feasibility
 
 
 # =========================================================
@@ -239,6 +242,16 @@ def calculate_candidate_score(
         ),
     )
 
+    transfer_feasibility = assess_transfer_feasibility(
+        target_team=formation_team["team"],
+        current_team=tactical_player["team"],
+        player_value_m_eur=transfer_value[
+            "estimated_value_m_eur"
+        ],
+        performance_score=performance_score,
+        proven_score=proven_score,
+    )
+
     # -----------------------------------------------------
     # Role-specific Squad Need
     # -----------------------------------------------------
@@ -294,6 +307,9 @@ def calculate_candidate_score(
 
         + squad_need
         * SQUAD_NEED_WEIGHT
+
+        + transfer_feasibility["score"]
+        * DEAL_FEASIBILITY_WEIGHT
     )
 
     # -----------------------------------------------------
@@ -489,6 +505,11 @@ def calculate_candidate_score(
                 squad_need * SQUAD_NEED_WEIGHT,
                 2,
             ),
+            "deal_feasibility": round(
+                transfer_feasibility["score"]
+                * DEAL_FEASIBILITY_WEIGHT,
+                2,
+            ),
         },
 
         "availability": round(
@@ -526,6 +547,16 @@ def calculate_candidate_score(
             squad_need,
             1,
         ),
+
+        "deal_feasibility": transfer_feasibility,
+
+        "deal_feasibility_score": transfer_feasibility[
+            "score"
+        ],
+
+        "transfer_realistic": transfer_feasibility[
+            "eligible"
+        ],
 
         "final_score": round(
             final_score,
@@ -569,20 +600,11 @@ def rank_candidates(
         )
     )
 
-    if formation is not None:
-        formation = str(formation).strip()
-
-        if formation not in FORMATION_ROLES:
-            raise ValueError(
-                f"Unsupported formation: {formation}"
-            )
-
-        formation_team = formation_team.copy()
-        formation_team["primary_formation"] = formation
-        formation_team["formation_history"] = (
-            f"{formation}:"
-            f"{int(formation_team['matches_analyzed'])}"
-        )
+    formation_team = apply_selected_formation(
+        formation_team,
+        formation=formation,
+        limit=2,
+    )
 
     # -----------------------------------------------------
     # Tactical Data
@@ -836,6 +858,16 @@ def rank_candidates(
         results
     )
 
+    rankings = rankings[
+        rankings["transfer_realistic"]
+    ].copy()
+
+    if rankings.empty:
+        raise SystemExit(
+            "\nNo candidates passed the club-stature and "
+            "transfer-realism checks."
+        )
+
     # -----------------------------------------------------
     # Budget filter
     #
@@ -961,6 +993,9 @@ def rank_candidates(
             "all_competitions",
             "potential",
             "squad_need",
+            "deal_feasibility",
+            "deal_feasibility_score",
+            "transfer_realistic",
             "final_score",
             "classification",
         ]

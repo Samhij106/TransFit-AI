@@ -1,5 +1,3 @@
-import itertools
-import math
 from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
 
@@ -11,6 +9,7 @@ from candidate_ranking_engine import (
 )
 from position_fit_engine import (
     FORMATION_ROLES,
+    apply_selected_formation,
     find_team as find_formation_team,
     get_team_formation_options,
     load_data as load_position_data,
@@ -28,9 +27,13 @@ from transfer_value_engine import BUDGET_TOLERANCE
 
 
 REFERENCE_RECRUIT_QUALITY = 80
-DEFAULT_MAX_SIGNINGS = 3
+DEFAULT_MAX_SIGNINGS = None
+MAX_SIGNINGS = 8
+AUTO_MAX_SIGNINGS = 5
 ROLE_CANDIDATE_LIMIT = 60
-OPTIMIZATION_POOL_SIZE = 14
+OPTIMIZATION_POOL_SIZE = 10
+OPTIMIZATION_BEAM_WIDTH = 2500
+AUTO_WEAKNESS_THRESHOLD = 45
 
 STRATEGIES = (
     {
@@ -280,15 +283,18 @@ def role_assessment(
 
 @lru_cache(maxsize=384)
 def cached_role_candidates(team_name, role, formation):
-    rankings, _, _ = rank_candidates(
-        team_name,
-        role,
-        ROLE_CANDIDATE_LIMIT,
-        min_minutes=450,
-        min_role_fit=80,
-        budget_millions=None,
-        formation=formation,
-    )
+    try:
+        rankings, _, _ = rank_candidates(
+            team_name,
+            role,
+            ROLE_CANDIDATE_LIMIT,
+            min_minutes=450,
+            min_role_fit=80,
+            budget_millions=None,
+            formation=formation,
+        )
+    except SystemExit:
+        return tuple()
 
     return tuple(rankings.to_dict(orient="records"))
 
@@ -326,6 +332,10 @@ def candidate_summary(candidate, role):
         ),
         "potential": optional_number(candidate["potential"]),
         "squad_need": optional_number(candidate["squad_need"]),
+        "deal_feasibility": candidate.get("deal_feasibility"),
+        "deal_feasibility_score": optional_number(
+            candidate.get("deal_feasibility_score")
+        ),
     }
 
 
@@ -360,7 +370,7 @@ def optimize_strategy(
     priority_roles,
     candidates_by_role,
     selected_budget,
-    max_signings,
+    max_signings=None,
 ):
     budget_cap = round(
         selected_budget * strategy["budget_multiplier"],
@@ -371,6 +381,10 @@ def optimize_strategy(
         for role in priority_roles
     }
     option_groups = []
+    assessment_by_role = {
+        role["role"]: role
+        for role in priority_roles
+    }
 
     for role in priority_roles:
         role_name = role["role"]
@@ -399,61 +413,127 @@ def optimize_strategy(
             key=lambda option: option[0],
             reverse=True,
         )
-        option_groups.append(
-            [(None, None)]
-            + ranked_options[:OPTIMIZATION_POOL_SIZE]
+        option_groups.append((
+            role_name,
+            ranked_options[:OPTIMIZATION_POOL_SIZE],
+        ))
+
+    requested_count = (
+        None if max_signings is None
+        else min(int(max_signings), len(priority_roles))
+    )
+    states = [{
+        "selected": [],
+        "player_ids": frozenset(),
+        "cost": 0.0,
+        "objective": 0.0,
+    }]
+
+    for role_name, ranked_options in option_groups:
+        assessment = assessment_by_role[role_name]
+        expanded = list(states)
+
+        for state in states:
+            if (
+                requested_count is not None
+                and len(state["selected"]) >= requested_count
+            ):
+                continue
+
+            for utility, candidate in ranked_options:
+                player_id = int(candidate["player_id"])
+                value = float(candidate["estimated_value_m_eur"])
+
+                if player_id in state["player_ids"]:
+                    continue
+
+                if state["cost"] + value > budget_cap + 1e-9:
+                    continue
+
+                projected_strength = candidate_role_strength(candidate)
+                improvement = max(
+                    0.0,
+                    projected_strength
+                    - float(assessment.get("role_strength", 50)),
+                )
+                depth_impact = float(
+                    assessment.get("depth_need", 0)
+                ) * 0.08
+                impact = improvement + depth_impact
+                incremental = (
+                    float(utility)
+                    + assessment["weakness_score"] * 0.08
+                    + impact * 1.15
+                )
+
+                if max_signings is None:
+                    incremental -= 76
+
+                    if incremental <= 0:
+                        continue
+
+                expanded.append({
+                    "selected": state["selected"] + [(
+                        role_name,
+                        utility,
+                        candidate,
+                        impact,
+                    )],
+                    "player_ids": state["player_ids"] | {player_id},
+                    "cost": state["cost"] + value,
+                    "objective": state["objective"] + incremental,
+                })
+
+        expanded.sort(
+            key=lambda state: (
+                state["objective"],
+                len(state["selected"]),
+                -state["cost"],
+            ),
+            reverse=True,
         )
+        states = expanded[:OPTIMIZATION_BEAM_WIDTH]
 
-    best_combo = None
-    best_objective = -math.inf
+    viable_states = [
+        state for state in states if state["selected"]
+    ]
 
-    for combination in itertools.product(*option_groups):
-        selected = [
-            (priority_roles[index]["role"], utility, candidate)
-            for index, (utility, candidate) in enumerate(combination)
-            if candidate is not None
+    if requested_count is not None and viable_states:
+        exact_states = [
+            state
+            for state in viable_states
+            if len(state["selected"]) == requested_count
         ]
 
-        if not selected or len(selected) > max_signings:
-            continue
+        if exact_states:
+            viable_states = exact_states
+        else:
+            achieved_count = max(
+                len(state["selected"])
+                for state in viable_states
+            )
+            viable_states = [
+                state
+                for state in viable_states
+                if len(state["selected"]) == achieved_count
+            ]
 
-        player_ids = [
-            int(candidate["player_id"])
-            for _, _, candidate in selected
-        ]
-
-        if len(player_ids) != len(set(player_ids)):
-            continue
-
-        total_cost = sum(
-            float(candidate["estimated_value_m_eur"])
-            for _, _, candidate in selected
-        )
-
-        if total_cost > budget_cap + 1e-9:
-            continue
-
-        coverage_bonus = len(selected) * 14
-        weakness_bonus = sum(
-            weakness_by_role[role] * 0.08
-            for role, _, _ in selected
-        )
-        objective = (
-            sum(float(utility) for _, utility, _ in selected)
-            + coverage_bonus
-            + weakness_bonus
-        )
-
-        if objective > best_objective:
-            best_objective = objective
-            best_combo = selected
+    best_state = max(
+        viable_states,
+        key=lambda state: state["objective"],
+        default=None,
+    )
+    best_combo = (
+        None if best_state is None
+        else best_state["selected"]
+    )
 
     if best_combo is None:
         return None
 
     signings = [
         candidate_summary(candidate, role)
-        for role, _, candidate in best_combo
+        for role, _, candidate, _ in best_combo
     ]
     total_cost = round(
         sum(signing["market_value_m_eur"] for signing in signings),
@@ -474,11 +554,21 @@ def optimize_strategy(
         weakness_by_role[signing["role"]]
         for signing in signings
     ) / len(signings)
-    coverage_score = len(signings) / max_signings * 100
+    total_impact = sum(
+        impact for _, _, _, impact in best_combo
+    )
+    coverage_target = (
+        requested_count
+        if requested_count is not None
+        else max(1, len(priority_roles))
+    )
+    coverage_score = len(signings) / coverage_target * 100
+    impact_score = clamp(total_impact * 2.5)
     window_score = (
-        average_fit * 0.52
-        + average_need * 0.20
-        + coverage_score * 0.18
+        average_fit * 0.44
+        + average_need * 0.16
+        + coverage_score * 0.14
+        + impact_score * 0.16
         + budget_efficiency * 0.10
     )
 
@@ -501,6 +591,11 @@ def optimize_strategy(
             else "within_budget"
         ),
         "window_score": round(clamp(window_score), 1),
+        "planning_mode": (
+            "automatic" if max_signings is None else "fixed"
+        ),
+        "requested_signings": max_signings,
+        "upgrade_impact_score": round(impact_score, 1),
     }
 
 
@@ -583,40 +678,30 @@ def build_squad_plan(
     if selected_budget <= 0:
         raise ValueError("Budget must be greater than zero.")
 
-    max_signings = max(1, min(int(max_signings), 3))
+    if max_signings in (None, ""):
+        max_signings = None
+    else:
+        max_signings = int(max_signings)
+
+        if not 1 <= max_signings <= MAX_SIGNINGS:
+            raise ValueError(
+                f"Number of transfers must be between 1 and {MAX_SIGNINGS}."
+            )
     positions, formation_teams = load_position_data()
     formation_team = find_formation_team(
         formation_teams,
         team_name,
     )
-    formation_options = get_team_formation_options(
-        formation_team,
-        limit=3,
-    )
-    allowed_formations = {
-        option["formation"]
-        for option in formation_options
-    }
-    selected_formation = str(
-        formation
-        or formation_team["primary_formation"]
-    ).strip()
-
-    if selected_formation not in allowed_formations:
-        raise ValueError(
-            "Formation must be one of the club's three "
-            "most-used verified formations."
-        )
-
     original_primary_formation = formation_team[
         "primary_formation"
     ]
-    formation_team = formation_team.copy()
-    formation_team["primary_formation"] = selected_formation
-    formation_team["formation_history"] = (
-        f"{selected_formation}:"
-        f"{int(formation_team['matches_analyzed'])}"
+    formation_team = apply_selected_formation(
+        formation_team,
+        formation=formation,
+        limit=2,
     )
+    formation_options = formation_team["formation_options"]
+    selected_formation = formation_team["selected_formation"]
     raw, _, _ = load_squad_data()
     performance_players = prepare_performance_data()
     squad = build_team_squad(
@@ -663,7 +748,21 @@ def build_squad_plan(
         key=lambda assessment: assessment["weakness_score"],
         reverse=True,
     )
-    priority_roles = role_assessments[:max_signings]
+    if max_signings is None:
+        priority_roles = [
+            assessment
+            for assessment in role_assessments
+            if (
+                assessment["weakness_score"] >= AUTO_WEAKNESS_THRESHOLD
+                or assessment["depth_need"] >= 45
+                or assessment["quality_need"] >= 35
+            )
+        ][:AUTO_MAX_SIGNINGS]
+
+        if not priority_roles:
+            priority_roles = role_assessments[:1]
+    else:
+        priority_roles = role_assessments[:max_signings]
 
     if not priority_roles:
         raise ValueError("No eligible outfield roles found.")
@@ -770,6 +869,13 @@ def build_squad_plan(
                 1,
             ),
         },
+        "transfer_plan": {
+            "mode": (
+                "automatic" if max_signings is None else "fixed"
+            ),
+            "requested_signings": max_signings,
+            "maximum_supported_signings": MAX_SIGNINGS,
+        },
         "reference_recruit_quality": REFERENCE_RECRUIT_QUALITY,
         "starting_xi": starting_xi,
         "team_fit_before": team_fit_before,
@@ -778,7 +884,8 @@ def build_squad_plan(
         "recommended_strategy": recommended_plan["id"],
         "plans": plans,
         "disclaimer": (
-            "Transfer-fee simulation only. Wages, contract terms and "
-            "club willingness to sell are not modelled."
+            "Transfer-fee simulation with club-stature feasibility. "
+            "Wages, contract terms and club willingness to sell are "
+            "not modelled."
         ),
     }

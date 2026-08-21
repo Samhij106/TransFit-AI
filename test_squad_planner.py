@@ -42,7 +42,7 @@ def candidate(
 
 
 class SquadPlannerTests(unittest.TestCase):
-    def test_top_three_verified_formations_preserve_usage(self):
+    def test_top_two_verified_formations_preserve_usage(self):
         team = {
             "primary_formation": "4-2-3-1",
             "formation_history": (
@@ -51,11 +51,11 @@ class SquadPlannerTests(unittest.TestCase):
             ),
         }
 
-        options = get_team_formation_options(team, limit=3)
+        options = get_team_formation_options(team, limit=2)
 
         self.assertEqual(
             [option["formation"] for option in options],
-            ["4-2-3-1", "3-4-2-1", "4-3-3"],
+            ["4-2-3-1", "3-4-2-1"],
         )
         self.assertEqual(options[0]["matches"], 20)
         self.assertEqual(options[0]["usage_percentage"], 52.6)
@@ -149,6 +149,32 @@ class SquadPlannerTests(unittest.TestCase):
         }
 
         self.assertEqual(candidate_role_strength(signing), 100)
+
+    def test_optimizer_supports_more_than_three_transfers(self):
+        roles = []
+        candidates_by_role = {}
+
+        for index, role in enumerate(["LB", "CB", "CM", "ST"]):
+            roles.append({
+                "role": role,
+                "weakness_score": 70 - index,
+                "role_strength": 55,
+                "depth_need": 45,
+            })
+            candidates_by_role[role] = (
+                candidate(index + 20, f"Player {role}", 10, 82),
+            )
+
+        plan = optimize_strategy(
+            STRATEGIES[1],
+            roles,
+            candidates_by_role,
+            selected_budget=50,
+            max_signings=4,
+        )
+
+        self.assertIsNotNone(plan)
+        self.assertEqual(plan["signing_count"], 4)
 
 
 if __name__ == "__main__":

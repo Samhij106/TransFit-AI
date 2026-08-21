@@ -10,6 +10,7 @@ const COMPARISON_METRICS = [
   ["availability", "Availability"],
   ["potential", "Potential"],
   ["squad_need", "Squad Need"],
+  ["deal_feasibility", "Deal Feasibility"],
 ];
 
 
@@ -45,7 +46,7 @@ function ComparisonCenter({
   return (
     <div className="comparison-screen">
       <ComparisonHeader
-        step={3}
+        step={4}
         onBack={onBack}
       />
 
@@ -265,9 +266,9 @@ function ComparisonCenter({
               />
 
               <p>
-                All players are scored with TransFit V7.
-                Affordability is displayed separately from
-                sporting quality.
+                All players are scored with TransFit V8.
+                Sporting fit, club stature and deal feasibility
+                are evaluated separately before the final score.
               </p>
             </div>
 
@@ -305,7 +306,7 @@ function ComparisonResult({
   return (
     <div className="comparison-screen comparison-result-screen">
       <ComparisonHeader
-        step={4}
+        step={5}
         onBack={onAdjust}
       />
 
@@ -567,6 +568,7 @@ function ComparisonHeader({
   const steps = [
     "League",
     "Club",
+    "Formation",
     "Players",
     "Compare",
   ];

@@ -9,6 +9,7 @@ from transfer_fit_engine import (
 )
 
 from position_fit_engine import (
+    apply_selected_formation,
     load_data as load_position_data,
     find_team as find_formation_team,
     get_team_formation_options,
@@ -43,7 +44,6 @@ from transfer_value_engine import (
     BUDGET_TOLERANCE,
     assess_budget,
     load_market_values,
-    resolve_transfer_value,
 )
 
 from realistic_data_engine import (
@@ -341,6 +341,7 @@ def analyze_transfer(
     team_name,
     player_id=None,
     budget_millions=None,
+    formation=None,
 ):
     # -----------------------------------------------------
     # Position / formation
@@ -420,6 +421,11 @@ def analyze_transfer(
         player_id,
         "Potential",
     )
+    formation_team = apply_selected_formation(
+        formation_team,
+        formation=formation,
+        limit=2,
+    )
 
     realism_player = find_realism_by_id(
         load_realism_profiles(),
@@ -459,30 +465,7 @@ def analyze_transfer(
         realism_player,
     )
 
-    transfer_value = resolve_transfer_value(
-        player_id=player_id,
-        performance_score=result[
-            "performance_score"
-        ],
-        potential_score=result[
-            "potential_score"
-        ],
-        age=result[
-            "potential_result"
-        ]["age"],
-        minutes=performance_player[
-            "minutes"
-        ],
-        league=performance_player.get(
-            "league"
-        ),
-        position_group=performance_player[
-            "position_group"
-        ],
-        position_source=position_player.get(
-            "position_source"
-        ),
-    )
+    transfer_value = result["transfer_value"]
 
     budget_assessment = assess_budget(
         transfer_value[
@@ -490,6 +473,7 @@ def analyze_transfer(
         ],
         budget_millions,
     )
+    transfer_feasibility = result["transfer_feasibility"]
 
     # =====================================================
     # EXPLANATIONS
@@ -645,6 +629,10 @@ def analyze_transfer(
             "secondary_formation": formation_team[
                 "secondary_formation"
             ],
+
+            "selected_formation": formation_team[
+                "selected_formation"
+            ],
         },
 
         "scores": {
@@ -663,10 +651,10 @@ def analyze_transfer(
             ],
 
             "classification": (
-                transfer_fit_label(
-                    result[
-                        "final_score"
-                    ]
+                "Unrealistic Transfer"
+                if not transfer_feasibility["eligible"]
+                else transfer_fit_label(
+                    result["final_score"]
                 )
             ),
 
@@ -704,6 +692,10 @@ def analyze_transfer(
 
             "squad_need": result[
                 "squad_need_score"
+            ],
+
+            "deal_feasibility": result[
+                "deal_feasibility_score"
             ],
         },
 
@@ -883,6 +875,10 @@ def analyze_transfer(
             "availability_score": result[
                 "availability_score"
             ],
+            "transfer_feasibility": transfer_feasibility,
+            "sporting_fit_score": result[
+                "sporting_fit_score"
+            ],
         },
 
         "transfer_value": {
@@ -911,6 +907,7 @@ def get_candidate_rankings(
     min_minutes=450,
     min_role_fit=80,
     budget_millions=None,
+    formation=None,
 ):
     rankings, team, expected_slots = (
         rank_candidates(
@@ -920,6 +917,7 @@ def get_candidate_rankings(
             min_minutes,
             min_role_fit,
             budget_millions,
+            formation=formation,
         )
     )
 
@@ -994,7 +992,7 @@ def get_team_profile(team_name):
         "formation_history": team["formation_history"],
         "formation_options": get_team_formation_options(
             team,
-            limit=3,
+            limit=2,
         ),
     }
 
@@ -1007,6 +1005,7 @@ def compare_players(
     team_name,
     player_ids,
     budget_millions=None,
+    formation=None,
 ):
     unique_ids = []
 
@@ -1057,6 +1056,7 @@ def compare_players(
             team_name,
             player_id=player["player_id"],
             budget_millions=budget_millions,
+            formation=formation,
         )
 
     with ThreadPoolExecutor(
@@ -1091,6 +1091,7 @@ def compare_players(
         "availability",
         "potential",
         "squad_need",
+        "deal_feasibility",
     ]
     dimension_leaders = {}
 
@@ -1120,6 +1121,7 @@ def compare_players(
             "availability": "availability",
             "potential": "potential",
             "squad_need": "squad_need",
+            "deal_feasibility": "deal_feasibility",
         }
 
         for metric, weight_key in weight_keys.items():
