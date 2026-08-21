@@ -1,5 +1,30 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Brand from "./Brand";
 import FootballIcon from "./FootballIcon";
+
+
+const REALISM_MODES = {
+  strict: {
+    label: "Strict",
+    shortLabel: "STRICT",
+    minimum: 75,
+    copy: "Only the strongest realistic transfer paths.",
+  },
+  balanced: {
+    label: "Balanced",
+    shortLabel: "BALANCED",
+    minimum: 65,
+    copy: "Realistic targets plus measured ambition.",
+  },
+  ambitious: {
+    label: "Ambitious",
+    shortLabel: "AMBITIOUS",
+    minimum: 55,
+    copy: "All eligible deals, including difficult moves.",
+  },
+};
+
+const SHORTLIST_STORAGE_KEY = "transfit-shortlist-v1";
 
 
 function CandidatesScreen({
@@ -14,25 +39,111 @@ function CandidatesScreen({
   analysisLoading = false,
   analysisError = "",
 }) {
+  const [realismMode, setRealismMode] = useState(
+    () => readStoredRealismMode()
+  );
   const [activePlayerId, setActivePlayerId] = useState(
     candidates.length > 0
       ? candidates[0].player_id
       : null
   );
+  const [whyCandidate, setWhyCandidate] = useState(null);
+  const [shortlistOpen, setShortlistOpen] = useState(false);
+  const [shortlist, setShortlist] = useState(
+    () => readStoredShortlist()
+  );
 
-  const topCandidate =
-    candidates.length > 0
-      ? candidates[0]
-      : null;
+  const realisticCandidates = useMemo(() => {
+    const minimum = REALISM_MODES[realismMode].minimum;
+
+    return candidates.filter((candidate) => (
+      Number(candidate.deal_feasibility_score || 0) >= minimum
+    ));
+  }, [candidates, realismMode]);
+
+  const visibleCandidates = useMemo(
+    () => realisticCandidates.slice(0, 12).map((candidate, index) => ({
+      ...candidate,
+      original_rank: candidate.rank,
+      rank: index + 1,
+    })),
+    [realisticCandidates]
+  );
+
+  const topCandidate = visibleCandidates[0] || null;
 
   const activeCandidate =
-    candidates.find(
+    visibleCandidates.find(
       (player) =>
         player.player_id === activePlayerId
     ) || topCandidate;
 
+  useEffect(() => {
+    if (
+      !visibleCandidates.some(
+        (candidate) => candidate.player_id === activePlayerId
+      )
+    ) {
+      setActivePlayerId(visibleCandidates[0]?.player_id || null);
+    }
+  }, [activePlayerId, visibleCandidates]);
 
-  if (!topCandidate) {
+  useEffect(() => {
+    window.localStorage.setItem(
+      "transfit-realism-mode",
+      realismMode
+    );
+  }, [realismMode]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      SHORTLIST_STORAGE_KEY,
+      JSON.stringify(shortlist)
+    );
+  }, [shortlist]);
+
+  function toggleShortlist(candidate) {
+    setShortlist((current) => {
+      const exists = current.some(
+        (item) => item.player.player_id === candidate.player_id
+          && item.targetTeam === team
+      );
+
+      if (exists) {
+        return current.filter(
+          (item) => !(
+            item.player.player_id === candidate.player_id
+            && item.targetTeam === team
+          )
+        );
+      }
+
+      if (current.length >= 4) {
+        setShortlistOpen(true);
+        return current;
+      }
+
+      return [
+        ...current,
+        {
+          player: candidate,
+          targetTeam: team,
+          role,
+          formation,
+        },
+      ];
+    });
+  }
+
+  function isShortlisted(candidate) {
+    return shortlist.some(
+      (item) => item.player.player_id === candidate.player_id
+        && item.targetTeam === team
+    );
+  }
+
+
+  if (candidates.length === 0) {
     return (
       <div className="candidates-screen">
         <CandidatesHeader
@@ -166,7 +277,7 @@ function CandidatesScreen({
               </span>
 
               <strong>
-                {candidates.length}
+                {visibleCandidates.length} / {realisticCandidates.length}
               </strong>
             </div>
 
@@ -182,15 +293,63 @@ function CandidatesScreen({
           </div>
         </section>
 
+        <section className="realism-control-panel">
+          <div className="realism-control-copy">
+            <span className="realism-control-icon">◎</span>
+
+            <div>
+              <span>TRANSFER REALISM</span>
+              <strong>Choose how conservative the shortlist should be.</strong>
+              <small>{REALISM_MODES[realismMode].copy}</small>
+            </div>
+          </div>
+
+          <div className="realism-mode-switch" role="group" aria-label="Transfer realism">
+            {Object.entries(REALISM_MODES).map(([key, mode]) => (
+              <button
+                type="button"
+                className={realismMode === key ? "active" : ""}
+                key={key}
+                onClick={() => setRealismMode(key)}
+                aria-pressed={realismMode === key}
+              >
+                <span>{mode.shortLabel}</span>
+                <small>{mode.minimum}+ feasibility</small>
+              </button>
+            ))}
+          </div>
+
+          <div className="realism-result-count">
+            <strong>{realisticCandidates.length}</strong>
+            <span>VISIBLE TARGETS</span>
+          </div>
+        </section>
+
         <ScoreArchitecture
           model={scoringModel}
         />
+
+        {!topCandidate && (
+          <section className="realism-empty-state">
+            <span>STRICT FILTER ACTIVE</span>
+            <h3>No candidates clear this realism threshold.</h3>
+            <p>
+              The sporting shortlist exists, but none of the deals are strong
+              enough for the selected club at this level. Try Balanced or
+              Ambitious to inspect more difficult transfer paths.
+            </p>
+            <button type="button" onClick={() => setRealismMode("balanced")}>
+              Switch to Balanced <span>→</span>
+            </button>
+          </section>
+        )}
 
 
         {/* =============================================
             TOP PICK
         ============================================= */}
 
+        {topCandidate && (
         <section className="top-pick-section">
           {analysisError && (
             <div className="api-error">
@@ -397,35 +556,53 @@ function CandidatesScreen({
                 candidate={topCandidate}
               />
 
+              <div className="candidate-primary-actions">
+                <button
+                  className="primary-button candidate-analysis-button"
+                  disabled={analysisLoading}
+                  onClick={() => {
+                    if (onSelectPlayer) {
+                      onSelectPlayer(topCandidate);
+                    }
+                  }}
+                >
+                  {analysisLoading
+                    ? "Analyzing Player..."
+                    : "View Full Analysis"}
+                  <span>→</span>
+                </button>
 
-              <button
-                className="primary-button candidate-analysis-button"
-                disabled={analysisLoading}
-                onClick={() => {
-                  if (onSelectPlayer) {
-                    onSelectPlayer(
-                      topCandidate
-                    );
-                  }
-                }}
-              >
-                {analysisLoading
-                  ? "Analyzing Player..."
-                  : "View Full Analysis"}
+                <button
+                  type="button"
+                  className="candidate-why-button"
+                  onClick={() => setWhyCandidate(topCandidate)}
+                >
+                  <span>?</span>
+                  Why this player
+                </button>
 
-                <span>
-                  →
-                </span>
-              </button>
+                <button
+                  type="button"
+                  className={`candidate-shortlist-button ${
+                    isShortlisted(topCandidate) ? "active" : ""
+                  }`}
+                  onClick={() => toggleShortlist(topCandidate)}
+                >
+                  <span>{isShortlisted(topCandidate) ? "✓" : "+"}</span>
+                  {isShortlisted(topCandidate) ? "Shortlisted" : "Add to shortlist"}
+                </button>
+              </div>
             </div>
           </div>
         </section>
+        )}
 
 
         {/* =============================================
             RANKING LIST
         ============================================= */}
 
+        {topCandidate && (
         <section className="ranking-section">
           <div className="ranking-section-header">
             <div>
@@ -455,7 +632,7 @@ function CandidatesScreen({
             {/* Candidate Cards */}
 
             <div className="candidate-list">
-              {candidates.map(
+              {visibleCandidates.map(
                 (candidate) => {
                   const active =
                     candidate.player_id ===
@@ -468,11 +645,13 @@ function CandidatesScreen({
                       }
                       candidate={candidate}
                       active={active}
+                      shortlisted={isShortlisted(candidate)}
                       onClick={() =>
                         setActivePlayerId(
                           candidate.player_id
                         )
                       }
+                      onToggleShortlist={() => toggleShortlist(candidate)}
                     />
                   );
                 }
@@ -628,31 +807,92 @@ function CandidatesScreen({
                   compact
                 />
 
+                <div className="preview-action-grid">
+                  <button
+                    className="continue-button preview-analysis-button"
+                    disabled={analysisLoading}
+                    onClick={() => {
+                      if (onSelectPlayer) {
+                        onSelectPlayer(activeCandidate);
+                      }
+                    }}
+                  >
+                    {analysisLoading ? "Analyzing Player..." : "Analyze Player"}
+                    <span>→</span>
+                  </button>
 
-                <button
-                  className="continue-button preview-analysis-button"
-                  disabled={analysisLoading}
-                  onClick={() => {
-                    if (onSelectPlayer) {
-                      onSelectPlayer(
-                        activeCandidate
-                      );
-                    }
-                  }}
-                >
-                  {analysisLoading
-                    ? "Analyzing Player..."
-                    : "Analyze Player"}
+                  <button
+                    type="button"
+                    className="preview-why-button"
+                    onClick={() => setWhyCandidate(activeCandidate)}
+                  >
+                    Why this player?
+                  </button>
 
-                  <span>
-                    →
-                  </span>
-                </button>
+                  <button
+                    type="button"
+                    className={`preview-shortlist-button ${
+                      isShortlisted(activeCandidate) ? "active" : ""
+                    }`}
+                    onClick={() => toggleShortlist(activeCandidate)}
+                  >
+                    {isShortlisted(activeCandidate) ? "✓ Shortlisted" : "+ Shortlist"}
+                  </button>
+                </div>
               </aside>
             )}
           </div>
         </section>
+        )}
       </main>
+
+      {shortlist.length > 0 && (
+        <ShortlistDock
+          shortlist={shortlist}
+          onOpen={() => setShortlistOpen(true)}
+          onRemove={(item) => {
+            setShortlist((current) => current.filter(
+              (entry) => !(
+                entry.player.player_id === item.player.player_id
+                && entry.targetTeam === item.targetTeam
+              )
+            ));
+          }}
+        />
+      )}
+
+      {shortlistOpen && (
+        <ShortlistComparison
+          shortlist={shortlist}
+          onClose={() => setShortlistOpen(false)}
+          onClear={() => setShortlist([])}
+          onRemove={(item) => {
+            setShortlist((current) => current.filter(
+              (entry) => !(
+                entry.player.player_id === item.player.player_id
+                && entry.targetTeam === item.targetTeam
+              )
+            ));
+          }}
+        />
+      )}
+
+      {whyCandidate && (
+        <WhyPlayerDrawer
+          candidate={whyCandidate}
+          team={team}
+          role={role}
+          shortlisted={isShortlisted(whyCandidate)}
+          onToggleShortlist={() => toggleShortlist(whyCandidate)}
+          onAnalyze={() => {
+            setWhyCandidate(null);
+            if (onSelectPlayer) {
+              onSelectPlayer(whyCandidate);
+            }
+          }}
+          onClose={() => setWhyCandidate(null)}
+        />
+      )}
     </div>
   );
 }
@@ -674,22 +914,8 @@ function CandidatesHeader({
         ←
       </button>
 
-      <div className="brand analysis-brand">
-        <div className="brand-mark">
-          <span>
-            T
-          </span>
-        </div>
-
-        <div className="brand-text">
-          <span className="brand-main">
-            TransFit
-          </span>
-
-          <span className="brand-ai">
-            AI
-          </span>
-        </div>
+      <div className="analysis-brand">
+        <Brand compact />
       </div>
 
 
@@ -747,17 +973,40 @@ function CandidatesHeader({
 function CandidateCard({
   candidate,
   active,
+  shortlisted,
   onClick,
+  onToggleShortlist,
 }) {
   return (
-    <button
+    <article
       className={
         active
           ? "candidate-row-card active"
           : "candidate-row-card"
       }
       onClick={onClick}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
+      <button
+        type="button"
+        className={`candidate-row-shortlist ${shortlisted ? "active" : ""}`}
+        aria-label={shortlisted ? `Remove ${candidate.name} from shortlist` : `Add ${candidate.name} to shortlist`}
+        aria-pressed={shortlisted}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleShortlist();
+        }}
+      >
+        {shortlisted ? "✓" : "+"}
+      </button>
+
       <div className="candidate-rank-number">
         {candidate.rank}
       </div>
@@ -839,7 +1088,7 @@ function CandidateCard({
       <div className="candidate-row-arrow">
         →
       </div>
-    </button>
+    </article>
   );
 }
 
@@ -1074,6 +1323,255 @@ function DecisionSummary({
 
 
 /* =========================================================
+   WHY THIS PLAYER
+========================================================= */
+
+function WhyPlayerDrawer({
+  candidate,
+  team,
+  role,
+  shortlisted,
+  onToggleShortlist,
+  onAnalyze,
+  onClose,
+}) {
+  const story = getCandidateStory(candidate, team, role);
+
+  return (
+    <div className="insight-overlay" role="presentation" onMouseDown={onClose}>
+      <aside
+        className="why-player-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Why ${candidate.name} fits ${team}`}
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <div className="drawer-accent" />
+
+        <div className="drawer-header">
+          <span>TRANSFIT DECISION BRIEF</span>
+          <button type="button" onClick={onClose} aria-label="Close">×</button>
+        </div>
+
+        <div className="drawer-player">
+          <PlayerImage player={candidate} />
+          <div>
+            <small>{candidate.current_team} · {candidate.primary_position}</small>
+            <h3>{candidate.name}</h3>
+            <p>{team} · {role} · {candidate.final_score}% fit</p>
+          </div>
+          <strong>{candidate.final_score}</strong>
+        </div>
+
+        <div className="drawer-verdict">
+          <span>{getRealismLabel(candidate)}</span>
+          <strong>{story.verdict}</strong>
+          <p>{story.summary}</p>
+        </div>
+
+        <section className="drawer-signal-section">
+          <div className="drawer-section-heading">
+            <span>01</span>
+            <strong>Why the model likes him</strong>
+          </div>
+
+          <div className="drawer-signal-grid positive">
+            {story.strengths.map((signal) => (
+              <article key={signal.label}>
+                <span>↑</span>
+                <div>
+                  <small>{signal.label}</small>
+                  <strong>{formatMetric(signal.value)}</strong>
+                  <p>{signal.copy}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="drawer-signal-section">
+          <div className="drawer-section-heading">
+            <span>02</span>
+            <strong>What the club should verify</strong>
+          </div>
+
+          <div className="drawer-signal-grid risk">
+            {story.risks.map((signal) => (
+              <article key={signal.label}>
+                <span>!</span>
+                <div>
+                  <small>{signal.label}</small>
+                  <strong>{formatMetric(signal.value)}</strong>
+                  <p>{signal.copy}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <div className="drawer-market-line">
+          <div>
+            <span>MARKET VALUE</span>
+            <strong>€{candidate.estimated_value_m_eur}M</strong>
+          </div>
+          <div>
+            <span>SOURCE</span>
+            <strong>{getValueSourceName(candidate)}</strong>
+          </div>
+          <div>
+            <span>DEAL PATH</span>
+            <strong>{getRealismLabel(candidate)}</strong>
+          </div>
+        </div>
+
+        {candidate.deal_feasibility?.reason && (
+          <p className="drawer-model-note">
+            <span>MODEL NOTE</span>
+            {candidate.deal_feasibility.reason}
+          </p>
+        )}
+
+        <div className="drawer-actions">
+          <button type="button" className="primary-button" onClick={onAnalyze}>
+            Open full analysis <span>→</span>
+          </button>
+          <button
+            type="button"
+            className={`candidate-shortlist-button ${shortlisted ? "active" : ""}`}
+            onClick={onToggleShortlist}
+          >
+            {shortlisted ? "✓ Shortlisted" : "+ Add to shortlist"}
+          </button>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+
+/* =========================================================
+   SHORTLIST
+========================================================= */
+
+function ShortlistDock({ shortlist, onOpen, onRemove }) {
+  return (
+    <div className="shortlist-dock">
+      <div className="shortlist-dock-copy">
+        <span>SHORTLIST</span>
+        <strong>{shortlist.length} / 4 targets saved</strong>
+      </div>
+
+      <div className="shortlist-dock-players">
+        {shortlist.map((item) => (
+          <div className="shortlist-dock-player" key={`${item.targetTeam}-${item.player.player_id}`}>
+            <PlayerImage player={item.player} compact />
+            <span>{item.player.name}</span>
+            <button
+              type="button"
+              onClick={() => onRemove(item)}
+              aria-label={`Remove ${item.player.name}`}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <button type="button" className="shortlist-compare-button" onClick={onOpen}>
+        Compare shortlist <span>↗</span>
+      </button>
+    </div>
+  );
+}
+
+
+function ShortlistComparison({ shortlist, onClose, onClear, onRemove }) {
+  const metrics = [
+    ["TransFit", "final_score"],
+    ["Tactical", "tactical"],
+    ["Performance", "performance"],
+    ["Proven", "proven"],
+    ["Squad Need", "squad_need"],
+    ["Feasibility", "deal_feasibility_score"],
+  ];
+
+  return (
+    <div className="insight-overlay shortlist-overlay" role="presentation" onMouseDown={onClose}>
+      <section
+        className="shortlist-comparison"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shortlist comparison"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <div className="shortlist-modal-header">
+          <div>
+            <span>DECISION ROOM</span>
+            <h3>Compare your shortlist.</h3>
+            <p>One view for sporting fit, deal realism and market value.</p>
+          </div>
+
+          <div>
+            <button type="button" className="shortlist-clear" onClick={onClear}>Clear all</button>
+            <button type="button" className="shortlist-close" onClick={onClose} aria-label="Close">×</button>
+          </div>
+        </div>
+
+        {shortlist.length === 0 ? (
+          <div className="shortlist-empty">
+            <span>NO SAVED TARGETS</span>
+            <p>Add players from the candidate ranking to compare them here.</p>
+          </div>
+        ) : (
+          <div className={`shortlist-comparison-grid count-${shortlist.length}`}>
+            {shortlist.map((item, index) => (
+              <article key={`${item.targetTeam}-${item.player.player_id}`}>
+                <div className="shortlist-card-rank">0{index + 1}</div>
+                <button
+                  type="button"
+                  className="shortlist-card-remove"
+                  onClick={() => onRemove(item)}
+                  aria-label={`Remove ${item.player.name}`}
+                >
+                  ×
+                </button>
+
+                <PlayerImage player={item.player} />
+                <small>{item.targetTeam} · {item.role}</small>
+                <h4>{item.player.name}</h4>
+                <p>{item.player.current_team} · Age {item.player.age}</p>
+
+                <div className="shortlist-card-value">
+                  <strong>{item.player.final_score}</strong>
+                  <span>% FIT</span>
+                  <small>€{item.player.estimated_value_m_eur}M</small>
+                </div>
+
+                <div className="shortlist-card-metrics">
+                  {metrics.map(([label, key]) => (
+                    <div key={key}>
+                      <span>{label}</span>
+                      <strong>{formatMetric(item.player[key])}</strong>
+                      <i><b style={{ width: `${Math.min(Number(item.player[key]) || 0, 100)}%` }} /></i>
+                    </div>
+                  ))}
+                </div>
+
+                <div className={`shortlist-realism ${getRealismClass(item.player)}`}>
+                  <span>{getRealismLabel(item.player)}</span>
+                  <strong>{formatMetric(item.player.deal_feasibility_score)}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
+
+/* =========================================================
    HELPERS
 ========================================================= */
 
@@ -1269,6 +1767,126 @@ function getValueSourceName(candidate) {
   }
 
   return "TransFit estimate";
+}
+
+
+function getRealismLabel(candidate) {
+  const score = Number(candidate?.deal_feasibility_score || 0);
+
+  if (score >= 75) {
+    return "Realistic path";
+  }
+
+  if (score >= 65) {
+    return "Measured ambition";
+  }
+
+  return "Difficult deal";
+}
+
+
+function getRealismClass(candidate) {
+  const score = Number(candidate?.deal_feasibility_score || 0);
+
+  if (score >= 75) {
+    return "realistic";
+  }
+
+  if (score >= 65) {
+    return "balanced";
+  }
+
+  return "ambitious";
+}
+
+
+function getCandidateStory(candidate, team, role) {
+  const strengthCopy = {
+    "Tactical fit": `The player's statistical style aligns with ${team}'s team profile.`,
+    "Role performance": `Current output supports the demands of the ${role} role.`,
+    "Proven level": "The evidence is backed by meaningful senior-level performance.",
+    "Market validation": "External market evidence supports the underlying performance signal.",
+    "Squad need": `The model identifies a meaningful upgrade opportunity at ${role}.`,
+    "Deal feasibility": "Club stature and market tier create a credible transfer path.",
+  };
+
+  const riskCopy = {
+    "Availability watch": "Minutes and availability should be checked before committing.",
+    "Development runway": "Age and current trajectory limit the potential component.",
+    "Tactical risk": "Some playing-style dimensions may require adaptation.",
+    "Transfer difficulty": "Market tier or club pathway makes negotiations less straightforward.",
+  };
+
+  const strengthPool = [
+    ["Tactical fit", candidate?.tactical],
+    ["Role performance", candidate?.performance],
+    ["Proven level", candidate?.proven],
+    ["Market validation", candidate?.market_validation],
+    ["Squad need", candidate?.squad_need],
+    ["Deal feasibility", candidate?.deal_feasibility_score],
+  ];
+
+  const riskPool = [
+    ["Availability watch", candidate?.availability],
+    ["Development runway", candidate?.potential],
+    ["Tactical risk", candidate?.tactical],
+    ["Transfer difficulty", candidate?.deal_feasibility_score],
+  ];
+
+  const strengths = strengthPool
+    .filter(([, value]) => value != null)
+    .sort((left, right) => Number(right[1]) - Number(left[1]))
+    .slice(0, 3)
+    .map(([label, value]) => ({ label, value, copy: strengthCopy[label] }));
+
+  const risks = riskPool
+    .filter(([, value]) => value != null)
+    .sort((left, right) => Number(left[1]) - Number(right[1]))
+    .slice(0, 2)
+    .map(([label, value]) => ({ label, value, copy: riskCopy[label] }));
+
+  const score = Number(candidate?.final_score || 0);
+  const feasibility = Number(candidate?.deal_feasibility_score || 0);
+
+  return {
+    strengths,
+    risks,
+    verdict: score >= 80
+      ? "High-priority sporting fit"
+      : score >= 70
+        ? "Strong shortlist candidate"
+        : "Useful alternative profile",
+    summary: feasibility >= 75
+      ? `${candidate.name} combines role evidence with a realistic market path for ${team}.`
+      : `${candidate.name} fits the sporting brief, but the transfer path needs additional validation.`,
+  };
+}
+
+
+function readStoredRealismMode() {
+  if (typeof window === "undefined") {
+    return "strict";
+  }
+
+  const stored = window.localStorage.getItem("transfit-realism-mode");
+  return stored && REALISM_MODES[stored] ? stored : "strict";
+}
+
+
+function readStoredShortlist() {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
+  try {
+    const stored = JSON.parse(
+      window.localStorage.getItem(SHORTLIST_STORAGE_KEY) || "[]"
+    );
+
+    return Array.isArray(stored) ? stored.slice(0, 4) : [];
+  } catch {
+    return [];
+  }
 }
 
 

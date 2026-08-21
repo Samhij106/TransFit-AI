@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import "./upgrade.css";
+import Brand from "./components/Brand";
 import CandidatesScreen from "./components/CandidatesScreen";
 import ComparisonCenter from "./components/ComparisonCenter";
 import FootballIcon from "./components/FootballIcon";
@@ -550,7 +552,7 @@ function App() {
         investmentBudget
       )}&formation=${encodeURIComponent(
         squadFormation
-      )}&limit=10&min_minutes=450&min_role_fit=80`
+      )}&limit=30&min_minutes=450&min_role_fit=80`
     );
 
     const data = await response.json();
@@ -1300,21 +1302,7 @@ function LandingScreen({
   return (
     <>
       <nav className="navbar">
-        <div className="brand">
-          <div className="brand-mark">
-            <span>T</span>
-          </div>
-
-          <div className="brand-text">
-            <span className="brand-main">
-              TransFit
-            </span>
-
-            <span className="brand-ai">
-              AI
-            </span>
-          </div>
-        </div>
+        <Brand />
 
         <div className="nav-links">
           <a href="#how">How it works</a>
@@ -1581,20 +1569,8 @@ function AnalysisHeader({
         ←
       </button>
 
-      <div className="brand analysis-brand">
-        <div className="brand-mark">
-          <span>T</span>
-        </div>
-
-        <div className="brand-text">
-          <span className="brand-main">
-            TransFit
-          </span>
-
-          <span className="brand-ai">
-            AI
-          </span>
-        </div>
+      <div className="analysis-brand">
+        <Brand compact />
       </div>
 
       <div className="analysis-progress">

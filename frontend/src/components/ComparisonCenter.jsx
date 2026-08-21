@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Brand from "./Brand";
 import FootballIcon from "./FootballIcon";
 
 
@@ -582,14 +583,8 @@ function ComparisonHeader({
         ←
       </button>
 
-      <div className="brand analysis-brand">
-        <div className="brand-mark">
-          <span>T</span>
-        </div>
-        <div className="brand-text">
-          <span className="brand-main">TransFit</span>
-          <span className="brand-ai">AI</span>
-        </div>
+      <div className="analysis-brand">
+        <Brand compact />
       </div>
 
       <div className="analysis-progress">
