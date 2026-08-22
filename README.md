@@ -103,6 +103,16 @@ It contains:
 These explanations describe model behaviour and decision evidence. They are
 not causal claims and do not represent the probability that a transfer occurs.
 
+### Data-quality and outlier controls
+
+Performance percentages are sample-aware: shot accuracy and dribble success
+are shrunk toward the relevant position-group average when they are based on a
+small number of attempts. UI bars show position percentiles while preserving
+the raw statistic and its unit. Run `audit_player_analysis_data.py` to check
+hard ranges, broken statistical relationships, missing values, low-sample rate
+risks and robust outlier review candidates. The current audit is documented in
+[`docs/DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md).
+
 The model output is a forecast of post-transfer sporting success—not the
 probability that negotiations will be completed. If the player or club cannot
 be matched reliably, the application explicitly falls back to the expert

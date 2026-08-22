@@ -185,12 +185,18 @@ def prepare_data():
 # =========================================================
 
 def calculate_potential(player):
-    age = float(
-        player["age"]
+    age_value = pd.to_numeric(
+        player.get("age"),
+        errors="coerce",
+    )
+    age = (
+        None
+        if pd.isna(age_value)
+        else float(age_value)
     )
 
     runway = development_runway(
-        age
+        age_value
     )
 
     performance_for_age = float(
@@ -215,7 +221,11 @@ def calculate_potential(player):
     )
 
     return {
-        "age": round(age, 1),
+        "age": (
+            None
+            if age is None
+            else round(age, 1)
+        ),
         "age_band": player["age_band"],
         "development_runway": round(
             runway,

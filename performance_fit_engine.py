@@ -12,6 +12,24 @@ REALISM_PLAYER_FILE = (
 FULL_RELIABILITY_MINUTES = 900
 
 
+# Percentage metrics can look elite when they are built from only one or two
+# actions.  We therefore rank a sample-aware estimate instead of the raw rate.
+# The raw value is still returned to the UI, while the model value is shrunk
+# toward the player's position-group average until enough attempts exist.
+RATE_METRIC_EVIDENCE = {
+    "shot_accuracy": {
+        "attempts": "shots",
+        "successes": "shots_on_target",
+        "prior_attempts": 12.0,
+    },
+    "dribble_success_rate": {
+        "attempts": "dribble_attempts",
+        "successes": "successful_dribbles",
+        "prior_attempts": 12.0,
+    },
+}
+
+
 # =========================================================
 # PERFORMANCE WEIGHTS BY POSITION GROUP
 # =========================================================
@@ -201,10 +219,58 @@ def find_player(players, player_name):
 # =========================================================
 
 def calculate_percentiles(players):
+    players = players.copy()
     metrics = set()
 
     for weights in PERFORMANCE_WEIGHTS.values():
         metrics.update(weights.keys())
+
+    for config in RATE_METRIC_EVIDENCE.values():
+        for column in (
+            config["attempts"],
+            config["successes"],
+        ):
+            players[column] = pd.to_numeric(
+                players[column],
+                errors="coerce",
+            ).fillna(0).clip(lower=0)
+
+    for metric, config in RATE_METRIC_EVIDENCE.items():
+        attempts = players[config["attempts"]]
+        successes = players[config["successes"]].where(
+            players[config["successes"]] <= attempts,
+            attempts,
+        )
+
+        group_attempts = attempts.groupby(
+            players["position_group"]
+        ).transform("sum")
+        group_successes = successes.groupby(
+            players["position_group"]
+        ).transform("sum")
+
+        global_attempts = float(attempts.sum())
+        global_rate = (
+            float(successes.sum()) / global_attempts
+            if global_attempts > 0
+            else 0.5
+        )
+        group_rate = (
+            group_successes
+            .div(group_attempts.where(group_attempts > 0))
+            .fillna(global_rate)
+            .clip(0, 1)
+        )
+
+        prior_attempts = float(config["prior_attempts"])
+        model_rate = (
+            successes + group_rate * prior_attempts
+        ) / (attempts + prior_attempts)
+
+        players[f"{metric}_model_value"] = (
+            model_rate.clip(0, 1) * 100
+        )
+        players[f"{metric}_sample_size"] = attempts
 
     for metric in metrics:
         players[metric] = pd.to_numeric(
@@ -212,8 +278,13 @@ def calculate_percentiles(players):
             errors="coerce",
         ).fillna(0)
 
+        ranking_values = players.get(
+            f"{metric}_model_value",
+            players[metric],
+        )
+
         players[f"{metric}_pct"] = (
-            players.groupby("position_group")[metric]
+            ranking_values.groupby(players["position_group"])
             .rank(
                 pct=True,
                 method="average",
@@ -283,6 +354,17 @@ def calculate_performance_score(
             player[metric]
         )
 
+        model_value = float(
+            player.get(
+                f"{metric}_model_value",
+                raw_value,
+            )
+        )
+
+        sample_size = player.get(
+            f"{metric}_sample_size"
+        )
+
         contribution = (
             percentile * weight
         )
@@ -294,6 +376,16 @@ def calculate_performance_score(
             "raw_value": round(
                 raw_value,
                 2,
+            ),
+            "model_value": round(
+                model_value,
+                2,
+            ),
+            "sample_size": (
+                0
+                if sample_size is None
+                or pd.isna(sample_size)
+                else int(sample_size)
             ),
             "percentile": round(
                 percentile,

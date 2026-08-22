@@ -929,6 +929,7 @@ function PerformanceModule({
 
 
       {details.length > 0 && (
+        <>
         <div className="module-metric-list">
 
           {details.map(
@@ -939,13 +940,34 @@ function PerformanceModule({
                   item.label
                 }
                 value={
+                  formatPerformanceMetricValue(
+                    item.label,
+                    item.value
+                  )
+                }
+                barValue={
+                  item.percentile ??
                   item.value
+                }
+                context={
+                  performanceMetricContext(
+                    item
+                  )
                 }
               />
             )
           )}
 
         </div>
+
+        <p className="module-metric-scale-note">
+          Bar length shows the player&apos;s percentile
+          against the same position group. The value on
+          the right is the raw match statistic. Accuracy
+          rates with small samples are adjusted toward the
+          positional average before ranking.
+        </p>
+        </>
       )}
 
     </article>
@@ -1487,11 +1509,17 @@ function InsightBox({
 function MetricRow({
   label,
   value,
+  barValue,
+  context,
 }) {
   const numeric =
     extractNumber(
-      value
+      barValue ?? value
     );
+
+  const displayLabel = formatLabel(
+    String(label)
+  );
 
   return (
     <div className="module-metric-row">
@@ -1499,14 +1527,20 @@ function MetricRow({
       <div className="module-metric-heading">
 
         <span>
-          {label}
+          {displayLabel}
         </span>
 
-        <strong>
-          {formatGenericValue(
-            value
+        <div className="module-metric-value">
+          {context && (
+            <small>{context}</small>
           )}
-        </strong>
+
+          <strong>
+            {formatGenericValue(
+              value
+            )}
+          </strong>
+        </div>
 
       </div>
 
@@ -1515,10 +1549,23 @@ function MetricRow({
         <div className="module-metric-track">
 
           <div
+            role="progressbar"
+            aria-label={`${displayLabel} percentile`}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={Math.round(
+              Math.min(
+                Math.max(numeric, 0),
+                100
+              )
+            )}
             style={{
               width:
                 `${Math.min(
-                  numeric,
+                  Math.max(
+                    numeric,
+                    0
+                  ),
                   100
                 )}%`,
             }}
@@ -1843,6 +1890,7 @@ function normalizeDetails(details) {
         item.formation_fit ??
         item.compatibility ??
         item.weighted_fit ??
+        item.raw_value ??
         item.value;
 
       if (
@@ -1852,6 +1900,16 @@ function normalizeDetails(details) {
         return {
           label: String(label),
           value,
+          percentile:
+            item.percentile,
+          weight:
+            item.weight,
+          contribution:
+            item.contribution,
+          modelValue:
+            item.model_value,
+          sampleSize:
+            item.sample_size,
         };
       }
 
@@ -1922,6 +1980,85 @@ function normalizeDetails(details) {
   }
 
   return [];
+}
+
+
+function formatPerformanceMetricValue(
+  label,
+  value
+) {
+  const numeric = Number(value);
+
+  if (!Number.isFinite(numeric)) {
+    return value ?? "-";
+  }
+
+  const metric = String(label).toLowerCase();
+
+  if (
+    metric === "shot_accuracy" ||
+    metric === "dribble_success_rate" ||
+    metric === "pass_accuracy"
+  ) {
+    return `${numeric.toFixed(1)}%`;
+  }
+
+  if (metric.endsWith("_per90")) {
+    return `${numeric.toFixed(2)} /90`;
+  }
+
+  if (metric === "rating") {
+    return numeric.toFixed(2);
+  }
+
+  if (
+    metric === "goals" ||
+    metric === "assists"
+  ) {
+    return String(Math.round(numeric));
+  }
+
+  return numeric.toFixed(1);
+}
+
+
+function performanceMetricContext(item) {
+  const parts = [];
+  const percentile = Number(item.percentile);
+  const weight = Number(item.weight);
+  const sampleSize = Number(item.sampleSize);
+  const rawValue = Number(item.value);
+  const modelValue = Number(item.modelValue);
+  const metric = String(item.label).toLowerCase();
+  const isSampleAdjustedRate =
+    metric === "shot_accuracy" ||
+    metric === "dribble_success_rate";
+
+  if (Number.isFinite(percentile)) {
+    parts.push(`P${Math.round(percentile)}`);
+  }
+
+  if (Number.isFinite(weight)) {
+    parts.push(`${weight.toFixed(0)}% weight`);
+  }
+
+  if (
+    isSampleAdjustedRate &&
+    Number.isFinite(sampleSize)
+  ) {
+    parts.push(`${sampleSize} attempts`);
+  }
+
+  if (
+    isSampleAdjustedRate &&
+    Number.isFinite(rawValue) &&
+    Number.isFinite(modelValue) &&
+    Math.abs(rawValue - modelValue) >= 1
+  ) {
+    parts.push(`adjusted ${modelValue.toFixed(1)}%`);
+  }
+
+  return parts.join(" · ");
 }
 
 

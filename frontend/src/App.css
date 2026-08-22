@@ -9690,6 +9690,21 @@ button {
   font-size: 9px;
 }
 
+.module-metric-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 9px;
+  text-align: right;
+}
+
+.module-metric-value small {
+  color: #78847b;
+  font-size: 7px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .module-metric-track {
   height: 3px;
 
@@ -9709,6 +9724,15 @@ button {
   background: var(--green);
 
   border-radius: inherit;
+}
+
+.module-metric-scale-note {
+  margin: 16px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+  color: #69746c;
+  font-size: 8px;
+  line-height: 1.65;
 }
 
 
@@ -10052,6 +10076,16 @@ button {
 
 
 @media (max-width: 700px) {
+  .module-metric-heading {
+    align-items: flex-start;
+  }
+
+  .module-metric-value {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
   .player-analysis-page {
     width:
       calc(100% - 30px);

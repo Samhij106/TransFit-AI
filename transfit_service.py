@@ -627,10 +627,14 @@ def analyze_transfer(
                 None,
             ),
 
-            "age": float(
-                result[
+            "age": (
+                None
+                if pd.isna(result[
                     "potential_result"
-                ]["age"]
+                ]["age"])
+                else float(result[
+                    "potential_result"
+                ]["age"])
             ),
 
             "nationality": tactical_player.get(
