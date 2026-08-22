@@ -1,6 +1,6 @@
 {
   "suite_version": 1,
-  "model_version": "TransFit V11 Dual-ML Ranking",
+  "model_version": "TransFit V12 Explainable AI",
   "description": "Football sanity checks that protect the hybrid expert and historical-ML ranking from known unrealistic regressions.",
   "groups": [
     {

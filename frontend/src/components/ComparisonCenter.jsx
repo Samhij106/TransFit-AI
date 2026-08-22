@@ -269,7 +269,7 @@ function ComparisonCenter({
               />
 
               <p>
-                All players are scored with TransFit V11.
+                All players are scored with TransFit V12 Explainable AI.
                 The expert engine contributes 70% and historical
                 transfer-outcome ML contributes 30%.
               </p>

@@ -59,6 +59,10 @@ from ml.transfer_success_engine import (
     hybrid_weight_payload,
     predict_feature_rows,
 )
+from explainability_engine import (
+    EXPLAINABILITY_VERSION,
+    build_transfer_explanation,
+)
 
 
 _PLAYER_SEARCH_CATALOG = None
@@ -606,7 +610,7 @@ def analyze_transfer(
     # CLEAN RESPONSE FOR WEB / API
     # =====================================================
 
-    return {
+    response = {
         "player": {
             "player_id": player_id,
 
@@ -972,6 +976,43 @@ def analyze_transfer(
         },
     }
 
+    response["explainability"] = build_transfer_explanation(
+        player_name=response["player"]["name"],
+        current_team=response["player"]["current_team"],
+        target_team=response["target_team"]["name"],
+        role=(
+            response["squad_need"].get("best_role")
+            or response["player"].get("primary_position")
+        ),
+        scores={
+            "tactical": response["scores"].get("tactical"),
+            "position": response["scores"].get("position"),
+            "performance": response["scores"].get("performance"),
+            "proven": response["scores"].get("proven"),
+            "availability": response["scores"].get("availability"),
+            "potential": response["scores"].get("potential"),
+            "squad_need": response["scores"].get("squad_need"),
+            "deal_feasibility": response["scores"].get(
+                "deal_feasibility"
+            ),
+            "league_strength": response["scores"].get(
+                "league_strength"
+            ),
+        },
+        weights=response["scores"]["weights"],
+        final_score=response["scores"]["final"],
+        expert_score=response["scores"]["expert"],
+        hybrid_weights=response["scores"]["hybrid_weights"],
+        ml_prediction=ml_prediction,
+        transfer_feasibility=transfer_feasibility,
+        budget_status=response["transfer_value"].get("budget_status"),
+        value_source=response["transfer_value"].get("value_source"),
+        performance_reliability=response["performance"].get(
+            "reliability"
+        ),
+    )
+    return response
+
 
 # =========================================================
 # TEAM + ROLE -> TOP CANDIDATES
@@ -1001,6 +1042,7 @@ def get_candidate_rankings(
     return {
         "scoring_model": {
             "version": HYBRID_SCORE_VERSION,
+            "explainability_version": EXPLAINABILITY_VERSION,
             "weights": SCORE_WEIGHTS,
             "hybrid_weights": hybrid_weight_payload({}),
         },
@@ -1266,6 +1308,7 @@ def compare_players(
         "target_team": reports[0]["target_team"],
         "scoring_model": {
             "version": HYBRID_SCORE_VERSION,
+            "explainability_version": EXPLAINABILITY_VERSION,
             "weights": SCORE_WEIGHTS,
             "hybrid_weights": hybrid_weight_payload(),
         },

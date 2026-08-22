@@ -287,7 +287,7 @@ function CandidatesScreen({
               </span>
 
               <strong className="ranking-model">
-                {scoringModel?.version || "TransFit V11 Dual-ML Ranking"}
+                {scoringModel?.version || "TransFit V12 Explainable AI"}
               </strong>
             </div>
           </div>
@@ -1314,7 +1314,7 @@ function ScoreArchitecture({
         <span>HYBRID DECISION MODEL</span>
 
         <strong>
-          {model?.version || "TransFit V11 Dual-ML Ranking"}
+          {model?.version || "TransFit V12 Explainable AI"}
         </strong>
 
         <p>
@@ -1402,6 +1402,55 @@ function DecisionSummary({
 }
 
 
+function CandidateDecisionTrace({ candidate }) {
+  const explanation = candidate?.explainability || {};
+  const trace = explanation.decision_trace || {};
+  const components = trace.components || [];
+  const confidence = explanation.confidence || {};
+
+  if (components.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="candidate-xai-trace">
+      <div className="candidate-xai-heading">
+        <div>
+          <span>EXPLAINABLE AI · SCORE TRACE</span>
+          <strong>How the final score was built</strong>
+        </div>
+        <div>
+          <small>EVIDENCE CONFIDENCE</small>
+          <strong>{formatMetric(confidence.score)}</strong>
+          <span>{String(confidence.level || "unknown").toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div className="candidate-xai-engines">
+        {components.map((component) => (
+          <article key={component.engine}>
+            <span>{component.label}</span>
+            <div>
+              <strong>
+                {component.available ? formatMetric(component.score) : "N/A"}
+              </strong>
+              <b>{formatMetric(component.weight)}%</b>
+            </div>
+            <small>
+              {component.available
+                ? `${formatMetric(component.weighted_points)} weighted points`
+                : "Not used"}
+            </small>
+          </article>
+        ))}
+      </div>
+
+      <p>{trace.formula}</p>
+    </section>
+  );
+}
+
+
 /* =========================================================
    WHY THIS PLAYER
 ========================================================= */
@@ -1448,6 +1497,8 @@ function WhyPlayerDrawer({
           <strong>{story.verdict}</strong>
           <p>{story.summary}</p>
         </div>
+
+        <CandidateDecisionTrace candidate={candidate} />
 
         <section className="drawer-signal-section">
           <div className="drawer-section-heading">
@@ -1762,6 +1813,25 @@ function getEvidenceSummary(candidate) {
 
 
 function getCandidateSignals(candidate) {
+  const explanation = candidate?.explainability;
+
+  if (explanation?.positive_factors?.length) {
+    const strengths = explanation.positive_factors
+      .slice(0, 2)
+      .map((factor) => ({
+        label: factor.label,
+        value: factor.score,
+      }));
+    const risk = explanation.risk_factors?.[0];
+
+    return {
+      strengths,
+      watchout: risk
+        ? { label: risk.label, value: risk.score }
+        : { label: "No major warning", value: candidate?.final_score },
+    };
+  }
+
   const strengths = [
     {
       label: "Tactical fit",
@@ -1891,6 +1961,29 @@ function getRealismClass(candidate) {
 
 
 function getCandidateStory(candidate, team, role) {
+  const explanation = candidate?.explainability;
+
+  if (explanation?.positive_factors?.length) {
+    return {
+      strengths: explanation.positive_factors
+        .slice(0, 3)
+        .map((factor) => ({
+          label: factor.label,
+          value: factor.score,
+          copy: factor.evidence,
+        })),
+      risks: (explanation.risk_factors || [])
+        .slice(0, 2)
+        .map((factor) => ({
+          label: factor.label,
+          value: factor.score,
+          copy: factor.evidence,
+        })),
+      verdict: explanation.verdict,
+      summary: explanation.summary,
+    };
+  }
+
   const strengthCopy = {
     "Tactical fit": `The player's statistical style aligns with ${team}'s team profile.`,
     "Role performance": `Current output supports the demands of the ${role} role.`,

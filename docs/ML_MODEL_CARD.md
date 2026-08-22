@@ -4,7 +4,7 @@
 
 - Model ID: `transfer-success-hgb-v1`
 - Ranker ID: `transfer-ranker-pairwise-hgb-v1`
-- Product layer: `TransFit V11 Dual-ML Ranking`
+- Product layer: `TransFit V12 Explainable AI`
 - Algorithm: scikit-learn histogram gradient-boosting regressor
 - Purpose: estimate the quality of a player's first 365 days after a transfer
   to a specific club, using only information available before the transfer.
@@ -139,6 +139,25 @@ are deliberately marked as non-causal and are not additive SHAP values.
 If a reliable player or club identity match is unavailable, the application
 does not invent a value. It returns no ML prediction and safely uses the expert
 engine alone.
+
+## V12 explainability contract
+
+The production Backend attaches one shared `explainability` object to isolated
+player reports and live candidate records. Comparison reports inherit the same
+object for every compared player. The contract includes:
+
+- the available scoring engines, their scores, weights and weighted points;
+- the calculated score, reported score and any realism or calibration change;
+- a trace of every weighted expert factor;
+- positive evidence and risks selected by weighted impact, not raw score alone;
+- human-readable translations of local historical-model counterfactuals;
+- an evidence-confidence score based on performance coverage, market-value
+  source, prediction-interval confidence and pairwise confidence;
+- limitations and an explicit `is_causal: false` disclosure.
+
+Evidence confidence is not empirically calibrated transfer probability. It is
+a transparent coverage indicator intended to distinguish a well-supported
+recommendation from an expert-only fallback or a sparse live comparison.
 
 ## Known limitations
 

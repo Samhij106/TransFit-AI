@@ -478,6 +478,7 @@ def candidate_summary(candidate, role, assessment=None, plan_fit=None):
             "ml_rank_prediction"
         ),
         "ml_prediction": candidate.get("ml_prediction"),
+        "explainability": candidate.get("explainability"),
         "role_fit": optional_number(candidate["role_fit"]),
         "tactical": optional_number(candidate["tactical"]),
         "performance": optional_number(

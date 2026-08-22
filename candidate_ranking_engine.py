@@ -66,6 +66,7 @@ from ml.transfer_success_engine import (
     predict_candidate_rank_records,
     predict_candidate_records,
 )
+from explainability_engine import build_transfer_explanation
 
 
 # =========================================================
@@ -1101,6 +1102,43 @@ def rank_candidates(
     )
 
     # -----------------------------------------------------
+    # Explainable-AI decision trace
+    # -----------------------------------------------------
+
+    rankings["explainability"] = [
+        build_transfer_explanation(
+            player_name=row["name"],
+            current_team=row["current_team"],
+            target_team=formation_team["team"],
+            role=requested_role,
+            scores={
+                "tactical": row.get("tactical"),
+                "position": row.get("role_fit"),
+                "performance": row.get("performance"),
+                "proven": row.get("proven"),
+                "availability": row.get("availability"),
+                "potential": row.get("potential"),
+                "squad_need": row.get("squad_need"),
+                "deal_feasibility": row.get(
+                    "deal_feasibility_score"
+                ),
+                "league_strength": row.get("league_strength"),
+            },
+            weights=SCORE_WEIGHTS,
+            final_score=row["final_score"],
+            expert_score=row["expert_score"],
+            hybrid_weights=row.get("hybrid_weights") or {},
+            ml_prediction=row.get("ml_prediction"),
+            ranker_prediction=row.get("ml_rank_prediction"),
+            transfer_feasibility=row.get("deal_feasibility"),
+            budget_status=row.get("budget_status"),
+            value_source=row.get("value_source"),
+            context="candidate_live_pool",
+        )
+        for _, row in rankings.iterrows()
+    ]
+
+    # -----------------------------------------------------
     # Final column order
     #
     # Photo is included for API / Frontend.
@@ -1158,6 +1196,7 @@ def rank_candidates(
             "ml_rank_confidence",
             "ml_rank_prediction",
             "hybrid_weights",
+            "explainability",
             "final_score",
             "classification",
         ]

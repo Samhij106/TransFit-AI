@@ -11,6 +11,7 @@ import pandas as pd
 
 from ml.model_config import FEATURES, LEAGUE_STRENGTH
 from ml.transfer_ranker_engine import rank_feature_rows, ranker_status
+from explainability_engine import EXPLAINABILITY_VERSION, MODEL_VERSION
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -32,7 +33,7 @@ HYBRID_EXPERT_WEIGHT = 0.70
 HYBRID_ML_WEIGHT = 0.30
 HYBRID_SUCCESS_WEIGHT = 0.285
 HYBRID_RANKER_WEIGHT = 0.015
-HYBRID_SCORE_VERSION = "TransFit V11 Dual-ML Ranking"
+HYBRID_SCORE_VERSION = MODEL_VERSION
 
 LEAGUE_TO_COMPETITION = {
     "premier league": "GB1",
@@ -91,6 +92,7 @@ def model_status():
         return {
             "available": False,
             "hybrid_version": HYBRID_SCORE_VERSION,
+            "explainability_version": EXPLAINABILITY_VERSION,
             "learning_to_rank": ranker_status(),
         }
 
@@ -110,6 +112,7 @@ def model_status():
         ),
         "feature_count": len(metadata.get("features", [])),
         "top_features": metadata.get("feature_importance", [])[:8],
+        "explainability_version": EXPLAINABILITY_VERSION,
         "learning_to_rank": ranker_status(),
     }
 

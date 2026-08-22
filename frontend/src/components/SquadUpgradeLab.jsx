@@ -305,7 +305,7 @@ function SquadPlanResult({
           <div>
             <div className="eyebrow">
               <span className="eyebrow-dot" />
-              TRANSFIT V11 · DUAL-ML WINDOW OPTIMIZER
+              TRANSFIT V12 · EXPLAINABLE AI WINDOW OPTIMIZER
             </div>
             <h2>
               Upgrade plan for
@@ -426,6 +426,9 @@ function SquadPlanResult({
                   player.is_signing
                   && player.player_id === signing.player_id
               );
+              const xai = signing.explainability || {};
+              const strongestFactor = xai.positive_factors?.[0];
+              const mainRisk = xai.risk_factors?.[0];
 
               return (
                 <article className="squad-signing-card" key={signing.player_id}>
@@ -476,6 +479,25 @@ function SquadPlanResult({
                       <small>{signing.ml_rank_confidence || "ranker fallback"}</small>
                     </div>
                   </div>
+                  {xai.version && (
+                    <div className="squad-signing-xai">
+                      <div>
+                        <span>XAI EVIDENCE CONFIDENCE</span>
+                        <strong>{formatScore(xai.confidence?.score)}</strong>
+                        <small>{xai.confidence?.level || "unknown"}</small>
+                      </div>
+                      <div>
+                        <span>STRONGEST SIGNAL</span>
+                        <strong>{strongestFactor?.label || "Balanced profile"}</strong>
+                        <small>{formatScore(strongestFactor?.score)}</small>
+                      </div>
+                      <div>
+                        <span>VERIFY</span>
+                        <strong>{mainRisk?.label || "No major warning"}</strong>
+                        <small>{formatScore(mainRisk?.score)}</small>
+                      </div>
+                    </div>
+                  )}
                   <div className="squad-signing-details">
                     <div>
                       <span>MARKET VALUE</span>

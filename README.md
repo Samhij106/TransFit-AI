@@ -3,12 +3,14 @@
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
-target club. TransFit V11 is a genuine hybrid AI system: a transparent
+target club. TransFit V12 is a genuine hybrid and explainable AI system: a transparent
 football expert engine is combined with two supervised models trained on
 12,317 historical transfers. The first forecasts first-season transfer
 success; the second uses pairwise learning-to-rank to compare candidates for
 the same club and positional family. The UI exposes every component instead
-of hiding the recommendation behind one unexplained score.
+of hiding the recommendation behind one unexplained score. A shared XAI layer
+traces the recommendation back to every engine, weighted factor, confidence
+signal, guardrail, and non-causal model driver.
 
 The product has four complementary workflows:
 
@@ -52,7 +54,7 @@ The product has four complementary workflows:
   striker shortlist. Closely related full-back/wing-back and wide-role pairs
   remain grouped where Transfermarkt uses a single canonical label.
 
-## TransFit V11 Dual-ML Ranking
+## TransFit V12 Explainable AI
 
 The final score is calculated as:
 
@@ -84,6 +86,22 @@ final TransFit Score. This is enough to break close ties using club-role
 evidence without allowing a sparse club pattern to overrule football quality.
 For predictable public-demo latency, all-vs-all inference runs on the strongest
 80 candidates that already passed the realism and budget filters.
+
+### Explainability layer
+
+Every isolated player analysis, comparison report and live candidate ranking
+includes a machine-readable `explainability` object produced in the Backend.
+It contains:
+
+- a complete expert / historical-ML / club-role-ranker decision trace;
+- the score and weighted points contributed by every available engine;
+- the strongest weighted football factors and the main risks to verify;
+- model-agnostic one-feature counterfactual drivers for the historical model;
+- an evidence-confidence score based on data coverage and interval certainty;
+- explicit realism caps, calibration adjustments and model limitations.
+
+These explanations describe model behaviour and decision evidence. They are
+not causal claims and do not represent the probability that a transfer occurs.
 
 The model output is a forecast of post-transfer sporting success—not the
 probability that negotiations will be completed. If the player or club cannot
@@ -141,9 +159,11 @@ affordability separately and is not treated as an asking price.
 - `models/transfer_ranker_v1.joblib`: tracked pairwise ranker artifact.
 - `models/transfer_ranker_v1_metadata.json`: pair counts, held-out ranking
   metrics, baseline comparison and the conservative blend policy.
+- `explainability_engine.py`: shared V12 decision trace, factor attribution,
+  evidence confidence, ML-driver translation and disclosure layer.
 - `candidate_ranking_engine.py`: role-specific candidate ranking.
 - `squad_planner_service.py`: squad audit and budget-constrained transfer
-  window optimizer built on the same V11 dual-ML scores.
+  window optimizer built on the same V12 explainable dual-ML scores.
 - `transfer_realism_engine.py`: data-driven club-stature profiles, recruitment
   ceilings, transfer-path scoring and hard realism exclusions.
 - `refresh_transfermarkt_values.py`: weekly market-value refresh and player

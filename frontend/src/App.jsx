@@ -1392,8 +1392,8 @@ function LandingScreen({
 
           <div className="hero-trust">
             <div>
-              <strong>V11</strong>
-              <span>Dual-ML Ranking</span>
+              <strong>V12</strong>
+              <span>Explainable AI</span>
             </div>
 
             <div className="trust-separator" />
@@ -1577,7 +1577,7 @@ function LandingScreen({
           </article>
           <i>→</i>
           <article className="result">
-            <span>V11</span>
+            <span>V12</span>
             <strong>TransFit Score</strong>
             <p>One recommendation with both evidence layers visible.</p>
             <b>0–100</b>
@@ -1622,7 +1622,7 @@ function LandingScreen({
       </section>
 
       <div className="bottom-strip">
-        <span>V11 DUAL-ML RANKING</span>
+        <span>V12 EXPLAINABLE AI</span>
         <i />
         <span>TACTICAL FIT</span>
         <i />
@@ -2859,7 +2859,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by TransFit V11 Dual-ML Ranking
+                Powered by TransFit V12 Explainable AI
               </small>
             </div>
           </aside>

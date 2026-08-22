@@ -45,6 +45,9 @@ function PlayerAnalysisScreen({
   const machineLearning =
     analysis.machine_learning || {};
 
+  const explainability =
+    analysis.explainability || {};
+
 
   return (
     <div className="player-analysis-screen">
@@ -146,10 +149,8 @@ function PlayerAnalysisScreen({
                 </h2>
 
                 <p>
-                  Hybrid decision score: 70% role-aware expert
-                  engine and 30% historical ML evidence. It is
-                  decision support—not a prediction that the
-                  transfer will happen.
+                  {explainability.summary ||
+                    "A transparent hybrid decision score combining role-aware football analysis with historical ML evidence."}
                 </p>
 
               </div>
@@ -332,13 +333,18 @@ function PlayerAnalysisScreen({
             <p>
               Each dimension is calculated separately,
               then combined using the {scores.version ||
-              "TransFit V11 Dual-ML Ranking"} architecture.
+              "TransFit V12 Explainable AI"} architecture.
             </p>
 
           </div>
 
 
           <div className="analysis-module-grid">
+
+            <ExplainabilityModule
+              data={explainability}
+              scores={scores}
+            />
 
             <HistoricalMlModule
               data={machineLearning}
@@ -467,7 +473,7 @@ function AnalysisHeader({
         </span>
 
         <strong>
-          {modelVersion || "TRANSFIT V11 DUAL-ML RANKING"}
+          {modelVersion || "TRANSFIT V12 EXPLAINABLE AI"}
         </strong>
 
       </div>
@@ -943,6 +949,128 @@ function PerformanceModule({
       )}
 
     </article>
+  );
+}
+
+
+/* =========================================================
+   EXPLAINABLE AI DECISION TRACE
+========================================================= */
+
+function ExplainabilityModule({ data, scores }) {
+  const confidence = data.confidence || {};
+  const trace = data.decision_trace || {};
+  const components = trace.components || [];
+  const positives = data.positive_factors || [];
+  const risks = data.risk_factors || [];
+  const adjustments = trace.adjustments || [];
+
+  return (
+    <article className="analysis-module xai-decision-module">
+      <div className="xai-decision-heading">
+        <div>
+          <span>TRANSFIT XAI · DECISION TRACE</span>
+          <h3>{data.verdict || "Explainable transfer assessment"}</h3>
+          <p>
+            {data.summary ||
+              "Every score is traced back to its model, weight and supporting evidence."}
+          </p>
+        </div>
+
+        <div className={`xai-confidence ${confidence.level || "low"}`}>
+          <small>EVIDENCE CONFIDENCE</small>
+          <strong>{formatScore(confidence.score)}</strong>
+          <span>{String(confidence.level || "unknown").toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div className="xai-formula-bar">
+        <div>
+          <span>FINAL TRANSFIT</span>
+          <strong>{formatScore(scores.final)}</strong>
+        </div>
+        <p>{trace.formula || "Weighted model blend with realism guardrails"}</p>
+        <small>{data.version || "TransFit XAI"}</small>
+      </div>
+
+      <div className="xai-engine-grid">
+        {components.map((component) => (
+          <div
+            className={`xai-engine-card ${component.available ? "available" : "unavailable"}`}
+            key={component.engine}
+          >
+            <span>{component.label}</span>
+            <div>
+              <strong>
+                {component.available ? formatScore(component.score) : "N/A"}
+              </strong>
+              <b>{formatScore(component.weight)}%</b>
+            </div>
+            <p>{component.scope}</p>
+            <small>
+              {component.available
+                ? `${formatScore(component.weighted_points)} weighted points`
+                : "Not used in this context"}
+            </small>
+          </div>
+        ))}
+      </div>
+
+      {adjustments.length > 0 && (
+        <div className="xai-adjustments">
+          {adjustments.map((adjustment) => (
+            <p key={adjustment.type}>
+              <span>{adjustment.label}</span>
+              <strong>
+                {adjustment.effect > 0 ? "+" : ""}
+                {formatScore(adjustment.effect)}
+              </strong>
+              <small>{adjustment.reason}</small>
+            </p>
+          ))}
+        </div>
+      )}
+
+      <div className="xai-factor-columns">
+        <div>
+          <span>STRONGEST EVIDENCE</span>
+          {positives.slice(0, 4).map((factor) => (
+            <XaiFactorCard factor={factor} key={factor.factor} positive />
+          ))}
+        </div>
+        <div>
+          <span>RISKS TO VERIFY</span>
+          {risks.slice(0, 3).map((factor) => (
+            <XaiFactorCard factor={factor} key={factor.factor} />
+          ))}
+        </div>
+      </div>
+
+      <footer className="xai-disclosure">
+        <span>NOT A CAUSAL CLAIM</span>
+        <p>
+          {confidence.meaning ||
+            "Confidence describes evidence coverage, not transfer probability."}
+        </p>
+      </footer>
+    </article>
+  );
+}
+
+
+function XaiFactorCard({ factor, positive = false }) {
+  return (
+    <div className={`xai-factor-card ${positive ? "positive" : "risk"}`}>
+      <div>
+        <span>{positive ? "↑" : "!"}</span>
+        <strong>{factor.label}</strong>
+        <b>{formatScore(factor.score)}</b>
+      </div>
+      <p>{factor.evidence}</p>
+      <small>
+        {formatScore(factor.weight)}% expert weight · {formatScore(factor.weighted_points)} points
+      </small>
+    </div>
   );
 }
 
