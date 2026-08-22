@@ -1,5 +1,15 @@
 # TransFit AI
 
+[![CI](https://github.com/Samhij106/TransFit-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/Samhij106/TransFit-AI/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/live_demo-open_transfit-9CFF2E?style=flat-square&labelColor=07100A)](https://transfit-ai-samhij106.onrender.com)
+
+[**Open the live demo**](https://transfit-ai-samhij106.onrender.com) ·
+[Model card](docs/ML_MODEL_CARD.md) ·
+[Data-quality report](docs/DATA_QUALITY_REPORT.md) ·
+[API health](https://transfit-ai-samhij106-api.onrender.com/api/health)
+
+![TransFit AI — Player plus club, one score](frontend/public/og-transfit.png)
+
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
@@ -26,6 +36,37 @@ The product has four complementary workflows:
    formations and a total budget. The user can request between one and eight
    transfers or leave the count on Auto so the model selects the strongest
    meaningful upgrade plan. Safe, Balanced, and Ambitious plans are optimized.
+
+> **Public-demo note:** the free API may sleep after inactivity. The first
+> analysis can therefore take about 30–60 seconds while Render wakes it up;
+> later requests are normally much faster.
+
+## Recommended demo paths
+
+These short flows make the model's behaviour easy to present:
+
+1. **Explain one decision:** choose a club and formation, analyze a specific
+   player, then open the evidence and AI explanation. The report separates
+   football fit, historical-ML prediction, pairwise rank evidence, confidence,
+   risks, and any realism cap.
+2. **Test a realistic shortlist:** choose a smaller club, select its natural
+   positional need, and enter a large budget. The engine still applies club
+   stature and sporting-step ceilings instead of recommending an unrealistic
+   superstar simply because the money is available.
+3. **Build a complete window:** choose one of the club's two verified
+   formations, set a total budget, and leave the transfer count on Auto. Compare
+   the Safe, Balanced, and Ambitious plans and the projected XI.
+
+## Technology stack
+
+| Layer | Technology |
+| --- | --- |
+| Product UI | React 19, Vite 8, responsive custom CSS |
+| API | FastAPI, Uvicorn, typed JSON endpoints |
+| ML and data | scikit-learn, pandas, NumPy, joblib, DuckDB training pipeline |
+| Explainability | weighted expert trace, historical-model drivers, confidence and guardrails |
+| Deployment | Render Blueprint: static frontend plus Python web service |
+| Quality | Python unittest suite, football realism benchmarks, Oxlint, GitHub Actions |
 
 ## Current scope
 
@@ -278,6 +319,14 @@ python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
 
+The checked-in data and model artifacts are sufficient for the application.
+Only copy `.env.example` to `.env` and add `API_FOOTBALL_KEY` when refreshing
+API-Football source data:
+
+```powershell
+Copy-Item .env.example .env
+```
+
 Start the API:
 
 ```powershell
@@ -288,14 +337,20 @@ Start the frontend in another terminal:
 
 ```powershell
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
 The frontend uses `http://127.0.0.1:8000` by default. Set
-`VITE_API_BASE_URL` to point it at another API URL.
+`VITE_API_BASE_URL` to point it at another API URL; `frontend/.env.example`
+contains the local default.
 
 ## Free public demo
+
+**Live application:** <https://transfit-ai-samhij106.onrender.com>
+
+**Live API health check:**
+<https://transfit-ai-samhij106-api.onrender.com/api/health>
 
 The repository includes `render.yaml`, which creates two free Render services:
 
@@ -330,6 +385,18 @@ quality ordering, and the exclusion of natural left wingers from the ST
 shortlist. Add a case whenever a confirmed football outlier is found and
 fixed.
 
+### Continuous integration
+
+Every push to `main` and every pull request runs two independent GitHub Actions
+jobs:
+
+- Backend dependency validation, the complete Python test suite, and the
+  football realism benchmark suite.
+- Frontend dependency installation, Oxlint checks, and a Vite production build.
+
+Dependabot also checks Python, npm, and GitHub Actions dependencies weekly.
+See the live [CI workflow](https://github.com/Samhij106/TransFit-AI/actions/workflows/ci.yml).
+
 ## API
 
 - `GET /api/health`
@@ -357,4 +424,8 @@ match data, only the real available options are returned.
 
 ## Status
 
-Under active development.
+Portfolio-ready public research demo under active development. The current
+model boundary is explicit: goalkeepers, wages, contract terms, agent
+preferences, and the selling club's willingness to negotiate are not yet
+modelled. See [SECURITY.md](SECURITY.md) for responsible disclosure and secret
+handling.
