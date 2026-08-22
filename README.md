@@ -3,11 +3,12 @@
 AI-powered football transfer fit analysis platform.
 
 TransFit AI ranks transfer candidates and analyzes how well a player fits a
-target club. TransFit V10 is a genuine hybrid AI system: a transparent
-football expert engine is combined with a supervised gradient-boosting model
-trained on 12,317 historical transfers. The UI exposes both components, the
-historical percentile, prediction interval and confidence instead of hiding
-the result behind one unexplained score.
+target club. TransFit V11 is a genuine hybrid AI system: a transparent
+football expert engine is combined with two supervised models trained on
+12,317 historical transfers. The first forecasts first-season transfer
+success; the second uses pairwise learning-to-rank to compare candidates for
+the same club and positional family. The UI exposes every component instead
+of hiding the recommendation behind one unexplained score.
 
 The product has four complementary workflows:
 
@@ -51,21 +52,38 @@ The product has four complementary workflows:
   striker shortlist. Closely related full-back/wing-back and wide-role pairs
   remain grouped where Transfermarkt uses a single canonical label.
 
-## TransFit V10 Historical ML Hybrid
+## TransFit V11 Dual-ML Ranking
 
 The final score is calculated as:
 
 ```text
-TransFit Score = 70% expert-engine score + 30% historical ML percentile
+TransFit Score = 70% expert-engine score
+                 + 28.5% historical success percentile
+                 + 1.5% pairwise club-role rank score
 ```
 
-The ML layer estimates the quality of the first 365 days after a player joins
-a target club. It was trained on transfers from 2014–2025 with a chronological
+The success model estimates the quality of the first 365 days after a player
+joins a target club. It was trained on transfers from 2014–2025 with a chronological
 train/validation/test split, using 24 pre-transfer player, club, league and
 market features. On 1,222 unseen recent transfers it achieved MAE 17.62 versus
 22.50 for the median baseline, NDCG@10 0.850 versus 0.716, and success AUC
 0.719 versus 0.500. Separate quantile models provide a visible 10–90%
 prediction interval.
+
+The second model is a genuine pairwise learning-to-rank classifier. Its
+training examples compare two transfers made by the same destination club in
+the same season and broad positional family. It learned from 33,982
+development comparisons and was tested on 3,990 later, unseen comparisons.
+Pairwise held-out AUC is 0.793 and accuracy is 0.722. On the role-conditioned
+test groups, the conservative 95% success-model / 5% ranker ML blend achieved
+NDCG@10 0.9212 versus 0.9207 for the success model alone.
+
+The standalone ranker was less stable than the pointwise success model, so it
+is intentionally limited to 5% of the historical-ML block, or 1.5% of the
+final TransFit Score. This is enough to break close ties using club-role
+evidence without allowing a sparse club pattern to overrule football quality.
+For predictable public-demo latency, all-vs-all inference runs on the strongest
+80 candidates that already passed the realism and budget filters.
 
 The model output is a forecast of post-transfer sporting success—not the
 probability that negotiations will be completed. If the player or club cannot
@@ -113,12 +131,19 @@ affordability separately and is not treated as an asking price.
   tables for production inference.
 - `ml/transfer_success_engine.py`: production feature construction, batch
   prediction, uncertainty, percentile calibration and safe fallback.
+- `ml/train_transfer_ranker.py`: leakage-safe pair generation, pairwise
+  classifier training, chronological evaluation and blend comparison.
+- `ml/transfer_ranker_engine.py`: live all-vs-all candidate comparison and
+  club-role rank score inference.
 - `models/transfer_success_v1.joblib`: tracked trained model artifact.
 - `models/transfer_success_v1_metadata.json`: dataset hash, split, metrics,
   calibration and feature importance.
+- `models/transfer_ranker_v1.joblib`: tracked pairwise ranker artifact.
+- `models/transfer_ranker_v1_metadata.json`: pair counts, held-out ranking
+  metrics, baseline comparison and the conservative blend policy.
 - `candidate_ranking_engine.py`: role-specific candidate ranking.
 - `squad_planner_service.py`: squad audit and budget-constrained transfer
-  window optimizer built on the same V10 hybrid scores.
+  window optimizer built on the same V11 dual-ML scores.
 - `transfer_realism_engine.py`: data-driven club-stature profiles, recruitment
   ceilings, transfer-path scoring and hard realism exclusions.
 - `refresh_transfermarkt_values.py`: weekly market-value refresh and player

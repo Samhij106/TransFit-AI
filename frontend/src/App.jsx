@@ -1392,8 +1392,8 @@ function LandingScreen({
 
           <div className="hero-trust">
             <div>
-              <strong>V10</strong>
-              <span>Historical ML Hybrid</span>
+              <strong>V11</strong>
+              <span>Dual-ML Ranking</span>
             </div>
 
             <div className="trust-separator" />
@@ -1524,12 +1524,12 @@ function LandingScreen({
         <div className="landing-section-heading">
           <div>
             <span>MODEL PROOF · NOT AN AI LABEL</span>
-            <h2>A real historical ML layer.</h2>
+            <h2>Two real historical ML layers.</h2>
           </div>
           <p>
-            Gradient boosting trained on past transfers, evaluated on
-            unseen future seasons and combined with a transparent football
-            expert engine.
+            A success forecaster and a pairwise club-role ranker, both
+            trained on past transfers and evaluated on unseen future seasons,
+            combined with a transparent football expert engine.
           </p>
         </div>
 
@@ -1554,6 +1554,11 @@ function LandingScreen({
             <strong>24</strong>
             <small>Player, club, league and market context</small>
           </article>
+          <article>
+            <span>PAIRWISE RANKER AUC</span>
+            <strong>0.793</strong>
+            <small>3,990 unseen pair comparisons</small>
+          </article>
         </div>
 
         <div className="landing-hybrid-flow">
@@ -1566,13 +1571,13 @@ function LandingScreen({
           <i>+</i>
           <article>
             <span>02</span>
-            <strong>Historical ML</strong>
-            <p>Forecast, percentile, uncertainty and local explanation.</p>
+            <strong>Dual historical ML</strong>
+            <p>Success forecast plus club-role pairwise ranking.</p>
             <b>30%</b>
           </article>
           <i>→</i>
           <article className="result">
-            <span>V10</span>
+            <span>V11</span>
             <strong>TransFit Score</strong>
             <p>One recommendation with both evidence layers visible.</p>
             <b>0–100</b>
@@ -1617,7 +1622,7 @@ function LandingScreen({
       </section>
 
       <div className="bottom-strip">
-        <span>V10 HISTORICAL ML HYBRID</span>
+        <span>V11 DUAL-ML RANKING</span>
         <i />
         <span>TACTICAL FIT</span>
         <i />
@@ -2854,7 +2859,7 @@ function PositionSelectionScreen({
 )}
 
               <small>
-                Powered by TransFit V10 Historical ML Hybrid
+                Powered by TransFit V11 Dual-ML Ranking
               </small>
             </div>
           </aside>

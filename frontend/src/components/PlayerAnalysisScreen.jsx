@@ -332,7 +332,7 @@ function PlayerAnalysisScreen({
             <p>
               Each dimension is calculated separately,
               then combined using the {scores.version ||
-              "TransFit V10 Historical ML Hybrid"} architecture.
+              "TransFit V11 Dual-ML Ranking"} architecture.
             </p>
 
           </div>
@@ -467,7 +467,7 @@ function AnalysisHeader({
         </span>
 
         <strong>
-          {modelVersion || "TRANSFIT V10 HISTORICAL ML HYBRID"}
+          {modelVersion || "TRANSFIT V11 DUAL-ML RANKING"}
         </strong>
 
       </div>

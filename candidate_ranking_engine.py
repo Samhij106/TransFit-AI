@@ -60,10 +60,10 @@ from transfer_value_engine import (
 from league_strength_engine import league_strength_score
 from transfer_realism_engine import assess_transfer_feasibility
 from ml.transfer_success_engine import (
-    HYBRID_EXPERT_WEIGHT,
-    HYBRID_ML_WEIGHT,
     HYBRID_SCORE_VERSION,
     hybrid_score,
+    hybrid_weight_payload,
+    predict_candidate_rank_records,
     predict_candidate_records,
 )
 
@@ -87,6 +87,8 @@ SUPPORTED_ROLES = [
     "RW",
     "ST",
 ]
+
+RANKER_LIVE_POOL_LIMIT = 80
 
 DEFAULT_ROLE_COMPATIBILITY = 80
 
@@ -930,10 +932,7 @@ def rank_candidates(
             if prediction is None
             else prediction["confidence"]
         )
-        result["hybrid_weights"] = {
-            "expert_model": HYBRID_EXPERT_WEIGHT * 100,
-            "historical_ml": HYBRID_ML_WEIGHT * 100,
-        }
+        result["hybrid_weights"] = hybrid_weight_payload()
         result["score_version"] = (
             HYBRID_SCORE_VERSION
             if prediction is not None
@@ -1019,15 +1018,70 @@ def rank_candidates(
         ] = None
 
     # -----------------------------------------------------
+    # Pairwise club-role learning-to-rank
+    #
+    # The ranker is deliberately calculated only after the
+    # realism and budget filters. Its live comparison pool
+    # therefore contains candidates who can actually be
+    # considered for this club, role and budget.
+    # -----------------------------------------------------
+
+    rankings = rankings.reset_index(drop=True)
+    ranker_pool_indices = rankings.nlargest(
+        min(RANKER_LIVE_POOL_LIMIT, len(rankings)),
+        ["final_score", "role_fit"],
+    ).index.tolist()
+    pool_predictions = predict_candidate_rank_records(
+        rankings.loc[ranker_pool_indices].to_dict(orient="records"),
+        target_team=formation_team["team"],
+        target_league=formation_team["league"],
+    )
+    ranker_predictions = [None] * len(rankings)
+    for index, prediction in zip(
+        ranker_pool_indices,
+        pool_predictions,
+    ):
+        ranker_predictions[index] = prediction
+    rankings["ml_rank_prediction"] = ranker_predictions
+    rankings["ml_club_role_rank"] = [
+        None
+        if prediction is None
+        else prediction["club_role_rank_score"]
+        for prediction in ranker_predictions
+    ]
+    rankings["ml_rank_confidence"] = [
+        None
+        if prediction is None
+        else prediction["confidence"]
+        for prediction in ranker_predictions
+    ]
+
+    for index, row in rankings.iterrows():
+        ranker_prediction = ranker_predictions[index]
+        rankings.at[index, "hybrid_weights"] = (
+            hybrid_weight_payload(ranker_prediction)
+        )
+        rankings.at[index, "final_score"] = hybrid_score(
+            row["expert_score"],
+            row["ml_prediction"],
+            ranker_prediction,
+        )
+        rankings.at[index, "classification"] = transfer_fit_label(
+            rankings.at[index, "final_score"]
+        )
+
+    # -----------------------------------------------------
     # Sort
     # -----------------------------------------------------
 
     rankings = rankings.sort_values(
         [
             "final_score",
+            "ml_club_role_rank",
             "role_fit",
         ],
         ascending=[
+            False,
             False,
             False,
         ],
@@ -1100,6 +1154,9 @@ def rank_candidates(
             "ml_success_percentile",
             "ml_confidence",
             "ml_prediction",
+            "ml_club_role_rank",
+            "ml_rank_confidence",
+            "ml_rank_prediction",
             "hybrid_weights",
             "final_score",
             "classification",

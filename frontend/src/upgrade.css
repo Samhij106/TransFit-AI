@@ -1227,7 +1227,7 @@ a:focus-visible,
 }
 
 /* =========================================================
-   V10 HISTORICAL ML HYBRID
+   V11 DUAL-ML RANKING
 ========================================================= */
 
 .landing-model-proof,
@@ -1280,7 +1280,7 @@ a:focus-visible,
 .landing-model-metrics {
   margin-top: 45px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1345,7 +1345,7 @@ a:focus-visible,
 .hybrid-evidence {
   margin: 18px 0 8px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   overflow: hidden;
   border: 1px solid rgba(85, 221, 255, 0.18);
   border-radius: 14px;
@@ -1375,6 +1375,11 @@ a:focus-visible,
 .score-weight-pill.hybrid-primary {
   border-color: rgba(85, 221, 255, 0.22);
   background: rgba(85, 221, 255, 0.06);
+}
+
+.score-weight-pill.ranker-weight {
+  border-color: rgba(154, 255, 61, 0.28);
+  background: rgba(154, 255, 61, 0.07);
 }
 
 .score-weight-pill.hybrid-primary span,
@@ -1444,7 +1449,7 @@ a:focus-visible,
 .squad-signing-ml {
   grid-area: ml;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
   border: 1px solid rgba(85, 221, 255, 0.1);
   border-radius: 9px;

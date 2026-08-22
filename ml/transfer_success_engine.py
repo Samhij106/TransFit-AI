@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from ml.model_config import FEATURES, LEAGUE_STRENGTH
+from ml.transfer_ranker_engine import rank_feature_rows, ranker_status
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +30,9 @@ CLUB_ALIASES_PATH = (
 
 HYBRID_EXPERT_WEIGHT = 0.70
 HYBRID_ML_WEIGHT = 0.30
-HYBRID_SCORE_VERSION = "TransFit V10 Historical ML Hybrid"
+HYBRID_SUCCESS_WEIGHT = 0.285
+HYBRID_RANKER_WEIGHT = 0.015
+HYBRID_SCORE_VERSION = "TransFit V11 Dual-ML Ranking"
 
 LEAGUE_TO_COMPETITION = {
     "premier league": "GB1",
@@ -88,6 +91,7 @@ def model_status():
         return {
             "available": False,
             "hybrid_version": HYBRID_SCORE_VERSION,
+            "learning_to_rank": ranker_status(),
         }
 
     metadata = json.loads(
@@ -106,6 +110,7 @@ def model_status():
         ),
         "feature_count": len(metadata.get("features", [])),
         "top_features": metadata.get("feature_importance", [])[:8],
+        "learning_to_rank": ranker_status(),
     }
 
 
@@ -418,13 +423,13 @@ def predict_feature_rows(feature_rows, include_explanations=False):
     return predictions
 
 
-def predict_candidate_records(records, target_team, target_league):
-    feature_rows = []
-    valid_indices = []
+def build_candidate_feature_rows(records, target_team, target_league):
+    """Build model inputs while preserving candidate-list alignment."""
+    aligned = [None] * len(records)
 
     for index, record in enumerate(records):
         all_competitions = record.get("all_competitions") or {}
-        row = build_feature_row(
+        aligned[index] = build_feature_row(
             transfermarkt_player_id=record.get(
                 "transfermarkt_player_id"
             ),
@@ -446,6 +451,19 @@ def predict_candidate_records(records, target_team, target_league):
             assists=all_competitions.get("assists"),
             primary_position=record.get("primary_position"),
         )
+    return aligned
+
+
+def predict_candidate_records(records, target_team, target_league):
+    aligned_rows = build_candidate_feature_rows(
+        records,
+        target_team,
+        target_league,
+    )
+    feature_rows = []
+    valid_indices = []
+
+    for index, row in enumerate(aligned_rows):
         if row is None:
             continue
         valid_indices.append(index)
@@ -460,7 +478,43 @@ def predict_candidate_records(records, target_team, target_league):
     return aligned
 
 
-def hybrid_score(expert_score, ml_prediction):
+def predict_candidate_rank_records(records, target_team, target_league):
+    """Return pairwise club-role rank evidence aligned to live candidates."""
+    aligned_rows = build_candidate_feature_rows(
+        records,
+        target_team,
+        target_league,
+    )
+    valid_indices = [
+        index
+        for index, row in enumerate(aligned_rows)
+        if row is not None
+    ]
+    valid_rows = [aligned_rows[index] for index in valid_indices]
+    aligned = [None] * len(records)
+    for index, prediction in zip(
+        valid_indices,
+        rank_feature_rows(valid_rows),
+    ):
+        aligned[index] = prediction
+    return aligned
+
+
+def hybrid_weight_payload(ranker_prediction=None):
+    if ranker_prediction is None:
+        return {
+            "expert_model": round(HYBRID_EXPERT_WEIGHT * 100, 1),
+            "historical_ml": round(HYBRID_ML_WEIGHT * 100, 1),
+            "club_role_ranker": 0.0,
+        }
+    return {
+        "expert_model": round(HYBRID_EXPERT_WEIGHT * 100, 1),
+        "historical_ml": round(HYBRID_SUCCESS_WEIGHT * 100, 1),
+        "club_role_ranker": round(HYBRID_RANKER_WEIGHT * 100, 1),
+    }
+
+
+def hybrid_score(expert_score, ml_prediction, ranker_prediction=None):
     expert = finite_number(expert_score)
     if not ml_prediction:
         return round(expert, 1)
@@ -468,8 +522,19 @@ def hybrid_score(expert_score, ml_prediction):
         ml_prediction.get("success_percentile"),
         expert,
     )
+    if ranker_prediction is None:
+        return round(
+            expert * HYBRID_EXPERT_WEIGHT
+            + percentile * HYBRID_ML_WEIGHT,
+            1,
+        )
+    rank_score = finite_number(
+        ranker_prediction.get("club_role_rank_score"),
+        percentile,
+    )
     return round(
         expert * HYBRID_EXPERT_WEIGHT
-        + percentile * HYBRID_ML_WEIGHT,
+        + percentile * HYBRID_SUCCESS_WEIGHT
+        + rank_score * HYBRID_RANKER_WEIGHT,
         1,
     )

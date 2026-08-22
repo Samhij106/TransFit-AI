@@ -31,9 +31,8 @@ from transfer_fit_engine import (
 )
 from league_strength_engine import league_strength_score
 from ml.transfer_success_engine import (
-    HYBRID_EXPERT_WEIGHT,
-    HYBRID_ML_WEIGHT,
     HYBRID_SCORE_VERSION,
+    hybrid_weight_payload,
 )
 
 
@@ -468,6 +467,15 @@ def candidate_summary(candidate, role, assessment=None, plan_fit=None):
         ),
         "ml_confidence": optional_text(
             candidate.get("ml_confidence")
+        ),
+        "ml_club_role_rank": optional_number(
+            candidate.get("ml_club_role_rank")
+        ),
+        "ml_rank_confidence": optional_text(
+            candidate.get("ml_rank_confidence")
+        ),
+        "ml_rank_prediction": candidate.get(
+            "ml_rank_prediction"
         ),
         "ml_prediction": candidate.get("ml_prediction"),
         "role_fit": optional_number(candidate["role_fit"]),
@@ -1173,10 +1181,7 @@ def build_squad_plan(
         "scoring_model": {
             "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
-            "hybrid_weights": {
-                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
-                "historical_ml": HYBRID_ML_WEIGHT * 100,
-            },
+            "hybrid_weights": hybrid_weight_payload({}),
         },
         "team": {
             "team_id": int(formation_team["team_id"]),

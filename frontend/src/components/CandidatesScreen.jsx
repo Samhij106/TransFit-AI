@@ -287,7 +287,7 @@ function CandidatesScreen({
               </span>
 
               <strong className="ranking-model">
-                {scoringModel?.version || "TransFit V10 Historical ML Hybrid"}
+                {scoringModel?.version || "TransFit V11 Dual-ML Ranking"}
               </strong>
             </div>
           </div>
@@ -501,8 +501,8 @@ function CandidatesScreen({
 
                   <p>
                     A 70/30 hybrid of the role-aware expert
-                    engine and a model trained on historical
-                    transfer outcomes.
+                    engine, historical success forecasting and
+                    pairwise club-role ranking.
                   </p>
                 </div>
               </div>
@@ -1067,11 +1067,14 @@ function CandidateCard({
 
       <div className="candidate-row-stat ml-stat">
         <span>
-          ML PCTL
+          DUAL ML
         </span>
 
         <strong>
           {formatMlPercentile(candidate.ml_success_percentile)}
+          {candidate.ml_club_role_rank != null
+            ? ` · R${formatMetric(candidate.ml_club_role_rank)}`
+            : ""}
         </strong>
       </div>
 
@@ -1262,8 +1265,17 @@ function HybridEvidence({ candidate, compact = false }) {
       <div>
         <span>HISTORICAL PERCENTILE</span>
         <strong>{formatMlPercentile(candidate.ml_success_percentile)}</strong>
-        <small>30% of hybrid · {candidate.ml_confidence || "unknown"} confidence</small>
+        <small>28.5% of hybrid · {candidate.ml_confidence || "unknown"} confidence</small>
       </div>
+      {candidate.ml_club_role_rank != null && (
+        <div>
+          <span>CLUB × ROLE RANKER</span>
+          <strong>{formatMetric(candidate.ml_club_role_rank)}</strong>
+          <small>
+            Pairwise live-pool rank · {candidate.ml_rank_confidence || "unknown"} confidence
+          </small>
+        </div>
+      )}
     </div>
   );
 }
@@ -1302,13 +1314,13 @@ function ScoreArchitecture({
         <span>HYBRID DECISION MODEL</span>
 
         <strong>
-          {model?.version || "TransFit V10 Historical ML Hybrid"}
+          {model?.version || "TransFit V11 Dual-ML Ranking"}
         </strong>
 
         <p>
           The expert engine measures sporting and deal fit.
-          Historical ML estimates how comparable transfers
-          performed during the following season.
+          Two historical ML models estimate first-season success
+          and compare every live candidate for this club and role.
         </p>
       </div>
 
@@ -1319,7 +1331,11 @@ function ScoreArchitecture({
         </div>
         <div className="score-weight-pill hybrid-primary">
           <span>Historical ML</span>
-          <strong>{model?.hybrid_weights?.historical_ml ?? 30}%</strong>
+          <strong>{model?.hybrid_weights?.historical_ml ?? 28.5}%</strong>
+        </div>
+        <div className="score-weight-pill hybrid-primary ranker-weight">
+          <span>Club-role ranker</span>
+          <strong>{model?.hybrid_weights?.club_role_ranker ?? 1.5}%</strong>
         </div>
         {dimensions.map(([label, value]) => (
           <div

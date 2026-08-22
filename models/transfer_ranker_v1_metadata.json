@@ -1,0 +1,132 @@
+{
+  "version": "transfer-ranker-pairwise-hgb-v1",
+  "trained_at": "2026-08-22T13:15:18.348441+00:00",
+  "dataset_sha256": "a401f161948fd65aa7bc736ec4e1377d21258d098837cbaabee16f2f96e753a3",
+  "method": "pairwise learning-to-rank",
+  "group_definition": "destination club + transfer season + broad position",
+  "minimum_relevance_gap": 8.0,
+  "recommended_blend": {
+    "historical_success_model": 0.95,
+    "club_role_ranker": 0.05,
+    "policy": "conservative cap with a small held-out lift; larger weights were unstable across time splits"
+  },
+  "date_split": {
+    "train_end": "2023-06-30",
+    "validation_end": "2024-06-30"
+  },
+  "samples": {
+    "train_transfers": 9406,
+    "validation_transfers": 1689,
+    "test_transfers": 1222,
+    "development_pairs": 33982,
+    "test_pairs": 3990
+  },
+  "features": [
+    "delta_age_at_transfer",
+    "delta_market_value_m_eur",
+    "delta_market_value_trend_180d_pct",
+    "delta_pre_appearances",
+    "delta_pre_starts",
+    "delta_pre_minutes",
+    "delta_pre_goals",
+    "delta_pre_assists",
+    "delta_pre_goal_assist_per90",
+    "delta_pre_minutes_share",
+    "delta_pre_start_share",
+    "delta_from_points_per_game",
+    "delta_to_points_per_game",
+    "delta_from_goal_difference_per_game",
+    "delta_to_goal_difference_per_game",
+    "delta_league_strength_gap",
+    "delta_previous_transfers_3y",
+    "delta_is_cross_border",
+    "delta_is_winter_window",
+    "target_points_per_game",
+    "target_goal_difference_per_game",
+    "same_sub_position",
+    "same_source_league",
+    "candidate_a_broad_position",
+    "candidate_b_broad_position",
+    "candidate_a_sub_position",
+    "candidate_b_sub_position",
+    "candidate_a_source_league",
+    "candidate_b_source_league",
+    "target_league",
+    "target_club_id"
+  ],
+  "selected_parameters": {
+    "learning_rate": 0.08,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 55,
+    "l2_regularization": 6.0
+  },
+  "validation_search": [
+    {
+      "parameters": {
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 35,
+        "l2_regularization": 2.0
+      },
+      "pairwise_auc": 0.81789,
+      "pairwise_accuracy": 0.74417,
+      "pairwise_log_loss": 0.52433,
+      "groups": 290.0,
+      "ndcg_at_10": 0.88838,
+      "mean_top_choice_success": 44.87063,
+      "mean_best_available_success": 64.60748
+    },
+    {
+      "parameters": {
+        "learning_rate": 0.06,
+        "max_leaf_nodes": 23,
+        "min_samples_leaf": 45,
+        "l2_regularization": 4.0
+      },
+      "pairwise_auc": 0.81966,
+      "pairwise_accuracy": 0.74403,
+      "pairwise_log_loss": 0.52483,
+      "groups": 290.0,
+      "ndcg_at_10": 0.88924,
+      "mean_top_choice_success": 44.91643,
+      "mean_best_available_success": 64.60748
+    },
+    {
+      "parameters": {
+        "learning_rate": 0.08,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 55,
+        "l2_regularization": 6.0
+      },
+      "pairwise_auc": 0.82217,
+      "pairwise_accuracy": 0.7459,
+      "pairwise_log_loss": 0.52393,
+      "groups": 290.0,
+      "ndcg_at_10": 0.89101,
+      "mean_top_choice_success": 45.107,
+      "mean_best_available_success": 64.60748
+    }
+  ],
+  "test_metrics": {
+    "pairs": 3990.0,
+    "pairwise_auc": 0.79302,
+    "pairwise_accuracy": 0.72206,
+    "pairwise_log_loss": 0.56021,
+    "groups": 268,
+    "ndcg_at_10": 0.91276,
+    "mean_top_choice_success": 44.88071,
+    "mean_best_available_success": 62.33767
+  },
+  "pointwise_baseline_metrics": {
+    "groups": 268,
+    "ndcg_at_10": 0.92068,
+    "mean_top_choice_success": 47.27616,
+    "mean_best_available_success": 62.33767
+  },
+  "combined_test_metrics": {
+    "groups": 268,
+    "ndcg_at_10": 0.92122,
+    "mean_top_choice_success": 47.1296,
+    "mean_best_available_success": 62.33767
+  }
+}

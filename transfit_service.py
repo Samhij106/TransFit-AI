@@ -56,6 +56,7 @@ from ml.transfer_success_engine import (
     HYBRID_SCORE_VERSION,
     build_feature_row,
     hybrid_score,
+    hybrid_weight_payload,
     predict_feature_rows,
 )
 
@@ -718,10 +719,7 @@ def analyze_transfer(
                 else ml_prediction["success_percentile"]
             ),
 
-            "hybrid_weights": {
-                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
-                "historical_ml": HYBRID_ML_WEIGHT * 100,
-            },
+            "hybrid_weights": hybrid_weight_payload(),
 
             "classification": (
                 "Unrealistic Transfer"
@@ -1004,10 +1002,7 @@ def get_candidate_rankings(
         "scoring_model": {
             "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
-            "hybrid_weights": {
-                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
-                "historical_ml": HYBRID_ML_WEIGHT * 100,
-            },
+            "hybrid_weights": hybrid_weight_payload({}),
         },
 
         "team": team[
@@ -1272,10 +1267,7 @@ def compare_players(
         "scoring_model": {
             "version": HYBRID_SCORE_VERSION,
             "weights": SCORE_WEIGHTS,
-            "hybrid_weights": {
-                "expert_model": HYBRID_EXPERT_WEIGHT * 100,
-                "historical_ml": HYBRID_ML_WEIGHT * 100,
-            },
+            "hybrid_weights": hybrid_weight_payload(),
         },
         "selected_budget_m_eur": (
             None

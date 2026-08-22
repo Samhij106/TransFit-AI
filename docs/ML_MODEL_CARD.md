@@ -1,17 +1,23 @@
-# TransFit historical transfer-success model card
+# TransFit historical ML model card
 
 ## Model summary
 
 - Model ID: `transfer-success-hgb-v1`
-- Product layer: `TransFit V10 Historical ML Hybrid`
+- Ranker ID: `transfer-ranker-pairwise-hgb-v1`
+- Product layer: `TransFit V11 Dual-ML Ranking`
 - Algorithm: scikit-learn histogram gradient-boosting regressor
 - Purpose: estimate the quality of a player's first 365 days after a transfer
   to a specific club, using only information available before the transfer.
-- Final product score: 70% expert-system score and 30% historical-prediction
-  percentile. The raw ML forecast is shown separately.
+- Final candidate score: 70% expert-system score, 28.5% historical-prediction
+  percentile and 1.5% pairwise club-role rank score. Raw model outputs are
+  shown separately.
 
 This is a supervised machine-learning model. It is not a language model, a
 transfer-rumour generator, or a probability that a deal will happen.
+
+The product contains two supervised models: a pointwise outcome regressor and
+a pairwise learning-to-rank classifier. Single-player analysis uses the
+pointwise model because a pairwise score only exists inside a candidate pool.
 
 ## Data
 
@@ -85,6 +91,28 @@ The separate 10th- and 90th-quantile models produced 75.3% empirical interval
 coverage on the held-out test set. The interval is displayed in the product so
 uncertain recommendations are not presented as precise facts.
 
+## Pairwise learning-to-rank model
+
+The ranker creates a pair only when both historical transfers share the same
+destination club, transfer season and broad position. Pairs whose outcome
+difference is smaller than eight points are removed as noisy near-ties. Both
+directions are included, and the training weight grows with the observed
+outcome gap.
+
+- Development comparisons: 33,982
+- Held-out comparisons: 3,990
+- Held-out pairwise AUC: 0.793
+- Held-out pairwise accuracy: 0.722
+- Standalone ranker NDCG@10: 0.913
+- Pointwise success-model NDCG@10 on the same groups: 0.921
+- Conservative 95/5 ML blend NDCG@10: 0.9212
+
+The standalone ranker did not beat the pointwise model, so it was not given a
+large product weight. The fixed 5% contribution inside the ML block produced
+a small held-out ranking lift while limiting temporal instability. This means
+the ranker can break close candidate ties but cannot make a weak player outrank
+an elite player by itself.
+
 ## Inference and fallback
 
 Current players are matched to Transfermarkt identities, while current target
@@ -97,6 +125,13 @@ the same 24 features and returns:
 - low, medium or high confidence based on interval width
 - local positive and negative model signals, calculated by replacing one
   feature at a time with the development-set median or mode
+- a relative club-role rank score, calculated through all-vs-all pairwise
+  comparisons inside the filtered live candidate pool
+
+For production latency, pairwise comparison is limited to the strongest 80
+eligible candidates after the realism and budget filters. Candidates outside
+that preselection keep the pointwise success-model fallback score; normal API
+and squad planner limits are smaller than this pool.
 
 The local signals are model-agnostic counterfactual sensitivity checks. They
 are deliberately marked as non-causal and are not additive SHAP values.
@@ -114,6 +149,8 @@ engine alone.
 - Market value is an imperfect proxy and is not an asking price.
 - Historical club IDs can encode club-specific patterns that may drift over
   time.
+- Pairwise club-role groups are sparse for some clubs. The ranker is therefore
+  a conservative secondary signal rather than the dominant recommendation.
 - The V1 label rewards early minutes and starts, so a good long-term transfer
   with a slow first season can be underrated.
 - The model supports outfield players only.
@@ -128,12 +165,17 @@ With the source DuckDB file available at
 ```powershell
 .venv\Scripts\python.exe -m ml.build_transfer_dataset
 .venv\Scripts\python.exe -m ml.train_transfer_success
+.venv\Scripts\python.exe -m ml.train_transfer_ranker
 .venv\Scripts\python.exe -m ml.build_inference_context
 ```
 
 The trainer writes a dataset hash, split dates, selected hyperparameters,
 calibration table, permutation importance and test metrics to
 `models/transfer_success_v1_metadata.json`.
+
+The ranker trainer writes its split, comparison counts, pairwise metrics,
+pointwise baseline and blend policy to
+`models/transfer_ranker_v1_metadata.json`.
 
 ## Intended use
 

@@ -269,7 +269,7 @@ function ComparisonCenter({
               />
 
               <p>
-                All players are scored with TransFit V10.
+                All players are scored with TransFit V11.
                 The expert engine contributes 70% and historical
                 transfer-outcome ML contributes 30%.
               </p>

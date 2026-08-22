@@ -7,6 +7,7 @@ from ml.transfer_success_engine import (
     HYBRID_SCORE_VERSION,
     build_feature_row,
     hybrid_score,
+    hybrid_weight_payload,
     load_model_bundle,
     model_status,
     predict_feature_rows,
@@ -77,6 +78,16 @@ class TransferSuccessModelTests(unittest.TestCase):
     def test_hybrid_uses_historical_percentile_and_safe_fallback(self):
         prediction = {"success_percentile": 80.0}
         self.assertEqual(hybrid_score(70.0, prediction), 73.0)
+        ranker = {"club_role_rank_score": 90.0}
+        self.assertEqual(hybrid_score(70.0, prediction, ranker), 73.1)
+        self.assertEqual(
+            hybrid_weight_payload(ranker),
+            {
+                "expert_model": 70.0,
+                "historical_ml": 28.5,
+                "club_role_ranker": 1.5,
+            },
+        )
         self.assertEqual(hybrid_score(70.0, None), 70.0)
 
 

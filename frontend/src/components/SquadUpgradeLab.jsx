@@ -305,7 +305,7 @@ function SquadPlanResult({
           <div>
             <div className="eyebrow">
               <span className="eyebrow-dot" />
-              TRANSFIT V10 · HISTORICAL ML WINDOW OPTIMIZER
+              TRANSFIT V11 · DUAL-ML WINDOW OPTIMIZER
             </div>
             <h2>
               Upgrade plan for
@@ -465,6 +465,15 @@ function SquadPlanResult({
                           : "N/A"}
                       </strong>
                       <small>{signing.ml_confidence || "expert fallback"}</small>
+                    </div>
+                    <div>
+                      <span>CLUB × ROLE RANK</span>
+                      <strong>
+                        {signing.ml_club_role_rank != null
+                          ? formatScore(signing.ml_club_role_rank)
+                          : "N/A"}
+                      </strong>
+                      <small>{signing.ml_rank_confidence || "ranker fallback"}</small>
                     </div>
                   </div>
                   <div className="squad-signing-details">
