@@ -1,5 +1,14 @@
+import sys
+
 import pandas as pd
 import numpy as np
+
+
+# Player names can contain characters that are not representable in the
+# active Windows console code page. Keep progress output from interrupting the
+# data pipeline while preserving the original Unicode text in the CSV.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
 INPUT_FILE = "data/processed/player_profiles_2025.csv"

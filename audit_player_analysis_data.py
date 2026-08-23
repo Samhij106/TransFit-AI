@@ -10,10 +10,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+
+# Keep international player names printable on Windows consoles whose active
+# code page cannot represent every Unicode character.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
 DEFAULT_PLAYER_FILE = Path(

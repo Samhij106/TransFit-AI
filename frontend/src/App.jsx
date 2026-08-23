@@ -1406,7 +1406,7 @@ function LandingScreen({
             <div className="trust-separator" />
 
             <div>
-              <strong>2,097</strong>
+              <strong>2,106</strong>
               <span>Player Profiles</span>
             </div>
           </div>

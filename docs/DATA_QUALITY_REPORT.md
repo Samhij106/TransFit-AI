@@ -1,19 +1,22 @@
 # Player Analysis Data Quality Report
 
-Audit date: 2026-08-22  
-Dataset: `data/processed/player_profiles_season_2025.csv`  
-Rows audited: 2,097
+Audit date: 2026-08-23
+
+Dataset: `data/processed/player_profiles_season_2025.csv`
+
+Rows audited: 2,106
 
 ## Result
 
 - Hard numerical range errors: **0**
 - Broken relationships (for example shots on target greater than shots): **0**
-- Missing values in audited fields: **9**
+- Missing values in audited fields: **104**
   - one missing age (`K. Tunde`)
-  - eight missing pass-accuracy values
-- Model-relevant low-sample percentage risks: **71**
+  - 103 missing pass-accuracy values reported by the source provider; these
+    remain explicitly missing and are not imputed as invented observations
+- Model-relevant low-sample percentage risks: **72**
   - 18 shot-accuracy records for forwards
-  - 53 dribble-success records for fullbacks or wide players
+  - 54 dribble-success records for fullbacks or wide players
 
 The low-sample records are not necessarily incorrect. They become misleading
 when a percentage based on one to six actions is treated like a stable season

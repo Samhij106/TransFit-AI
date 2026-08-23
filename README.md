@@ -152,7 +152,9 @@ small number of attempts. UI bars show position percentiles while preserving
 the raw statistic and its unit. Run `audit_player_analysis_data.py` to check
 hard ranges, broken statistical relationships, missing values, low-sample rate
 risks and robust outlier review candidates. The current audit is documented in
-[`docs/DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md).
+[`docs/DATA_QUALITY_REPORT.md`](docs/DATA_QUALITY_REPORT.md), with the latest
+machine-readable result in
+[`data/quality/player_analysis_audit.json`](data/quality/player_analysis_audit.json).
 
 The model output is a forecast of post-transfer sporting success—not the
 probability that negotiations will be completed. If the player or club cannot
